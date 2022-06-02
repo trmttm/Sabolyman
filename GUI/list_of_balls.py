@@ -22,7 +22,9 @@ def get_view_model(parent: str = 'root'):
 def list_of_balls(text, name, stacker: Stacker):
     return stacker.vstack(
         w.Label(f'lbl_{name}').text(text).padding(5, 0),
-        w.TreeView(f'tree_{name}').padding(5, 0),
+        stacker.hstack(
+            w.TreeView(f'tree_{name}').padding(5, 0),
+        ),
         tree_buttons(name, stacker),
         w.Spacer().adjust(-2),
     )
@@ -31,8 +33,9 @@ def list_of_balls(text, name, stacker: Stacker):
 def tree_buttons(name: str, stacker: Stacker):
     return stacker.hstack(
         w.Spacer(),
-        w.Button(f'btn_{name}_up').text('↑'),
-        w.Button(f'btn_{name}_down').text('↓'),
-        w.Button(f'btn_{name}_delete').text('X'),
+        w.Button(f'btn_{name}_delete').text('X').width(1),
+        w.Button(f'btn_{name}_down').text('↓').width(1),
+        w.Button(f'btn_{name}_up').text('↑').width(1),
+        w.Button(f'btn_{name}_add').text('+').width(1),
         w.Spacer(),
     )
