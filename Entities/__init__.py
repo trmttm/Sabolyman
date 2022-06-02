@@ -1,4 +1,5 @@
 import datetime
+from typing import List
 from typing import Tuple
 
 from .abc import EntitiesABC
@@ -10,6 +11,13 @@ from .person import Person
 
 
 class Entities(EntitiesABC):
+    def remove_card(self, card: Card):
+        self._cards.remove_card(card)
+
+    @property
+    def all_cards(self) -> List[Card]:
+        return self._cards.all_cards
+
     @property
     def due_dates(self) -> Tuple[datetime.datetime, ...]:
         return self._cards.due_dates
@@ -31,7 +39,7 @@ class Entities(EntitiesABC):
 
     @property
     def default_card_name(self) -> str:
-        return '新たなカード'
+        return f'新たなカード {self._cards.nth}'
 
     @property
     def user(self) -> Person:
@@ -45,6 +53,5 @@ class Entities(EntitiesABC):
     def default_dead_line(self) -> datetime.datetime:
         return datetime.datetime.today()
 
-    @property
-    def cards(self) -> Cards:
-        return self._cards
+    def add_new_card(self, card: Card):
+        return self._cards.add_new_card(card)

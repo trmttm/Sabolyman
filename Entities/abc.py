@@ -2,7 +2,7 @@ import abc
 import datetime
 from typing import Tuple
 
-from .cards import Cards
+from .card import Card
 from .person import Person
 
 
@@ -29,11 +29,6 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def cards(self) -> Cards:
-        pass
-
-    @property
-    @abc.abstractmethod
     def existing_my_card_names(self) -> Tuple[str, ...]:
         pass
 
@@ -50,4 +45,17 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def due_dates(self) -> Tuple[datetime.datetime, ...]:
+        pass
+
+    @abc.abstractmethod
+    def add_new_card(self, card: Card):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def all_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @abc.abstractmethod
+    def remove_card(self, card: Card):
         pass

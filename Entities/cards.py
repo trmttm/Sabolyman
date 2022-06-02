@@ -19,3 +19,14 @@ class Cards:
     @property
     def due_dates(self) -> Tuple[datetime.datetime, ...]:
         return tuple(c.due_date for c in self._cards)
+
+    @property
+    def all_cards(self) -> List[Card]:
+        return self._cards
+
+    def remove_card(self, card: Card):
+        self._cards.remove(card)
+
+    @property
+    def nth(self) -> int:
+        return len(self._cards)

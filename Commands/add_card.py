@@ -10,7 +10,6 @@ class AddCard(UseCase):
     def execute(self):
         entities = self._entities
 
-        cards = entities.cards
         name = entities.default_card_name
         owner = entities.user
         importance = entities.default_importance
@@ -23,4 +22,4 @@ class AddCard(UseCase):
         card.set_time_expected(dead_line)
         card.mark_done()
 
-        cards.add_new_card(card)
+        entities.add_new_card(card)
