@@ -3,6 +3,7 @@ from typing import List
 from typing import Tuple
 
 from .abc import EntitiesABC
+from .action import Action
 from .card import Card
 from .cards import Cards
 from .file import File
@@ -11,6 +12,16 @@ from .person import Person
 
 
 class Entities(EntitiesABC):
+    def set_active_card(self, card: Card):
+        self._cards.set_active_card(card)
+
+    @property
+    def active_card(self) -> Card:
+        return self._cards.active_card
+
+    def get_card_by_index(self, index: int) -> Card:
+        return self._cards.get_card_by_index(index)
+
     def remove_card(self, card: Card):
         self._cards.remove_card(card)
 

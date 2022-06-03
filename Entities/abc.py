@@ -37,6 +37,18 @@ class EntitiesABC(abc.ABC):
     def existing_my_card_due_dates(self) -> Tuple[datetime.datetime, ...]:
         pass
 
+    @abc.abstractmethod
+    def get_card_by_index(self, index: int) -> Card:
+        pass
+
+    @abc.abstractmethod
+    def set_active_card(self, card: Card):
+        pass
+
+    @property
+    def active_card(self) -> Card:
+        pass
+
     @property
     @abc.abstractmethod
     def card_names(self) -> Tuple[str, ...]:

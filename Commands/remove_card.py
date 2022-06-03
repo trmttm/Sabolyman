@@ -12,6 +12,6 @@ class RemoveCard(UseCase):
     def execute(self):
         entities = self._entities
         cards = entities.all_cards
-        for n, card in enumerate(cards):
-            if n in self._indexes:
-                entities.remove_card(card)
+        cards_to_remove = [c for (n, c) in enumerate(cards) if n in self._indexes]
+        for card in cards_to_remove:
+            entities.remove_card(card)

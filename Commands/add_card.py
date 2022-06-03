@@ -19,7 +19,7 @@ class AddCard(UseCase):
         card.set_name(name)
         card.set_owner(owner)
         card.set_importance(importance)
-        card.set_time_expected(dead_line)
+        card.set_dead_line(dead_line)
         card.mark_done()
 
         entities.add_new_card(card)

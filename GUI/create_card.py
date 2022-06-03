@@ -90,10 +90,11 @@ def get_card_property_entry(stacker: Stacker):
         ),
         stacker.hstack(
             w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
-            w.Entry('entry_dead_line').default_value('2022/5/30', ).padding(25, 0),
+            w.Entry('entry_dead_line').default_value('2022/5/30 15:00', ).padding(25, 0),
             w.Spacer(),
             w.Label('lbl_date_created1').text('Created: ').width(10).padding(10, 0),
             w.Label('lbl_date_created2').text('2022/5/28').width(10).padding(10, 0),
+            w.Spacer().adjust(-1),
         ),
         w.Spacer(),
     )
