@@ -3,6 +3,7 @@ from typing import Tuple
 from Entities import EntitiesABC
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
+from . import add_new_action
 from . import add_new_card
 from . import delete_selected_cards
 from . import load_gui
@@ -35,3 +36,6 @@ class Interactor(InteractorABC):
 
     def load_gui(self, gui_name: str):
         load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)
+
+    def add_new_action(self):
+        add_new_action.execute(self._entities, self._presenters)

@@ -1,3 +1,7 @@
+tree_my_cards = 'tree_my_cards'
+tree_their_cards = 'tree_their_cards'
+tree_later_cards = 'tree_later_cards'
+
 button_add_new_my_card = 'button_my_cards_add_new_card'
 button_add_new_their_card = 'button_their_cards_add_new_card'
 button_add_new_later_card = 'button_later_cards_add_new_card'
@@ -13,10 +17,6 @@ button_move_up_selected_later_card = 'button_move_up_selected_later_card'
 button_move_down_selected_my_card = 'button_move_down_selected_my_card'
 button_move_down_selected_their_card = 'button_move_down_selected_their_card'
 button_move_down_selected_later_card = 'button_move_down_selected_later_card'
-
-tree_my_cards = 'tree_my_cards'
-tree_their_cards = 'tree_their_cards'
-tree_later_cards = 'tree_later_cards'
 
 label_date_created = 'label_date_created'
 
@@ -51,3 +51,6 @@ entry_card_name = 'entry_card_name'
 entry_dead_line = 'entry_dead_line'
 label_card_importance = 'label_card_importance'
 entry_card_importance = 'entry_card_importance'
+
+button_add_new_action = 'button_add_new_action'
+tree_card_actions = 'tree_card_actions'

@@ -2,6 +2,7 @@ import abc
 import datetime
 from typing import Tuple
 
+from .action import Action
 from .card import Card
 from .person import Person
 
@@ -10,6 +11,31 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def default_card_name(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def default_action_time_expected(self) -> datetime.timedelta:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def default_action_name(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def action_names(self) -> Tuple[str, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def times_expected(self) -> Tuple[datetime.timedelta, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def all_actions(self):
         pass
 
     @property
@@ -46,6 +72,7 @@ class EntitiesABC(abc.ABC):
         pass
 
     @property
+    @abc.abstractmethod
     def active_card(self) -> Card:
         pass
 
@@ -70,4 +97,8 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def remove_card(self, card: Card):
+        pass
+
+    @abc.abstractmethod
+    def add_new_action(self, action: Action):
         pass

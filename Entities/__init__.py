@@ -4,6 +4,7 @@ from typing import Tuple
 
 from .abc import EntitiesABC
 from .action import Action
+from .actions import Actions
 from .card import Card
 from .cards import Cards
 from .file import File
@@ -12,6 +13,34 @@ from .person import Person
 
 
 class Entities(EntitiesABC):
+    def add_new_action(self, action: Action):
+        card = self._cards.active_card
+        card.add_action(action)
+
+    @property
+    def action_names(self) -> Tuple[str, ...]:
+        return self._actions.action_names
+
+    @property
+    def times_expected(self) -> Tuple[datetime.timedelta, ...]:
+        return self._actions.times_expected
+
+    @property
+    def all_actions(self) -> List[Action]:
+        card = self.active_card
+        if card is not None:
+            return card.actions.all_actions
+        else:
+            return []
+
+    def __init__(self):
+        self._cards = Cards()
+
+    @property
+    def _actions(self) -> Actions:
+        card = self.active_card
+        return card.actions
+
     def set_active_card(self, card: Card):
         self._cards.set_active_card(card)
 
@@ -45,12 +74,17 @@ class Entities(EntitiesABC):
     def existing_my_card_names(self) -> Tuple[str, ...]:
         return 'Card1', 'Card2',
 
-    def __init__(self):
-        self._cards = Cards()
-
     @property
     def default_card_name(self) -> str:
         return f'新たなカード {self._cards.nth}'
+
+    @property
+    def default_action_time_expected(self) -> datetime.timedelta:
+        return datetime.timedelta(1)
+
+    @property
+    def default_action_name(self) -> str:
+        return f'新たなアクション {self._actions.nth}'
 
     @property
     def user(self) -> Person:

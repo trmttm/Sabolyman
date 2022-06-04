@@ -1,7 +1,7 @@
 import datetime
-from typing import List
 
 from .action import Action
+from .actions import Actions
 from .file import File
 from .files import Files
 from .person import Person
@@ -15,7 +15,7 @@ class Card:
         self._date_created = datetime.datetime.now()
         self._dead_line = datetime.datetime.today() + datetime.timedelta(1)
         self._is_done = False
-        self._actions = []
+        self._actions = Actions()
         self._files = Files()
 
     def set_name(self, name: str):
@@ -59,5 +59,8 @@ class Card:
         return self._dead_line
 
     @property
-    def actions(self) -> List[Action]:
+    def actions(self) -> Actions:
         return self._actions
+
+    def add_action(self, action: Action):
+        self._actions.add_new_action(action)

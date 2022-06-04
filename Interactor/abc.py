@@ -22,3 +22,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def set_dead_line(self, dead_line_str: str):
         pass
+
+    @abc.abstractmethod
+    def add_new_action(self):
+        pass
