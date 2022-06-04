@@ -54,12 +54,7 @@ def get_actions_properties(stacker: Stacker):
         ),
         stacker.hstack(
             w.Label('lbl_owner').text('Owner').width(10).padding(5, 0),
-            stacker.hstack(
-                w.Entry('entry_owner').default_value('Owner Name').padding(25, 0),
-                w.Label('lbl_importance').text('Importance'),
-                w.Entry('entry_importance').default_value(5).padding(25, 0),
-                w.Spacer().adjust(-1),
-            ),
+            w.Entry('entry_owner').default_value('Owner Name').padding(25, 0),
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
@@ -94,10 +89,14 @@ def get_card_property_entry(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
             w.Entry(wn.entry_dead_line).default_value('2022/5/30 15:00', ).padding(25, 0),
-            w.Spacer(),
             w.Label('lbl_date_created1').text('Created: ').width(10).padding(10, 0),
             w.Label(WidgetNames.label_date_created).text('2022/5/28').width(10).padding(10, 0),
             w.Spacer().adjust(-1),
+        ),
+        stacker.hstack(
+            w.Label(wn.label_card_importance).text('Importance').width(10).padding(10, 0),
+            w.Entry(wn.entry_card_importance).default_value(5).padding(25, 0).width(20),
+            w.Spacer(),
         ),
         w.Spacer(),
     )
