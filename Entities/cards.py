@@ -8,7 +8,6 @@ from .card import Card
 class Cards:
     def __init__(self):
         self._cards: List[Card, ...] = []
-        self._id = 0
         self._active_card = None
 
     @property
@@ -41,8 +40,3 @@ class Cards:
 
     def remove_card(self, card: Card):
         self._cards.remove(card)
-
-    @property
-    def nth(self) -> int:
-        self._id += 1
-        return self._id

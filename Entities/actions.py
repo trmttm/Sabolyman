@@ -8,7 +8,6 @@ from .action import Action
 class Actions:
     def __init__(self):
         self._actions: List[Action, ...] = []
-        self._id = 0
         self._active_action = None
 
     @property
@@ -41,8 +40,3 @@ class Actions:
 
     def remove_action(self, action: Action):
         self._actions.remove(action)
-
-    @property
-    def nth(self) -> int:
-        self._id += 1
-        return self._id

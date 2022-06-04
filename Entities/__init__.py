@@ -7,6 +7,7 @@ from .action import Action
 from .actions import Actions
 from .card import Card
 from .cards import Cards
+from .default_values import DefaultValues
 from .file import File
 from .files import Files
 from .person import Person
@@ -15,27 +16,47 @@ from .person import Person
 class Entities(EntitiesABC):
     def __init__(self):
         self._cards = Cards()
+        self._default_values = DefaultValues()
 
     # Default Values
     @property
     def default_card_name(self) -> str:
-        return f'新たなカード {self._cards.nth}'
+        return self._default_values.card_name
 
     @property
     def default_dead_line(self) -> datetime.datetime:
-        return datetime.datetime.today()
+        return self._default_values.dead_line
 
     @property
     def default_importance(self) -> int:
-        return 5
+        return self._default_values.importance
 
     @property
     def default_action_name(self) -> str:
-        return f'新たなアクション {self._actions.nth}'
+        return self._default_values.action_name
 
     @property
     def default_action_time_expected(self) -> datetime.timedelta:
-        return datetime.timedelta(1)
+        return self._default_values.action_time_expected
+
+    # Getters
+    def get_card_by_index(self, index: int) -> Card:
+        return self._cards.get_card_by_index(index)
+
+    # Setters
+    def set_active_card(self, card: Card):
+        self._cards.set_active_card(card)
+
+    # User Actions
+    def add_new_card(self, card: Card):
+        return self._cards.add_new_card(card)
+
+    def remove_card(self, card: Card):
+        self._cards.remove_card(card)
+
+    def add_new_action(self, action: Action):
+        card = self._cards.active_card
+        card.add_action(action)
 
     # Properties
     @property
@@ -85,22 +106,3 @@ class Entities(EntitiesABC):
     @property
     def user(self) -> Person:
         return Person('山家太郎')
-
-    # Getters
-    def get_card_by_index(self, index: int) -> Card:
-        return self._cards.get_card_by_index(index)
-
-    # Setters
-    def set_active_card(self, card: Card):
-        self._cards.set_active_card(card)
-
-    # User Actions
-    def add_new_card(self, card: Card):
-        return self._cards.add_new_card(card)
-
-    def remove_card(self, card: Card):
-        self._cards.remove_card(card)
-
-    def add_new_action(self, action: Action):
-        card = self._cards.active_card
-        card.add_action(action)
