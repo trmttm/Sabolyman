@@ -1,9 +1,11 @@
-from interface_view import ViewABC
+from typing import Tuple
 
 from Entities import EntitiesABC
+from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import add_new_card
 from . import delete_selected_cards
+from . import load_gui
 from . import set_card_name
 from . import set_dead_line
 from . import show_card_information
@@ -11,20 +13,25 @@ from .abc import InteractorABC
 
 
 class Interactor(InteractorABC):
-    def __init__(self, entities: EntitiesABC, presenters: PresentersABC, view: ViewABC):
-        self._args = entities, presenters, view
+    def __init__(self, entities: EntitiesABC, presenters: PresentersABC, gateway: GatewayABC):
+        self._entities = entities
+        self._presenters = presenters
+        self._gateway = gateway
 
     def add_new_card(self):
-        add_new_card.execute(*self._args)
+        add_new_card.execute(self._entities, self._presenters)
 
-    def delete_selected_cards(self):
-        delete_selected_cards.execute(*self._args)
+    def delete_selected_cards(self, indexes: Tuple[int]):
+        delete_selected_cards.execute(self._entities, self._presenters, indexes)
 
-    def show_card_information(self):
-        show_card_information.execute(*self._args)
+    def show_card_information(self, indexes: Tuple[int]):
+        show_card_information.execute(self._entities, self._presenters, indexes)
 
-    def set_card_name(self):
-        set_card_name.execute(*self._args)
+    def set_card_name(self, card_name: str):
+        set_card_name.execute(self._entities, self._presenters, card_name)
 
-    def set_dead_line(self):
-        set_dead_line.execute(*self._args)
+    def set_dead_line(self, dead_line_str: str):
+        set_dead_line.execute(self._entities, self._presenters, dead_line_str)
+
+    def load_gui(self, gui_name: str):
+        load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)

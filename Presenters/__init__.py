@@ -14,8 +14,16 @@ def datetime_to_str(d):
 
 
 class Presenters(PresentersABC):
+    def load_gui(self, view_model: list):
+        self._view.add_widgets(view_model)
+
     def __init__(self, view: ViewABC):
         self._view = view
+
+    def set_up_after_gui(self):
+        # This is needed to fix tree columns width.
+        self.update_cards(('',), (datetime.datetime.today(),), 0)
+        self.update_cards((), ())
 
     def update_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
         self._view.switch_tree('tree_my_balls')

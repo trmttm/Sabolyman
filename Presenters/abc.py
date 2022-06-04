@@ -24,3 +24,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def updates_card_actions(self):
         pass
+
+    @abc.abstractmethod
+    def load_gui(self, view_model: list):
+        pass
