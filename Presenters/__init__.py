@@ -4,6 +4,7 @@ from typing import Tuple
 from Utilities import create_tree_data
 from Utilities import create_view_model_tree
 from interface_view import ViewABC
+
 import WidgetNames
 from .abc import PresentersABC
 
