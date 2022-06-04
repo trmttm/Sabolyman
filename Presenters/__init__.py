@@ -4,7 +4,7 @@ from typing import Tuple
 from Utilities import create_tree_data
 from Utilities import create_view_model_tree
 from interface_view import ViewABC
-
+import WidgetNames
 from .abc import PresentersABC
 
 
@@ -26,7 +26,7 @@ class Presenters(PresentersABC):
         self.update_cards((), ())
 
     def update_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
-        self._view.switch_tree('tree_my_balls')
+        self._view.switch_tree(WidgetNames.tree_my_cards)
 
         # Creating ViewModel
         headings = 'Name', 'Due Date'
@@ -44,13 +44,13 @@ class Presenters(PresentersABC):
         self._view.update_tree(view_model)
 
     def update_card_name(self, name: str):
-        self._view.set_value('entry_name', name)
+        self._view.set_value(WidgetNames.entry_card_name, name)
 
     def update_card_date_created(self, date_created: datetime.datetime):
-        self._view.set_value('lbl_date_created2', datetime_to_str(date_created))
+        self._view.set_value(WidgetNames.label_date_created, datetime_to_str(date_created))
 
     def update_card_due_date(self, due_date: datetime.datetime):
-        self._view.set_value('entry_dead_line', datetime_to_str(due_date))
+        self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
 
     def updates_card_actions(self):
         pass

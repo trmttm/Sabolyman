@@ -1,6 +1,8 @@
 from stacker import Stacker
 from stacker import widgets as w
 
+import WidgetNames
+
 
 def get_view_model(parent: str = 'root'):
     stacker = Stacker(specified_parent=parent)
@@ -82,18 +84,19 @@ def get_actions_properties(stacker: Stacker):
 
 
 def get_card_property_entry(stacker: Stacker):
+    wn = WidgetNames
     return stacker.vstack(
         stacker.hstack(
             w.Label('lbl_name').text('Name').width(10).padding(10, 0),
-            w.Entry('entry_name').default_value('New Card Name', ).padding(25, 0),
+            w.Entry(wn.entry_card_name).default_value('New Card Name', ).padding(25, 0),
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
-            w.Entry('entry_dead_line').default_value('2022/5/30 15:00', ).padding(25, 0),
+            w.Entry(wn.entry_dead_line).default_value('2022/5/30 15:00', ).padding(25, 0),
             w.Spacer(),
             w.Label('lbl_date_created1').text('Created: ').width(10).padding(10, 0),
-            w.Label('lbl_date_created2').text('2022/5/28').width(10).padding(10, 0),
+            w.Label(WidgetNames.label_date_created).text('2022/5/28').width(10).padding(10, 0),
             w.Spacer().adjust(-1),
         ),
         w.Spacer(),
