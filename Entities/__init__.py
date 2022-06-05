@@ -54,6 +54,10 @@ class Entities(EntitiesABC):
     def set_active_action(self, action: Action):
         self._actions.set_active_action(action)
 
+    # Factories
+    def create_new_person(self, name: str) -> Person:
+        return Person(name)
+
     # User Actions
     def add_new_card(self, card: Card):
         return self._cards.add_new_card(card)

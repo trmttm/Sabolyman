@@ -21,5 +21,9 @@ def get_action_name(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_action_name)
 
 
+def get_action_owner_name(v: ViewABC) -> str:
+    return v.get_value(WidgetNames.entry_action_owner)
+
+
 def get_dead_line_str(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_dead_line)

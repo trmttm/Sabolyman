@@ -21,3 +21,4 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     # Action
     f(wn.tree_card_actions, lambda: i.show_action_information(s.get_actions_selected_indexes(v)))
     f(wn.entry_action_name, lambda *_: i.set_action_name(s.get_action_name(v)))
+    f(wn.entry_action_owner, lambda *_: i.set_action_owner(s.get_action_owner_name(v)))

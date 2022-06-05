@@ -34,3 +34,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def set_action_name(self, action_name: str):
         pass
+
+    @abc.abstractmethod
+    def set_action_owner(self, owner_name: str):
+        pass

@@ -115,3 +115,7 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def active_action(self) -> Action:
         pass
+
+    @abc.abstractmethod
+    def create_new_person(self, name: str):
+        pass
