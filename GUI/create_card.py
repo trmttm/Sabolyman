@@ -72,7 +72,7 @@ def get_actions_properties(stacker: Stacker):
             w.Spacer().adjust(-1),
         ),
         w.NoteBook('notebook_actions', stacker).frame_names(('Detail', 'Files', 'Feedback')).stackers(
-            w.TextBox('text_description').padding(5, 5),
+            w.TextBox(wn.text_box_action_description).padding(5, 5),
             stacker.vstack(
                 w.TreeView('tree_action_files'),
             ),

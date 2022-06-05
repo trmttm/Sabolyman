@@ -8,7 +8,7 @@ from . import update_actions
 from . import update_cards
 from .abc import PresentersABC
 from .utilities import datetime_to_str
-from .utilities import datetime_to_str
+from .utilities import time_delta_to_str
 
 
 class Presenters(PresentersABC):
@@ -42,22 +42,22 @@ class Presenters(PresentersABC):
         update_actions.execute(self._view, expected_tiems, action_names, next_selection_index)
 
     def update_action_name(self, name: str):
-        pass
+        self._view.set_value(WidgetNames.entry_action_name, name)
 
     def update_action_date_created(self, date_created: datetime.datetime):
         pass
 
     def update_action_time_expected(self, time_expected: datetime.timedelta):
-        pass
+        self._view.set_value(WidgetNames.entry_action_time_expected, time_delta_to_str(time_expected))
 
     def update_action_owner(self, owner_name: str):
-        pass
+        self._view.set_value(WidgetNames.entry_action_owner, owner_name)
 
     def update_action_is_done(self, is_done: bool):
-        pass
+        self._view.set_value(WidgetNames.check_button_action_done, is_done)
 
     def update_action_description(self, description: str):
-        pass
+        self._view.set_value(WidgetNames.text_box_action_description, description)
 
     def update_action_files(self, files_names: Tuple[str, ...]):
         pass
