@@ -8,6 +8,7 @@ from .person import Person
 
 
 class Action(EntityABC):
+
     def __init__(self):
         self._name = 'unspecified'
         self._is_done = False
@@ -65,6 +66,19 @@ class Action(EntityABC):
     @property
     def files(self) -> Files:
         return self._files
+
+    @property
+    def state(self) -> dict:
+        state = {
+            'name': self._name,
+            'is_done': self._is_done,
+            'owner': self._owner.state,
+            'time_expected': self._time_expected,
+            'date_created': self._date_created,
+            'description': self._description,
+            'files': self._files.state,
+        }
+        return state
 
     def load_state(self, state: dict):
         self._name = state.get('name', '')

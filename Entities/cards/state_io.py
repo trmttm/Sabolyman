@@ -5,7 +5,7 @@ from .abc import CardsABC
 def create_state(cards: CardsABC) -> dict:
     card_states = tuple(c.state for c in cards.all_cards)
     active_card_index = 0
-    for n, card in cards.all_cards:
+    for n, card in enumerate(cards.all_cards):
         if card == cards.active_card:
             active_card_index = n
     state = {

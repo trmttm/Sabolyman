@@ -30,8 +30,8 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 def configure_menu_bar(v: ViewABC, i: InteractorABC):
     menu_bar_model = {
         'File': {
-            'Save': lambda: print(),
-            'Load': lambda: print('Saved'),
+            'Save': lambda: i.save_to_file(v.select_save_file()),
+            'Load': lambda: i.load_state_from_file(v.select_open_file()),
         },
     }
     v.update_menu_bar(menu_bar_model)

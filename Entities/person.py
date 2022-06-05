@@ -2,6 +2,7 @@ from .abc_entity import EntityABC
 
 
 class Person(EntityABC):
+
     def __init__(self, name: str):
         self._name = name
 
@@ -14,6 +15,13 @@ class Person(EntityABC):
 
     def set_name(self, name: str):
         self._name = name
+
+    @property
+    def state(self) -> dict:
+        state = {
+            'name': self._name,
+        }
+        return state
 
     def load_state(self, state: dict):
         name = state.get('name', '')

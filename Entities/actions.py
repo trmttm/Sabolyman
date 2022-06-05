@@ -42,6 +42,20 @@ class Actions(EntityABC):
     def remove_action(self, action: Action):
         self._actions.remove(action)
 
+    @property
+    def state(self) -> dict:
+        actions_state = tuple(a.state for a in self.all_actions)
+        active_action_index = 0
+        for n, action in enumerate(self.all_actions):
+            if action == self.active_action:
+                active_action_index = n
+
+        state = {
+            'actions_state': actions_state,
+            'active_action': active_action_index,
+        }
+        return state
+
     def load_state(self, state: dict):
         self.__init__()
         actions_state = state.get('actions_state', ())

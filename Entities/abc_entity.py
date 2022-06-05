@@ -7,6 +7,6 @@ class EntityABC(abc.ABC):
         pass
 
     @property
-    # @abc.abstractmethod
+    @abc.abstractmethod
     def state(self) -> dict:
         pass
