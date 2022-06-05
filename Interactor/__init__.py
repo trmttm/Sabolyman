@@ -11,6 +11,7 @@ from . import set_action_description
 from . import set_action_is_done_or_not
 from . import set_action_name
 from . import set_action_owner
+from . import set_action_time_expected
 from . import set_card_name
 from . import set_dead_line
 from . import show_action_information
@@ -60,6 +61,9 @@ class Interactor(InteractorABC):
 
     def set_action_description(self, description: str):
         set_action_description.execute(self._entities, self._presenters, description)
+
+    def set_action_time_expected(self, time_expected: str):
+        set_action_time_expected.execute(self._entities, self._presenters, time_expected)
 
     def show_action_information(self, indexes: Tuple[int]):
         show_action_information.execute(self._entities, self._presenters, indexes)

@@ -33,5 +33,9 @@ def get_action_description(v: ViewABC) -> str:
     return v.get_value(WidgetNames.text_box_action_description)
 
 
+def get_action_time_expected(v: ViewABC) -> str:
+    return v.get_value(WidgetNames.entry_action_time_expected)
+
+
 def get_dead_line_str(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_dead_line)
