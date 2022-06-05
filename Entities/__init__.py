@@ -81,7 +81,9 @@ class Entities(EntitiesABC):
 
     @property
     def action_names(self) -> Tuple[str, ...]:
-        return self._actions.action_names
+        actions = self._actions
+        if actions is not None:
+            return actions.action_names
 
     @property
     def times_expected(self) -> Tuple[datetime.timedelta, ...]:
@@ -89,7 +91,9 @@ class Entities(EntitiesABC):
 
     @property
     def _actions(self) -> Actions:
-        return self.active_card.actions
+        card = self.active_card
+        if card is not None:
+            return card.actions
 
     @property
     def active_card(self) -> Card:

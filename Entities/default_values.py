@@ -5,7 +5,7 @@ class DefaultValues:
 
     @property
     def card_name(self) -> str:
-        return f'新たなカード'
+        return f'Default Card Name'
 
     @property
     def dead_line(self) -> datetime.datetime:
@@ -17,8 +17,8 @@ class DefaultValues:
 
     @property
     def action_name(self) -> str:
-        return f'新たなアクション'
+        return f'Default Action Name'
 
     @property
     def action_time_expected(self) -> datetime.timedelta:
-        return datetime.timedelta(1)
+        return datetime.timedelta(2, 60 * 60 * 5)
