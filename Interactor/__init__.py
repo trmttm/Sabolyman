@@ -31,6 +31,16 @@ class Interactor(InteractorABC):
     def load_gui(self, gui_name: str):
         load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)
 
+    # Save
+    def save_to_file(self, file_name: str):
+        state = self._entities.state
+        self._gateway.save_file(file_name, state)
+
+    def load_state_from_file(self, file_name: str):
+        state = self._gateway.load_file(file_name)
+        self._entities.load_state(state)
+        self._presenters.upon_load_state()
+
     # Cards
     def add_new_card(self):
         add_new_card.execute(self._entities, self._presenters)

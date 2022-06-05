@@ -4,6 +4,14 @@ from typing import Tuple
 
 class InteractorABC(abc.ABC):
     @abc.abstractmethod
+    def save_to_file(self, file_name: str):
+        pass
+
+    @abc.abstractmethod
+    def load_state_from_file(self, file_name: str):
+        pass
+
+    @abc.abstractmethod
     def add_new_card(self):
         pass
 

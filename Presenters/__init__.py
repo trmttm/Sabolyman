@@ -12,11 +12,15 @@ from .utilities import time_delta_to_str
 
 
 class Presenters(PresentersABC):
-    def load_gui(self, view_model: list):
+    def upon_load_gui(self, view_model: list):
         self._view.add_widgets(view_model)
 
     def __init__(self, view: ViewABC):
         self._view = view
+
+    # Save
+    def upon_load_state(self):
+        pass
 
     def set_up_after_gui(self):
         # This is needed to fix tree columns width.

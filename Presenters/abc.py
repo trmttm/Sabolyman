@@ -27,7 +27,11 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def load_gui(self, view_model: list):
+    def upon_load_gui(self, view_model: list):
+        pass
+
+    @abc.abstractmethod
+    def upon_load_state(self):
         pass
 
     # Action

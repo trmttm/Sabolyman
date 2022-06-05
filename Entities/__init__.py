@@ -2,7 +2,7 @@ import datetime
 from typing import List
 from typing import Tuple
 
-from .abc import EntitiesABC
+from .abc_entities import EntitiesABC
 from .action import Action
 from .actions import Actions
 from .card import Card
@@ -54,6 +54,9 @@ class Entities(EntitiesABC):
     def set_active_action(self, action: Action):
         self._actions.set_active_action(action)
 
+    def load_state(self, state: dict):
+        self._cards.load_state(state)
+
     # Factories
     def create_new_person(self, name: str) -> Person:
         return Person(name)
@@ -74,6 +77,13 @@ class Entities(EntitiesABC):
         self._actions.remove_action(action)
 
     # Properties
+    @property
+    def state(self) -> dict:
+        state = {
+
+        }
+        return state
+
     @property
     def all_actions(self) -> List[Action]:
         card = self.active_card

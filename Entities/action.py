@@ -1,11 +1,13 @@
 import datetime
 
+from . import factory1
+from .abc_entity import EntityABC
 from .file import File
 from .files import Files
 from .person import Person
 
 
-class Action:
+class Action(EntityABC):
     def __init__(self):
         self._name = 'unspecified'
         self._is_done = False
@@ -63,3 +65,12 @@ class Action:
     @property
     def files(self) -> Files:
         return self._files
+
+    def load_state(self, state: dict):
+        self._name = state.get('name', '')
+        self._is_done = state.get('is_done', False)
+        self._owner = factory1.factory_person(state, 'owner')
+        self._time_expected = state.get('time_expected', datetime.timedelta(1))
+        self._date_created = state.get('date_created', datetime.datetime.today())
+        self._description = state.get('description', '')
+        self._files = factory1.factory_files(state)

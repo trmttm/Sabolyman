@@ -2,10 +2,11 @@ import datetime
 from typing import List
 from typing import Tuple
 
+from .abc_entity import EntityABC
 from .action import Action
 
 
-class Actions:
+class Actions(EntityABC):
     def __init__(self):
         self._actions: List[Action, ...] = []
         self._active_action = None
@@ -40,3 +41,13 @@ class Actions:
 
     def remove_action(self, action: Action):
         self._actions.remove(action)
+
+    def load_state(self, state: dict):
+        self.__init__()
+        actions_state = state.get('actions_state', ())
+        active_action_index = state.get('active_action', 0)
+        for n, action_state in enumerate(actions_state):
+            action = Action()
+            action.load_state(action_state)
+            if n == active_action_index:
+                self._active_action = action

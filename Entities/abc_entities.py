@@ -121,6 +121,15 @@ class EntitiesABC(abc.ABC):
     def active_action(self) -> Action:
         pass
 
+    @property
+    @abc.abstractmethod
+    def state(self) -> dict:
+        pass
+
     @abc.abstractmethod
     def create_new_person(self, name: str):
+        pass
+
+    @abc.abstractmethod
+    def load_state(self, state: dict):
         pass

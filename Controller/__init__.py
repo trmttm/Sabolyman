@@ -25,3 +25,13 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.check_button_action_done, lambda *_: i.set_action_is_done_or_not(s.get_action_is_done_or_not(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v)))
     f(wn.entry_action_time_expected, lambda *_: i.set_action_time_expected(s.get_action_time_expected(v)))
+
+
+def configure_menu_bar(v: ViewABC, i: InteractorABC):
+    menu_bar_model = {
+        'File': {
+            'Save': lambda: print(),
+            'Load': lambda: print('Saved'),
+        },
+    }
+    v.update_menu_bar(menu_bar_model)
