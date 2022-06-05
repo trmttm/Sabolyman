@@ -25,5 +25,9 @@ def get_action_owner_name(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_action_owner)
 
 
+def get_action_is_done_or_not(v: ViewABC) -> bool:
+    return v.get_value(WidgetNames.check_button_action_done)
+
+
 def get_dead_line_str(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_dead_line)

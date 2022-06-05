@@ -43,6 +43,9 @@ class Action:
     def mark_done(self):
         self._is_done = True
 
+    def mark_not_done(self):
+        self._is_done = False
+
     @property
     def time_expected(self) -> datetime.timedelta:
         return self._time_expected

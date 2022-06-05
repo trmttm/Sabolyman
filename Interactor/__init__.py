@@ -7,10 +7,12 @@ from . import add_new_action
 from . import add_new_card
 from . import delete_selected_cards
 from . import load_gui
+from . import set_action_is_done_or_not
 from . import set_action_name
+from . import set_action_owner
 from . import set_card_name
 from . import set_dead_line
-from . import show_action_information, set_action_owner
+from . import show_action_information
 from . import show_card_information
 from .abc import InteractorABC
 
@@ -50,7 +52,10 @@ class Interactor(InteractorABC):
         set_action_name.execute(self._entities, self._presenters, action_name)
 
     def set_action_owner(self, owner_name: str):
-        set_action_owner.execute(self._entities,self._presenters, owner_name)
+        set_action_owner.execute(self._entities, self._presenters, owner_name)
+
+    def set_action_is_done_or_not(self, done_or_not: bool):
+        set_action_is_done_or_not.execute(self._entities, self._presenters, done_or_not)
 
     def show_action_information(self, indexes: Tuple[int]):
         show_action_information.execute(self._entities, self._presenters, indexes)
