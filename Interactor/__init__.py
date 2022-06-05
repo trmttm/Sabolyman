@@ -7,6 +7,7 @@ from . import add_new_action
 from . import add_new_card
 from . import delete_selected_cards
 from . import load_gui
+from . import set_action_description
 from . import set_action_is_done_or_not
 from . import set_action_name
 from . import set_action_owner
@@ -56,6 +57,9 @@ class Interactor(InteractorABC):
 
     def set_action_is_done_or_not(self, done_or_not: bool):
         set_action_is_done_or_not.execute(self._entities, self._presenters, done_or_not)
+
+    def set_action_description(self, description: str):
+        set_action_description.execute(self._entities, self._presenters, description)
 
     def show_action_information(self, indexes: Tuple[int]):
         show_action_information.execute(self._entities, self._presenters, indexes)

@@ -54,6 +54,9 @@ class Action:
     def description(self) -> str:
         return self._description
 
+    def add_description(self, description: str):
+        self._description = description
+
     def add_file(self, file: File):
         self._files.add_file(file)
 
