@@ -2,11 +2,13 @@ import datetime
 from typing import List
 from typing import Tuple
 
-from .abc_entity import EntityABC
-from .card import Card
+from Entities.card import Card
+from . import state_io
+from .abc import CardsABC
 
 
-class Cards(EntityABC):
+class Cards(CardsABC):
+
     def __init__(self):
         self._cards: List[Card, ...] = []
         self._active_card = None
@@ -42,16 +44,9 @@ class Cards(EntityABC):
     def remove_card(self, card: Card):
         self._cards.remove(card)
 
+    @property
+    def state(self) -> dict:
+        return state_io.create_state(self)
+
     def load_state(self, state: dict):
-        self.__init__()
-
-        cards_state = state.get('cards', {})
-        card_states = cards_state.get('card', ())
-        active_card_index = cards_state.get('active_card', 0)
-        for n, card_state in enumerate(card_states):
-            card = Card()
-            card.load_state(card_state)
-
-            self.add_new_card(card)
-            if n == active_card_index:
-                self.set_active_card(card)
+        state_io.load_state(self, state)

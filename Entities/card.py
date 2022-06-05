@@ -11,6 +11,7 @@ from .person import Person
 
 
 class Card(EntityABC):
+
     def __init__(self):
         self._name = 'New Card'
         self._owner = Person('Name')
@@ -72,12 +73,26 @@ class Card(EntityABC):
     def add_action(self, action: Action):
         self._actions.add_new_action(action)
 
+    @property
+    def state(self) -> dict:
+        state = {
+            'name': self._name,
+            'importance': self._importance,
+            'date_created': self._date_created,
+            'dead_line': self._dead_line,
+            'is_done': self._is_done,
+            'owner': self._owner.state,
+            'actions': self._actions.state,
+            'files': self._files.state,
+        }
+        return state
+
     def load_state(self, state: dict):
         self._name = state.get('name', '')
         self._owner = factory1.factory_person(state, 'onwer')
         self._importance = state.get('importance', '')
         self._date_created = state.get('date_created', datetime.datetime.today())
-        self._dead_line = state.get('dead_line_str', '')
+        self._dead_line = state.get('dead_line', '')
         self._is_done = state.get('is_done', False)
         self._actions = Entities.factory2.factory_actions(state)
         self._files = factory1.factory_files(state)
