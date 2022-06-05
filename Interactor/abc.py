@@ -26,3 +26,11 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def add_new_action(self):
         pass
+
+    @abc.abstractmethod
+    def show_action_information(self, indexes: Tuple[int]):
+        pass
+
+    @abc.abstractmethod
+    def set_action_name(self, action_name: str):
+        pass

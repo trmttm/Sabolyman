@@ -47,6 +47,10 @@ class Card:
         self._files.add_file(file)
 
     @property
+    def files(self) -> Files:
+        return self._files
+
+    @property
     def name(self) -> str:
         return self._name
 

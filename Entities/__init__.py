@@ -14,6 +14,7 @@ from .person import Person
 
 
 class Entities(EntitiesABC):
+
     def __init__(self):
         self._cards = Cards()
         self._default_values = DefaultValues()
@@ -43,9 +44,15 @@ class Entities(EntitiesABC):
     def get_card_by_index(self, index: int) -> Card:
         return self._cards.get_card_by_index(index)
 
+    def get_action_by_index(self, index: int) -> Action:
+        return self._actions.get_action_by_index(index)
+
     # Setters
     def set_active_card(self, card: Card):
         self._cards.set_active_card(card)
+
+    def set_active_action(self, action: Action):
+        self._actions.set_active_action(action)
 
     # User Actions
     def add_new_card(self, card: Card):
@@ -56,7 +63,8 @@ class Entities(EntitiesABC):
 
     def add_new_action(self, action: Action):
         card = self._cards.active_card
-        card.add_action(action)
+        if card is not None:
+            card.add_action(action)
 
     # Properties
     @property
@@ -82,6 +90,10 @@ class Entities(EntitiesABC):
     @property
     def active_card(self) -> Card:
         return self._cards.active_card
+
+    @property
+    def active_action(self) -> Action:
+        return self._actions.active_action
 
     @property
     def all_cards(self) -> List[Card]:

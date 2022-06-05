@@ -15,13 +15,12 @@ def execute(v: ViewABC, due_dates: tuple, names: tuple, select_nth: int):
 def create_view_model(due_dates, names, select_nth):
     headings = 'Name', 'Due Date'
     widths = 100, 130
-    tree_dates = []
+    tree_datas = []
     for n, (name, due_date) in enumerate(zip(names, due_dates)):
-        d = due_date
-        due_date_str = datetime_to_str(d)
-        tree_dates.append(create_tree_data('', f'{n}', '', (name, due_date_str), (), n == select_nth))
+        due_date_str = datetime_to_str(due_date)
+        tree_datas.append(create_tree_data('', f'{n}', '', (name, due_date_str), (), n == select_nth))
     stretches = True, False
     scroll_v = True
     scroll_h = True
-    view_model = create_view_model_tree(headings, widths, tree_dates, stretches, scroll_v, scroll_h)
+    view_model = create_view_model_tree(headings, widths, tree_datas, stretches, scroll_v, scroll_h)
     return view_model

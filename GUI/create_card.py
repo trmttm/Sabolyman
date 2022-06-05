@@ -48,24 +48,25 @@ def get_actions_tree(stacker: Stacker):
 
 
 def get_actions_properties(stacker: Stacker):
+    wn = WidgetNames
     return stacker.vstack(
         w.Label('lbl_actions_spacer'),
         stacker.hstack(
             w.Label('lbl_action_name').text('Name').width(10).padding(5, 0),
-            w.Entry('entry_action_name').default_value('Action Name', ).padding(25, 0).width(40),
+            w.Entry(wn.entry_action_name).default_value('Action Name', ).padding(25, 0).width(40),
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_owner').text('Owner').width(10).padding(5, 0),
-            w.Entry('entry_owner').default_value('Owner Name').padding(25, 0),
+            w.Entry(wn.entry_action_owner).default_value('Owner Name').padding(25, 0),
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_time').text('Time expected').width(10).padding(5, 0),
             stacker.hstack(
-                w.Entry('entry_time').default_value('1:00').padding(25, 0),
+                w.Entry(wn.entry_action_time_expected).default_value('1:00').padding(25, 0),
                 w.Label('lbl_done').text('Done'),
-                w.CheckButton('check_done').value(False).padding(25, 0),
+                w.CheckButton(wn.check_button_action_done).value(False).padding(25, 0),
                 w.Spacer().adjust(-2),
             ),
             w.Spacer().adjust(-1),

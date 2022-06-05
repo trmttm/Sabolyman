@@ -102,3 +102,16 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def add_new_action(self, action: Action):
         pass
+
+    @abc.abstractmethod
+    def get_action_by_index(self, index: int) -> Action:
+        pass
+
+    @abc.abstractmethod
+    def set_active_action(self, card: Action):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def active_action(self) -> Action:
+        pass

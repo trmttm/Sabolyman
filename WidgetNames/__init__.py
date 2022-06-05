@@ -52,5 +52,10 @@ entry_dead_line = 'entry_dead_line'
 label_card_importance = 'label_card_importance'
 entry_card_importance = 'entry_card_importance'
 
+# Action
 button_add_new_action = 'button_add_new_action'
 tree_card_actions = 'tree_card_actions'
+entry_action_name = 'entry_action_name'
+entry_action_owner = 'entry_action_owner'
+entry_action_time_expected = 'entry_action_time_expected'
+check_button_action_done = 'check_button_action_done'

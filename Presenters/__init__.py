@@ -23,6 +23,7 @@ class Presenters(PresentersABC):
         self.update_cards(('',), (datetime.datetime.today(),), 0)
         self.update_cards((), ())
 
+    # Card
     def update_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
         update_cards.execute(self._view, due_dates, names, select_nth)
 
@@ -35,6 +36,28 @@ class Presenters(PresentersABC):
     def update_card_due_date(self, due_date: datetime.datetime):
         self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
 
-    def updates_card_actions(self, action_names: Tuple[str], times_expected: Tuple[datetime.timedelta, ...],
+    # Action
+    def updates_card_actions(self, action_names: Tuple[str], expected_tiems: Tuple[datetime.timedelta, ...],
                              next_selection_index: int = None):
-        update_actions.execute(self._view, times_expected, action_names, next_selection_index)
+        update_actions.execute(self._view, expected_tiems, action_names, next_selection_index)
+
+    def update_action_name(self, name: str):
+        pass
+
+    def update_action_date_created(self, date_created: datetime.datetime):
+        pass
+
+    def update_action_time_expected(self, time_expected: datetime.timedelta):
+        pass
+
+    def update_action_owner(self, owner_name: str):
+        pass
+
+    def update_action_is_done(self, is_done: bool):
+        pass
+
+    def update_action_description(self, description: str):
+        pass
+
+    def update_action_files(self, files_names: Tuple[str, ...]):
+        pass
