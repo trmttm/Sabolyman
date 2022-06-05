@@ -18,6 +18,8 @@ from . import set_dead_line
 from . import show_action_information
 from . import show_card_information
 from .abc import InteractorABC
+from .present_action_list import present_action_list
+from .present_card_list import present_card_list
 
 
 class Interactor(InteractorABC):
@@ -39,7 +41,8 @@ class Interactor(InteractorABC):
     def load_state_from_file(self, file_name: str):
         state = self._gateway.load_file(file_name)
         self._entities.load_state(state)
-        self._presenters.upon_load_state()
+        present_card_list(self._entities, self._presenters, 0)
+        present_action_list(self._entities, self._presenters, 0)
 
     # Cards
     def add_new_card(self):

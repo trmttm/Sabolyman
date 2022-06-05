@@ -63,5 +63,6 @@ class Actions(EntityABC):
         for n, action_state in enumerate(actions_state):
             action = Action()
             action.load_state(action_state)
+            self.add_new_action(action)
             if n == active_action_index:
                 self._active_action = action

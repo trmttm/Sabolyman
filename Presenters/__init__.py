@@ -12,11 +12,11 @@ from .utilities import time_delta_to_str
 
 
 class Presenters(PresentersABC):
-    def upon_load_gui(self, view_model: list):
-        self._view.add_widgets(view_model)
-
     def __init__(self, view: ViewABC):
         self._view = view
+
+    def upon_load_gui(self, view_model: list):
+        self._view.add_widgets(view_model)
 
     # Save
     def upon_load_state(self):

@@ -89,7 +89,7 @@ class Card(EntityABC):
 
     def load_state(self, state: dict):
         self._name = state.get('name', '')
-        self._owner = factory1.factory_person(state, 'onwer')
+        self._owner = factory1.factory_person(state, 'owner')
         self._importance = state.get('importance', '')
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._dead_line = state.get('dead_line', '')
