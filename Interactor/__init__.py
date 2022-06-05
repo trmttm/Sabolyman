@@ -5,6 +5,7 @@ from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
+from . import delete_selected_actions
 from . import delete_selected_cards
 from . import load_gui
 from . import set_action_description
@@ -45,6 +46,9 @@ class Interactor(InteractorABC):
 
     def add_new_action(self):
         add_new_action.execute(self._entities, self._presenters)
+
+    def delete_selected_actions(self, indexes: Tuple[int]):
+        delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_card_information(self, indexes: Tuple[int]):
         show_card_information.execute(self._entities, self._presenters, indexes)

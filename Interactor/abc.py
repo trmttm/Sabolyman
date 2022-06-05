@@ -28,6 +28,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def delete_selected_actions(self, indexes: Tuple[int]):
+        pass
+
+    @abc.abstractmethod
     def show_action_information(self, indexes: Tuple[int]):
         pass
 

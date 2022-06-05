@@ -70,6 +70,9 @@ class Entities(EntitiesABC):
         if card is not None:
             card.add_action(action)
 
+    def remove_action(self, action: Action):
+        self._actions.remove_action(action)
+
     # Properties
     @property
     def all_actions(self) -> List[Action]:

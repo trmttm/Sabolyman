@@ -1,5 +1,6 @@
 import abc
 import datetime
+from typing import List
 from typing import Tuple
 
 from .action import Action
@@ -35,7 +36,7 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def all_actions(self):
+    def all_actions(self) -> List[Action]:
         pass
 
     @property
@@ -101,6 +102,10 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def add_new_action(self, action: Action):
+        pass
+
+    @abc.abstractmethod
+    def remove_action(self, action: Action):
         pass
 
     @abc.abstractmethod

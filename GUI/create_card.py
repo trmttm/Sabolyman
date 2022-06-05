@@ -34,7 +34,7 @@ def get_actions_tree(stacker: Stacker):
             w.TreeView(wn.tree_card_actions).padding(10, 10),
         ),
         stacker.hstack(
-            w.Button('btn_remove_action').text('X').padding(0, 10),
+            w.Button(wn.button_delete_selected_actions).text('X').padding(0, 10),
             w.Button(wn.button_add_new_action).text('+').padding(0, 10),
             w.Button('btn_move_action_up').text('↑').padding(0, 10),
             w.Button('btn_move_action_down').text('↓').padding(0, 10),
