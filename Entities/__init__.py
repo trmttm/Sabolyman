@@ -43,12 +43,18 @@ class Entities(EntitiesABC):
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
-        my_cards = tuple(c for c in self._cards.all_cards if c.owner == self._user)
-        return my_cards[index]
+        my_cards = tuple(c for c in self._cards.all_cards if c.owner.name == self._user.name)
+        try:
+            return my_cards[index]
+        except IndexError:
+            pass
 
     def get_their_card_by_index(self, index: int) -> Card:
-        their_cards = tuple(c for c in self._cards.all_cards if c.owner != self._user)
-        return their_cards[index]
+        their_cards = tuple(c for c in self._cards.all_cards if c.owner.name != self._user.name)
+        try:
+            return their_cards[index]
+        except IndexError:
+            pass
 
     def get_action_by_index(self, index: int) -> Action:
         return self._actions.get_action_by_index(index)
