@@ -28,6 +28,13 @@ class Card(EntityABC):
     def set_owner(self, owner: Person):
         self._owner = owner
 
+    @property
+    def owner(self) -> Person:
+        for action in self.actions.all_actions:
+            if not action.is_done:
+                return action.owner
+        return self._owner
+
     def set_importance(self, importance: int):
         self._importance = importance
 
