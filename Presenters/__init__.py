@@ -5,7 +5,8 @@ from interface_view import ViewABC
 
 import WidgetNames
 from . import update_actions
-from . import update_cards
+from . import update_my_cards_list
+from . import update_their_cards_list
 from .abc import PresentersABC
 from .utilities import datetime_to_str
 from .utilities import time_delta_to_str
@@ -24,12 +25,19 @@ class Presenters(PresentersABC):
 
     def set_up_after_gui(self):
         # This is needed to fix tree columns width.
-        self.update_cards(('',), (datetime.datetime.today(),), 0)
-        self.update_cards((), ())
+        self.update_my_cards(('',), (datetime.datetime.today(),), 0)
+        self.update_my_cards((), ())
+
+        self.update_their_cards(('',), (datetime.datetime.today(),), 0)
+        self.update_their_cards((), ())
 
     # Card
-    def update_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
-        update_cards.execute(self._view, due_dates, names, select_nth)
+    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
+        update_my_cards_list.execute(self._view, due_dates, names, select_nth)
+
+    def update_their_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
+                           select_nth: int = None):
+        update_their_cards_list.execute(self._view, due_dates, names, select_nth)
 
     def update_card_name(self, name: str):
         self._view.set_value(WidgetNames.entry_card_name, name)
