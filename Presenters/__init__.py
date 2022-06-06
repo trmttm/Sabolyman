@@ -49,9 +49,9 @@ class Presenters(PresentersABC):
         self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
 
     # Action
-    def updates_card_actions(self, action_names: Tuple[str], expected_tiems: Tuple[datetime.timedelta, ...],
-                             next_selection_index: int = None):
-        update_actions.execute(self._view, expected_tiems, action_names, next_selection_index)
+    def updates_card_actions(self, action_names: Tuple[str], expected_times: Tuple[datetime.timedelta, ...],
+                             next_selection_index: int = None, **kwargs):
+        update_actions.execute(self._view, expected_times, action_names, next_selection_index, **kwargs)
 
     def update_action_name(self, name: str):
         self._view.set_value(WidgetNames.entry_action_name, name)

@@ -7,6 +7,7 @@ def present_action_list(e: EntitiesABC, p: PresentersABC, next_selection_index=N
     if action_names is not None:
         times_expected = e.times_expected
         response_model = action_names, times_expected, next_selection_index
-        p.updates_card_actions(*response_model)
+        states = tuple(a.is_done for a in e.all_actions)
+        p.updates_card_actions(*response_model, states=states)
     else:
         print('Select Card first. No Card is selected.')

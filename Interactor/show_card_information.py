@@ -14,11 +14,12 @@ def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable,
             e.set_active_card(card)
             action_names = e.action_names
             times_expected = e.times_expected
+            states = tuple(a.is_done for a in e.all_actions)
 
             p.update_card_name(card.name)
             p.update_card_date_created(card.date_created)
             p.update_card_due_date(card.due_date)
-            p.updates_card_actions(action_names, times_expected)
+            p.updates_card_actions(action_names, times_expected, states=states)
         else:
             p.update_card_name(e.default_card_name)
             p.update_card_date_created(datetime.datetime.now())

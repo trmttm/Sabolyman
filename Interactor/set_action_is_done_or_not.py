@@ -1,5 +1,6 @@
 from Entities import EntitiesABC
 from Presenters import PresentersABC
+from .present_action_list import present_action_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, done_or_not: bool):
@@ -11,3 +12,4 @@ def execute(e: EntitiesABC, p: PresentersABC, done_or_not: bool):
             action.mark_not_done()
 
         p.update_action_is_done(action.is_done)
+        present_action_list(e, p)
