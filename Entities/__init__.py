@@ -18,6 +18,7 @@ class Entities(EntitiesABC):
     def __init__(self):
         self._cards = Cards()
         self._default_values = DefaultValues()
+        self._user = Person('Taro Yamaka')
 
     # Default Values
     @property
@@ -135,4 +136,4 @@ class Entities(EntitiesABC):
 
     @property
     def user(self) -> Person:
-        return Person('山家太郎')
+        return self._user
