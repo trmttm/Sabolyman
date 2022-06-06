@@ -23,6 +23,11 @@ class Cards(CardsABC):
     def add_new_card(self, card: Card):
         self._cards.append(card)
 
+    def sort_cards(self, sorted_cards: Tuple[Card, ...]):
+        new_cards_list = [c for c in self._cards if c not in sorted_cards]
+        new_cards_list += list(sorted_cards)
+        self._cards = new_cards_list
+
     @property
     def card_names(self) -> Tuple[str, ...]:
         return tuple(c.name for c in self._cards)

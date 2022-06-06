@@ -42,6 +42,11 @@ class Actions(EntityABC):
     def remove_action(self, action: Action):
         self._actions.remove(action)
 
+    def sort_actions(self, sorted_actions: Tuple[Action, ...]):
+        new_actions_list = [c for c in self._actions if c not in sorted_actions]
+        new_actions_list += list(sorted_actions)
+        self._actions = new_actions_list
+
     @property
     def state(self) -> dict:
         actions_state = tuple(a.state for a in self.all_actions)

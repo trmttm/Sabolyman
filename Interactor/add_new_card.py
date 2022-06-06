@@ -1,12 +1,12 @@
 from Commands import AddCard
 from Entities import EntitiesABC
 from Presenters import PresentersABC
-from .present_card_list import present_card_list
+from .present_my_card_list import present_my_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC):
     command = AddCard(e)
     command.execute()
-    next_selection_index = len(e.all_cards) - 1
+    next_selection_indexes = (len(e.all_cards) - 1,)
 
-    present_card_list(e, p, next_selection_index)
+    present_my_card_list(e, p, next_selection_indexes)

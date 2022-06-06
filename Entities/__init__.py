@@ -2,6 +2,8 @@ import datetime
 from typing import List
 from typing import Tuple
 
+import Utilities
+
 from .abc_entities import EntitiesABC
 from .action import Action
 from .actions import Actions
@@ -76,6 +78,47 @@ class Entities(EntitiesABC):
 
     def remove_card(self, card: Card):
         self._cards.remove_card(card)
+
+    def move_my_cards_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        return self.move_my_cards(indexes, -1)
+
+    def move_my_cards_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        return self.move_my_cards(indexes, 1)
+
+    def move_their_cards_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        return self.move_their_cards(indexes, -1)
+
+    def move_their_cards_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        return self.move_their_cards(indexes, 1)
+
+    def move_my_cards(self, indexes: Tuple[int, ...], shift: int):
+        my_cards = tuple(c for c in self.all_cards if c.owner.name == self._user.name)
+        return self.sort_cards(indexes, my_cards, shift)
+
+    def move_their_cards(self, indexes: Tuple[int, ...], shift: int):
+        their_cards = tuple(c for c in self.all_cards if c.owner.name != self._user.name)
+        return self.sort_cards(indexes, their_cards, shift)
+
+    def sort_cards(self, indexes, my_cards, shift):
+        d, sorted_my_cards = Utilities.get_tuple_and_destinations_after_shifting_elements(my_cards, indexes, shift)
+        self._cards.sort_cards(sorted_my_cards)
+        return d
+
+    def move_actions_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        active_card = self.active_card
+        if active_card is not None:
+            return self.sort_actions(active_card, indexes, -1)
+
+    def move_actions_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        active_card = self.active_card
+        if active_card is not None:
+            return self.sort_actions(active_card, indexes, 1)
+
+    def sort_actions(self, card, indexes, shift) -> Tuple[int, ...]:
+        actions = card.actions.all_actions
+        d, sorted_actions = Utilities.get_tuple_and_destinations_after_shifting_elements(actions, indexes, shift)
+        self._actions.sort_actions(sorted_actions)
+        return d
 
     def add_new_action(self, action: Action):
         card = self._cards.active_card

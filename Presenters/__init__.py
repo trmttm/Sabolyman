@@ -25,19 +25,20 @@ class Presenters(PresentersABC):
 
     def set_up_after_gui(self):
         # This is needed to fix tree columns width.
-        self.update_my_cards(('',), (datetime.datetime.today(),), 0)
+        self.update_my_cards(('',), (datetime.datetime.today(),), (0,))
         self.update_my_cards((), ())
 
-        self.update_their_cards(('',), (datetime.datetime.today(),), 0)
+        self.update_their_cards(('',), (datetime.datetime.today(),), (0,))
         self.update_their_cards((), ())
 
     # Card
-    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
-        update_my_cards_list.execute(self._view, due_dates, names, select_nth)
+    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
+                        select_indexes: Tuple[int, ...] = ()):
+        update_my_cards_list.execute(self._view, due_dates, names, select_indexes)
 
     def update_their_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
-                           select_nth: int = None):
-        update_their_cards_list.execute(self._view, due_dates, names, select_nth)
+                           select_indexes: Tuple[int, ...] = ()):
+        update_their_cards_list.execute(self._view, due_dates, names, select_indexes)
 
     def update_card_name(self, name: str):
         self._view.set_value(WidgetNames.entry_card_name, name)
@@ -50,8 +51,8 @@ class Presenters(PresentersABC):
 
     # Action
     def updates_card_actions(self, action_names: Tuple[str], expected_times: Tuple[datetime.timedelta, ...],
-                             next_selection_index: int = None, **kwargs):
-        update_actions.execute(self._view, expected_times, action_names, next_selection_index, **kwargs)
+                             next_selection_indexes: Tuple[int, ...] = (), **kwargs):
+        update_actions.execute(self._view, expected_times, action_names, next_selection_indexes, **kwargs)
 
     def update_action_name(self, name: str):
         self._view.set_value(WidgetNames.entry_action_name, name)

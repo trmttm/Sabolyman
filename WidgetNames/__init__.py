@@ -55,6 +55,8 @@ entry_card_importance = 'entry_card_importance'
 # Action
 button_add_new_action = 'button_add_new_action'
 button_delete_selected_actions = 'button_delete_selected_actions'
+button_move_up_selected_actions = 'button_move_up_selected_actions'
+button_move_down_selected_actions = 'button_move_down_selected_actions'
 tree_card_actions = 'tree_card_actions'
 entry_action_name = 'entry_action_name'
 entry_action_owner = 'entry_action_owner'

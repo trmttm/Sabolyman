@@ -36,9 +36,9 @@ def get_actions_tree(stacker: Stacker):
         stacker.hstack(
             w.Spacer(),
             w.Button(wn.button_delete_selected_actions).text('X').width(1),
+            w.Button(wn.button_move_down_selected_actions).text('↓').width(1),
+            w.Button(wn.button_move_up_selected_actions).text('↑').width(1),
             w.Button(wn.button_add_new_action).text('+').width(1),
-            w.Button('btn_move_action_up').text('↑').width(1),
-            w.Button('btn_move_action_down').text('↓').width(1),
             w.Spacer(),
         ),
         w.Spacer().adjust(-2),

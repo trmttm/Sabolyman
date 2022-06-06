@@ -8,6 +8,10 @@ from . import add_new_card
 from . import delete_selected_actions
 from . import delete_selected_cards
 from . import load_gui
+from . import move_my_cards_down
+from . import move_my_cards_up
+from . import move_their_cards_down
+from . import move_their_cards_up
 from . import set_action_description
 from . import set_action_is_done_or_not
 from . import set_action_name
@@ -20,8 +24,10 @@ from . import show_my_card_information
 from . import show_their_card_information
 from .abc import InteractorABC
 from .present_action_list import present_action_list
-from .present_card_list import present_card_list
-
+from .present_my_card_list import present_my_card_list
+from .present_their_card_list import present_their_card_list
+from . import move_actions_up
+from . import move_actions_down
 
 class Interactor(InteractorABC):
 
@@ -42,8 +48,9 @@ class Interactor(InteractorABC):
     def load_state_from_file(self, file_name: str):
         state = self._gateway.load_file(file_name)
         self._entities.load_state(state)
-        present_card_list(self._entities, self._presenters, 0)
-        present_action_list(self._entities, self._presenters, 0)
+        present_my_card_list(self._entities, self._presenters, (0,))
+        present_their_card_list(self._entities, self._presenters, (0,))
+        present_action_list(self._entities, self._presenters, (0,))
 
     # Cards
     def add_new_card(self):
@@ -70,6 +77,18 @@ class Interactor(InteractorABC):
     def show_their_card_information(self, indexes: Tuple[int]):
         show_their_card_information.execute(self._entities, self._presenters, indexes)
 
+    def move_my_cards_up(self, indexes: Tuple[int, ...]):
+        move_my_cards_up.execute(self._entities, self._presenters, indexes)
+
+    def move_my_cards_down(self, indexes: Tuple[int, ...]):
+        move_my_cards_down.execute(self._entities, self._presenters, indexes)
+
+    def move_their_cards_up(self, indexes: Tuple[int, ...]):
+        move_their_cards_up.execute(self._entities, self._presenters, indexes)
+
+    def move_their_cards_down(self, indexes: Tuple[int, ...]):
+        move_their_cards_down.execute(self._entities, self._presenters, indexes)
+
     # Action
     def set_action_name(self, action_name: str):
         set_action_name.execute(self._entities, self._presenters, action_name)
@@ -88,3 +107,9 @@ class Interactor(InteractorABC):
 
     def show_action_information(self, indexes: Tuple[int]):
         show_action_information.execute(self._entities, self._presenters, indexes)
+
+    def move_actions_up(self, indexes: Tuple[int, ...]):
+        move_actions_up.execute(self._entities, self._presenters, indexes)
+
+    def move_actions_down(self, indexes: Tuple[int, ...]):
+        move_actions_down.execute(self._entities, self._presenters, indexes)

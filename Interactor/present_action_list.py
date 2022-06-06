@@ -1,8 +1,10 @@
+from typing import Tuple
+
 from Entities import EntitiesABC
 from Presenters import PresentersABC
 
 
-def present_action_list(e: EntitiesABC, p: PresentersABC, next_selection_index=None):
+def present_action_list(e: EntitiesABC, p: PresentersABC, next_selection_index: Tuple[int, ...] = ()):
     action_names = e.action_names
     if action_names is not None:
         times_expected = e.times_expected

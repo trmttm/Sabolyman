@@ -137,3 +137,27 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def load_state(self, state: dict):
         pass
+
+    @abc.abstractmethod
+    def move_my_cards_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
+
+    @abc.abstractmethod
+    def move_my_cards_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
+
+    @abc.abstractmethod
+    def move_their_cards_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
+
+    @abc.abstractmethod
+    def move_their_cards_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
+
+    @abc.abstractmethod
+    def move_actions_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
+
+    @abc.abstractmethod
+    def move_actions_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
+        pass
