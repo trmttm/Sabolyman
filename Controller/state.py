@@ -9,6 +9,10 @@ def get_my_cards_selected_indexes(v: ViewABC) -> Tuple[int]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_my_cards)
 
 
+def get_their_cards_selected_indexes(v: ViewABC) -> Tuple[int]:
+    return v.get_selected_tree_item_indexes(WidgetNames.tree_their_cards)
+
+
 def get_actions_selected_indexes(v: ViewABC) -> Tuple[int]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_card_actions)
 

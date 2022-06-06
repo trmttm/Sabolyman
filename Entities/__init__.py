@@ -42,8 +42,13 @@ class Entities(EntitiesABC):
         return self._default_values.action_time_expected
 
     # Getters
-    def get_card_by_index(self, index: int) -> Card:
-        return self._cards.get_card_by_index(index)
+    def get_my_card_by_index(self, index: int) -> Card:
+        my_cards = tuple(c for c in self._cards.all_cards if c.owner == self._user)
+        return my_cards[index]
+
+    def get_their_card_by_index(self, index: int) -> Card:
+        their_cards = tuple(c for c in self._cards.all_cards if c.owner != self._user)
+        return their_cards[index]
 
     def get_action_by_index(self, index: int) -> Action:
         return self._actions.get_action_by_index(index)

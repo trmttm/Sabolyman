@@ -65,7 +65,11 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_card_by_index(self, index: int) -> Card:
+    def get_my_card_by_index(self, index: int) -> Card:
+        pass
+
+    @abc.abstractmethod
+    def get_their_card_by_index(self, index: int) -> Card:
         pass
 
     @abc.abstractmethod

@@ -20,7 +20,11 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def show_card_information(self, indexes: Tuple[int]):
+    def show_my_card_information(self, indexes: Tuple[int]):
+        pass
+
+    @abc.abstractmethod
+    def show_their_card_information(self, indexes: Tuple[int]):
         pass
 
     @abc.abstractmethod

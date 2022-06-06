@@ -16,7 +16,8 @@ from . import set_action_time_expected
 from . import set_card_name
 from . import set_dead_line
 from . import show_action_information
-from . import show_card_information
+from . import show_my_card_information
+from . import show_their_card_information
 from .abc import InteractorABC
 from .present_action_list import present_action_list
 from .present_card_list import present_card_list
@@ -63,8 +64,11 @@ class Interactor(InteractorABC):
     def delete_selected_actions(self, indexes: Tuple[int]):
         delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
-    def show_card_information(self, indexes: Tuple[int]):
-        show_card_information.execute(self._entities, self._presenters, indexes)
+    def show_my_card_information(self, indexes: Tuple[int]):
+        show_my_card_information.execute(self._entities, self._presenters, indexes)
+
+    def show_their_card_information(self, indexes: Tuple[int]):
+        show_their_card_information.execute(self._entities, self._presenters, indexes)
 
     # Action
     def set_action_name(self, action_name: str):

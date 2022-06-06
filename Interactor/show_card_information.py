@@ -1,14 +1,15 @@
 import datetime
+from typing import Callable
 from typing import Tuple
 
 from Entities import EntitiesABC
 from Presenters import PresentersABC
 
 
-def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
+def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable, indexes: Tuple[int]):
     if len(indexes) > 0:
         index = indexes[0]
-        card = e.get_card_by_index(index)
+        card = getter(index)
         if card is not None:
             e.set_active_card(card)
             action_names = e.action_names

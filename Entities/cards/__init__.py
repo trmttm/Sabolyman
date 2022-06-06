@@ -23,12 +23,6 @@ class Cards(CardsABC):
     def add_new_card(self, card: Card):
         self._cards.append(card)
 
-    def get_card_by_index(self, index: int) -> Card:
-        try:
-            return self._cards[index]
-        except IndexError:
-            pass
-
     @property
     def card_names(self) -> Tuple[str, ...]:
         return tuple(c.name for c in self._cards)
