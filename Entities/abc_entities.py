@@ -105,11 +105,6 @@ class EntitiesABC(abc.ABC):
     def add_new_card(self, card: Card):
         pass
 
-    @property
-    @abc.abstractmethod
-    def all_cards(self) -> Tuple[Card, ...]:
-        pass
-
     @abc.abstractmethod
     def remove_card(self, card: Card):
         pass

@@ -173,10 +173,6 @@ class Entities(EntitiesABC):
         return self._actions.active_action
 
     @property
-    def all_cards(self) -> List[Card]:
-        return self._cards.all_cards
-
-    @property
     def due_dates(self) -> Tuple[datetime.datetime, ...]:
         return self._cards.due_dates
 
