@@ -11,6 +11,16 @@ from .person import Person
 class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
+    def my_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def their_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def default_card_name(self) -> str:
         pass
 

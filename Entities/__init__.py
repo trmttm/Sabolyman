@@ -43,18 +43,24 @@ class Entities(EntitiesABC):
     def default_action_time_expected(self) -> datetime.timedelta:
         return self._default_values.action_time_expected
 
+    @property
+    def my_cards(self) -> Tuple[Card, ...]:
+        return tuple(c for c in self._cards.all_cards if c.owner.name == self._user.name)
+
+    @property
+    def their_cards(self) -> Tuple[Card, ...]:
+        return tuple(c for c in self._cards.all_cards if c.owner.name != self._user.name)
+
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
-        my_cards = tuple(c for c in self._cards.all_cards if c.owner.name == self._user.name)
         try:
-            return my_cards[index]
+            return self.my_cards[index]
         except IndexError:
             pass
 
     def get_their_card_by_index(self, index: int) -> Card:
-        their_cards = tuple(c for c in self._cards.all_cards if c.owner.name != self._user.name)
         try:
-            return their_cards[index]
+            return self.their_cards[index]
         except IndexError:
             pass
 
@@ -92,12 +98,10 @@ class Entities(EntitiesABC):
         return self.move_their_cards(indexes, 1)
 
     def move_my_cards(self, indexes: Tuple[int, ...], shift: int):
-        my_cards = tuple(c for c in self.all_cards if c.owner.name == self._user.name)
-        return self.sort_cards(indexes, my_cards, shift)
+        return self.sort_cards(indexes, self.my_cards, shift)
 
     def move_their_cards(self, indexes: Tuple[int, ...], shift: int):
-        their_cards = tuple(c for c in self.all_cards if c.owner.name != self._user.name)
-        return self.sort_cards(indexes, their_cards, shift)
+        return self.sort_cards(indexes, self.their_cards, shift)
 
     def sort_cards(self, indexes, my_cards, shift):
         d, sorted_my_cards = Utilities.get_tuple_and_destinations_after_shifting_elements(my_cards, indexes, shift)
