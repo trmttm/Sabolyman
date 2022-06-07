@@ -9,6 +9,7 @@ from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import load_gui
+from . import load_state_from_file
 from . import move_actions_down
 from . import move_actions_up
 from . import move_my_cards_down
@@ -44,15 +45,10 @@ class Interactor(InteractorABC):
 
     # Save
     def save_to_file(self, file_name: str):
-        state = self._entities.state
-        self._gateway.save_file(file_name, state)
+        self._gateway.save_file(file_name, self._entities.state)
 
     def load_state_from_file(self, file_name: str):
-        state = self._gateway.load_file(file_name)
-        self._entities.load_state(state)
-        present_my_card_list(self._entities, self._presenters, (0,))
-        present_their_card_list(self._entities, self._presenters, (0,))
-        present_action_list(self._entities, self._presenters, (0,))
+        load_state_from_file.execute(self._entities, self._gateway, self._presenters, file_name)
 
     # Cards
     def add_new_card(self):
