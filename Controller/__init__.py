@@ -13,10 +13,12 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.button_add_new_my_card, lambda: i.add_new_card())
     f(wn.button_move_up_selected_my_card, lambda: i.move_my_cards_up(s.get_my_cards_selected_indexes(v)))
     f(wn.button_move_down_selected_my_card, lambda: i.move_my_cards_down(s.get_my_cards_selected_indexes(v)))
-    f(wn.button_delete_selected_my_card, lambda: i.delete_selected_cards(s.get_my_cards_selected_indexes(v)))
+    f(wn.button_delete_selected_my_card, lambda: i.delete_selected_my_cards(s.get_my_cards_selected_indexes(v)))
 
     f(wn.button_move_up_selected_their_card, lambda: i.move_their_cards_up(s.get_their_cards_selected_indexes(v)))
     f(wn.button_move_down_selected_their_card, lambda: i.move_their_cards_down(s.get_their_cards_selected_indexes(v)))
+    f(wn.button_delete_selected_their_card,
+      lambda: i.delete_selected_their_cards(s.get_their_cards_selected_indexes(v)))
 
     f(wn.tree_my_cards, lambda: i.show_my_card_information(s.get_my_cards_selected_indexes(v)))
     f(wn.tree_their_cards, lambda: i.show_their_card_information(s.get_their_cards_selected_indexes(v)))

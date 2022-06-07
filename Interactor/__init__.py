@@ -6,7 +6,8 @@ from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import delete_selected_actions
-from . import delete_selected_cards
+from . import delete_selected_my_cards
+from . import delete_selected_their_cards
 from . import load_gui
 from . import move_actions_down
 from . import move_actions_up
@@ -57,8 +58,11 @@ class Interactor(InteractorABC):
     def add_new_card(self):
         add_new_card.execute(self._entities, self._presenters)
 
-    def delete_selected_cards(self, indexes: Tuple[int]):
-        delete_selected_cards.execute(self._entities, self._presenters, indexes)
+    def delete_selected_my_cards(self, indexes: Tuple[int]):
+        delete_selected_my_cards.execute(self._entities, self._presenters, indexes, self._entities.my_cards)
+
+    def delete_selected_their_cards(self, indexes: Tuple[int]):
+        delete_selected_their_cards.execute(self._entities, self._presenters, indexes, self._entities.their_cards)
 
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
