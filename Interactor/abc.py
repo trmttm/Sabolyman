@@ -94,3 +94,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def move_actions_down(self, indexes: Tuple[int, ...]):
         pass
+
+    @abc.abstractmethod
+    def duplicate_selected_card(self):
+        pass

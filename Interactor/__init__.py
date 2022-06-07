@@ -8,6 +8,7 @@ from . import add_new_card
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
+from . import duplicate_selected_card
 from . import load_gui
 from . import load_state_from_file
 from . import move_actions_down
@@ -86,6 +87,9 @@ class Interactor(InteractorABC):
 
     def move_their_cards_down(self, indexes: Tuple[int, ...]):
         move_their_cards_down.execute(self._entities, self._presenters, indexes)
+
+    def duplicate_selected_card(self):
+        duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)
 
     # Action
     def set_action_name(self, action_name: str):
