@@ -23,3 +23,4 @@ class AddCard(UseCase):
         card.mark_done()
 
         entities.add_new_card(card)
+        entities.set_active_card(card)

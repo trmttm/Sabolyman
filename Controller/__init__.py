@@ -44,8 +44,10 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC):
             'Duplicate': lambda: i.duplicate_selected_card()
         },
         'File': {
-            'Save': lambda: i.save_to_file(v.select_save_file()),
-            'Load': lambda: i.load_state_from_file(v.select_open_file()),
+            'Save Sate': lambda: i.save_to_file(v.select_save_file()),
+            'Load State': lambda: i.load_state_from_file(v.select_open_file()),
+            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
+            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
         },
     }
     v.update_menu_bar(menu_bar_model)

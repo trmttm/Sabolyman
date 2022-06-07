@@ -5,6 +5,7 @@ from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
+from . import add_template_card
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
@@ -17,6 +18,7 @@ from . import move_my_cards_down
 from . import move_my_cards_up
 from . import move_their_cards_down
 from . import move_their_cards_up
+from . import save_as_template_card
 from . import set_action_description
 from . import set_action_is_done_or_not
 from . import set_action_name
@@ -48,9 +50,18 @@ class Interactor(InteractorABC):
     def load_state_from_file(self, file_name: str):
         load_state_from_file.execute(self._entities, self._gateway, self._presenters, file_name)
 
+    def save_as_template_card(self, file_name: str):
+        save_as_template_card.execute(self._entities, self._gateway, file_name)
+
+    def add_template_card(self, file_name: str):
+        add_template_card.execute(self._entities, self._gateway, self._presenters, file_name)
+
     # Cards
     def add_new_card(self):
         add_new_card.execute(self._entities, self._presenters)
+
+    def duplicate_selected_card(self):
+        duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)
 
     def delete_selected_my_cards(self, indexes: Tuple[int]):
         delete_selected_my_cards.execute(self._entities, self._presenters, indexes, self._entities.my_cards)
@@ -87,9 +98,6 @@ class Interactor(InteractorABC):
 
     def move_their_cards_down(self, indexes: Tuple[int, ...]):
         move_their_cards_down.execute(self._entities, self._presenters, indexes)
-
-    def duplicate_selected_card(self):
-        duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)
 
     # Action
     def set_action_name(self, action_name: str):

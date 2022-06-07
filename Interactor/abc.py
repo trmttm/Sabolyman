@@ -12,6 +12,14 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def save_as_template_card(self, file_name: str):
+        pass
+
+    @abc.abstractmethod
+    def add_template_card(self, file_name: str):
+        pass
+
+    @abc.abstractmethod
     def add_new_card(self):
         pass
 
