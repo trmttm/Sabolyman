@@ -166,3 +166,13 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def move_actions_down(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
         pass
+
+    @property
+    @abc.abstractmethod
+    def active_card_is_in_my_cards(self) -> bool:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def active_card_is_in_their_cards(self) -> bool:
+        pass

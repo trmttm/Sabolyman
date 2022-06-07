@@ -169,6 +169,14 @@ class Entities(EntitiesABC):
         return self._cards.active_card
 
     @property
+    def active_card_is_in_my_cards(self) -> bool:
+        return self.active_card in self.my_cards
+
+    @property
+    def active_card_is_in_their_cards(self) -> bool:
+        return self.active_card in self.their_cards
+
+    @property
     def active_action(self) -> Action:
         return self._actions.active_action
 
