@@ -8,6 +8,8 @@ from . import add_new_card
 from . import delete_selected_actions
 from . import delete_selected_cards
 from . import load_gui
+from . import move_actions_down
+from . import move_actions_up
 from . import move_my_cards_down
 from . import move_my_cards_up
 from . import move_their_cards_down
@@ -26,8 +28,7 @@ from .abc import InteractorABC
 from .present_action_list import present_action_list
 from .present_my_card_list import present_my_card_list
 from .present_their_card_list import present_their_card_list
-from . import move_actions_up
-from . import move_actions_down
+
 
 class Interactor(InteractorABC):
 
