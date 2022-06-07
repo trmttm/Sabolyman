@@ -14,11 +14,14 @@ def execute(e: EntitiesABC, p: PresentersABC, time_expected_str: str):
 
 
 def time_delta_str_to_time_delta(time_expected_str) -> datetime.timedelta:
-    try:
-        str_before_days, str_rest = time_expected_str.split('day,')
-    except ValueError:
-        str_before_days, str_rest = time_expected_str.split('days,')
-
+    if 'day' in time_expected_str:
+        try:
+            str_before_days, str_rest = time_expected_str.split('day,')
+        except ValueError:
+            str_before_days, str_rest = time_expected_str.split('days,')
+    else:
+        str_before_days = '0'
+        str_rest = time_expected_str
     days = int(str_before_days)
     hours_str, minutes_str, seconds_str = str_rest.split(':')
     hours, minutes, seconds = int(hours_str), int(minutes_str), int(seconds_str)
