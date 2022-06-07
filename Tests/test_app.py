@@ -22,7 +22,7 @@ class MyTestCase(unittest.TestCase):
         interactor.load_gui(gui_selected)
         presenters.set_up_after_gui()
         controller.configure_controller(app, interactor)
-        controller.configure_menu_bar(app, interactor)
+        controller.configure_menu_bar(app, interactor, entities)
         app.launch_app()
 
 

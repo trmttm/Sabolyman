@@ -21,4 +21,4 @@ class DefaultValues:
 
     @property
     def action_time_expected(self) -> datetime.timedelta:
-        return datetime.timedelta(2, 60 * 60 * 5)
+        return datetime.timedelta(0, 60 * 60 * 1)
