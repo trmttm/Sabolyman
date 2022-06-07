@@ -27,9 +27,6 @@ from . import show_action_information
 from . import show_my_card_information
 from . import show_their_card_information
 from .abc import InteractorABC
-from .present_action_list import present_action_list
-from .present_my_card_list import present_my_card_list
-from .present_their_card_list import present_their_card_list
 
 
 class Interactor(InteractorABC):
