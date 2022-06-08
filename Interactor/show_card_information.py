@@ -4,6 +4,7 @@ from typing import Tuple
 
 from Entities import EntitiesABC
 from Presenters import PresentersABC
+from . import show_action_information
 
 
 def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable, indexes: Tuple[int]):
@@ -25,3 +26,5 @@ def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable,
             p.update_card_date_created(datetime.datetime.now())
             p.update_card_due_date(e.default_dead_line)
             p.updates_card_actions((), ())
+
+    show_action_information.execute(e, p, (e.active_action_index,))

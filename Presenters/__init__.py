@@ -49,6 +49,12 @@ class Presenters(PresentersABC):
     def update_card_due_date(self, due_date: datetime.datetime):
         self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
 
+    def deselect_my_cards(self):
+        self._view.deselect_tree_items(WidgetNames.tree_my_cards)
+
+    def deselect_their_cards(self):
+        self._view.deselect_tree_items(WidgetNames.tree_their_cards)
+
     # Action
     def updates_card_actions(self, action_names: Tuple[str], expected_times: Tuple[datetime.timedelta, ...],
                              next_selection_indexes: Tuple[int, ...] = (), **kwargs):

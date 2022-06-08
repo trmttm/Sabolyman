@@ -3,7 +3,7 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_add_card(self):
-        gui_selected = 'gui.fmide_gui'
+        gui_selected = 'gui.fmide_gui_01'
 
         from view_tkinter import View
         from Entities import Entities
@@ -12,7 +12,7 @@ class MyTestCase(unittest.TestCase):
         from Gateway import Gateway
         import Controller as controller
 
-        app = View()
+        app = View(width=1800, height=960)
         entities = Entities()
         presenters = Presenters(app)
         gateway = Gateway()

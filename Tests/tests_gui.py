@@ -21,12 +21,14 @@ class MyTestCase(unittest.TestCase):
         load_gui(module)
 
     def test_combined_01(self):
+        save_pickle = True
+
         import GUI
         from stacker import Stacker
         from stacker import widgets as w
         stacker = Stacker()
         stacker.vstack(
-            w.PanedWindow('pw_main', stacker).weights((1, 1)).is_vertical().stackers(
+            w.PanedWindow('pw_main', stacker).weights((1, 0)).is_vertical().stackers(
                 w.Label('1').text(''),
                 w.Label('2').text('')
             )
@@ -34,6 +36,12 @@ class MyTestCase(unittest.TestCase):
         view_model = stacker.view_model
         view_model += GUI.list_of_balls.get_view_model('frame_1')
         view_model += GUI.create_card.get_view_model('frame_2')
+
+        if save_pickle:
+            import pickle
+            with open('gui.fmide_gui_01', 'wb') as f:
+                pickle.dump(view_model, f)
+
         from view_tkinter import View
         view = View(width=800, height=900)
         view.add_widgets(view_model)

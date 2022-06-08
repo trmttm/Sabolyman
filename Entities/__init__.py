@@ -181,6 +181,14 @@ class Entities(EntitiesABC):
         return self._actions.active_action
 
     @property
+    def active_action_index(self) -> int:
+        if self._actions is not None:
+            active_action = self.active_action
+            if active_action is not None:
+                index = self._actions.all_actions.index(active_action)
+                return None if index is None else index
+
+    @property
     def due_dates(self) -> Tuple[datetime.datetime, ...]:
         return self._cards.due_dates
 

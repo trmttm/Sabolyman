@@ -6,7 +6,7 @@ from Presenters import PresentersABC
 
 
 def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
-    if len(indexes) > 0:
+    if (len(indexes) > 0) and (None not in indexes):
         index = indexes[0]
         action = e.get_action_by_index(index)
         if action is not None:

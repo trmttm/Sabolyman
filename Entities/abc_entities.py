@@ -176,3 +176,8 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def active_card_is_in_their_cards(self) -> bool:
         pass
+
+    @property
+    @abc.abstractmethod
+    def active_action_index(self) -> int:
+        pass
