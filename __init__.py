@@ -1,6 +1,6 @@
 import os
 
-import main
+from src import main
 
 
 def start_app():

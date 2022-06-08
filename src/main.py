@@ -1,11 +1,15 @@
+from view_tkinter import View
+
+import Controller as controller
+from Entities import Entities
+from Gateway import Gateway
+from Interactor import Interactor
+from Presenters import Presenters
+
+
 def start_app(gui_selected='gui01.gui'):
-    from view_tkinter import View
-    from Entities import Entities
-    from Interactor import Interactor
-    from Presenters import Presenters
-    from Gateway import Gateway
-    import Controller as controller
     app = View(width=900, height=960)
+    app.set_title('Sabolyman')
     entities = Entities()
     presenters = Presenters(app)
     gateway = Gateway()

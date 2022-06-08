@@ -3,7 +3,7 @@ from setuptools import setup
 setup(
     name='Sabolyman',
     version='',
-    packages=['GUI', 'Tests', 'Gateway', 'Commands', 'Entities', 'Entities.cards', 'Controller', 'Interactor',
+    packages=['src', 'GUI', 'Tests', 'Gateway', 'Commands', 'Entities', 'Entities.cards', 'Controller', 'Interactor',
               'Presenters', 'WidgetNames'],
     url='',
     license='',
