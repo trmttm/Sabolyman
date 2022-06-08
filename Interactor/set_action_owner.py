@@ -14,3 +14,4 @@ def execute(e: EntitiesABC, p: PresentersABC, owner_name: str):
 
         p.update_action_owner(action.owner.name)
         present_card_list(e, p)
+        e.set_show_this_card(e.active_card)

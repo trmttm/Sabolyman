@@ -122,7 +122,7 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_active_action(self, card: Action):
+    def set_active_action(self, actions: Action):
         pass
 
     @property
@@ -180,4 +180,22 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def active_action_index(self) -> int:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def active_card_index(self) -> int:
+        pass
+
+    @abc.abstractmethod
+    def set_show_this_card(self, card: Card):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def show_this_card(self):
+        pass
+
+    @abc.abstractmethod
+    def clear_show_this_card(self):
         pass

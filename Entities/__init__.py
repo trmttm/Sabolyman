@@ -1,6 +1,7 @@
 import datetime
 from typing import List
 from typing import Tuple
+from typing import Union
 
 import Utilities
 
@@ -21,6 +22,7 @@ class Entities(EntitiesABC):
         self._cards = Cards()
         self._default_values = DefaultValues()
         self._user = Person('Taro Yamaka')
+        self._show_this_card = None
 
     # Default Values
     @property
@@ -173,12 +175,32 @@ class Entities(EntitiesABC):
         return self.active_card in self.my_cards
 
     @property
+    def active_card_index(self) -> int:
+        if self._cards is not None:
+            active_card = self.active_card
+            if active_card in self.my_cards:
+                return self.my_cards.index(active_card)
+            elif active_card in self.their_cards:
+                return self.their_cards.index(active_card)
+
+    @property
     def active_card_is_in_their_cards(self) -> bool:
         return self.active_card in self.their_cards
 
     @property
     def active_action(self) -> Action:
-        return self._actions.active_action
+        if self._actions is not None:
+            return self._actions.active_action
+
+    def set_show_this_card(self, card: Card):
+        self._show_this_card = card
+
+    def clear_show_this_card(self):
+        self._show_this_card = None
+
+    @property
+    def show_this_card(self) -> Union[None, Card]:
+        return self._show_this_card
 
     @property
     def active_action_index(self) -> int:

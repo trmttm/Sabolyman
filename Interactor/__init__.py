@@ -82,9 +82,21 @@ class Interactor(InteractorABC):
         delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_my_card_information(self, indexes: Tuple[int]):
+        card = self._entities.show_this_card
+        if card:
+            self._entities.set_active_card(card)
+        if card in self._entities.my_cards:
+            indexes = (self._entities.active_card_index,)
+            self._entities.clear_show_this_card()
         show_my_card_information.execute(self._entities, self._presenters, indexes)
 
     def show_their_card_information(self, indexes: Tuple[int]):
+        card = self._entities.show_this_card
+        if card:
+            self._entities.set_active_card(card)
+        if card in self._entities.their_cards:
+            indexes = (self._entities.active_card_index,)
+            self._entities.clear_show_this_card()
         show_their_card_information.execute(self._entities, self._presenters, indexes)
 
     def move_my_cards_up(self, indexes: Tuple[int, ...]):
