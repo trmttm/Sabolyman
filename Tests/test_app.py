@@ -3,7 +3,7 @@ import unittest
 
 class MyTestCase(unittest.TestCase):
     def test_add_card(self):
-        from src.main import start_app
+        from sabolyman.main import start_app
         start_app()
 
 

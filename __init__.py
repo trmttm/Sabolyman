@@ -1,6 +1,6 @@
 import os
 
-from src import main
+from sabolyman import main
 
 
 def start_app():
