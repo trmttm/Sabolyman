@@ -15,3 +15,4 @@ def execute(e: EntitiesABC, p: PresentersABC, done_or_not: bool):
         p.update_action_is_done(action.is_done)
         present_action_list(e, p)
         present_card_list(e, p)
+        e.set_show_this_card(e.active_card)
