@@ -211,21 +211,5 @@ class Entities(EntitiesABC):
                 return None if index is None else index
 
     @property
-    def due_dates(self) -> Tuple[datetime.datetime, ...]:
-        return self._cards.due_dates
-
-    @property
-    def card_names(self) -> Tuple[str, ...]:
-        return self._cards.card_names
-
-    @property
-    def existing_my_card_due_dates(self) -> Tuple[datetime.datetime, ...]:
-        return datetime.datetime(2022, 6, 2), datetime.datetime(2022, 5, 31)
-
-    @property
-    def existing_my_card_names(self) -> Tuple[str, ...]:
-        return 'Card1', 'Card2',
-
-    @property
     def user(self) -> Person:
         return self._user

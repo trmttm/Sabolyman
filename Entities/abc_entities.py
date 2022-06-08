@@ -64,16 +64,6 @@ class EntitiesABC(abc.ABC):
     def default_dead_line(self) -> datetime.datetime:
         pass
 
-    @property
-    @abc.abstractmethod
-    def existing_my_card_names(self) -> Tuple[str, ...]:
-        pass
-
-    @property
-    @abc.abstractmethod
-    def existing_my_card_due_dates(self) -> Tuple[datetime.datetime, ...]:
-        pass
-
     @abc.abstractmethod
     def get_my_card_by_index(self, index: int) -> Card:
         pass
@@ -89,16 +79,6 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def active_card(self) -> Card:
-        pass
-
-    @property
-    @abc.abstractmethod
-    def card_names(self) -> Tuple[str, ...]:
-        pass
-
-    @property
-    @abc.abstractmethod
-    def due_dates(self) -> Tuple[datetime.datetime, ...]:
         pass
 
     @abc.abstractmethod

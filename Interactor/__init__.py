@@ -10,6 +10,7 @@ from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import duplicate_selected_card
+from . import get_card_index
 from . import load_gui
 from . import load_state_from_file
 from . import move_actions_down
@@ -82,21 +83,11 @@ class Interactor(InteractorABC):
         delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_my_card_information(self, indexes: Tuple[int]):
-        card = self._entities.show_this_card
-        if card:
-            self._entities.set_active_card(card)
-        if card in self._entities.my_cards:
-            indexes = (self._entities.active_card_index,)
-            self._entities.clear_show_this_card()
+        indexes = get_card_index.execute(self._entities, self._entities.my_cards, indexes)
         show_my_card_information.execute(self._entities, self._presenters, indexes)
 
     def show_their_card_information(self, indexes: Tuple[int]):
-        card = self._entities.show_this_card
-        if card:
-            self._entities.set_active_card(card)
-        if card in self._entities.their_cards:
-            indexes = (self._entities.active_card_index,)
-            self._entities.clear_show_this_card()
+        indexes = get_card_index.execute(self._entities, self._entities.their_cards, indexes)
         show_their_card_information.execute(self._entities, self._presenters, indexes)
 
     def move_my_cards_up(self, indexes: Tuple[int, ...]):
