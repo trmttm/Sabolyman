@@ -1,0 +1,10 @@
+
+.DS_Store
+Commands/.DS_Store
+Controller/.DS_Store
+Entities/.DS_Store
+Entities/cards/.DS_Store
+Gateway/.DS_Store
+Interactor/.DS_Store
+Presenters/.DS_Store
+WidgetNames/.DS_Store
