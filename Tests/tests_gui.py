@@ -39,7 +39,7 @@ class MyTestCase(unittest.TestCase):
 
         if save_pickle:
             import pickle
-            with open('gui.fmide_gui_01', 'wb') as f:
+            with open('gui01.gui', 'wb') as f:
                 pickle.dump(view_model, f)
 
         from view_tkinter import View
@@ -66,7 +66,7 @@ class MyTestCase(unittest.TestCase):
 
         if save_pickle:
             import pickle
-            with open('gui.fmide_gui', 'wb') as f:
+            with open('gui02.gui', 'wb') as f:
                 pickle.dump(view_model, f)
 
         from view_tkinter import View
@@ -79,7 +79,7 @@ class MyTestCase(unittest.TestCase):
         app = View()
 
         import pickle
-        with open('gui.fmide_gui', 'rb') as f:
+        with open('gui02.gui', 'rb') as f:
             view_model = pickle.load(f)
         app.add_widgets(view_model)
         app.launch_app()
