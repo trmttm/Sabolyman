@@ -26,19 +26,19 @@ class Presenters(PresentersABC):
     def set_up_after_gui(self):
         # This is needed to fix tree columns width.
         self.update_my_cards(('',), (datetime.datetime.today(),), (0,))
-        self.update_my_cards((), ())
+        self.update_my_cards((), (), ())
 
         self.update_their_cards(('',), (datetime.datetime.today(),), (0,))
-        self.update_their_cards((), ())
+        self.update_their_cards((), (), ())
 
     # Card
     def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
-                        select_indexes: Tuple[int, ...] = ()):
-        update_my_cards_list.execute(self._view, due_dates, names, select_indexes)
+                        select_indexes: Tuple[int, ...] = (), **kwargs):
+        update_my_cards_list.execute(self._view, due_dates, names, select_indexes, **kwargs)
 
     def update_their_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
-                           select_indexes: Tuple[int, ...] = ()):
-        update_their_cards_list.execute(self._view, due_dates, names, select_indexes)
+                           select_indexes: Tuple[int, ...] = (), **kwargs):
+        update_their_cards_list.execute(self._view, due_dates, names, select_indexes, **kwargs)
 
     def update_card_name(self, name: str):
         self._view.set_value(WidgetNames.entry_card_name, name)

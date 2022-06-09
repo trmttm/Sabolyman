@@ -6,12 +6,13 @@ from typing import Tuple
 class PresentersABC(abc.ABC):
 
     @abc.abstractmethod
-    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...], select_nth: int = None):
+    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
+                        select_indexes: Tuple[int, ...] = (), **kwargs):
         pass
 
     @abc.abstractmethod
     def update_their_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
-                           select_nth: int = None):
+                           select_indexes: Tuple[int, ...] = (), **kwargs):
         pass
 
     @abc.abstractmethod

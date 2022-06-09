@@ -18,7 +18,6 @@ class Card(EntityABC):
         self._importance = 5
         self._date_created = datetime.datetime.now()
         self._dead_line = datetime.datetime.today() + datetime.timedelta(1)
-        self._is_done = False
         self._actions = Actions()
         self._files = Files()
 
@@ -51,9 +50,6 @@ class Card(EntityABC):
     def set_dead_line(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
 
-    def mark_done(self):
-        self._is_done = True
-
     def add_file(self, file: File):
         self._files.add_file(file)
 
@@ -81,13 +77,22 @@ class Card(EntityABC):
         self._actions.add_new_action(action)
 
     @property
+    def is_done(self) -> bool:
+        all_actions = self._actions.all_actions
+        if len(all_actions) == 0:
+            return False
+        for action in all_actions:
+            if not action.is_done:
+                return False
+        return True
+
+    @property
     def state(self) -> dict:
         state = {
             'name': self._name,
             'importance': self._importance,
             'date_created': self._date_created,
             'dead_line': self._dead_line,
-            'is_done': self._is_done,
             'owner': self._owner.state,
             'actions': self._actions.state,
             'files': self._files.state,
@@ -100,6 +105,5 @@ class Card(EntityABC):
         self._importance = state.get('importance', '')
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._dead_line = state.get('dead_line', '')
-        self._is_done = state.get('is_done', False)
         self._actions = Entities.factory2.factory_actions(state)
         self._files = factory1.factory_files(state)
