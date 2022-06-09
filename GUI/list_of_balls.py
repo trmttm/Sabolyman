@@ -10,10 +10,8 @@ def get_view_model(parent: str = 'root'):
         stacker.hstack(
             list_of_balls('My Balls', 0, stacker),
             list_of_balls('Their Balls', 1, stacker),
-            list_of_balls('Later', 2, stacker),
-            w.Spacer().adjust(-3),
-            w.Spacer().adjust(-3),
-            w.Spacer().adjust(-3),
+            w.Spacer().adjust(-2),
+            w.Spacer().adjust(-2),
         ),
     )
 
