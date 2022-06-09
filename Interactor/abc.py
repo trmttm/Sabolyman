@@ -1,6 +1,8 @@
 import abc
 from typing import Tuple
 
+from interface_keymaps import KeyMapsABC
+
 
 class InteractorABC(abc.ABC):
     @abc.abstractmethod
@@ -105,4 +107,17 @@ class InteractorABC(abc.ABC):
 
     @abc.abstractmethod
     def duplicate_selected_card(self):
+        pass
+
+    @abc.abstractmethod
+    def set_active_keymap(self, name: str):
+        pass
+
+    @abc.abstractmethod
+    def add_new_keyboard_shortcut(self, key_combo: tuple, command_and_feedback: tuple):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def keymaps(self) -> KeyMapsABC:
         pass

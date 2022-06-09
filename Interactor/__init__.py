@@ -1,5 +1,7 @@
 from typing import Tuple
 
+from keyboard_shortcut import KeyMaps
+
 from Entities import EntitiesABC
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
@@ -39,6 +41,7 @@ class Interactor(InteractorABC):
         self._entities = entities
         self._presenters = presenters
         self._gateway = gateway
+        self._keymaps = KeyMaps()
 
     # GUI
     def load_gui(self, gui_name: str):
@@ -126,3 +129,14 @@ class Interactor(InteractorABC):
 
     def move_actions_down(self, indexes: Tuple[int, ...]):
         move_actions_down.execute(self._entities, self._presenters, indexes)
+
+    # Keyboard shortcut
+    def set_active_keymap(self, name: str):
+        self._keymaps.set_active_keymap(name)
+
+    def add_new_keyboard_shortcut(self, key_combo: tuple, command_and_feedback: tuple):
+        self._keymaps.active_keymap.add_new_keyboard_shortcut(key_combo, command_and_feedback)
+
+    @property
+    def keymaps(self) -> KeyMaps:
+        return self._keymaps
