@@ -152,3 +152,7 @@ class Interactor(InteractorABC):
             self.show_my_card_information((0,))
             self.show_their_card_information((0,))
             self.show_action_information((0,))
+
+    def close(self, command):
+        self.save_to_file('save.sb')
+        command()

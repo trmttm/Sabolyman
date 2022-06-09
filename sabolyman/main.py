@@ -25,10 +25,6 @@ def start_app(gui_selected='gui01.gui'):
     Controller.controller.configure_controller(app, interactor)
     Controller.menu_bar.configure_menu_bar(app, interactor, entities)
     Controller.keyboard.configure_keyboard_shortcut(app, interactor)
-
-    def upon_close():
-        interactor.save_to_file('save.sb')
-        app.close('root')
-    app.attach_to_event_upon_closing(upon_close)
+    app.attach_to_event_upon_closing(lambda: interactor.close(lambda: app.close('root')))
 
     app.launch_app()

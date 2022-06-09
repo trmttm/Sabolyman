@@ -121,3 +121,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def keymaps(self) -> KeyMapsABC:
         pass
+
+    @abc.abstractmethod
+    def close(self, command):
+        pass
