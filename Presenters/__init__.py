@@ -19,10 +19,6 @@ class Presenters(PresentersABC):
     def upon_load_gui(self, view_model: list):
         self._view.add_widgets(view_model)
 
-    # Save
-    def upon_load_state(self):
-        pass
-
     def set_up_after_gui(self):
         # This is needed to fix tree columns width.
         self.update_my_cards(('',), (datetime.datetime.today(),), (0,))

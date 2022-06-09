@@ -140,3 +140,15 @@ class Interactor(InteractorABC):
     @property
     def keymaps(self) -> KeyMaps:
         return self._keymaps
+
+    # Setup Teardown
+    def set_up(self):
+        loaded = True
+        try:
+            self.load_state_from_file('save.sb')
+        except:
+            loaded = False
+        if loaded:
+            self.show_my_card_information((0,))
+            self.show_their_card_information((0,))
+            self.show_action_information((0,))

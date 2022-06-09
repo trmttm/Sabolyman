@@ -67,7 +67,9 @@ class Entities(EntitiesABC):
             pass
 
     def get_action_by_index(self, index: int) -> Action:
-        return self._actions.get_action_by_index(index)
+        actions = self._actions
+        if actions:
+            return actions.get_action_by_index(index)
 
     # Setters
     def set_active_card(self, card: Card):
