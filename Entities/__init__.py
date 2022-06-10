@@ -34,6 +34,10 @@ class Entities(EntitiesABC):
         return self._default_values.dead_line
 
     @property
+    def default_client_name(self) -> str:
+        return self._default_values.client_name
+
+    @property
     def default_importance(self) -> int:
         return self._default_values.importance
 

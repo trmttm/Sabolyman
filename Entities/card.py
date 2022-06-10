@@ -20,6 +20,7 @@ class Card(EntityABC):
         self._dead_line = datetime.datetime.today() + datetime.timedelta(1)
         self._actions = Actions()
         self._files = Files()
+        self._client = Person('Client')
 
     def set_name(self, name: str):
         self._name = name
@@ -49,6 +50,9 @@ class Card(EntityABC):
 
     def set_dead_line(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
+
+    def set_client(self, client: Person):
+        self._client = client
 
     def add_file(self, file: File):
         self._files.add_file(file)
@@ -87,6 +91,10 @@ class Card(EntityABC):
         return True
 
     @property
+    def client(self) -> Person:
+        return self._client
+
+    @property
     def state(self) -> dict:
         state = {
             'name': self._name,
@@ -96,6 +104,7 @@ class Card(EntityABC):
             'owner': self._owner.state,
             'actions': self._actions.state,
             'files': self._files.state,
+            'client': self._client.state
         }
         return state
 
@@ -107,3 +116,4 @@ class Card(EntityABC):
         self._dead_line = state.get('dead_line', '')
         self._actions = Entities.factory2.factory_actions(state)
         self._files = factory1.factory_files(state)
+        self._client = factory1.factory_person(state, 'client')

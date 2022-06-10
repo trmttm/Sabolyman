@@ -12,6 +12,10 @@ class DefaultValues:
         return datetime.datetime.today()
 
     @property
+    def client_name(self) -> str:
+        return 'Client Name'
+
+    @property
     def importance(self) -> int:
         return 5
 

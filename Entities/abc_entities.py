@@ -64,6 +64,11 @@ class EntitiesABC(abc.ABC):
     def default_dead_line(self) -> datetime.datetime:
         pass
 
+    @property
+    @abc.abstractmethod
+    def default_client_name(self) -> str:
+        pass
+
     @abc.abstractmethod
     def get_my_card_by_index(self, index: int) -> Card:
         pass

@@ -45,6 +45,9 @@ class Presenters(PresentersABC):
     def update_card_due_date(self, due_date: datetime.datetime):
         self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
 
+    def update_card_client(self, client_name: str):
+        self._view.set_value(WidgetNames.entry_card_client, client_name)
+
     def deselect_my_cards(self):
         self._view.deselect_tree_items(WidgetNames.tree_my_cards)
 

@@ -50,6 +50,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def set_client(self, dead_line_str: str):
+        pass
+
+    @abc.abstractmethod
     def add_new_action(self):
         pass
 

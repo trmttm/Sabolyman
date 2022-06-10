@@ -28,6 +28,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def update_card_client(self, client_name: str):
+        pass
+
+    @abc.abstractmethod
     def deselect_my_cards(self):
         pass
 
