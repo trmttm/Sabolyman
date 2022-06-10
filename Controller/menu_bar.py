@@ -9,7 +9,7 @@ from Interactor import InteractorABC
 def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     menu_bar_model = {
         'Cards': {
-            'Duplicate': lambda: i.duplicate_selected_card()
+            'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card()
         },
         'File': {
             'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=default_file_name(e))),

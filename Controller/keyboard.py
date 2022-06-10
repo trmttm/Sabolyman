@@ -9,9 +9,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC):
     i.set_active_keymap('default')
     f = i.add_new_keyboard_shortcut
 
-    f((KeyMap.command, KeyMap.l), (lambda: i.load_state_from_file(app.select_open_file()), ''))
-    f((KeyMap.command, KeyMap.s), (lambda: i.save_to_file(f'save.sb'), ''))
     f((KeyMap.command, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
+    f((KeyMap.command, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
 
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))

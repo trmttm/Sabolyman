@@ -11,4 +11,6 @@ class DuplicateCard(UseCase):
     def execute(self):
         clone_card = Card()
         clone_card.load_state(self._original_card.state)
+        clone_card.set_name(f'{clone_card.name} copied')
         self._entities.add_new_card(clone_card)
+        self._entities.set_active_card(clone_card)
