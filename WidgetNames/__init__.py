@@ -52,6 +52,8 @@ entry_card_name = 'entry_card_name'
 entry_dead_line = 'entry_dead_line'
 label_card_importance = 'label_card_importance'
 entry_card_importance = 'entry_card_importance'
+label_card_client = 'label_card_client'
+entry_card_client = 'entry_card_client'
 
 # Action
 button_add_new_action = 'button_add_new_action'

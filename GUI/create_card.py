@@ -99,8 +99,10 @@ def get_card_property_entry(stacker: Stacker):
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
+            w.Label(wn.label_card_client).text('Client').width(10).padding(10, 0),
+            w.Entry(wn.entry_card_client).default_value('Client Name').padding(25, 0),
             w.Label(wn.label_card_importance).text('Importance').width(10).padding(10, 0),
-            w.Entry(wn.entry_card_importance).default_value(5).padding(25, 0).width(20),
+            w.Entry(wn.entry_card_importance).default_value(5).padding(25, 0).width(3),
             w.Spacer(),
         ),
         w.Spacer(),
