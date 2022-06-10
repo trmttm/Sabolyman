@@ -1,6 +1,5 @@
 from Entities import EntitiesABC
 from Presenters import PresentersABC
-from .present_card_list import present_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, client_name: str):
