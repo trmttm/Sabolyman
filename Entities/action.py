@@ -1,4 +1,5 @@
 import datetime
+from typing import Union
 
 from . import factory1
 from .abc_entity import EntityABC
@@ -17,6 +18,7 @@ class Action(EntityABC):
         self._date_created = datetime.datetime.now()
         self._description = ''
         self._files = Files()
+        self._completed_time = None
 
     @property
     def name(self) -> str:
@@ -30,6 +32,16 @@ class Action(EntityABC):
 
     def set_time_expected(self, time_expected: datetime.timedelta):
         self._time_expected = time_expected
+
+    def set_completed_time(self, when: datetime.datetime):
+        self._completed_time = when
+
+    def set_incomplete(self):
+        self._completed_time = None
+
+    @property
+    def completed_time(self) -> Union[None, datetime.datetime]:
+        return self._completed_time
 
     @property
     def owner(self) -> Person:
@@ -77,6 +89,7 @@ class Action(EntityABC):
             'date_created': self._date_created,
             'description': self._description,
             'files': self._files.state,
+            'completed_time': self._completed_time,
         }
         return state
 
@@ -88,3 +101,4 @@ class Action(EntityABC):
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._description = state.get('description', '')
         self._files = factory1.factory_files(state)
+        self._completed_time = state.get('completed_time', None)
