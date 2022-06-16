@@ -113,7 +113,7 @@ class Interactor(InteractorABC):
     def move_their_cards_down(self, indexes: Tuple[int, ...]):
         move_their_cards_down.execute(self._entities, self._presenters, indexes)
 
-    def set_color_to_cards(self, indexes1: Tuple[int, ...],indexes2: Tuple[int, ...], color):
+    def set_color_to_cards(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...], color):
         active_card = self._entities.active_card
         if active_card in self._entities.my_cards:
             self.set_color_to_my_cards(indexes1, color)
