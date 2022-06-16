@@ -40,8 +40,8 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def updates_card_actions(self, action_names: Tuple[str, ...], times_expected: Tuple[datetime.timedelta, ...],
-                             next_selection_index: int = None, **kwargs):
+    def updates_card_actions(self, action_names: tuple, second_column_data: tuple,
+                             next_selection_indexes: Tuple[int, ...] = (), **kwargs):
         pass
 
     @abc.abstractmethod

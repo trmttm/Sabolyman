@@ -40,7 +40,7 @@ class Action(EntityABC):
         self._completed_time = None
 
     @property
-    def completed_time(self) -> Union[None, datetime.datetime]:
+    def time_completed(self) -> Union[None, datetime.datetime]:
         return self._completed_time
 
     @property

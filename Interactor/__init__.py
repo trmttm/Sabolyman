@@ -21,6 +21,8 @@ from . import move_my_cards_down
 from . import move_my_cards_up
 from . import move_their_cards_down
 from . import move_their_cards_up
+from . import present_action_list
+from . import present_card_list
 from . import save_as_template_card
 from . import set_action_complete_time
 from . import set_action_description
@@ -118,10 +120,14 @@ class Interactor(InteractorABC):
         set_action_owner.execute(self._entities, self._presenters, owner_name)
 
     def set_action_is_done_or_not(self, done_or_not: bool):
+        set_action_complete_time.execute(self._entities, done_or_not)
         set_action_is_done_or_not.execute(self._entities, self._presenters, done_or_not)
+        present_action_list.execute(self._entities, self._presenters)
+        present_card_list.execute(self._entities, self._presenters)
 
     def set_action_complete_time(self, done_or_not: bool):
         set_action_complete_time.execute(self._entities, done_or_not)
+        present_action_list.execute(self._entities, self._presenters)
 
     def set_action_description(self, description: str):
         set_action_description.execute(self._entities, self._presenters, description)

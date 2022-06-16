@@ -55,9 +55,9 @@ class Presenters(PresentersABC):
         self._view.deselect_tree_items(WidgetNames.tree_their_cards)
 
     # Action
-    def updates_card_actions(self, action_names: Tuple[str], expected_times: Tuple[datetime.timedelta, ...],
+    def updates_card_actions(self, action_names: tuple, second_column_data: tuple,
                              next_selection_indexes: Tuple[int, ...] = (), **kwargs):
-        update_actions.execute(self._view, expected_times, action_names, next_selection_indexes, **kwargs)
+        update_actions.execute(self._view, second_column_data, action_names, next_selection_indexes, **kwargs)
 
     def update_action_name(self, name: str):
         self._view.set_value(WidgetNames.entry_action_name, name)

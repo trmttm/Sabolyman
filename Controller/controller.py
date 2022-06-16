@@ -35,6 +35,5 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.entry_action_name, lambda *_: i.set_action_name(s.get_action_name(v)))
     f(wn.entry_action_owner, lambda *_: i.set_action_owner(s.get_action_owner_name(v)))
     f(wn.check_button_action_done, lambda *_: i.set_action_is_done_or_not(s.get_action_is_done_or_not(v)))
-    f(wn.check_button_action_done, lambda *_: i.set_action_complete_time(s.get_action_is_done_or_not(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v)))
     f(wn.entry_action_time_expected, lambda *_: i.set_action_time_expected(s.get_action_time_expected(v)))

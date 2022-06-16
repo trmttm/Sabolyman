@@ -1,11 +1,10 @@
 from Entities import EntitiesABC
 from Presenters import PresentersABC
-from .present_card_list import present_card_list
+from . import present_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, card_name: str):
     card = e.active_card
     if card is not None:
         card.set_name(card_name)
-        present_card_list(e, p)
-        e.set_show_this_card(e.active_card)
+        present_card_list.execute(e, p)

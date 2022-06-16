@@ -1,5 +1,6 @@
 import datetime
 from typing import List
+from typing import Optional
 from typing import Tuple
 
 from .abc_entity import EntityABC
@@ -34,6 +35,10 @@ class Actions(EntityABC):
     @property
     def times_expected(self) -> Tuple[datetime.timedelta, ...]:
         return tuple(a.time_expected for a in self._actions)
+
+    @property
+    def times_completed(self) -> Tuple[Optional[datetime.timedelta], ...]:
+        return tuple(a.time_completed for a in self._actions)
 
     @property
     def all_actions(self) -> List[Action]:

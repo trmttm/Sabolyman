@@ -167,6 +167,10 @@ class Entities(EntitiesABC):
         return self._actions.times_expected
 
     @property
+    def times_completed(self) -> Tuple[datetime.timedelta, ...]:
+        return self._actions.times_completed
+
+    @property
     def _actions(self) -> Actions:
         card = self.active_card
         if card is not None:

@@ -2,7 +2,7 @@ from Commands import AddCard
 from Entities import EntitiesABC
 from Gateway import GatewayABC
 from Presenters import PresentersABC
-from .present_card_list import present_card_list
+from . import present_card_list
 
 
 def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
@@ -11,4 +11,4 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
     command.execute()
     active_card = e.active_card
     active_card.load_state(card_state)
-    present_card_list(e, p)
+    present_card_list.execute(e, p)
