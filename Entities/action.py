@@ -18,7 +18,7 @@ class Action(EntityABC):
         self._date_created = datetime.datetime.now()
         self._description = ''
         self._files = Files()
-        self._completed_time = None
+        self._time_completed = None
 
     @property
     def name(self) -> str:
@@ -34,14 +34,16 @@ class Action(EntityABC):
         self._time_expected = time_expected
 
     def set_completed_time(self, when: datetime.datetime):
-        self._completed_time = when
+        self._time_completed = when
 
     def set_incomplete(self):
-        self._completed_time = None
+        self._time_completed = None
 
     @property
     def time_completed(self) -> Union[None, datetime.datetime]:
-        return self._completed_time
+        if self._time_completed is None and self.is_done:
+            self.set_completed_time(datetime.datetime.now())
+        return self._time_completed
 
     @property
     def owner(self) -> Person:
@@ -89,7 +91,7 @@ class Action(EntityABC):
             'date_created': self._date_created,
             'description': self._description,
             'files': self._files.state,
-            'completed_time': self._completed_time,
+            'completed_time': self.time_completed,
         }
         return state
 
@@ -101,4 +103,4 @@ class Action(EntityABC):
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._description = state.get('description', '')
         self._files = factory1.factory_files(state)
-        self._completed_time = state.get('completed_time', None)
+        self._time_completed = state.get('completed_time', None)

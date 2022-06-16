@@ -15,6 +15,7 @@ from . import duplicate_selected_card
 from . import get_card_index
 from . import load_gui
 from . import load_state_from_file
+from . import mark_action_completed
 from . import move_actions_down
 from . import move_actions_up
 from . import move_my_cards_down
@@ -37,7 +38,6 @@ from . import show_action_information
 from . import show_my_card_information
 from . import show_their_card_information
 from .abc import InteractorABC
-from .import mark_action_completed
 
 
 class Interactor(InteractorABC):
