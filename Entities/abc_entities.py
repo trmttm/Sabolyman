@@ -83,6 +83,14 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def get_my_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        pass
+
+    @abc.abstractmethod
+    def get_their_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        pass
+
+    @abc.abstractmethod
     def set_active_card(self, card: Card):
         pass
 

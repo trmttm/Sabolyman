@@ -5,11 +5,11 @@ from interface_view import ViewABC
 import WidgetNames
 
 
-def get_my_cards_selected_indexes(v: ViewABC) -> Tuple[int]:
+def get_my_cards_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_my_cards)
 
 
-def get_their_cards_selected_indexes(v: ViewABC) -> Tuple[int]:
+def get_their_cards_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_their_cards)
 
 

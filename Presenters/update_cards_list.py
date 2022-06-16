@@ -18,10 +18,11 @@ def create_view_model(due_dates: tuple, names: tuple, select_indexes: Tuple[int,
     widths = 100, 130
     tree_datas = []
     all_status = kwargs.get('completions_status', tuple(False for _ in names))
-    for n, (name, due_date, status) in enumerate(zip(names, due_dates, all_status)):
+    colors = kwargs.get('colors', tuple(False for _ in names))
+    for n, (name, due_date, status, color) in enumerate(zip(names, due_dates, all_status, colors)):
         due_date_str = datetime_to_str(due_date)
         tree_datas.append(create_tree_data('', f'{n}', '', (name, due_date_str), (), n in select_indexes,
-                                           strikethrough=status))
+                                           strikethrough=status, background=color))
     stretches = True, False
     scroll_v = True
     scroll_h = True

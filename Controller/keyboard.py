@@ -3,6 +3,7 @@ from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 
 from Interactor import InteractorABC
+from . import state
 
 
 def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC):
@@ -11,6 +12,9 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC):
 
     f((KeyMap.command, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
     f((KeyMap.command, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
+    f((KeyMap.command, KeyMap.c), (lambda: i.set_color_to_cards(state.get_my_cards_selected_indexes(app),
+                                                                state.get_their_cards_selected_indexes(app),
+                                                                app.ask_color()), ''))
 
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))

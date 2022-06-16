@@ -70,6 +70,12 @@ class Entities(EntitiesABC):
         except IndexError:
             pass
 
+    def get_my_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        return tuple(c for (n, c) in enumerate(self.my_cards) if n in indexes)
+
+    def get_their_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        return tuple(c for (n, c) in enumerate(self.their_cards) if n in indexes)
+
     def get_action_by_index(self, index: int) -> Action:
         actions = self._actions
         if actions:

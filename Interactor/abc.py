@@ -133,3 +133,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def close(self, command):
         pass
+
+    @abc.abstractmethod
+    def set_color_to_cards(self, indexes1: Tuple[int, ...],indexes2: Tuple[int, ...], color):
+        pass

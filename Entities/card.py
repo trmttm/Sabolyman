@@ -21,6 +21,7 @@ class Card(EntityABC):
         self._actions = Actions()
         self._files = Files()
         self._client = Person('Client')
+        self._color = None
 
     def set_name(self, name: str):
         self._name = name
@@ -53,6 +54,13 @@ class Card(EntityABC):
 
     def set_client(self, client: Person):
         self._client = client
+
+    def set_color(self, color):
+        self._color = color
+
+    @property
+    def color(self):
+        return self._color or 'white'
 
     def add_file(self, file: File):
         self._files.add_file(file)
@@ -104,7 +112,8 @@ class Card(EntityABC):
             'owner': self._owner.state,
             'actions': self._actions.state,
             'files': self._files.state,
-            'client': self._client.state
+            'client': self._client.state,
+            'color': self._color,
         }
         return state
 
@@ -117,3 +126,4 @@ class Card(EntityABC):
         self._actions = Entities.factory2.factory_actions(state)
         self._files = factory1.factory_files(state)
         self._client = factory1.factory_person(state, 'client')
+        self._color = state.get('color', None)
