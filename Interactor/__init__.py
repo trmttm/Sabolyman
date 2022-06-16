@@ -37,6 +37,7 @@ from . import show_action_information
 from . import show_my_card_information
 from . import show_their_card_information
 from .abc import InteractorABC
+from .import mark_action_completed
 
 
 class Interactor(InteractorABC):
@@ -119,11 +120,8 @@ class Interactor(InteractorABC):
     def set_action_owner(self, owner_name: str):
         set_action_owner.execute(self._entities, self._presenters, owner_name)
 
-    def set_action_is_done_or_not(self, done_or_not: bool):
-        set_action_complete_time.execute(self._entities, done_or_not)
-        set_action_is_done_or_not.execute(self._entities, self._presenters, done_or_not)
-        present_action_list.execute(self._entities, self._presenters)
-        present_card_list.execute(self._entities, self._presenters)
+    def mark_action_completed(self, done_or_not: bool):
+        mark_action_completed.execute(self._entities, self._presenters, done_or_not)
 
     def set_action_complete_time(self, done_or_not: bool):
         set_action_complete_time.execute(self._entities, done_or_not)

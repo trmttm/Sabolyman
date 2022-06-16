@@ -46,7 +46,7 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def times_completed(self) -> Tuple[datetime.timedelta, ...]:
+    def times_completed(self) -> Tuple[datetime.datetime, ...]:
         pass
 
     @property

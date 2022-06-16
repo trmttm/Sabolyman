@@ -37,8 +37,8 @@ class Actions(EntityABC):
         return tuple(a.time_expected for a in self._actions)
 
     @property
-    def times_completed(self) -> Tuple[Optional[datetime.timedelta], ...]:
-        return tuple(a.time_completed for a in self._actions)
+    def times_completed(self) -> Tuple[Optional[datetime.datetime], ...]:
+        return tuple(a.time_completed or '' for a in self._actions)
 
     @property
     def all_actions(self) -> List[Action]:

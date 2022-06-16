@@ -167,7 +167,7 @@ class Entities(EntitiesABC):
         return self._actions.times_expected
 
     @property
-    def times_completed(self) -> Tuple[datetime.timedelta, ...]:
+    def times_completed(self) -> Tuple[datetime.datetime, ...]:
         return self._actions.times_completed
 
     @property
