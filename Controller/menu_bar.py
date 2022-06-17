@@ -12,7 +12,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     menu_bar_model = {
         'Cards': {
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
-            'Set Color [cmd+c]': lambda: i.set_color_to_cards(
+            'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
                 state.get_my_cards_selected_indexes(v),
                 state.get_their_cards_selected_indexes(v),
                 v.ask_color()),
