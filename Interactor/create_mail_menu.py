@@ -1,3 +1,4 @@
+import os
 from typing import Callable
 
 from Entities import EntitiesABC
@@ -16,7 +17,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callabl
         'Load more templates': lambda: load_email_templates(egp, execute, ask_folder, configure_menu, 'txt'),
     }
 
-    file_names = g.get_files_in_the_folder(e.mail_template_path, 'txt')
+    file_names = g.get_files_in_the_folder(os.path.join(os.getcwd(), e.mail_template_path), 'txt')
     file_names += files_injected
     for file_name in file_names:
         mail_template.update({file_name: lambda f=file_name: make_email(egp, f)})
