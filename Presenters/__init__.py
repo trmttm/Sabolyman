@@ -4,6 +4,7 @@ from typing import Tuple
 from interface_view import ViewABC
 
 import WidgetNames
+from . import show_mail_creator
 from . import update_actions
 from . import update_my_cards_list
 from . import update_their_cards_list
@@ -80,23 +81,5 @@ class Presenters(PresentersABC):
     def update_action_files(self, files_names: Tuple[str, ...]):
         pass
 
-    def show_message(self, text: str):
-        from stacker import Stacker
-        from stacker import widgets as w
-        from view_tkinter.tk_interface import widget_model
-        stacker = Stacker('popup_mail')
-        stacker.vstack(
-            w.Label('lbl_body').text('Body:'),
-            w.TextBox('text_mail_body').padding(10, 10),
-            w.TextBox('text_mail').padding(10, 10),
-        )
-        view_model = [widget_model('root', 'popup_mail', 'toplevel', 0, 0, 0, 0, 'nswe', )]
-        view_model += stacker.view_model
-        self._view.add_widgets(view_model)
-
-        def update_text_mail(current_text: str):
-            body_text = self._view.get_value('text_mail_body')
-            text = current_text.replace('[body]', body_text)
-            self._view.set_value('text_mail', text)
-
-        self._view.bind_command_to_widget('text_mail_body', lambda *_: update_text_mail(text))
+    def show_mail_creator(self, text: str):
+        show_mail_creator.execute(self._view, text)

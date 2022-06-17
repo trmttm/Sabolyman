@@ -1,5 +1,8 @@
 import importlib.resources
 import pickle
+from typing import Tuple
+
+import Utilities
 
 from .abc import GatewayABC
 
@@ -24,7 +27,10 @@ class Gateway(GatewayABC):
             data = None
         return data
 
-    def read_text_file(self, file_name: str) -> str:
-        with open(file_name,'r') as f:
+    def read_text_file(self, file_name: str, package_name: str) -> str:
+        with importlib.resources.open_text(package_name, file_name) as f:
             lines = f.read()
         return lines
+
+    def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
+        return tuple(Utilities.get_files_in_the_folder(folder_path, specified_extension))

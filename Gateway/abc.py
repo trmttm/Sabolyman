@@ -1,4 +1,5 @@
 import abc
+from typing import Tuple
 
 
 class GatewayABC(abc.ABC):
@@ -16,5 +17,9 @@ class GatewayABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def read_text_file(self, file_name: str) -> str:
+    def read_text_file(self, file_name: str, package_name: str) -> str:
+        pass
+
+    @abc.abstractmethod
+    def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
         pass

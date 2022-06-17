@@ -197,3 +197,13 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def clear_show_this_card(self):
         pass
+
+    @property
+    @abc.abstractmethod
+    def mail_template_package(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def mail_template_path(self) -> str:
+        pass

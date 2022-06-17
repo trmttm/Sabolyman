@@ -8,6 +8,7 @@ from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import add_template_card
+from . import create_email
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
@@ -189,8 +190,12 @@ class Interactor(InteractorABC):
 
     # Mail
     def create_email(self, file_name: str):
-        text = self._gateway.read_text_file(file_name)
-        replace = (('[name]', '北村'),)
-        for from_, to_ in replace:
-            text = text.replace(from_, to_)
-        self._presenters.show_message(text)
+        text = create_email.execute(self._entities, self._gateway, file_name, self._entities.mail_template_package)
+        self._presenters.show_mail_creator(text)
+
+    def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
+        return self._gateway.get_files_in_the_folder(folder_path, specified_extension)
+
+    @property
+    def mail_template_path(self) -> str:
+        return self._entities.mail_template_path
