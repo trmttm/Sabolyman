@@ -186,3 +186,11 @@ class Interactor(InteractorABC):
     def close(self, command):
         self.save_to_file('save.sb')
         command()
+
+    # Mail
+    def create_email(self, file_name: str):
+        text = self._gateway.read_text_file(file_name)
+        replace = (('[name]', '北村'),)
+        for from_, to_ in replace:
+            text = text.replace(from_, to_)
+        self._presenters.show_message(text)

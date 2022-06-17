@@ -137,3 +137,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def set_color_to_cards(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...], color):
         pass
+
+    @abc.abstractmethod
+    def create_email(self, file_name: str):
+        pass

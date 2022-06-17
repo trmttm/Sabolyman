@@ -76,3 +76,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def update_action_files(self, files_names: Tuple[str, ...]):
         pass
+
+    @abc.abstractmethod
+    def show_message(self, text: str):
+        pass

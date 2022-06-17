@@ -8,8 +8,14 @@ from Interactor import InteractorABC
 from . import state
 
 
-def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC):
+def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_injected: dict = None):
     menu_bar_model = {
+        'File': {
+            'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=default_file_name(e))),
+            'Load State': lambda: i.load_state_from_file(v.select_open_file()),
+            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
+            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
+        },
         'Cards': {
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
             'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
@@ -17,13 +23,9 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC):
                 state.get_their_cards_selected_indexes(v),
                 v.ask_color()),
         },
-        'File': {
-            'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=default_file_name(e))),
-            'Load State': lambda: i.load_state_from_file(v.select_open_file()),
-            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
-            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
-        },
     }
+    if menu_injected is not None:
+        menu_bar_model.update(menu_injected)
     v.update_menu_bar(menu_bar_model)
 
 

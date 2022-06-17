@@ -23,3 +23,8 @@ class Gateway(GatewayABC):
         except FileNotFoundError:
             data = None
         return data
+
+    def read_text_file(self, file_name: str) -> str:
+        with open(file_name,'r') as f:
+            lines = f.read()
+        return lines
