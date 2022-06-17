@@ -1,3 +1,4 @@
+from typing import Callable
 from typing import Tuple
 
 from keyboard_shortcut import KeyMaps
@@ -9,6 +10,7 @@ from . import add_new_action
 from . import add_new_card
 from . import add_template_card
 from . import create_email
+from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
@@ -189,12 +191,9 @@ class Interactor(InteractorABC):
         command()
 
     # Mail
-    def create_email(self, file_name: str):
-        text = create_email.execute(self._entities, self._gateway, file_name, self._entities.mail_template_package)
-        self._presenters.show_mail_creator(text)
-
-    def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
-        return self._gateway.get_files_in_the_folder(folder_path, specified_extension)
+    def create_mail_menu(self, ask_folder: Callable, configure_menu: Callable, files_injected: Tuple[str, ...] = ()):
+        create_mail_menu.execute(self._entities, self._gateway, self._presenters, ask_folder, configure_menu,
+                                 files_injected)
 
     @property
     def mail_template_path(self) -> str:

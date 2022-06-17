@@ -7,7 +7,6 @@ from Entities import Entities
 from Gateway import Gateway
 from Interactor import Interactor
 from Presenters import Presenters
-from . import create_mail_menu
 
 
 def start_app(gui_selected='gui01.gui'):
@@ -26,8 +25,9 @@ def start_app(gui_selected='gui01.gui'):
     # Widget command mapping
     Controller.controller.configure_controller(app, interactor)
     # Menu bar
-    menu_to_be_injected = create_mail_menu.execute(interactor, interactor.mail_template_path)
-    Controller.menu_bar.configure_menu_bar(app, interactor, entities, menu_to_be_injected)
+    f = app.select_folder
+    j = Controller.menu_bar.configure_menu_bar
+    interactor.create_mail_menu(f, lambda menu_injected: j(app, interactor, entities, menu_injected))
     # Keyboard shortcu
     Controller.keyboard.configure_keyboard_shortcut(app, interactor)
     # Teardown
