@@ -7,7 +7,7 @@ from Presenters import PresentersABC
 
 
 def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callable, configure_menu: Callable,
-            files_injected: tuple):
+            files_injected: tuple = ()):
     egp = e, g, p
 
     mail_template = {}
@@ -18,7 +18,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callabl
 
     file_names = g.get_files_in_the_folder(e.mail_template_path, 'txt')
     file_names += files_injected
-    for file_name in file_names:
+    for file_name in sorted(file_names):
         mail_template.update({file_name: lambda f=file_name: make_email(egp, f)})
 
     menu_injected = {

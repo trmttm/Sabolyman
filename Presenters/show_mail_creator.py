@@ -12,7 +12,7 @@ def execute(v: ViewABC, text: str):
     view_model = create_view_model()
     v.add_widgets(view_model)
     v.bind_command_to_widget(text_box_mail_body_id, lambda *_: update_text_mail(text, v))
-    v.bind_command_to_widget(specified_parent, lambda :v.close(specified_parent))
+    v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
 
 
 def create_view_model():

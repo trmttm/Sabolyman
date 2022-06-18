@@ -191,9 +191,8 @@ class Interactor(InteractorABC):
         command()
 
     # Mail
-    def create_mail_menu(self, ask_folder: Callable, configure_menu: Callable, files_injected: Tuple[str, ...] = ()):
-        create_mail_menu.execute(self._entities, self._gateway, self._presenters, ask_folder, configure_menu,
-                                 files_injected)
+    def create_mail_menu(self, ask_folder: Callable, configure_menu: Callable):
+        create_mail_menu.execute(self._entities, self._gateway, self._presenters, ask_folder, configure_menu)
 
     @property
     def mail_template_path(self) -> str:
