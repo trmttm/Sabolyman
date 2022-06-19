@@ -14,7 +14,7 @@ def start_app(gui_selected='gui01.gui'):
     app = View(width=900, height=960)
     entities = Entities()
     presenters = Presenters(app)
-    gateway = Gateway()
+    gateway = Gateway(entities.user.name)
     interactor = Interactor(entities, presenters, gateway)
 
     # GUI Loading
@@ -29,7 +29,7 @@ def start_app(gui_selected='gui01.gui'):
     j = Controller.menu_bar.configure_menu_bar
     interactor.create_mail_menu(f, lambda menu_injected: j(app, interactor, entities, menu_injected))
     # Keyboard shortcu
-    Controller.keyboard.configure_keyboard_shortcut(app, interactor)
+    Controller.keyboard.configure_keyboard_shortcut(app, interactor, entities)
     # Teardown
     app.attach_to_event_upon_closing(lambda: interactor.close(lambda: app.close('root')))
 

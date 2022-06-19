@@ -6,12 +6,13 @@ from interface_view import ViewABC
 from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
+from . import utilities
 
 
 def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_injected: dict = None):
     menu_bar_model = {
         'File': {
-            'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=default_file_name(e))),
+            'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=utilities.default_file_name(e))),
             'Load State': lambda: i.load_state_from_file(v.select_open_file()),
             'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
             'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
@@ -27,10 +28,6 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
     if menu_injected is not None:
         menu_bar_model.update(menu_injected)
     v.update_menu_bar(menu_bar_model)
-
-
-def default_file_name(e: EntitiesABC) -> str:
-    return f'{now()}_{e.user.name.replace(" ", "_")}.sb'
 
 
 def now() -> str:

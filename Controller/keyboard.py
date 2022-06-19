@@ -2,14 +2,19 @@ from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 
+from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
+from . import utilities
 
 
-def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC):
+def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     i.set_active_keymap('default')
     f = i.add_new_keyboard_shortcut
 
+    f((KeyMap.command, KeyMap.l), (lambda: i.load_state_from_file(app.select_open_file()), ''))
+    f((KeyMap.command, KeyMap.s),
+      (lambda: i.save_to_file(app.select_save_file(initialfile=utilities.default_file_name(e))), ''))
     f((KeyMap.command, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
     f((KeyMap.command, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
     f((KeyMap.control, KeyMap.c), (lambda: i.set_color_to_cards(state.get_my_cards_selected_indexes(app),

@@ -23,3 +23,23 @@ class GatewayABC(abc.ABC):
     @abc.abstractmethod
     def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
         pass
+
+    @property
+    @abc.abstractmethod
+    def home_folder(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def mail_template_package(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def mail_template_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def auto_save_path(self) -> str:
+        pass

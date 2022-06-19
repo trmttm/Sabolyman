@@ -16,7 +16,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callabl
         'Load more templates': lambda: load_email_templates(egp, execute, ask_folder, configure_menu, 'txt'),
     }
 
-    file_names = g.get_files_in_the_folder(e.mail_template_path, 'txt')
+    file_names = g.get_files_in_the_folder(g.mail_template_path, 'txt')
     file_names += files_injected
     for file_name in sorted(file_names):
         mail_template.update({file_name: lambda f=file_name: make_email(egp, f)})
@@ -43,5 +43,5 @@ def make_email(epg: tuple, file_name: str):
     g: GatewayABC = epg[1]
     p: PresentersABC = epg[2]
 
-    text = create_email.execute(e, g, file_name, e.mail_template_package)
+    text = create_email.execute(e, g, file_name, g.mail_template_package)
     p.show_mail_creator(text)

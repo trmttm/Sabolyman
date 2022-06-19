@@ -177,8 +177,11 @@ class Interactor(InteractorABC):
     # Setup Teardown
     def set_up(self):
         loaded = True
+        import os
+        if not os.path.exists(self._gateway.home_folder):
+            os.mkdir(self._gateway.home_folder)
         try:
-            self.load_state_from_file('save.sb')
+            self.load_state_from_file(self._gateway.auto_save_path)
         except:
             loaded = False
         if loaded:
@@ -187,7 +190,7 @@ class Interactor(InteractorABC):
             self.show_action_information((0,))
 
     def close(self, command):
-        self.save_to_file('save.sb')
+        self.save_to_file(self._gateway.auto_save_path)
         command()
 
     # Mail
@@ -196,4 +199,4 @@ class Interactor(InteractorABC):
 
     @property
     def mail_template_path(self) -> str:
-        return self._entities.mail_template_path
+        return self._gateway.mail_template_path

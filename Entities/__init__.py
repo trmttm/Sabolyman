@@ -227,13 +227,5 @@ class Entities(EntitiesABC):
                 return None if index is None else index
 
     @property
-    def mail_template_package(self) -> str:
-        return 'Resources.Mail'
-
-    @property
-    def mail_template_path(self) -> str:
-        return 'Resources/Mail'
-
-    @property
     def user(self) -> Person:
         return self._user

@@ -1,4 +1,5 @@
 import importlib.resources
+import os
 import pickle
 from typing import Tuple
 
@@ -8,6 +9,8 @@ from .abc import GatewayABC
 
 
 class Gateway(GatewayABC):
+    def __init__(self, user_name):
+        self._user_name = user_name
 
     def save_file(self, file_name: str, data):
         with open(file_name, 'wb') as f:
@@ -35,3 +38,19 @@ class Gateway(GatewayABC):
     def get_files_in_the_folder(self, folder_path: str, specified_extension: str = '') -> Tuple[str, ...]:
         folder_path = Utilities.get_proper_path_depending_on_development_or_distribution(folder_path)
         return tuple(Utilities.get_files_in_the_folder(folder_path, specified_extension))
+
+    @property
+    def home_folder(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman', self._user_name)
+
+    @property
+    def mail_template_package(self) -> str:
+        return 'Resources.Mail'
+
+    @property
+    def mail_template_path(self) -> str:
+        return 'Resources/Mail'
+
+    @property
+    def auto_save_path(self) -> str:
+        return os.path.join(self.home_folder, 'save.sb')
