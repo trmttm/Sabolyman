@@ -80,3 +80,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def show_mail_creator(self, text: str):
         pass
+
+    @abc.abstractmethod
+    def feed_back_user_by_popup(self, title: str, body: str):
+        pass

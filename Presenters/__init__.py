@@ -4,6 +4,7 @@ from typing import Tuple
 from interface_view import ViewABC
 
 import WidgetNames
+from . import message_box
 from . import show_mail_creator
 from . import update_actions
 from . import update_my_cards_list
@@ -83,3 +84,7 @@ class Presenters(PresentersABC):
 
     def show_mail_creator(self, text: str):
         show_mail_creator.execute(self._view, text)
+
+    # Popup
+    def feed_back_user_by_popup(self, title: str, body: str):
+        message_box.execute(self._view, title, body)
