@@ -58,7 +58,7 @@ class Interactor(InteractorABC):
     # Save
     def save_to_file(self, file_name: str):
         self._gateway.save_file(file_name, self._entities.state)
-        self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}')
+        self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}', 400, 100)
 
     def load_state_from_file(self, file_name: str):
         load_state_from_file.execute(self._entities, self._gateway, self._presenters, file_name)
@@ -203,5 +203,5 @@ class Interactor(InteractorABC):
         return self._gateway.mail_template_path
 
     # Popup
-    def feed_back_user_by_popup(self, title: str, text: str):
-        self._presenters.feed_back_user_by_popup(title, text)
+    def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):
+        self._presenters.feed_back_user_by_popup(title, text, width, height)

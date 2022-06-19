@@ -86,5 +86,5 @@ class Presenters(PresentersABC):
         show_mail_creator.execute(self._view, text)
 
     # Popup
-    def feed_back_user_by_popup(self, title: str, body: str):
-        message_box.execute(self._view, title, body)
+    def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int):
+        message_box.execute(self._view, title, body, width, height)

@@ -21,3 +21,4 @@ def execute(v: ViewABC, title: str, body: str, width=400, height=200):
 
     v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
     v.bind_command_to_widget(button_id, lambda: v.close(specified_parent))
+    v.focus(button_id)
