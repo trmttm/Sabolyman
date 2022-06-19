@@ -19,7 +19,7 @@ def get_view_model(parent: str = 'root'):
 
 def get_actions(stacker: Stacker):
     return stacker.hstack(
-        w.PanedWindow('paned_window_entry', stacker).is_horizontal().stackers(
+        w.PanedWindow('paned_window_entry', stacker).is_horizontal().weights((3, 1)).stackers(
             get_actions_tree(stacker),
             get_actions_properties(stacker),
         ),
