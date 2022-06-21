@@ -7,4 +7,4 @@ def execute(e: EntitiesABC, p: PresentersABC, action_name: str):
     action = e.active_action
     if action is not None:
         action.set_name(action_name)
-        present_action_list.execute(e, p)
+        present_action_list.execute(e, p, (e.active_action_index,))

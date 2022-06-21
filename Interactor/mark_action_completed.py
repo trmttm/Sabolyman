@@ -9,5 +9,5 @@ from . import set_action_is_done_or_not
 def execute(e: EntitiesABC, p: PresentersABC, done_or_not: bool):
     set_action_complete_time.execute(e, done_or_not)
     set_action_is_done_or_not.execute(e, p, done_or_not)
-    present_action_list.execute(e, p)
+    present_action_list.execute(e, p, (e.active_action_index,))
     present_card_list.execute(e, p)

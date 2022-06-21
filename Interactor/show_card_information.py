@@ -27,4 +27,4 @@ def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable,
             p.update_card_client(e.default_client_name)
 
     show_action_information.execute(e, p, (e.active_action_index,))
-    present_action_list.execute(e, p, )
+    present_action_list.execute(e, p, (e.active_action_index,))

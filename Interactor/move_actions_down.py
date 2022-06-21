@@ -2,9 +2,8 @@ from typing import Tuple
 
 from Entities import EntitiesABC
 from Presenters import PresentersABC
-from . import present_action_list
+from . import move_actions
 
 
 def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int, ...]):
-    destinations = e.move_actions_down(indexes)
-    present_action_list.execute(e, p, destinations)
+    move_actions.execute(e, p, indexes, e.move_actions_down)

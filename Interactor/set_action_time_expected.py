@@ -10,7 +10,7 @@ def execute(e: EntitiesABC, p: PresentersABC, time_expected_str: str):
     if action is not None:
         time_expected = time_delta_str_to_time_delta(time_expected_str)
         action.set_time_expected(time_expected)
-        present_action_list.execute(e, p)
+        present_action_list.execute(e, p, (e.active_action_index,))
 
 
 def time_delta_str_to_time_delta(time_expected_str) -> datetime.timedelta:
