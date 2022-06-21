@@ -39,9 +39,8 @@ def load_email_templates(epg: tuple, create_mail_menu: Callable, ask_folder: Cal
 
 
 def make_email(epg: tuple, file_name: str):
-    e: EntitiesABC = epg[0]
     g: GatewayABC = epg[1]
     p: PresentersABC = epg[2]
 
-    text = create_email.execute(e, g, file_name, g.mail_template_package)
+    text = create_email.execute(g, file_name, g.mail_template_package)
     p.show_mail_creator(text)
