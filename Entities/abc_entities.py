@@ -21,6 +21,16 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def my_visible_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def their_visible_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def default_card_name(self) -> str:
         pass
 
@@ -196,4 +206,12 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def clear_show_this_card(self):
+        pass
+
+    @abc.abstractmethod
+    def hide_finished_cards(self):
+        pass
+
+    @abc.abstractmethod
+    def unhide_finished_cards(self):
         pass

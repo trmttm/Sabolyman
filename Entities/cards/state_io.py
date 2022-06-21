@@ -13,6 +13,7 @@ def create_state(cards: CardsABC) -> dict:
             'card': card_states,
         },
         'active_card': active_card_index,
+        'hide_finished_cards': cards.hide_finished_cards,
     }
     return state
 
@@ -22,6 +23,10 @@ def load_state(cards: CardsABC, state: dict):
     cards_state = state.get('cards', {})
     card_states = cards_state.get('card', ())
     active_card_index = cards_state.get('active_card', 0)
+
+    hide_finished_cards = state.get('hide_finished_cards', False)
+    cards.set_hide_finished_cards(hide_finished_cards)
+
     for n, card_state in enumerate(card_states):
         card = Card()
         card.load_state(card_state)

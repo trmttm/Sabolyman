@@ -135,6 +135,14 @@ class Interactor(InteractorABC):
             card.set_color(color)
         present_card_list.execute(self._entities, self._presenters)
 
+    def hide_finished_cards(self):
+        self._entities.hide_finished_cards()
+        present_card_list.execute(self._entities, self._presenters)
+
+    def unhide_finished_cards(self):
+        self._entities.unhide_finished_cards()
+        present_card_list.execute(self._entities, self._presenters)
+
     # Action
     def set_action_name(self, action_name: str):
         set_action_name.execute(self._entities, self._presenters, action_name)

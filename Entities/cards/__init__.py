@@ -12,6 +12,7 @@ class Cards(CardsABC):
     def __init__(self):
         self._cards: List[Card, ...] = []
         self._active_card = None
+        self._hide_finished_cards = False
 
     @property
     def active_card(self) -> Card:
@@ -42,6 +43,13 @@ class Cards(CardsABC):
 
     def remove_card(self, card: Card):
         self._cards.remove(card)
+
+    def set_hide_finished_cards(self, true_false: bool):
+        self._hide_finished_cards = true_false
+
+    @property
+    def hide_finished_cards(self) -> bool:
+        return self._hide_finished_cards
 
     @property
     def state(self) -> dict:

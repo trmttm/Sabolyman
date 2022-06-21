@@ -142,3 +142,11 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def mail_template_path(self) -> str:
         pass
+
+    @abc.abstractmethod
+    def hide_finished_cards(self):
+        pass
+
+    @abc.abstractmethod
+    def unhide_finished_cards(self):
+        pass

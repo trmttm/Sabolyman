@@ -17,6 +17,10 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
             'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
         },
+        'View': {
+            'Hide Finished Cards': i.hide_finished_cards,
+            'Show Finished Cards': i.unhide_finished_cards,
+        },
         'Cards': {
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
             'Set Color [ctrl+c]': lambda: i.set_color_to_cards(

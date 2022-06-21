@@ -57,6 +57,21 @@ class Entities(EntitiesABC):
     def their_cards(self) -> Tuple[Card, ...]:
         return tuple(c for c in self._cards.all_cards if c.owner.name != self._user.name)
 
+    @property
+    def my_visible_cards(self) -> Tuple[Card, ...]:
+        return self._visible_cards(self.my_cards)
+
+    @property
+    def their_visible_cards(self) -> Tuple[Card, ...]:
+        return self._visible_cards(self.their_cards)
+
+    def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
+        if self._cards.hide_finished_cards:
+            visible_cards = tuple(c for c in cards_tuple if not c.is_done)
+        else:
+            visible_cards = cards_tuple
+        return visible_cards
+
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
         try:
@@ -225,6 +240,12 @@ class Entities(EntitiesABC):
             if active_action is not None:
                 index = self._actions.all_actions.index(active_action)
                 return None if index is None else index
+
+    def hide_finished_cards(self):
+        self._cards.set_hide_finished_cards(True)
+
+    def unhide_finished_cards(self):
+        self._cards.set_hide_finished_cards(False)
 
     @property
     def user(self) -> Person:
