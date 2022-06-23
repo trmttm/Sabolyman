@@ -144,6 +144,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def make_email(self):
+        pass
+
+    @abc.abstractmethod
     def hide_finished_cards(self):
         pass
 

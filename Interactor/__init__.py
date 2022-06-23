@@ -9,7 +9,7 @@ from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import add_template_card
-from . import create_email
+from . import create_email_text
 from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
@@ -38,6 +38,8 @@ from . import set_card_client
 from . import set_card_name
 from . import set_dead_line
 from . import show_action_information
+from . import show_email_creator
+from . import show_email_creator1
 from . import show_my_card_information
 from . import show_their_card_information
 from .abc import InteractorABC
@@ -209,6 +211,9 @@ class Interactor(InteractorABC):
     @property
     def mail_template_path(self) -> str:
         return self._gateway.mail_template_path
+
+    def make_email(self):
+        show_email_creator1.execute(self._entities, self._presenters, self._gateway)
 
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):

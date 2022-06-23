@@ -2,8 +2,8 @@ from typing import Callable
 
 from Entities import EntitiesABC
 from Gateway import GatewayABC
-from Interactor import create_email
 from Presenters import PresentersABC
+from . import show_email_creator
 
 
 def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callable, configure_menu: Callable,
@@ -19,7 +19,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, ask_folder: Callabl
     file_names = g.get_files_in_the_folder(g.mail_template_path, 'txt')
     file_names += files_injected
     for file_name in sorted(file_names):
-        mail_template.update({file_name: lambda f=file_name: make_email(egp, f)})
+        mail_template.update({file_name: lambda f=file_name: show_email_creator.execute(egp, f)})
 
     menu_injected = {
         'Mail': mail_templates,
@@ -36,11 +36,3 @@ def load_email_templates(epg: tuple, create_mail_menu: Callable, ask_folder: Cal
     folder_path = ask_folder()
     files = g.get_files_in_the_folder(folder_path, specified_extension)
     create_mail_menu(e, g, p, ask_folder, configure_menu, files)
-
-
-def make_email(epg: tuple, file_name: str):
-    g: GatewayABC = epg[1]
-    p: PresentersABC = epg[2]
-
-    text = create_email.execute(g, file_name, g.mail_template_package)
-    p.show_mail_creator(text)

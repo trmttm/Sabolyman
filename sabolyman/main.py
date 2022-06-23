@@ -28,7 +28,7 @@ def start_app(gui_selected='gui01.gui'):
     f = app.select_folder
     j = Controller.menu_bar.configure_menu_bar
     interactor.create_mail_menu(f, lambda menu_injected: j(app, interactor, entities, menu_injected))
-    # Keyboard shortcu
+    # Keyboard shortcut
     Controller.keyboard.configure_keyboard_shortcut(app, interactor, entities)
     # Teardown
     app.attach_to_event_upon_closing(lambda: interactor.close(lambda: app.close('root')))

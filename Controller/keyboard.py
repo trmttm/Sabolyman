@@ -17,6 +17,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
       (lambda: i.save_to_file(app.select_save_file(initialfile=utilities.default_file_name(e))), ''))
     f((KeyMap.command, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
     f((KeyMap.command, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
+    f((KeyMap.command, KeyMap.m), (lambda: i.make_email(), ''))
     f((KeyMap.control, KeyMap.c), (lambda: i.set_color_to_cards(state.get_my_cards_selected_indexes(app),
                                                                 state.get_their_cards_selected_indexes(app),
                                                                 app.ask_color()), ''))

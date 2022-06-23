@@ -82,8 +82,8 @@ class Presenters(PresentersABC):
     def update_action_files(self, files_names: Tuple[str, ...]):
         pass
 
-    def show_mail_creator(self, text: str):
-        show_mail_creator.execute(self._view, text)
+    def show_mail_creator(self, file_name: str, template_to_text: dict):
+        show_mail_creator.execute(self._view, file_name, template_to_text)
 
     # Popup
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int):

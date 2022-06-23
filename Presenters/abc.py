@@ -78,7 +78,7 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def show_mail_creator(self, text: str):
+    def show_mail_creator(self, file_name: str, template_to_text: dict):
         pass
 
     @abc.abstractmethod
