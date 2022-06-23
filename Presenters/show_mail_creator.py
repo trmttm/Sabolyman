@@ -18,6 +18,7 @@ def execute(v: ViewABC, template_name, template_to_text: dict):
     v.add_widgets(view_model)
     v.set_value(text_box_mail_id, text)
     v.set_value(combobox_templates_id, template_name)
+    v.focus(combobox_templates_id)
 
     v.bind_command_to_widget(entry_recipient_name, lambda *_: update_text_mail(get_text(v, template_to_text), v))
     v.bind_command_to_widget(text_box_mail_body_id, lambda *_: update_text_mail(get_text(v, template_to_text), v))
