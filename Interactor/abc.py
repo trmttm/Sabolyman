@@ -143,6 +143,11 @@ class InteractorABC(abc.ABC):
     def mail_template_path(self) -> str:
         pass
 
+    @property
+    @abc.abstractmethod
+    def cards_template_path(self) -> str:
+        pass
+
     @abc.abstractmethod
     def make_email(self):
         pass

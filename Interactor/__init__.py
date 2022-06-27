@@ -189,8 +189,8 @@ class Interactor(InteractorABC):
     def set_up(self):
         loaded = True
         import os
-        if not os.path.exists(self._gateway.home_folder):
-            os.mkdir(self._gateway.home_folder)
+        if not os.path.exists(self._gateway.state_folder):
+            os.mkdir(self._gateway.state_folder)
         try:
             self.load_state_from_file(self._gateway.auto_save_path)
         except:
@@ -211,6 +211,10 @@ class Interactor(InteractorABC):
     @property
     def mail_template_path(self) -> str:
         return self._gateway.mail_template_path
+
+    @property
+    def cards_template_path(self) -> str:
+        return self._gateway.cards_template_path
 
     def make_email(self):
         show_email_creator1.execute(self._entities, self._presenters, self._gateway)

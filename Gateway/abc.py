@@ -31,12 +31,22 @@ class GatewayABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def state_folder(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def mail_template_package(self) -> str:
         pass
 
     @property
     @abc.abstractmethod
     def mail_template_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def cards_template_path(self) -> str:
         pass
 
     @property

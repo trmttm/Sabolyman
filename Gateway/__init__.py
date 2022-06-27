@@ -41,6 +41,10 @@ class Gateway(GatewayABC):
 
     @property
     def home_folder(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman')
+
+    @property
+    def state_folder(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman', self._user_name)
 
     @property
@@ -52,5 +56,9 @@ class Gateway(GatewayABC):
         return 'Resources/Mail'
 
     @property
+    def cards_template_path(self) -> str:
+        return os.path.join(self.home_folder, 'Card Template')
+
+    @property
     def auto_save_path(self) -> str:
-        return os.path.join(self.home_folder, 'save.sb')
+        return os.path.join(self.state_folder, 'save.sb')
