@@ -15,7 +15,7 @@ from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import duplicate_selected_card
-from . import get_card_index, select_actions
+from . import get_card_index
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -28,6 +28,7 @@ from . import move_their_cards_up
 from . import present_action_list
 from . import present_card_list
 from . import save_as_template_card
+from . import select_actions
 from . import set_action_complete_time
 from . import set_action_description
 from . import set_action_is_done_or_not
