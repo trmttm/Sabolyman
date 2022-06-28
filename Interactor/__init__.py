@@ -102,11 +102,13 @@ class Interactor(InteractorABC):
 
     def show_my_card_information(self, indexes: Tuple[int]):
         indexes = get_card_index.execute(self._entities, self._entities.my_cards, indexes)
-        show_my_card_information.execute(self._entities, self._presenters, indexes)
+        if indexes is not None:
+            show_my_card_information.execute(self._entities, self._presenters, indexes)
 
     def show_their_card_information(self, indexes: Tuple[int]):
         indexes = get_card_index.execute(self._entities, self._entities.their_cards, indexes)
-        show_their_card_information.execute(self._entities, self._presenters, indexes)
+        if indexes is not None:
+            show_their_card_information.execute(self._entities, self._presenters, indexes)
 
     def move_my_cards_up(self, indexes: Tuple[int, ...]):
         move_my_cards_up.execute(self._entities, self._presenters, indexes)
