@@ -192,6 +192,11 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def selected_actions_indexes(self) -> Tuple[int, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def active_card_index(self) -> int:
         pass
 

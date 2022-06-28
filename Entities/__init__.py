@@ -244,6 +244,10 @@ class Entities(EntitiesABC):
                 index = self._actions.all_actions.index(active_action)
                 return None if index is None else index
 
+    @property
+    def selected_actions_indexes(self) -> Tuple[int, ...]:
+        return self.active_card.selected_actions_indexes
+
     def hide_finished_cards(self):
         self._cards.set_hide_finished_cards(True)
 

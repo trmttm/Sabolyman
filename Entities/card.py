@@ -1,4 +1,5 @@
 import datetime
+from typing import Tuple
 
 import Entities.factory2
 from . import factory1
@@ -22,6 +23,7 @@ class Card(EntityABC):
         self._files = Files()
         self._client = Person('Client')
         self._color = None
+        self._selected_actions_indexes = ()
 
     def set_name(self, name: str):
         self._name = name
@@ -102,6 +104,13 @@ class Card(EntityABC):
     def client(self) -> Person:
         return self._client
 
+    def select_actions(self, indexes: Tuple[int, ...]):
+        self._selected_actions_indexes = indexes
+
+    @property
+    def selected_actions_indexes(self) -> Tuple[int, ...]:
+        return self._selected_actions_indexes
+
     @property
     def state(self) -> dict:
         state = {
@@ -114,6 +123,7 @@ class Card(EntityABC):
             'files': self._files.state,
             'client': self._client.state,
             'color': self._color,
+            'selected_action_indexes': self._selected_actions_indexes,
         }
         return state
 
@@ -127,3 +137,4 @@ class Card(EntityABC):
         self._files = factory1.factory_files(state)
         self._client = factory1.factory_person(state, 'client')
         self._color = state.get('color', None)
+        self._selected_actions_indexes = state.get('selected_action_indexes', ())

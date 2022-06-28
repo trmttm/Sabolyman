@@ -15,7 +15,7 @@ from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import duplicate_selected_card
-from . import get_card_index
+from . import get_card_index, select_actions
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -166,6 +166,7 @@ class Interactor(InteractorABC):
         set_action_time_expected.execute(self._entities, self._presenters, time_expected)
 
     def show_action_information(self, indexes: Tuple[int]):
+        select_actions.execute(self._entities, indexes)
         show_action_information.execute(self._entities, self._presenters, indexes)
 
     def move_actions_up(self, indexes: Tuple[int, ...]):
