@@ -74,16 +74,19 @@ class Entities(EntitiesABC):
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
-        try:
-            return self.my_cards[index]
-        except IndexError:
-            pass
+        if self._cards.hide_finished_cards:
+            return get_card_by_index(self.my_visible_cards, index)
+        else:
+            return get_card_by_index(self.my_cards, index)
 
     def get_their_card_by_index(self, index: int) -> Card:
-        try:
-            return self.their_cards[index]
-        except IndexError:
-            pass
+        if self._cards.hide_finished_cards:
+            return get_card_by_index(self.their_visible_cards, index)
+        else:
+            return get_card_by_index(self.their_cards, index)
+
+    def get_their_visible_card_by_index(self, index: int) -> Card:
+        return get_card_by_index(self.their_visible_cards, index)
 
     def get_my_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
         return tuple(c for (n, c) in enumerate(self.my_cards) if n in indexes)
@@ -250,3 +253,11 @@ class Entities(EntitiesABC):
     @property
     def user(self) -> Person:
         return self._user
+
+
+def get_card_by_index(cards_tuple, index) -> Card:
+    try:
+        target_card = cards_tuple[index]
+    except IndexError:
+        target_card = None
+    return target_card
