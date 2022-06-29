@@ -97,7 +97,7 @@ class Card(EntityABC):
 
     @property
     def is_done(self) -> bool:
-        all_actions = self.all_actions
+        all_actions = self._actions.all_actions
         if len(all_actions) == 0:
             return False
         for action in all_actions:

@@ -1,5 +1,4 @@
 import datetime
-from typing import List
 from typing import Tuple
 from typing import Union
 
@@ -150,7 +149,7 @@ class Entities(EntitiesABC):
         if active_card is not None:
             return self.sort_actions(active_card, indexes, 1)
 
-    def sort_actions(self, card, indexes, shift) -> Tuple[int, ...]:
+    def sort_actions(self, card: Card, indexes, shift) -> Tuple[int, ...]:
         actions = card.actions.all_actions
         d, sorted_actions = Utilities.get_tuple_and_destinations_after_shifting_elements(actions, indexes, shift)
         self._actions.sort_actions(sorted_actions)
@@ -171,14 +170,6 @@ class Entities(EntitiesABC):
     @property
     def state(self) -> dict:
         return self._cards.state
-
-    @property
-    def all_actions(self) -> List[Action]:
-        card = self.active_card
-        if card is not None:
-            return card.actions.all_actions
-        else:
-            return []
 
     @property
     def action_names(self) -> Tuple[str, ...]:

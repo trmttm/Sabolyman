@@ -11,7 +11,7 @@ class RemoveAction(UseCase):
 
     def execute(self):
         entities = self._entities
-        actions = entities.all_actions
+        actions = entities.active_card.all_actions
         actions_to_remove = [a for (n, a) in enumerate(actions) if n in self._indexes]
         for action in actions_to_remove:
             entities.remove_action(action)

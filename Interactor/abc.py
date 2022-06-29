@@ -66,11 +66,11 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_action_name(self, action_name: str):
+    def set_action_name(self, action_name: str, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod
-    def set_action_owner(self, owner_name: str):
+    def set_action_owner(self, owner_name: str, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod

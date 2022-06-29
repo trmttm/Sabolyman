@@ -149,11 +149,11 @@ class Interactor(InteractorABC):
         present_card_list.execute(self._entities, self._presenters)
 
     # Action
-    def set_action_name(self, action_name: str):
-        set_action_name.execute(self._entities, self._presenters, action_name)
+    def set_action_name(self, action_name: str, actions_indexes: Tuple[int, ...]):
+        set_action_name.execute(self._entities, self._presenters, action_name, actions_indexes)
 
-    def set_action_owner(self, owner_name: str):
-        set_action_owner.execute(self._entities, self._presenters, owner_name)
+    def set_action_owner(self, owner_name: str, actions_indexes: Tuple[int, ...]):
+        set_action_owner.execute(self._entities, self._presenters, owner_name, actions_indexes)
 
     def mark_action_completed(self, done_or_not: bool, actions_indexes: Tuple[int, ...] = None):
         mark_action_completed.execute(self._entities, self._presenters, done_or_not, actions_indexes)

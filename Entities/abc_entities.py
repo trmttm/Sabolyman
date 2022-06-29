@@ -1,6 +1,5 @@
 import abc
 import datetime
-from typing import List
 from typing import Tuple
 
 from .action import Action
@@ -57,11 +56,6 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def times_completed(self) -> Tuple[datetime.datetime, ...]:
-        pass
-
-    @property
-    @abc.abstractmethod
-    def all_actions(self) -> List[Action]:
         pass
 
     @property
