@@ -86,7 +86,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_action_time_expected(self, time_expected: str):
+    def set_action_time_expected(self, time_expected: str, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod

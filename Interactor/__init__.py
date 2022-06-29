@@ -165,8 +165,8 @@ class Interactor(InteractorABC):
     def set_action_description(self, description: str):
         set_action_description.execute(self._entities, self._presenters, description)
 
-    def set_action_time_expected(self, time_expected: str):
-        set_action_time_expected.execute(self._entities, self._presenters, time_expected)
+    def set_action_time_expected(self, time_expected: str, actions_indexes: Tuple[int, ...]):
+        set_action_time_expected.execute(self._entities, self._presenters, time_expected, actions_indexes)
 
     def show_action_information(self, indexes: Tuple[int]):
         select_actions.execute(self._entities, indexes)
