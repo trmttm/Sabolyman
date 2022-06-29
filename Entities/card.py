@@ -1,4 +1,5 @@
 import datetime
+from typing import List
 from typing import Tuple
 
 import Entities.factory2
@@ -84,6 +85,10 @@ class Card(EntityABC):
         return self._dead_line
 
     @property
+    def all_actions(self) -> List[Action]:
+        return self._actions.all_actions
+
+    @property
     def actions(self) -> Actions:
         return self._actions
 
@@ -92,7 +97,7 @@ class Card(EntityABC):
 
     @property
     def is_done(self) -> bool:
-        all_actions = self._actions.all_actions
+        all_actions = self.all_actions
         if len(all_actions) == 0:
             return False
         for action in all_actions:

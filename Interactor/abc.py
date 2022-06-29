@@ -74,7 +74,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def mark_action_completed(self, done_or_not: bool):
+    def mark_action_completed(self, done_or_not: bool, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod

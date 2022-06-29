@@ -155,8 +155,8 @@ class Interactor(InteractorABC):
     def set_action_owner(self, owner_name: str):
         set_action_owner.execute(self._entities, self._presenters, owner_name)
 
-    def mark_action_completed(self, done_or_not: bool):
-        mark_action_completed.execute(self._entities, self._presenters, done_or_not)
+    def mark_action_completed(self, done_or_not: bool, actions_indexes: Tuple[int, ...] = None):
+        mark_action_completed.execute(self._entities, self._presenters, done_or_not, actions_indexes)
 
     def set_action_complete_time(self, done_or_not: bool):
         set_action_complete_time.execute(self._entities, done_or_not)
