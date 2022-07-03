@@ -92,7 +92,7 @@ class Entities(EntitiesABC):
             return get_card_by_index(self.my_cards, index)
 
     def get_their_card_by_index(self, index: int) -> Card:
-        if self._cards.hide_finished_cards:
+        if self._cards.hide_finished_cards or self.card_filter_is_on:
             return get_card_by_index(self.their_visible_cards, index)
         else:
             return get_card_by_index(self.their_cards, index)
