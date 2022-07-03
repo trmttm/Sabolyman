@@ -66,3 +66,7 @@ entry_action_owner = 'entry_action_owner'
 entry_action_time_expected = 'entry_action_time_expected'
 check_button_action_done = 'check_button_action_done'
 text_box_action_description = 'text_box_action_description'
+
+# Search
+entry_search_box = 'entry_search_box'
+btn_clear_search = 'btn_clear_search'

@@ -132,6 +132,14 @@ class Card(EntityABC):
         }
         return state
 
+    def get_search_result(self, search_key: str) -> int:
+        score = 0
+        if search_key in self._name:
+            score += 100
+        for action in self.actions.all_actions:  # Set score by action properties
+            score += action.get_search_result(search_key)
+        return score
+
     def load_state(self, state: dict):
         self._name = state.get('name', '')
         self._owner = factory1.factory_person(state, 'owner')

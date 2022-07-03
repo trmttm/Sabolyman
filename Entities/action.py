@@ -81,6 +81,16 @@ class Action(EntityABC):
     def files(self) -> Files:
         return self._files
 
+    def get_search_result(self, search_key: str) -> int:
+        score = 0
+        if search_key in self._name:
+            score += 10
+        if search_key in self._description:
+            score += 5
+        if search_key in self._owner.name:
+            score += 5
+        return score
+
     @property
     def state(self) -> dict:
         state = {

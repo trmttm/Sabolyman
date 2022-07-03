@@ -5,14 +5,22 @@ import WidgetNames
 
 
 def get_view_model(parent: str = 'root'):
+    wn = WidgetNames
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
+        stacker.hstack(
+            w.Spacer(),
+            w.Label('lbl_search_box').text('Search:'),
+            w.Entry(wn.entry_search_box),
+            w.Button(wn.btn_clear_search).text('x').width(1),
+        ),
         stacker.hstack(
             list_of_balls('My Balls', 0, stacker),
             list_of_balls('Their Balls', 1, stacker),
             w.Spacer().adjust(-2),
             w.Spacer().adjust(-2),
         ),
+        w.Spacer().adjust(-1),
     )
 
     view_model = stacker.view_model
