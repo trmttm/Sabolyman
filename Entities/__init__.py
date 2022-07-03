@@ -257,6 +257,9 @@ class Entities(EntitiesABC):
     def unhide_finished_cards(self):
         self._cards.set_hide_finished_cards(False)
 
+    def toggle_hide_finished_cards(self):
+        self._cards.toggle_hide_finished_cards()
+
     @property
     def user(self) -> Person:
         return self._user

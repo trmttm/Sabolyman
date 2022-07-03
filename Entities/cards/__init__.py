@@ -48,6 +48,9 @@ class Cards(CardsABC):
     def set_hide_finished_cards(self, true_false: bool):
         self._hide_finished_cards = true_false
 
+    def toggle_hide_finished_cards(self):
+        self._hide_finished_cards = not self._hide_finished_cards
+
     @property
     def hide_finished_cards(self) -> bool:
         return self._hide_finished_cards

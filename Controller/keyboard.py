@@ -2,6 +2,7 @@ from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 
+import WidgetNames
 from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
@@ -21,6 +22,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.control, KeyMap.c), (lambda: i.set_color_to_cards(state.get_my_cards_selected_indexes(app),
                                                                 state.get_their_cards_selected_indexes(app),
                                                                 app.ask_color()), ''))
+    f((KeyMap.control, KeyMap.h), (lambda: i.toggle_hide_finished_cards(), ''))
+    f((KeyMap.command, KeyMap.f), (lambda: app.focus(WidgetNames.entry_search_box), ''))
 
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))

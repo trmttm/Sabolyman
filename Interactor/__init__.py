@@ -148,6 +148,10 @@ class Interactor(InteractorABC):
         self._entities.unhide_finished_cards()
         present_card_list.execute(self._entities, self._presenters)
 
+    def toggle_hide_finished_cards(self):
+        self._entities.toggle_hide_finished_cards()
+        present_card_list.execute(self._entities, self._presenters)
+
     # Action
     def set_action_name(self, action_name: str, actions_indexes: Tuple[int, ...]):
         set_action_name.execute(self._entities, self._presenters, action_name, actions_indexes)

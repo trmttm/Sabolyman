@@ -15,14 +15,14 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'File': {
             'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=utilities.default_file_name(e))),
             'Load State': lambda: i.load_state_from_file(v.select_open_file()),
-            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
-            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
         },
         'View': {
-            'Hide Finished Cards': i.hide_finished_cards,
-            'Show Finished Cards': i.unhide_finished_cards,
+            'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
+            'Show Finished Cards [ctrl+h]': i.unhide_finished_cards,
         },
         'Cards': {
+            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
+            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
             'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
                 state.get_my_cards_selected_indexes(v),

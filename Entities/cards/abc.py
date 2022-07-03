@@ -36,3 +36,7 @@ class CardsABC(EntityABC):
     @abc.abstractmethod
     def set_hide_finished_cards(self, true_false: bool):
         pass
+
+    @abc.abstractmethod
+    def toggle_hide_finished_cards(self):
+        pass
