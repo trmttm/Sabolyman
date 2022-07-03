@@ -114,3 +114,6 @@ class Action(EntityABC):
         self._description = state.get('description', '')
         self._files = factory1.factory_files(state)
         self._time_completed = state.get('completed_time', None)
+
+    def __repr__(self):
+        return self._name

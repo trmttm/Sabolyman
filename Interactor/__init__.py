@@ -227,6 +227,7 @@ class Interactor(InteractorABC):
     def filter_cards_with_key_word(self, keyword: str):
         self._entities.set_filter_key(keyword)
         present_card_list.execute(self._entities, self._presenters)
+        self._entities.clear_show_this_card()
 
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):

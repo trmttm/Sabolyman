@@ -151,3 +151,6 @@ class Card(EntityABC):
         self._client = factory1.factory_person(state, 'client')
         self._color = state.get('color', None)
         self._selected_actions_indexes = state.get('selected_action_indexes', ())
+
+    def __repr__(self):
+        return self._name
