@@ -80,10 +80,10 @@ class Interactor(InteractorABC):
         duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)
 
     def delete_selected_my_cards(self, indexes: Tuple[int]):
-        delete_selected_my_cards.execute(self._entities, self._presenters, indexes, self._entities.my_cards)
+        delete_selected_my_cards.execute(self._entities, self._presenters, indexes)
 
     def delete_selected_their_cards(self, indexes: Tuple[int]):
-        delete_selected_their_cards.execute(self._entities, self._presenters, indexes, self._entities.their_cards)
+        delete_selected_their_cards.execute(self._entities, self._presenters, indexes)
 
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
@@ -101,12 +101,12 @@ class Interactor(InteractorABC):
         delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_my_card_information(self, indexes: Tuple[int]):
-        indexes = get_card_index.execute(self._entities, self._entities.my_cards, indexes)
+        indexes = get_card_index.execute(self._entities, self._entities.my_visible_cards, indexes)
         if indexes is not None:
             show_my_card_information.execute(self._entities, self._presenters, indexes)
 
     def show_their_card_information(self, indexes: Tuple[int]):
-        indexes = get_card_index.execute(self._entities, self._entities.their_cards, indexes)
+        indexes = get_card_index.execute(self._entities, self._entities.their_visible_cards, indexes)
         if indexes is not None:
             show_their_card_information.execute(self._entities, self._presenters, indexes)
 
@@ -130,10 +130,10 @@ class Interactor(InteractorABC):
             self.set_color_to_their_cards(indexes2, color)
 
     def set_color_to_my_cards(self, indexes: Tuple[int, ...], color):
-        self._set_color_to_cards(self._entities.get_my_cards_by_indexes(indexes), color)
+        self._set_color_to_cards(self._entities.get_my_visible_cards_by_indexes(indexes), color)
 
     def set_color_to_their_cards(self, indexes: Tuple[int, ...], color):
-        self._set_color_to_cards(self._entities.get_their_cards_by_indexes(indexes), color)
+        self._set_color_to_cards(self._entities.get_their_visible_cards_by_indexes(indexes), color)
 
     def _set_color_to_cards(self, cards, color):
         for card in cards:

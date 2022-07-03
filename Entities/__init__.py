@@ -65,8 +65,12 @@ class Entities(EntitiesABC):
     def their_visible_cards(self) -> Tuple[Card, ...]:
         return self._visible_cards(self.their_cards)
 
+    @property
+    def card_filter_is_on(self) -> bool:
+        return self._filter_key not in ['', None]
+
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
-        if self._filter_key not in ['', None]:
+        if self.card_filter_is_on:
             visible_cards = tuple(c for c in cards_tuple if c.get_search_result(self._filter_key) > 0)
         elif self._cards.hide_finished_cards:
             visible_cards = tuple(c for c in cards_tuple if not c.is_done)
@@ -82,7 +86,7 @@ class Entities(EntitiesABC):
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
-        if self._cards.hide_finished_cards:
+        if self._cards.hide_finished_cards or self.card_filter_is_on:
             return get_card_by_index(self.my_visible_cards, index)
         else:
             return get_card_by_index(self.my_cards, index)
@@ -96,11 +100,11 @@ class Entities(EntitiesABC):
     def get_their_visible_card_by_index(self, index: int) -> Card:
         return get_card_by_index(self.their_visible_cards, index)
 
-    def get_my_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
-        return tuple(c for (n, c) in enumerate(self.my_cards) if n in indexes)
+    def get_my_visible_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        return tuple(c for (n, c) in enumerate(self.my_visible_cards) if n in indexes)
 
-    def get_their_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
-        return tuple(c for (n, c) in enumerate(self.their_cards) if n in indexes)
+    def get_their_visible_cards_by_indexes(self, indexes: Tuple[int, ...]) -> Tuple[Card, ...]:
+        return tuple(c for (n, c) in enumerate(self.their_visible_cards) if n in indexes)
 
     def get_action_by_index(self, index: int) -> Action:
         actions = self._actions
@@ -138,10 +142,10 @@ class Entities(EntitiesABC):
         return self.move_their_cards(indexes, 1)
 
     def move_my_cards(self, indexes: Tuple[int, ...], shift: int):
-        return self.sort_cards(indexes, self.my_cards, shift)
+        return self.sort_cards(indexes, self.my_visible_cards, shift)
 
     def move_their_cards(self, indexes: Tuple[int, ...], shift: int):
-        return self.sort_cards(indexes, self.their_cards, shift)
+        return self.sort_cards(indexes, self.their_visible_cards, shift)
 
     def sort_cards(self, indexes, my_cards, shift):
         d, sorted_my_cards = Utilities.get_tuple_and_destinations_after_shifting_elements(my_cards, indexes, shift)
@@ -213,9 +217,9 @@ class Entities(EntitiesABC):
         if self._cards is not None:
             active_card = self.active_card
             if active_card in self.my_cards:
-                return self.my_cards.index(active_card)
+                return self.my_visible_cards.index(active_card)
             elif active_card in self.their_cards:
-                return self.their_cards.index(active_card)
+                return self.their_visible_cards.index(active_card)
 
     @property
     def active_card_is_in_their_cards(self) -> bool:
