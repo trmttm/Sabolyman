@@ -88,3 +88,7 @@ class Presenters(PresentersABC):
     # Popup
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int):
         message_box.execute(self._view, title, body, width, height)
+
+    # Search box
+    def set_search_box(self, text: str):
+        self._view.set_value(WidgetNames.entry_search_box, text)

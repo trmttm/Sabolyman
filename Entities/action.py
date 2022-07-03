@@ -83,11 +83,11 @@ class Action(EntityABC):
 
     def get_search_result(self, search_key: str) -> int:
         score = 0
-        if search_key in self._name:
+        if search_key.lower() in self._name.lower():
             score += 10
-        if search_key in self._description:
+        if search_key.lower() in self._description.lower():
             score += 5
-        if search_key in self._owner.name:
+        if search_key.lower() in self._owner.name.lower():
             score += 5
         return score
 

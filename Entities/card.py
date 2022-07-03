@@ -134,7 +134,7 @@ class Card(EntityABC):
 
     def get_search_result(self, search_key: str) -> int:
         score = 0
-        if search_key in self._name:
+        if search_key.lower() in self._name.lower():
             score += 100
         for action in self.actions.all_actions:  # Set score by action properties
             score += action.get_search_result(search_key)

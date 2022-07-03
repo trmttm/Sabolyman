@@ -163,3 +163,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def filter_cards_with_key_word(self, keyword: str):
         pass
+
+    @abc.abstractmethod
+    def clear_card_filter(self):
+        pass

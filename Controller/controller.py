@@ -12,6 +12,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 
     # Search box
     f(wn.entry_search_box, lambda *_: i.filter_cards_with_key_word(s.get_search_box_entry(v)))
+    f(wn.btn_clear_search, lambda *_: i.clear_card_filter())
 
     # My Cards
     f(wn.button_add_new_my_card, lambda: i.add_new_card())

@@ -84,3 +84,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int):
         pass
+
+    @abc.abstractmethod
+    def set_search_box(self, text: str):
+        pass
