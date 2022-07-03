@@ -22,6 +22,7 @@ class Entities(EntitiesABC):
         self._default_values = DefaultValues()
         self._user = Person('Taro Yamaka')
         self._show_this_card = None
+        self._filter_key = ''
 
     # Default Values
     @property
@@ -65,11 +66,19 @@ class Entities(EntitiesABC):
         return self._visible_cards(self.their_cards)
 
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
-        if self._cards.hide_finished_cards:
+        if self._filter_key not in ['', None]:
+            visible_cards = tuple(c for c in cards_tuple if c.get_search_result(self._filter_key) > 0)
+        elif self._cards.hide_finished_cards:
             visible_cards = tuple(c for c in cards_tuple if not c.is_done)
         else:
             visible_cards = cards_tuple
         return visible_cards
+
+    def set_filter_key(self, search_key: str):
+        self._filter_key = search_key
+
+    def clear_filter_key(self):
+        self._filter_key = ''
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:

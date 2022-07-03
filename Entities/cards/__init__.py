@@ -13,6 +13,7 @@ class Cards(CardsABC):
         self._cards: List[Card, ...] = []
         self._active_card = None
         self._hide_finished_cards = False
+        self._filter_by_keyword = False
 
     @property
     def active_card(self) -> Card:

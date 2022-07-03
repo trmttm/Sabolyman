@@ -10,6 +10,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     wn = WidgetNames
     ai = s.get_actions_selected_indexes
 
+    # Search box
+    f(wn.entry_search_box, lambda *_: i.filter_cards_with_key_word(s.get_search_box_entry(v)))
+
     # My Cards
     f(wn.button_add_new_my_card, lambda: i.add_new_card())
     f(wn.button_move_up_selected_my_card, lambda: i.move_my_cards_up(s.get_my_cards_selected_indexes(v)))

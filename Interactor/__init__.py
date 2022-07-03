@@ -223,6 +223,11 @@ class Interactor(InteractorABC):
     def make_email(self):
         show_email_creator1.execute(self._entities, self._presenters, self._gateway)
 
+    # Search box
+    def filter_cards_with_key_word(self, keyword: str):
+        self._entities.set_filter_key(keyword)
+        present_card_list.execute(self._entities, self._presenters)
+
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):
         self._presenters.feed_back_user_by_popup(title, text, width, height)

@@ -214,3 +214,11 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def unhide_finished_cards(self):
         pass
+
+    @abc.abstractmethod
+    def set_filter_key(self, search_key: str):
+        pass
+
+    @abc.abstractmethod
+    def clear_filter_key(self):
+        pass

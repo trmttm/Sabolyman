@@ -5,6 +5,10 @@ from interface_view import ViewABC
 import WidgetNames
 
 
+def get_search_box_entry(v: ViewABC) -> str:
+    return v.get_value(WidgetNames.entry_search_box)
+
+
 def get_my_cards_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_my_cards)
 

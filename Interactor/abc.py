@@ -159,3 +159,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def unhide_finished_cards(self):
         pass
+
+    @abc.abstractmethod
+    def filter_cards_with_key_word(self, keyword: str):
+        pass
