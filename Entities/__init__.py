@@ -70,12 +70,11 @@ class Entities(EntitiesABC):
         return self._filter_key not in ['', None]
 
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
-        if self.card_filter_is_on:
-            visible_cards = tuple(c for c in cards_tuple if c.get_search_result(self._filter_key) > 0)
-        elif self._cards.hide_finished_cards:
-            visible_cards = tuple(c for c in cards_tuple if not c.is_done)
-        else:
-            visible_cards = cards_tuple
+        visible_cards = cards_tuple
+        if self.card_filter_is_on:  # Filter 1
+            visible_cards = tuple(c for c in visible_cards if c.get_search_result(self._filter_key) > 0)
+        if self._cards.hide_finished_cards:  # Filter 2
+            visible_cards = tuple(c for c in visible_cards if not c.is_done)
         return visible_cards
 
     def set_filter_key(self, search_key: str):
