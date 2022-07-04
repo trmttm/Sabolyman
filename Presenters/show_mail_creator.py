@@ -50,5 +50,8 @@ def update_text_mail(text: str, v: ViewABC):
     name_text = v.get_value(entry_recipient_name)
     body_text = v.get_value(text_box_mail_body_id)
     text = text.replace('[name]', name_text)
+    if name_text == '各位':
+        text = text.replace('さん', '')
+        text = text.replace('様', '')
     text = text.replace('[body]', body_text)
     v.set_value(text_box_mail_id, text)
