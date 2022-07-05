@@ -1,4 +1,5 @@
 import abc
+from typing import Iterable
 from typing import Tuple
 
 
@@ -52,4 +53,8 @@ class GatewayABC(abc.ABC):
     @property
     @abc.abstractmethod
     def auto_save_path(self) -> str:
+        pass
+
+    @abc.abstractmethod
+    def export_data_as_csv(self, file_name: str, data: Iterable):
         pass

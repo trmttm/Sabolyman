@@ -217,6 +217,10 @@ class Interactor(InteractorABC):
         create_mail_menu.execute(self._entities, self._gateway, self._presenters, ask_folder, configure_menu)
 
     @property
+    def home_folder(self) -> str:
+        return self._gateway.home_folder
+
+    @property
     def mail_template_path(self) -> str:
         return self._gateway.mail_template_path
 
@@ -241,3 +245,12 @@ class Interactor(InteractorABC):
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):
         self._presenters.feed_back_user_by_popup(title, text, width, height)
+
+    # Export
+    def export_actions_list(self, file_name: str):
+        data = [['No', 'Name', 'Done', 'Date Created', 'Owner', 'Time Budget', 'Description']]
+        for n, action in enumerate(self._entities.active_card.all_actions):
+            a = action
+            data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
+
+        self._gateway.export_data_as_csv(file_name, data)

@@ -145,6 +145,11 @@ class InteractorABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def home_folder(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def cards_template_path(self) -> str:
         pass
 
@@ -170,4 +175,8 @@ class InteractorABC(abc.ABC):
 
     @abc.abstractmethod
     def clear_card_filter(self):
+        pass
+
+    @abc.abstractmethod
+    def export_actions_list(self, file_name: str):
         pass

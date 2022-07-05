@@ -1,10 +1,12 @@
 import importlib.resources
 import os
 import pickle
+from typing import Iterable
 from typing import Tuple
 
 import Utilities
 
+from . import csv_exporter
 from .abc import GatewayABC
 
 
@@ -62,3 +64,6 @@ class Gateway(GatewayABC):
     @property
     def auto_save_path(self) -> str:
         return os.path.join(self.state_folder, 'save.sb')
+
+    def export_data_as_csv(self, file_name: str, data: Iterable):
+        csv_exporter.execute(file_name, data)
