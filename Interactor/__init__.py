@@ -252,5 +252,5 @@ class Interactor(InteractorABC):
         for n, action in enumerate(self._entities.active_card.all_actions):
             a = action
             data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
-
+        self.feed_back_user_by_popup('actions', str(data), 600, 600)
         self._gateway.export_data_as_csv(file_name, data)
