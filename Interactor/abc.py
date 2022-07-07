@@ -6,6 +6,10 @@ from interface_keymaps import KeyMapsABC
 
 class InteractorABC(abc.ABC):
     @abc.abstractmethod
+    def save_state(self):
+        pass
+
+    @abc.abstractmethod
     def save_to_file(self, file_name: str):
         pass
 

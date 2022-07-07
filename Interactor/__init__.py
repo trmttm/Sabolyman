@@ -59,6 +59,10 @@ class Interactor(InteractorABC):
         load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)
 
     # Save
+    def save_state(self):
+        path = self._gateway.auto_save_path
+        self.save_to_file(path)
+
     def save_to_file(self, file_name: str):
         self._gateway.save_file(file_name, self._entities.state)
         self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}', 400, 100)
@@ -252,5 +256,4 @@ class Interactor(InteractorABC):
         for n, action in enumerate(self._entities.active_card.all_actions):
             a = action
             data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
-        self.feed_back_user_by_popup('actions', str(data), 600, 600)
         self._gateway.export_data_as_csv(file_name, data)
