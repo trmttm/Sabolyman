@@ -9,15 +9,17 @@ from Interactor import InteractorABC
 from . import state
 from . import utilities
 
+
 def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_injected: dict = None):
     menu_bar_model = {
         'File': {
-            'Save Sate': lambda: i.save_to_file(v.select_save_file(initialfile=utilities.default_file_name(e))),
+            'Save Sate': lambda: i.save_state(),
             'Save Sate as': lambda: i.save_to_file(v.select_save_file(initialfile=utilities.default_file_name(e))),
             'Load State': lambda: i.load_state_from_file(v.select_open_file()),
         },
         'Export': {
-            'Export Actions List': lambda: i.export_actions_list(v.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
+            'Export Actions List': lambda: i.export_actions_list(
+                v.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
         },
         'View': {
             'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
