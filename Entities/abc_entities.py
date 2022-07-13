@@ -1,6 +1,7 @@
 import abc
 import datetime
 from typing import Tuple
+from typing import Union
 
 from .action import Action
 from .card import Card
@@ -200,7 +201,7 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def show_this_card(self):
+    def show_this_card(self) -> Union[None, Card]:
         pass
 
     @abc.abstractmethod

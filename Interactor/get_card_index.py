@@ -9,7 +9,7 @@ def execute(e: EntitiesABC, target_cards: Tuple[Card, ...], indexes: Tuple[int, 
     # Treeview events recursively select and display the card that was not originally displayed (=used by user)
     # e.show_this_card specifies what cards to display.
     card_to_show_specified = e.show_this_card
-    if card_to_show_specified:
+    if card_to_show_specified and not card_to_show_specified.is_done:
         e.set_active_card(card_to_show_specified)
         if card_to_show_specified in target_cards:  # my_cards vs their_cards
             modified_indexes = (e.active_card_index,)
