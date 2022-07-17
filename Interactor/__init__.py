@@ -154,7 +154,7 @@ class Interactor(InteractorABC):
 
     def toggle_hide_finished_cards(self):
         self._entities.toggle_hide_finished_cards()
-        self.filter_cards_with_key_word(self._entities.filter_key, self._entities.filter_mode)
+        self.filter_cards_with_keyword(self._entities.filter_key, self._entities.filter_mode)
         present_card_list.execute(self._entities, self._presenters)
         self._presenters.set_search_box(self._entities.filter_key)
 
@@ -238,7 +238,11 @@ class Interactor(InteractorABC):
         show_email_creator1.execute(self._entities, self._presenters, self._gateway)
 
     # Search box
-    def filter_cards_with_key_word(self, keyword: str, search_mode: str):
+    def filter_cards_with_keyword(self, keyword: str, search_mode: str):
+        if keyword.strip() != '':
+            self._filter_cards_with_keyword(keyword, search_mode)
+
+    def _filter_cards_with_keyword(self, keyword: str, search_mode: str):
         self._entities.set_filter_key(keyword, search_mode)
         present_card_list.execute(self._entities, self._presenters)
         self._entities.clear_show_this_card()
@@ -246,7 +250,7 @@ class Interactor(InteractorABC):
     def clear_card_filter(self):
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
-        self.filter_cards_with_key_word('', self.search_mode[0])
+        self._filter_cards_with_keyword('', self.search_mode[0])
         self._presenters.set_search_box(self._entities.filter_key)
         self._presenters.set_search_mode(self._entities.filter_mode)
 

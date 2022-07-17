@@ -13,9 +13,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     # Search box
     v.set_combobox_values(wn.combobox_search_mode, i.search_mode)
     v.set_value(wn.combobox_search_mode, i.search_mode[0])
-    f(wn.entry_search_box, lambda *_: i.filter_cards_with_key_word(s.get_search_box_entry(v), s.get_search_model(v)))
+    f(wn.entry_search_box, lambda *_: i.filter_cards_with_keyword(s.get_search_box_entry(v), s.get_search_model(v)))
     f(wn.combobox_search_mode,
-      lambda *_: i.filter_cards_with_key_word(s.get_search_box_entry(v), s.get_search_model(v)))
+      lambda *_: i.filter_cards_with_keyword(s.get_search_box_entry(v), s.get_search_model(v)))
     f(wn.btn_clear_search, lambda *_: i.clear_card_filter())
 
     # My Cards

@@ -174,7 +174,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def filter_cards_with_key_word(self, keyword: str, search_mode: str):
+    def filter_cards_with_keyword(self, keyword: str, search_mode: str):
         pass
 
     @abc.abstractmethod
