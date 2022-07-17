@@ -88,3 +88,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def set_search_box(self, text: str):
         pass
+
+    @abc.abstractmethod
+    def set_search_mode(self, filter_mode: str):
+        pass

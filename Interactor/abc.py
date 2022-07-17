@@ -174,7 +174,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def filter_cards_with_key_word(self, keyword: str):
+    def filter_cards_with_key_word(self, keyword: str, search_mode: str):
         pass
 
     @abc.abstractmethod
@@ -183,4 +183,9 @@ class InteractorABC(abc.ABC):
 
     @abc.abstractmethod
     def export_actions_list(self, file_name: str):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def search_mode(self) -> Tuple[str, ...]:
         pass

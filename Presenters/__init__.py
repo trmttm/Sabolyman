@@ -92,3 +92,6 @@ class Presenters(PresentersABC):
     # Search box
     def set_search_box(self, text: str):
         self._view.set_value(WidgetNames.entry_search_box, text)
+
+    def set_search_mode(self, filter_mode: str):
+        self._view.set_value(WidgetNames.combobox_search_mode, filter_mode)

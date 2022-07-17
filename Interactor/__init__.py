@@ -236,15 +236,21 @@ class Interactor(InteractorABC):
         show_email_creator1.execute(self._entities, self._presenters, self._gateway)
 
     # Search box
-    def filter_cards_with_key_word(self, keyword: str):
-        self._entities.set_filter_key(keyword)
+    def filter_cards_with_key_word(self, keyword: str, search_mode: str):
+        self._entities.set_filter_key(keyword, search_mode)
         present_card_list.execute(self._entities, self._presenters)
         self._entities.clear_show_this_card()
 
     def clear_card_filter(self):
         self._entities.clear_filter_key()
-        self.filter_cards_with_key_word('')
+        self._entities.clear_filter_mode()
+        self.filter_cards_with_key_word('', self.search_mode[0])
         self._presenters.set_search_box('')
+        self._presenters.set_search_mode(self._entities.filter_mode)
+
+    @property
+    def search_mode(self) -> Tuple[str, ...]:
+        return self._entities.all_filter_modes
 
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):

@@ -132,12 +132,28 @@ class Card(EntityABC):
         }
         return state
 
-    def get_search_result(self, search_key: str) -> int:
+    def get_search_all_result(self, search_key: str) -> int:
         score = 0
         if search_key.lower() in self._name.lower():
             score += 100
         for action in self.actions.all_actions:  # Set score by action properties
-            score += action.get_search_result(search_key)
+            score += action.get_search_all_result(search_key)
+        return score
+
+    def get_search_undone_owner_result(self, search_key: str) -> int:
+        score = 0
+        if search_key.lower() in self._owner.name.lower():
+            score += 100
+        for action in self.actions.all_actions:  # Set score by action properties
+            score += action.get_search_undone_owner_result(search_key)
+        return score
+
+    def get_search_owner_result(self, search_key: str) -> int:
+        score = 0
+        if search_key.lower() in self._owner.name.lower():
+            score += 100
+        for action in self.actions.all_actions:  # Set score by action properties
+            score += action.get_search_owner_result(search_key)
         return score
 
     def load_state(self, state: dict):

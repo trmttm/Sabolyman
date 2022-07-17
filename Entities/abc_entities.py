@@ -221,9 +221,23 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_filter_key(self, search_key: str):
+    def set_filter_key(self, search_key: str, search_mode: str):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def filter_mode(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def all_filter_modes(self) -> Tuple[str, ...]:
         pass
 
     @abc.abstractmethod
     def clear_filter_key(self):
+        pass
+
+    @abc.abstractmethod
+    def clear_filter_mode(self):
         pass

@@ -70,3 +70,4 @@ text_box_action_description = 'text_box_action_description'
 # Search
 entry_search_box = 'entry_search_box'
 btn_clear_search = 'btn_clear_search'
+combobox_search_mode = 'combobox_search_mode'

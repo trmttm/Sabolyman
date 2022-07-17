@@ -51,3 +51,7 @@ def get_dead_line_str(v: ViewABC) -> str:
 
 def get_client(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_card_client)
+
+
+def get_search_model(v: ViewABC) -> str:
+    return v.get_value(WidgetNames.combobox_search_mode)

@@ -23,6 +23,7 @@ class Entities(EntitiesABC):
         self._user = Person('Taro Yamaka')
         self._show_this_card = None
         self._filter_key = ''
+        self._filter_mode = self.all_filter_modes[0]
 
     # Default Values
     @property
@@ -71,17 +72,35 @@ class Entities(EntitiesABC):
 
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
         visible_cards = cards_tuple
-        if self.card_filter_is_on:  # Filter 1
-            visible_cards = tuple(c for c in visible_cards if c.get_search_result(self._filter_key) > 0)
+
+        if self._filter_mode == 'Owner' and self._cards.hide_finished_cards:
+            visible_cards = tuple(c for c in visible_cards if c.get_search_undone_owner_result(self._filter_key) > 0)
+        elif self._filter_mode == 'Owner':
+            visible_cards = tuple(c for c in visible_cards if c.get_search_owner_result(self._filter_key) > 0)
+        else:
+            if self.card_filter_is_on:  # Filter 1
+                visible_cards = tuple(c for c in visible_cards if c.get_search_all_result(self._filter_key) > 0)
         if self._cards.hide_finished_cards:  # Filter 2
             visible_cards = tuple(c for c in visible_cards if not c.is_done)
         return visible_cards
 
-    def set_filter_key(self, search_key: str):
+    def set_filter_key(self, search_key: str, search_mode: str):
         self._filter_key = search_key
+        self._filter_mode = search_mode
+
+    @property
+    def all_filter_modes(self) -> Tuple[str, ...]:
+        return 'All', 'Owner', 'Action Name', 'Card Name'
+
+    @property
+    def filter_mode(self) -> str:
+        return self._filter_mode
 
     def clear_filter_key(self):
         self._filter_key = ''
+
+    def clear_filter_mode(self):
+        self._filter_mode = self.all_filter_modes[0]
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:

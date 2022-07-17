@@ -11,7 +11,8 @@ def get_view_model(parent: str = 'root'):
         stacker.hstack(
             w.Spacer(),
             w.Label('lbl_search_box').text('Search:'),
-            w.Entry(wn.entry_search_box),
+            w.Entry(wn.entry_search_box).width(30),
+            w.ComboBox(wn.combobox_search_mode).width(15),
             w.Button(wn.btn_clear_search).text('x').width(1),
         ),
         stacker.hstack(
