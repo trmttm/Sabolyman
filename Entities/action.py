@@ -110,6 +110,14 @@ class Action(EntityABC):
             self.set_color('Yellow')
         return score
 
+    def get_search_action_name(self, search_key: str) -> int:
+        score = 0
+        if search_key.lower() in self.name.lower():
+            score += 10
+        if score > 0:
+            self.set_color('Yellow')
+        return score
+
     def set_color(self, color: str):
         self._color = color
 
@@ -117,7 +125,7 @@ class Action(EntityABC):
         self._color = 'White'
 
     @property
-    def color(self) -> bool:
+    def color(self) -> str:
         return self._color
 
     @property

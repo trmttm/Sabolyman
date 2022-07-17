@@ -73,14 +73,21 @@ class Entities(EntitiesABC):
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
         visible_cards = cards_tuple
 
+        # Filter 1
         if self._filter_mode == 'Owner' and self._cards.hide_finished_cards:
             visible_cards = tuple(c for c in visible_cards if c.get_search_undone_owner_result(self._filter_key) > 0)
         elif self._filter_mode == 'Owner':
             visible_cards = tuple(c for c in visible_cards if c.get_search_owner_result(self._filter_key) > 0)
+        elif self._filter_mode == 'Action Name':
+            visible_cards = tuple(c for c in visible_cards if c.get_search_action_name(self._filter_key) > 0)
+        elif self._filter_mode == 'Card Name':
+            visible_cards = tuple(c for c in visible_cards if c.get_search_card_name(self._filter_key) > 0)
         else:
-            if self.card_filter_is_on:  # Filter 1
+            if self.card_filter_is_on:
                 visible_cards = tuple(c for c in visible_cards if c.get_search_all_result(self._filter_key) > 0)
-        if self._cards.hide_finished_cards:  # Filter 2
+
+        # Filter 2
+        if self._cards.hide_finished_cards:
             visible_cards = tuple(c for c in visible_cards if not c.is_done)
         return visible_cards
 
