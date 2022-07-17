@@ -15,6 +15,7 @@ def execute(e: EntitiesABC, p: PresentersABC, next_selection_index: Tuple[int, .
                                    for d in e.times_completed)
         response_model = action_names, second_column_data, next_selection_index
         states = tuple(a.is_done for a in e.active_card.all_actions)
-        p.updates_card_actions(*response_model, states=states)
+        back_ground_colors = tuple(a.color for a in e.active_card.all_actions)
+        p.updates_card_actions(*response_model, states=states, back_ground_colors=back_ground_colors)
     else:
         print('Select Card first. No Card is selected.')

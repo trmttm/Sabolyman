@@ -19,6 +19,7 @@ class Action(EntityABC):
         self._description = ''
         self._files = Files()
         self._time_completed = None
+        self._color = 'White'
 
     @property
     def name(self) -> str:
@@ -89,19 +90,35 @@ class Action(EntityABC):
             score += 5
         if search_key.lower() in self._owner.name.lower():
             score += 5
+        if score > 0:
+            self.set_color('Yellow')
         return score
 
     def get_search_undone_owner_result(self, search_key: str) -> int:
         score = 0
         if not self._is_done and (search_key.lower() in self._owner.name.lower()):
             score += 10
+        if score > 0:
+            self.set_color('Yellow')
         return score
 
     def get_search_owner_result(self, search_key: str) -> int:
         score = 0
         if search_key.lower() in self._owner.name.lower():
             score += 10
+        if score > 0:
+            self.set_color('Yellow')
         return score
+
+    def set_color(self, color: str):
+        self._color = color
+
+    def remove_color(self):
+        self._color = 'White'
+
+    @property
+    def color(self) -> bool:
+        return self._color
 
     @property
     def state(self) -> dict:

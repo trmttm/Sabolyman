@@ -87,6 +87,7 @@ class Entities(EntitiesABC):
     def set_filter_key(self, search_key: str, search_mode: str):
         self._filter_key = search_key
         self._filter_mode = search_mode
+        self._clear_actions_highlight()
 
     @property
     def all_filter_modes(self) -> Tuple[str, ...]:
@@ -98,6 +99,7 @@ class Entities(EntitiesABC):
 
     def clear_filter_key(self):
         self._filter_key = ''
+        self._clear_actions_highlight()
 
     def clear_filter_mode(self):
         self._filter_mode = self.all_filter_modes[0]
@@ -193,6 +195,10 @@ class Entities(EntitiesABC):
 
     def remove_action(self, action: Action):
         self._actions.remove_action(action)
+
+    def _clear_actions_highlight(self):
+        for card_ in self._cards.all_cards:
+            card_.clear_actions_highlight()
 
     # Properties
     def load_state(self, state: dict):

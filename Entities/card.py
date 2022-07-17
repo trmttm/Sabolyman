@@ -156,6 +156,10 @@ class Card(EntityABC):
             score += action.get_search_owner_result(search_key)
         return score
 
+    def clear_actions_highlight(self):
+        for action in self._actions.all_actions:
+            action.remove_color()
+
     def load_state(self, state: dict):
         self._name = state.get('name', '')
         self._owner = factory1.factory_person(state, 'owner')
