@@ -154,7 +154,9 @@ class Interactor(InteractorABC):
 
     def toggle_hide_finished_cards(self):
         self._entities.toggle_hide_finished_cards()
+        self.filter_cards_with_key_word(self._entities.filter_key, self._entities.filter_mode)
         present_card_list.execute(self._entities, self._presenters)
+        self._presenters.set_search_box(self._entities.filter_key)
 
     # Action
     def set_action_name(self, action_name: str, actions_indexes: Tuple[int, ...]):
@@ -245,7 +247,7 @@ class Interactor(InteractorABC):
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
         self.filter_cards_with_key_word('', self.search_mode[0])
-        self._presenters.set_search_box('')
+        self._presenters.set_search_box(self._entities.filter_key)
         self._presenters.set_search_mode(self._entities.filter_mode)
 
     @property

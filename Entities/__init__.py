@@ -90,16 +90,20 @@ class Entities(EntitiesABC):
         self._clear_actions_highlight()
 
     @property
-    def all_filter_modes(self) -> Tuple[str, ...]:
-        return 'All', 'Owner', 'Action Name', 'Card Name'
-
-    @property
-    def filter_mode(self) -> str:
-        return self._filter_mode
+    def filter_key(self) -> str:
+        return self._filter_key
 
     def clear_filter_key(self):
         self._filter_key = ''
         self._clear_actions_highlight()
+
+    @property
+    def all_filter_modes(self) -> Tuple[str, ...]:
+        return 'All', 'Owner', 'Action Name', 'Card Name', 'Client Name'
+
+    @property
+    def filter_mode(self) -> str:
+        return self._filter_mode
 
     def clear_filter_mode(self):
         self._filter_mode = self.all_filter_modes[0]
