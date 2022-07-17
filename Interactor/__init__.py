@@ -242,17 +242,17 @@ class Interactor(InteractorABC):
         if keyword.strip() != '':
             self._filter_cards_with_keyword(keyword, search_mode)
 
-    def _filter_cards_with_keyword(self, keyword: str, search_mode: str):
-        self._entities.set_filter_key(keyword, search_mode)
-        present_card_list.execute(self._entities, self._presenters)
-        self._entities.clear_show_this_card()
-
     def clear_card_filter(self):
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
         self._filter_cards_with_keyword('', self.search_mode[0])
         self._presenters.set_search_box(self._entities.filter_key)
         self._presenters.set_search_mode(self._entities.filter_mode)
+
+    def _filter_cards_with_keyword(self, keyword: str, search_mode: str):
+        self._entities.set_filter_key(keyword, search_mode)
+        present_card_list.execute(self._entities, self._presenters)
+        self._entities.clear_show_this_card()
 
     @property
     def search_mode(self) -> Tuple[str, ...]:

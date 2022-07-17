@@ -19,7 +19,6 @@ button_move_down_selected_their_card = 'button_move_down_selected_their_card'
 button_move_down_selected_later_card = 'button_move_down_selected_later_card'
 
 label_date_created = 'label_date_created'
-label_date_finished = 'label_date_finished'
 
 selector_tree_cards = {
     0: tree_my_cards,

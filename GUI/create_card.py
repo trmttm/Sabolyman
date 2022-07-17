@@ -62,7 +62,7 @@ def get_actions_properties(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_time').text('Time expected').width(10).padding(5, 0),
             stacker.hstack(
-                w.Entry(wn.entry_action_time_expected).default_value('1:00').padding(25, 0).width(15),
+                w.Entry(wn.entry_action_time_expected).default_value('0:00').padding(25, 0).width(15),
                 w.Label('lbl_done').text('Done'),
                 w.CheckButton(wn.check_button_action_done).value(False).padding(25, 0),
                 w.Spacer().adjust(-2),
@@ -93,9 +93,6 @@ def get_card_property_entry(stacker: Stacker):
             w.Entry(wn.entry_dead_line).default_value('2022/5/30 15:00', ).padding(25, 0),
             w.Label('lbl_date_created1').text('Created:').width(6).padding(10, 0),
             w.Label(WidgetNames.label_date_created).text('2022/5/28').width(10).padding(10, 0),
-            w.Label('lbl_date_completed').text('Completed:').width(8).padding(10, 0),
-            w.Label(WidgetNames.label_date_finished).text('2022/10/30').width(10).padding(10, 0),
-            w.Spacer().adjust(-3),
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
