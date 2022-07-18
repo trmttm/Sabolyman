@@ -14,6 +14,7 @@ def execute(e: EntitiesABC, p: PresentersABC, dead_line_str: str, trees_selected
         else:
             indexes = trees_selected_indexes[1]
             cards = tuple(e.get_their_card_by_index(i) for i in indexes)
+
         for card in cards:
             card.set_dead_line_by_str(dead_line_str)
             present_card_list.execute(e, p)
