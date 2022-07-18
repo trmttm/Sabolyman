@@ -50,7 +50,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_dead_line(self, dead_line_str: str):
+    def set_dead_line(self, dead_line_str: str, trees_selected_indexes: Tuple[Tuple[int, ...], ...]):
         pass
 
     @abc.abstractmethod

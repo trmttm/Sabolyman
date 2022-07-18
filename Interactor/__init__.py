@@ -92,8 +92,8 @@ class Interactor(InteractorABC):
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
 
-    def set_dead_line(self, dead_line_str: str):
-        set_dead_line.execute(self._entities, self._presenters, dead_line_str)
+    def set_dead_line(self, dead_line_str: str, trees_selected_indexes: Tuple[Tuple[int, ...], ...]):
+        set_dead_line.execute(self._entities, self._presenters, dead_line_str, trees_selected_indexes)
 
     def set_client(self, client_name: str):
         set_action_client.execute(self._entities, self._presenters, client_name)
