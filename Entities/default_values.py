@@ -11,7 +11,8 @@ class DefaultValues:
 
     @property
     def dead_line(self) -> datetime.datetime:
-        return datetime.datetime.today()
+        tm = datetime.datetime.today() + datetime.timedelta(1)
+        return datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
 
     @property
     def client_name(self) -> str:

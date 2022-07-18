@@ -15,11 +15,12 @@ from .person import Person
 class Card(EntityABC):
 
     def __init__(self):
+        tm = datetime.datetime.today() + datetime.timedelta(1)
         self._name = 'New Card'
         self._owner = Person('Name')
         self._importance = 5
         self._date_created = datetime.datetime.now()
-        self._dead_line = datetime.datetime.today() + datetime.timedelta(1)
+        self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
         self._actions = Actions()
         self._files = Files()
         self._color = None
