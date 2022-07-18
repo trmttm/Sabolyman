@@ -225,6 +225,7 @@ class EntitiesABC(abc.ABC):
         pass
 
     @property
+    @abc.abstractmethod
     def filter_key(self) -> str:
         pass
 

@@ -82,6 +82,8 @@ class Entities(EntitiesABC):
             visible_cards = tuple(c for c in visible_cards if c.get_search_action_name(self._filter_key) > 0)
         elif self._filter_mode == 'Card Name':
             visible_cards = tuple(c for c in visible_cards if c.get_search_card_name(self._filter_key) > 0)
+        elif self._filter_mode == 'Client Name':
+            visible_cards = tuple(c for c in visible_cards if c.get_search_action_client_name(self._filter_key) > 0)
         else:
             if self.card_filter_is_on:
                 visible_cards = tuple(c for c in visible_cards if c.get_search_all_result(self._filter_key) > 0)

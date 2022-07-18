@@ -159,6 +159,12 @@ class Card(EntityABC):
             score += 100
         return score
 
+    def get_search_action_client_name(self, search_key: str) -> int:
+        score = 0
+        for action in self.actions.all_actions:
+            score += action.get_search_action_client_name(search_key)
+        return score
+
     def clear_actions_highlight(self):
         for action in self._actions.all_actions:
             action.remove_color()
