@@ -31,8 +31,8 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
             'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
-                state.get_my_cards_selected_indexes(v),
-                state.get_their_cards_selected_indexes(v),
+                state.get_left_tree_selected_indexes(v),
+                state.get_their_right_tree_selected_indexes(v),
                 v.ask_color()),
         },
         'Habits': {

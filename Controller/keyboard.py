@@ -20,8 +20,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.command, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
     f((KeyMap.command, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
     f((KeyMap.command, KeyMap.m), (lambda: i.make_email(), ''))
-    f((KeyMap.control, KeyMap.c), (lambda: i.set_color_to_cards(state.get_my_cards_selected_indexes(app),
-                                                                state.get_their_cards_selected_indexes(app),
+    f((KeyMap.control, KeyMap.c), (lambda: i.set_color_to_cards(state.get_left_tree_selected_indexes(app),
+                                                                state.get_their_right_tree_selected_indexes(app),
                                                                 app.ask_color()), ''))
     f((KeyMap.control, KeyMap.h), (lambda: i.toggle_hide_finished_cards(), ''))
     f((KeyMap.command, KeyMap.f), (lambda: app.focus(WidgetNames.entry_search_box), ''))
