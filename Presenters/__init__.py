@@ -86,8 +86,8 @@ class Presenters(PresentersABC):
         show_mail_creator.execute(self._view, file_name, template_to_text)
 
     # Popup
-    def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int):
-        message_box.execute(self._view, title, body, width, height)
+    def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):
+        message_box.execute(self._view, title, body, width, height, **kwargs)
 
     # Search box
     def set_search_box(self, text: str):

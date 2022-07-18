@@ -93,7 +93,10 @@ class Interactor(InteractorABC):
         set_card_name.execute(self._entities, self._presenters, card_name)
 
     def set_dead_line(self, dead_line_str: str, trees_selected_indexes: Tuple[Tuple[int, ...], ...]):
-        set_dead_line.execute(self._entities, self._presenters, dead_line_str, trees_selected_indexes)
+        def ask_user(message: str, **kwargs):
+            self.feed_back_user_by_popup('Changing multiple cards!', message, 400, 400, **kwargs)
+
+        set_dead_line.execute(self._entities, self._presenters, dead_line_str, trees_selected_indexes, ask_user)
 
     def set_client(self, client_name: str):
         set_action_client.execute(self._entities, self._presenters, client_name)
@@ -259,8 +262,8 @@ class Interactor(InteractorABC):
         return self._entities.all_filter_modes
 
     # Popup
-    def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200):
-        self._presenters.feed_back_user_by_popup(title, text, width, height)
+    def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200, **kwargs):
+        self._presenters.feed_back_user_by_popup(title, text, width, height, **kwargs)
 
     # Export
     def export_actions_list(self, file_name: str):
