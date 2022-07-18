@@ -20,7 +20,7 @@ def execute(v: ViewABC, title: str, body: str, width=400, height=200, **kwargs):
     v.add_widgets(view_model)
 
     v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
-    
+
     action_ok = kwargs.get('action_ok', None)
     if action_ok is None:
         v.bind_command_to_widget(button_id, lambda: v.close(specified_parent))
