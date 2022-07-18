@@ -18,9 +18,10 @@ from .person import Person
 class Entities(EntitiesABC):
 
     def __init__(self):
+        user_name = 'Taro Yamaka'
         self._cards = Cards()
-        self._default_values = DefaultValues()
-        self._user = Person('Taro Yamaka')
+        self._default_values = DefaultValues(user_name)
+        self._user = Person(user_name)
         self._show_this_card = None
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
