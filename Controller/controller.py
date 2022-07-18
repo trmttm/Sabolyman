@@ -33,7 +33,6 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.tree_their_cards, lambda: i.show_their_card_information(s.get_their_cards_selected_indexes(v)))
     f(wn.entry_card_name, lambda *_: i.set_card_name(s.get_card_name(v)))
     f(wn.entry_dead_line, lambda *_: i.set_dead_line(s.get_dead_line_str(v)))
-    f(wn.entry_card_client, lambda *_: i.set_client(s.get_client(v)))
 
     # Action
     f(wn.button_add_new_action, lambda: i.add_new_action())
@@ -43,6 +42,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.tree_card_actions, lambda: i.show_action_information(ai(v)))
     f(wn.entry_action_name, lambda *_: i.set_action_name(s.get_action_name(v), ai(v)))
     f(wn.entry_action_owner, lambda *_: i.set_action_owner(s.get_action_owner_name(v), ai(v)))
+    f(wn.entry_action_client, lambda *_: i.set_client(s.get_client(v)))
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v)))
     f(wn.entry_action_time_expected, lambda *_: i.set_action_time_expected(s.get_action_time_expected(v), ai(v)))

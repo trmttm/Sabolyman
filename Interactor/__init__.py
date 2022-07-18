@@ -35,7 +35,7 @@ from . import set_action_is_done_or_not
 from . import set_action_name
 from . import set_action_owner
 from . import set_action_time_expected
-from . import set_card_client
+from . import set_action_client
 from . import set_card_name
 from . import set_dead_line
 from . import show_action_information
@@ -96,7 +96,7 @@ class Interactor(InteractorABC):
         set_dead_line.execute(self._entities, self._presenters, dead_line_str)
 
     def set_client(self, client_name: str):
-        set_card_client.execute(self._entities, self._presenters, client_name)
+        set_action_client.execute(self._entities, self._presenters, client_name)
 
     def add_new_action(self):
         add_new_action.execute(self._entities, self._presenters)

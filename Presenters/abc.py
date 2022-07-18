@@ -28,7 +28,7 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def update_card_client(self, client_name: str):
+    def update_action_client(self, client_name: str):
         pass
 
     @abc.abstractmethod

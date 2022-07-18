@@ -22,7 +22,6 @@ class Card(EntityABC):
         self._dead_line = datetime.datetime.today() + datetime.timedelta(1)
         self._actions = Actions()
         self._files = Files()
-        self._client = Person('Client')
         self._color = None
         self._selected_actions_indexes = ()
 
@@ -54,9 +53,6 @@ class Card(EntityABC):
 
     def set_dead_line(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
-
-    def set_client(self, client: Person):
-        self._client = client
 
     def set_color(self, color):
         self._color = color
@@ -105,10 +101,6 @@ class Card(EntityABC):
                 return False
         return True
 
-    @property
-    def client(self) -> Person:
-        return self._client
-
     def select_actions(self, indexes: Tuple[int, ...]):
         self._selected_actions_indexes = indexes
 
@@ -126,7 +118,6 @@ class Card(EntityABC):
             'owner': self._owner.state,
             'actions': self._actions.state,
             'files': self._files.state,
-            'client': self._client.state,
             'color': self._color,
             'selected_action_indexes': self._selected_actions_indexes,
         }
@@ -180,7 +171,6 @@ class Card(EntityABC):
         self._dead_line = state.get('dead_line', '')
         self._actions = Entities.factory2.factory_actions(state)
         self._files = factory1.factory_files(state)
-        self._client = factory1.factory_person(state, 'client')
         self._color = state.get('color', None)
         self._selected_actions_indexes = state.get('selected_action_indexes', ())
 

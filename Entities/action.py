@@ -20,6 +20,7 @@ class Action(EntityABC):
         self._files = Files()
         self._time_completed = None
         self._color = 'White'
+        self._client = Person('Client')
 
     @property
     def name(self) -> str:
@@ -128,6 +129,13 @@ class Action(EntityABC):
     def color(self) -> str:
         return self._color
 
+    def set_client(self, client: Person):
+        self._client = client
+
+    @property
+    def client(self) -> Person:
+        return self._client
+
     @property
     def state(self) -> dict:
         state = {
@@ -138,6 +146,7 @@ class Action(EntityABC):
             'date_created': self._date_created,
             'description': self._description,
             'files': self._files.state,
+            'client': self._client.state,
             'completed_time': self.time_completed,
         }
         return state
@@ -150,6 +159,7 @@ class Action(EntityABC):
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._description = state.get('description', '')
         self._files = factory1.factory_files(state)
+        self._client = factory1.factory_person(state, 'client')
         self._time_completed = state.get('completed_time', None)
 
     def __repr__(self):

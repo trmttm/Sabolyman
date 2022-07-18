@@ -19,12 +19,10 @@ def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable,
             p.update_card_name(card.name)
             p.update_card_date_created(card.date_created)
             p.update_card_due_date(card.due_date)
-            p.update_card_client(card.client.name)
         else:
             p.update_card_name(e.default_card_name)
             p.update_card_date_created(datetime.datetime.now())
             p.update_card_due_date(e.default_dead_line)
-            p.update_card_client(e.default_client_name)
 
     show_action_information.execute(e, p, (e.active_action_index,))
     present_action_list.execute(e, p, e.selected_actions_indexes)

@@ -50,7 +50,7 @@ def get_dead_line_str(v: ViewABC) -> str:
 
 
 def get_client(v: ViewABC) -> str:
-    return v.get_value(WidgetNames.entry_card_client)
+    return v.get_value(WidgetNames.entry_action_client)
 
 
 def get_search_model(v: ViewABC) -> str:

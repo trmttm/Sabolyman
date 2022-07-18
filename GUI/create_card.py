@@ -57,7 +57,10 @@ def get_actions_properties(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_owner').text('Owner').width(10).padding(5, 0),
             w.Entry(wn.entry_action_owner).default_value('Owner Name').padding(25, 0),
-            w.Spacer().adjust(-1),
+            w.Label('lbl_client').text('Client').width(10).padding(5, 0),
+            w.Entry(wn.entry_action_client).default_value('Client Name').padding(25, 0),
+            w.Spacer().adjust(-3),
+            w.Spacer().adjust(-2),
         ),
         stacker.hstack(
             w.Label('lbl_time').text('Time expected').width(10).padding(5, 0),
@@ -96,8 +99,6 @@ def get_card_property_entry(stacker: Stacker):
             w.Spacer().adjust(-1),
         ),
         stacker.hstack(
-            w.Label(wn.label_card_client).text('Client').width(10).padding(10, 0),
-            w.Entry(wn.entry_card_client).default_value('Client Name').padding(25, 0),
             w.Label(wn.label_card_importance).text('Importance').width(10).padding(10, 0),
             w.Entry(wn.entry_card_importance).default_value(5).padding(25, 0).width(3),
             w.Spacer(),
