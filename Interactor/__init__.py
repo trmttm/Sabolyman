@@ -92,11 +92,11 @@ class Interactor(InteractorABC):
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
 
-    def set_dead_line(self, dead_line_str: str, trees_selected_indexes: Tuple[Tuple[int, ...], ...]):
+    def set_dead_line(self, dead_line_str: str, indexes:Tuple[int, ...]):
         def ask_user(message: str, **kwargs):
-            self.feed_back_user_by_popup('Changing multiple cards!', message, 400, 400, **kwargs)
+            self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
 
-        set_dead_line.execute(self._entities, self._presenters, dead_line_str, trees_selected_indexes, ask_user)
+        set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
 
     def set_client(self, client_name: str):
         set_action_client.execute(self._entities, self._presenters, client_name)

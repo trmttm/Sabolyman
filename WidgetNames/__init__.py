@@ -48,7 +48,8 @@ selector_button_move_down_selected_card = {
 }
 
 entry_card_name = 'entry_card_name'
-entry_dead_line = 'entry_dead_line'
+label_card_dead_line = 'label_card_dead_line'
+entry_action_dead_line = 'entry_action_dead_line'
 label_card_importance = 'label_card_importance'
 entry_card_importance = 'entry_card_importance'
 

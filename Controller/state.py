@@ -52,7 +52,7 @@ def get_action_time_expected(v: ViewABC) -> str:
 
 
 def get_dead_line_str(v: ViewABC) -> str:
-    return v.get_value(WidgetNames.entry_dead_line)
+    return v.get_value(WidgetNames.entry_action_dead_line)
 
 
 def get_client(v: ViewABC) -> str:

@@ -1,4 +1,3 @@
-import datetime
 from typing import List
 from typing import Tuple
 
@@ -33,10 +32,6 @@ class Cards(CardsABC):
     @property
     def card_names(self) -> Tuple[str, ...]:
         return tuple(c.name for c in self._cards)
-
-    @property
-    def due_dates(self) -> Tuple[datetime.datetime, ...]:
-        return tuple(c.due_date for c in self._cards)
 
     @property
     def all_cards(self) -> List[Card]:

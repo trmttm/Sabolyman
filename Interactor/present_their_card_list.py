@@ -7,7 +7,7 @@ from Presenters import PresentersABC
 def present_their_card_list(e: EntitiesABC, p: PresentersABC, next_selection_indexes: Tuple[int, ...] = ()):
     cards = e.their_visible_cards
     cards_names = tuple(c.name for c in cards)
-    due_dates = tuple(c.due_date for c in cards)
+    due_dates = tuple(c.dead_line for c in cards)
     status = tuple(c.is_done for c in cards)
     colors = tuple(c.color for c in cards)
 

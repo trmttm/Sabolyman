@@ -13,13 +13,11 @@ class AddCard(UseCase):
         name = entities.default_card_name
         owner = entities.user
         importance = entities.default_importance
-        dead_line = entities.default_dead_line
 
         card = Card()
         card.set_name(name)
         card.set_owner(owner)
         card.set_importance(importance)
-        card.set_dead_line(dead_line)
 
         entities.add_new_card(card)
         entities.set_active_card(card)

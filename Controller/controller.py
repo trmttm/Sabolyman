@@ -33,7 +33,6 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.tree_my_cards, lambda: i.show_my_card_information(s.get_left_tree_selected_indexes(v)))
     f(wn.tree_their_cards, lambda: i.show_their_card_information(s.get_their_right_tree_selected_indexes(v)))
     f(wn.entry_card_name, lambda *_: i.set_card_name(s.get_card_name(v)))
-    f(wn.entry_dead_line, lambda *_: i.set_dead_line(s.get_dead_line_str(v), s.get_trees_selected_indexes(v)))
 
     # Action
     f(wn.button_add_new_action, lambda: i.add_new_action())
@@ -47,3 +46,4 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v)))
     f(wn.entry_action_time_expected, lambda *_: i.set_action_time_expected(s.get_action_time_expected(v), ai(v)))
+    f(wn.entry_action_dead_line, lambda *_: i.set_dead_line(s.get_dead_line_str(v), s.get_actions_selected_indexes(v)))

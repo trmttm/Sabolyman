@@ -28,6 +28,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def update_action_due_date(self, due_date: datetime.datetime):
+        pass
+
+    @abc.abstractmethod
     def update_action_client(self, client_name: str):
         pass
 

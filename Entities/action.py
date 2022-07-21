@@ -11,6 +11,7 @@ from .person import Person
 class Action(EntityABC):
 
     def __init__(self):
+        tm = datetime.datetime.today() + datetime.timedelta(1)
         self._name = 'unspecified'
         self._is_done = False
         self._owner = Person('unspecified')
@@ -21,6 +22,7 @@ class Action(EntityABC):
         self._time_completed = None
         self._color = 'White'
         self._client = Person('Client')
+        self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
 
     @property
     def name(self) -> str:
@@ -144,6 +146,23 @@ class Action(EntityABC):
     def client(self) -> Person:
         return self._client
 
+    def set_dead_line_by_str(self, dead_line_str: str):
+        year_str, month_str, day_time_str = dead_line_str.split('/')
+        day_str, time_str = day_time_str.split(' ')
+        hour_str, minute_str = time_str.split(':')
+
+        year, month, day = int(year_str), int(month_str), int(day_str)
+        hour, minute = int(hour_str), int(minute_str)
+        dead_line = datetime.datetime(year, month, day, hour, minute)
+        self.set_dead_line(dead_line)
+
+    def set_dead_line(self, dead_line: datetime.datetime):
+        self._dead_line = dead_line
+
+    @property
+    def dead_line(self) -> datetime.datetime:
+        return self._dead_line
+
     @property
     def state(self) -> dict:
         state = {
@@ -156,10 +175,12 @@ class Action(EntityABC):
             'files': self._files.state,
             'client': self._client.state,
             'completed_time': self.time_completed,
+            'dead_line': self._dead_line,
         }
         return state
 
     def load_state(self, state: dict):
+        tm = datetime.datetime.today() + datetime.timedelta(1)
         self._name = state.get('name', '')
         self._is_done = state.get('is_done', False)
         self._owner = factory1.factory_person(state, 'owner')
@@ -169,6 +190,7 @@ class Action(EntityABC):
         self._files = factory1.factory_files(state)
         self._client = factory1.factory_person(state, 'client')
         self._time_completed = state.get('completed_time', None)
+        self._dead_line = state.get('dead_line', datetime.datetime(tm.year, tm.month, tm.day, 17, 0))
 
     def __repr__(self):
         return self._name

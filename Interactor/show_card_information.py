@@ -18,7 +18,7 @@ def display_card_information(e: EntitiesABC, p: PresentersABC, getter: Callable,
 
             p.update_card_name(card.name)
             p.update_card_date_created(card.date_created)
-            p.update_card_due_date(card.due_date)
+            p.update_card_due_date(card.dead_line)
         else:
             p.update_card_name(e.default_card_name)
             p.update_card_date_created(datetime.datetime.now())

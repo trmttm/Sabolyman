@@ -45,7 +45,10 @@ class Presenters(PresentersABC):
         self._view.set_value(WidgetNames.label_date_created, datetime_to_str(date_created))
 
     def update_card_due_date(self, due_date: datetime.datetime):
-        self._view.set_value(WidgetNames.entry_dead_line, datetime_to_str(due_date))
+        self._view.set_value(WidgetNames.label_card_dead_line, datetime_to_str(due_date))
+
+    def update_action_due_date(self, due_date: datetime.datetime):
+        self._view.set_value(WidgetNames.entry_action_dead_line, datetime_to_str(due_date))
 
     def update_action_client(self, client_name: str):
         self._view.set_value(WidgetNames.entry_action_client, client_name)
