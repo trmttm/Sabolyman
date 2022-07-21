@@ -66,8 +66,8 @@ class Card(EntityABC):
     def dead_line(self) -> datetime.datetime:
         try:
             dead_line = max(a.dead_line for a in self._actions.all_actions)
-        except:
-            dead_line = None
+        except ValueError:
+            dead_line = datetime.datetime.today() + datetime.timedelta(1)
         return dead_line
 
     @property
