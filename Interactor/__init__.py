@@ -65,7 +65,7 @@ class Interactor(InteractorABC):
 
     def save_to_file(self, file_name: str):
         self._gateway.save_file(file_name, self._entities.state)
-        self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}', 400, 100)
+        self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}', 600, 100)
 
     def load_state_from_file(self, file_name: str):
         load_state_from_file.execute(self._entities, self._gateway, self._presenters, file_name)
@@ -224,6 +224,10 @@ class Interactor(InteractorABC):
     # Mail
     def create_mail_menu(self, ask_folder: Callable, configure_menu: Callable):
         create_mail_menu.execute(self._entities, self._gateway, self._presenters, ask_folder, configure_menu)
+
+    @property
+    def state_folder(self) -> str:
+        return self._gateway.state_folder
 
     @property
     def home_folder(self) -> str:

@@ -149,6 +149,11 @@ class InteractorABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def state_folder(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def home_folder(self) -> str:
         pass
 
