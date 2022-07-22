@@ -30,13 +30,13 @@ class Presenters(PresentersABC):
         self.update_their_cards((), (), ())
 
     # Card
-    def update_my_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
+    def update_my_cards(self, names: Tuple[str, ...], sort_by_values: Tuple[datetime.datetime, ...],
                         select_indexes: Tuple[int, ...] = (), **kwargs):
-        update_my_cards_list.execute(self._view, due_dates, names, select_indexes, **kwargs)
+        update_my_cards_list.execute(self._view, sort_by_values, names, select_indexes, **kwargs)
 
-    def update_their_cards(self, names: Tuple[str, ...], due_dates: Tuple[datetime.datetime, ...],
+    def update_their_cards(self, names: Tuple[str, ...], sort_by_values: Tuple[datetime.datetime, ...],
                            select_indexes: Tuple[int, ...] = (), **kwargs):
-        update_their_cards_list.execute(self._view, due_dates, names, select_indexes, **kwargs)
+        update_their_cards_list.execute(self._view, sort_by_values, names, select_indexes, **kwargs)
 
     def update_card_name(self, name: str):
         self._view.set_value(WidgetNames.entry_card_name, name)

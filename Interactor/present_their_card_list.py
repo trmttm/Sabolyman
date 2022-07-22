@@ -7,9 +7,9 @@ from Presenters import PresentersABC
 def present_their_card_list(e: EntitiesABC, p: PresentersABC, next_selection_indexes: Tuple[int, ...] = ()):
     cards = e.their_visible_cards
     cards_names = tuple(c.name for c in cards)
-    due_dates = tuple(c.dead_line for c in cards)
+    sort_by_values = tuple(c.dead_line for c in cards)
     status = tuple(c.is_done for c in cards)
     colors = tuple(c.color for c in cards)
 
-    response_model = cards_names, due_dates, next_selection_indexes
+    response_model = cards_names, sort_by_values, next_selection_indexes
     p.update_their_cards(*response_model, completions_status=status, colors=colors)
