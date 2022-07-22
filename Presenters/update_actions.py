@@ -5,7 +5,6 @@ from Utilities import create_view_model_tree
 from interface_view import ViewABC
 
 import WidgetNames
-from .utilities import time_delta_to_str
 
 
 def execute(v: ViewABC, second_column_data: tuple, names: Tuple[str, ...], select_indexes: Tuple[int, ...], **kwargs):
@@ -21,7 +20,7 @@ def create_view_model(second_column_data: tuple, names: Tuple[str, ...], select_
     states: Tuple[bool, ...] = kwargs.get('states', tuple(False for _ in names))
     bgcs: Tuple[str, ...] = kwargs.get('back_ground_colors', tuple('White' for _ in names))
     for n, (name, time_expected, state, background_color) in enumerate(zip(names, second_column_data, states, bgcs)):
-        time_expected_str = time_delta_to_str(time_expected)
+        time_expected_str = str(time_expected)
         tree_datas.append(
             create_tree_data('', f'{n}', '', (n, name, time_expected_str), (), n in select_indexes,
                              strikethrough=state, background=background_color)

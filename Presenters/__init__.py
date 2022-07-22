@@ -1,6 +1,7 @@
 import datetime
 from typing import Tuple
 
+import Utilities
 from interface_view import ViewABC
 
 import WidgetNames
@@ -10,8 +11,6 @@ from . import update_actions
 from . import update_my_cards_list
 from . import update_their_cards_list
 from .abc import PresentersABC
-from .utilities import datetime_to_str
-from .utilities import time_delta_to_str
 
 
 class Presenters(PresentersABC):
@@ -42,13 +41,13 @@ class Presenters(PresentersABC):
         self._view.set_value(WidgetNames.entry_card_name, name)
 
     def update_card_date_created(self, date_created: datetime.datetime):
-        self._view.set_value(WidgetNames.label_date_created, datetime_to_str(date_created))
+        self._view.set_value(WidgetNames.label_date_created, Utilities.datetime_to_str(date_created))
 
     def update_card_due_date(self, due_date: datetime.datetime):
-        self._view.set_value(WidgetNames.label_card_dead_line, datetime_to_str(due_date))
+        self._view.set_value(WidgetNames.label_card_dead_line, Utilities.datetime_to_str(due_date))
 
     def update_action_due_date(self, due_date: datetime.datetime):
-        self._view.set_value(WidgetNames.entry_action_dead_line, datetime_to_str(due_date))
+        self._view.set_value(WidgetNames.entry_action_dead_line, Utilities.datetime_to_str(due_date))
 
     def update_action_client(self, client_name: str):
         self._view.set_value(WidgetNames.entry_action_client, client_name)
@@ -71,7 +70,7 @@ class Presenters(PresentersABC):
         pass
 
     def update_action_time_expected(self, time_expected: datetime.timedelta):
-        self._view.set_value(WidgetNames.entry_action_time_expected, time_delta_to_str(time_expected))
+        self._view.set_value(WidgetNames.entry_action_time_expected, str(time_expected))
 
     def update_action_owner(self, owner_name: str):
         self._view.set_value(WidgetNames.entry_action_owner, owner_name)
