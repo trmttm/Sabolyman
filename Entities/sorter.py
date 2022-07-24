@@ -10,6 +10,7 @@ DEAD_LINE = 'Due Date'
 NAME = 'Name'
 CURRENT_OWNER = 'Current Owner'
 CURRENT_CLIENT = 'Current Client'
+COLOR = 'Color'
 
 
 class Sorter:
@@ -27,7 +28,7 @@ class Sorter:
     def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
         if self._sort_by == DEAD_LINE:
             return tuple(Utilities.datetime_to_str(c.dead_line) for c in cards_)
-        elif self._sort_by == NAME:
+        elif self._sort_by in (NAME, COLOR):
             return tuple('' for _ in cards_)
         elif self._sort_by == CURRENT_OWNER:
             return tuple(c.current_owner.name for c in cards_)
@@ -54,6 +55,10 @@ class Sorter:
     def sort_cards_by_current_client(self):
         list_sorter = [c.current_client.name for c in self._cards.all_cards]
         self._sort(CURRENT_CLIENT, list_sorter)
+
+    def sort_cards_by_color(self):
+        list_sorter = [c.color for c in self._cards.all_cards]
+        self._sort(COLOR, list_sorter)
 
     def _sort(self, mode: str, list_sorter: list):
         self.set_sort_by(mode)

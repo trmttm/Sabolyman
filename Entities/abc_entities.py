@@ -271,3 +271,7 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def sort_cards_by_current_client(self):
         pass
+
+    @abc.abstractmethod
+    def sort_cards_by_color(self):
+        pass

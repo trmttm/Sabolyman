@@ -201,6 +201,9 @@ class Entities(EntitiesABC):
     def sort_cards_by_current_client(self):
         self._sorter.sort_cards_by_current_client()
 
+    def sort_cards_by_color(self):
+        self._sorter.sort_cards_by_color()
+
     def move_actions_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
         active_card = self.active_card
         if active_card is not None:
