@@ -4,8 +4,7 @@ from Utilities import create_tree_data
 from Utilities import create_view_model_tree
 
 
-def execute(sort_by: str, sort_by_values: tuple, names: tuple, select_indexes: Tuple[int, ...], **kwargs):
-    headings = 'No', 'Name', sort_by
+def execute(headings: Tuple[str, ...], sort_by_values: tuple, names: tuple, select_indexes: Tuple[int, ...], **kwargs):
     widths = 40, 100, 130
     tree_datas = []
     all_status = kwargs.get('completions_status', tuple(False for _ in names))

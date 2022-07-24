@@ -246,3 +246,8 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def clear_filter_mode(self):
         pass
+
+    @property
+    @abc.abstractmethod
+    def sort_by(self) -> str:
+        pass

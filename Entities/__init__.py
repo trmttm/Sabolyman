@@ -214,6 +214,21 @@ class Entities(EntitiesABC):
         for card_ in self._cards.all_cards:
             card_.clear_actions_highlight()
 
+    def set_show_this_card(self, card: Card):
+        self._show_this_card = card
+
+    def clear_show_this_card(self):
+        self._show_this_card = None
+
+    def hide_finished_cards(self):
+        self._cards.set_hide_finished_cards(True)
+
+    def unhide_finished_cards(self):
+        self._cards.set_hide_finished_cards(False)
+
+    def toggle_hide_finished_cards(self):
+        self._cards.toggle_hide_finished_cards()
+
     # Properties
     def load_state(self, state: dict):
         self._cards.load_state(state)
@@ -268,12 +283,6 @@ class Entities(EntitiesABC):
         if self._actions is not None:
             return self._actions.active_action
 
-    def set_show_this_card(self, card: Card):
-        self._show_this_card = card
-
-    def clear_show_this_card(self):
-        self._show_this_card = None
-
     @property
     def show_this_card(self) -> Union[None, Card]:
         return self._show_this_card
@@ -290,18 +299,13 @@ class Entities(EntitiesABC):
     def selected_actions_indexes(self) -> Tuple[int, ...]:
         return self.active_card.selected_actions_indexes
 
-    def hide_finished_cards(self):
-        self._cards.set_hide_finished_cards(True)
-
-    def unhide_finished_cards(self):
-        self._cards.set_hide_finished_cards(False)
-
-    def toggle_hide_finished_cards(self):
-        self._cards.toggle_hide_finished_cards()
-
     @property
     def user(self) -> Person:
         return self._user
+
+    @property
+    def sort_by(self) -> str:
+        return 'Due Date'
 
 
 def get_card_by_index(cards_tuple, index) -> Card:
