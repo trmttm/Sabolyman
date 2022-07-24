@@ -2,6 +2,8 @@ import datetime
 from typing import List
 from typing import Tuple
 
+import Utilities
+
 from . import factory1
 from . import factory2
 from .abc_entity import EntityABC
@@ -69,6 +71,10 @@ class Card(EntityABC):
         except ValueError:
             dead_line = datetime.datetime.today() + datetime.timedelta(1)
         return dead_line
+
+    @property
+    def sort_by_value(self) -> str:
+        return Utilities.datetime_to_str(self.dead_line)
 
     @property
     def all_actions(self) -> List[Action]:
