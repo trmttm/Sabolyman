@@ -1,5 +1,6 @@
 import abc
 from typing import List
+from typing import Tuple
 
 from Entities.abc_entity import EntityABC
 from Entities.card import Card
@@ -18,6 +19,10 @@ class CardsABC(EntityABC):
 
     @abc.abstractmethod
     def add_new_card(self, card):
+        pass
+
+    @abc.abstractmethod
+    def sort_cards(self, sorted_cards: Tuple[Card, ...]):
         pass
 
     @abc.abstractmethod

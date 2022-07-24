@@ -11,7 +11,7 @@ def execute(e: EntitiesABC, target_cards: Tuple[Card, ...], indexes: Tuple[int, 
     card_to_show_specified = e.show_this_card
     if card_to_show_specified and not card_to_show_specified.is_done:
         e.set_active_card(card_to_show_specified)
-        if card_to_show_specified in target_cards:  # my_cards vs their_cards
+        if card_to_show_specified in target_cards:  # cards_ vs their_cards
             modified_indexes = (e.active_card_index,)
             e.clear_show_this_card()
             return modified_indexes

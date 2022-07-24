@@ -251,3 +251,23 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def sort_by(self) -> str:
         pass
+
+    @abc.abstractmethod
+    def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
+        pass
+
+    @abc.abstractmethod
+    def sort_cards_by_deadline(self):
+        pass
+
+    @abc.abstractmethod
+    def sort_cards_by_name(self):
+        pass
+
+    @abc.abstractmethod
+    def sort_cards_by_current_owner(self):
+        pass
+
+    @abc.abstractmethod
+    def sort_cards_by_current_client(self):
+        pass

@@ -34,6 +34,12 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 state.get_left_tree_selected_indexes(v),
                 state.get_their_right_tree_selected_indexes(v),
                 v.ask_color()),
+            'Sort': {
+                'By Deadline': i.sort_cards_by_deadline,
+                'By Name': i.sort_cards_by_name,
+                'By Current Owner': i.sort_cards_by_current_owner,
+                'By Current Client': i.sort_cards_by_current_client,
+            },
         },
         'Habits': {
             'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),

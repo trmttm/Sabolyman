@@ -191,6 +191,23 @@ class Interactor(InteractorABC):
     def move_actions_down(self, indexes: Tuple[int, ...]):
         move_actions_down.execute(self._entities, self._presenters, indexes)
 
+    # Sorter
+    def sort_cards_by_deadline(self):
+        self._entities.sort_cards_by_deadline()
+        present_card_list.execute(self._entities, self._presenters)
+
+    def sort_cards_by_name(self):
+        self._entities.sort_cards_by_name()
+        present_card_list.execute(self._entities, self._presenters)
+
+    def sort_cards_by_current_owner(self):
+        self._entities.sort_cards_by_current_owner()
+        present_card_list.execute(self._entities, self._presenters)
+
+    def sort_cards_by_current_client(self):
+        self._entities.sort_cards_by_current_client()
+        present_card_list.execute(self._entities, self._presenters)
+
     # Keyboard shortcut
     def set_active_keymap(self, name: str):
         self._keymaps.set_active_keymap(name)

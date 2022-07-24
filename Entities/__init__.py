@@ -13,6 +13,7 @@ from .default_values import DefaultValues
 from .file import File
 from .files import Files
 from .person import Person
+from .sorter import Sorter
 
 
 class Entities(EntitiesABC):
@@ -25,6 +26,7 @@ class Entities(EntitiesABC):
         self._show_this_card = None
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
+        self._sorter = Sorter(self._cards)
 
     # Default Values
     @property
@@ -181,10 +183,23 @@ class Entities(EntitiesABC):
     def move_their_cards(self, indexes: Tuple[int, ...], shift: int):
         return self.sort_cards(indexes, self.their_visible_cards, shift)
 
-    def sort_cards(self, indexes, my_cards, shift):
-        d, sorted_my_cards = Utilities.get_tuple_and_destinations_after_shifting_elements(my_cards, indexes, shift)
-        self._cards.sort_cards(sorted_my_cards)
+    def sort_cards(self, indexes: Tuple[int, ...], cards_: Tuple[Card, ...], shift: int):
+        self._sorter.sort_cards_by_manual()
+        d, sorted_cards = Utilities.get_tuple_and_destinations_after_shifting_elements(cards_, indexes, shift)
+        self._cards.sort_cards(sorted_cards)
         return d
+
+    def sort_cards_by_deadline(self):
+        self._sorter.sort_cards_by_deadline()
+
+    def sort_cards_by_name(self):
+        self._sorter.sort_cards_by_name()
+
+    def sort_cards_by_current_owner(self):
+        self._sorter.sort_cards_by_current_owner()
+
+    def sort_cards_by_current_client(self):
+        self._sorter.sort_cards_by_current_client()
 
     def move_actions_up(self, indexes: Tuple[int, ...]) -> Tuple[int, ...]:
         active_card = self.active_card
@@ -305,7 +320,13 @@ class Entities(EntitiesABC):
 
     @property
     def sort_by(self) -> str:
-        return 'Due Date'
+        return self._sorter.sort_by
+
+    def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
+        return self._sorter.sorter_values(cards_)
+
+    def sort_cards_by_deadline(self):
+        self._sorter.sort_cards_by_deadline()
 
 
 def get_card_by_index(cards_tuple, index) -> Card:

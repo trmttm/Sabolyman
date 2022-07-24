@@ -5,6 +5,7 @@ from typing import Tuple
 
 from .abc_entity import EntityABC
 from .action import Action
+from .person import Person
 
 
 class Actions(EntityABC):
@@ -51,6 +52,20 @@ class Actions(EntityABC):
         new_actions_list = [c for c in self._actions if c not in sorted_actions]
         new_actions_list += list(sorted_actions)
         self._actions = new_actions_list
+
+    @property
+    def current_owner(self) -> Person:
+        for action in self._actions:
+            if not action.is_done:
+                return action.owner
+        return Person('No Current Owner')
+
+    @property
+    def current_client(self) -> Person:
+        for action in self._actions:
+            if not action.is_done:
+                return action.client
+        return Person('No Current Client')
 
     @property
     def state(self) -> dict:
