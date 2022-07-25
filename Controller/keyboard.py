@@ -25,6 +25,12 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.control, KeyMap.h), (lambda: i.toggle_hide_finished_cards(), ''))
     f((KeyMap.command, KeyMap.f), (lambda: app.focus(WidgetNames.entry_search_box), ''))
 
+    f((KeyMap.command, KeyMap.one), (lambda: i.sort_cards_by_color(), ''))
+    f((KeyMap.command, KeyMap.two), (lambda: i.sort_cards_by_deadline(), ''))
+    f((KeyMap.command, KeyMap.three), (lambda: i.sort_cards_by_name(), ''))
+    f((KeyMap.command, KeyMap.four), (lambda: i.sort_cards_by_current_owner(), ''))
+    f((KeyMap.command, KeyMap.five), (lambda: i.sort_cards_by_current_client(), ''))
+
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
     # f((KeyMap.command, KeyMap.s), (lambda: i.set_active_keymap('default'), 'switched'))
