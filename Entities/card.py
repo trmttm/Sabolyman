@@ -64,8 +64,10 @@ class Card(EntityABC):
 
     @property
     def dead_line(self) -> datetime.datetime:
+        all_actions = self._actions.all_actions
+        undone_actions = tuple(a for a in all_actions if not a.is_done)
         try:
-            dead_line = max(a.dead_line for a in self._actions.all_actions)
+            dead_line = min(a.dead_line for a in undone_actions)
         except ValueError:
             dead_line = datetime.datetime.today() + datetime.timedelta(1)
         return dead_line

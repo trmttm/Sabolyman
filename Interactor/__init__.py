@@ -97,6 +97,7 @@ class Interactor(InteractorABC):
             self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
 
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
+        present_card_list.execute(self._entities, self._presenters)
 
     def set_client(self, client_name: str):
         set_action_client.execute(self._entities, self._presenters, client_name)
