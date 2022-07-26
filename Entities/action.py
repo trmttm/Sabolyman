@@ -21,7 +21,7 @@ class Action(EntityABC):
         self._files = Files()
         self._time_completed = None
         self._color = 'White'
-        self._client = Person('Client')
+        self._client = Person('')
         self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
 
     @property

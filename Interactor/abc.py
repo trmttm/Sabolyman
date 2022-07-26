@@ -54,7 +54,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_client(self, dead_line_str: str):
+    def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod
@@ -86,7 +86,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_action_description(self, description: str):
+    def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod

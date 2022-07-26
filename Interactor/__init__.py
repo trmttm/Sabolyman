@@ -99,8 +99,8 @@ class Interactor(InteractorABC):
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
         present_card_list.execute(self._entities, self._presenters)
 
-    def set_client(self, client_name: str):
-        set_action_client.execute(self._entities, self._presenters, client_name)
+    def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
+        set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)
 
     def add_new_action(self):
         add_new_action.execute(self._entities, self._presenters)
@@ -176,8 +176,8 @@ class Interactor(InteractorABC):
         set_action_complete_time.execute(self._entities, done_or_not)
         present_action_list.execute(self._entities, self._presenters)
 
-    def set_action_description(self, description: str):
-        set_action_description.execute(self._entities, self._presenters, description)
+    def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
+        set_action_description.execute(self._entities, self._presenters, description, actions_indexes)
 
     def set_action_time_expected(self, time_expected: str, actions_indexes: Tuple[int, ...]):
         set_action_time_expected.execute(self._entities, self._presenters, time_expected, actions_indexes)
