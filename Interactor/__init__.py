@@ -99,6 +99,12 @@ class Interactor(InteractorABC):
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
         present_card_list.execute(self._entities, self._presenters)
 
+    def shift_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
+        for index_ in indexes:
+            action = self._entities.get_action_by_index(index_)
+            action.increment_deadline_by(days)
+        present_card_list.execute(self._entities, self._presenters)
+
     def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)
 

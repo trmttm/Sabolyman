@@ -159,6 +159,9 @@ class Action(EntityABC):
     def set_dead_line(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
 
+    def increment_deadline_by(self, days: int):
+        self._dead_line += datetime.timedelta(days)
+
     @property
     def dead_line(self) -> datetime.datetime:
         return self._dead_line

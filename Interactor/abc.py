@@ -214,3 +214,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def sort_cards_by_current_client(self):
         pass
+
+    @abc.abstractmethod
+    def shift_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
+        pass

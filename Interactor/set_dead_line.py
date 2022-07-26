@@ -8,7 +8,7 @@ from . import present_action_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, dead_line_str: str, indexes: Tuple[int, ...],
-            ask_user: Callable):
+            ask_user: Callable = None):
     action = e.active_action
     if action is not None:
         actions = tuple(e.get_action_by_index(i) for i in indexes)
@@ -22,7 +22,8 @@ def execute(e: EntitiesABC, p: PresentersABC, dead_line_str: str, indexes: Tuple
                 if response:
                     update_actions_dead_lines(dead_line_str, actions, e, p)
 
-            ask_user(message, action_ok=action_ok)
+            if ask_user is not None:
+                ask_user(message, action_ok=action_ok)
         else:
             update_actions_dead_lines(dead_line_str, actions, e, p)
 

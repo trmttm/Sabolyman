@@ -42,6 +42,20 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'By Current Client': i.sort_cards_by_current_client,
             },
         },
+        'Actions': {
+            'Shift Deadlines by': {
+                '+5 day': lambda: i.shift_dead_lines_by(5, state.get_actions_selected_indexes(v)),
+                '+4 day': lambda: i.shift_dead_lines_by(4, state.get_actions_selected_indexes(v)),
+                '+3 day': lambda: i.shift_dead_lines_by(3, state.get_actions_selected_indexes(v)),
+                '+2 day': lambda: i.shift_dead_lines_by(2, state.get_actions_selected_indexes(v)),
+                '+1 day': lambda: i.shift_dead_lines_by(1, state.get_actions_selected_indexes(v)),
+                '-1 day': lambda: i.shift_dead_lines_by(-1, state.get_actions_selected_indexes(v)),
+                '-2 day': lambda: i.shift_dead_lines_by(-2, state.get_actions_selected_indexes(v)),
+                '-3 day': lambda: i.shift_dead_lines_by(-3, state.get_actions_selected_indexes(v)),
+                '-4 day': lambda: i.shift_dead_lines_by(-4, state.get_actions_selected_indexes(v)),
+                '-5 day': lambda: i.shift_dead_lines_by(-5, state.get_actions_selected_indexes(v)),
+            },
+        },
         'Habits': {
             'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),
             'Work Beginning': lambda: load_habit(i, 'Habit - Beginning of Work.card'),
