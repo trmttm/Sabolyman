@@ -9,13 +9,11 @@ from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import add_template_card
-from . import create_email_text
 from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import duplicate_selected_card
-from . import get_card_index
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -32,7 +30,6 @@ from . import select_actions
 from . import set_action_client
 from . import set_action_complete_time
 from . import set_action_description
-from . import set_action_is_done_or_not
 from . import set_action_name
 from . import set_action_owner
 from . import set_action_time_expected
@@ -42,7 +39,6 @@ from . import set_dead_line
 from . import shift_actions_dead_lines_by
 from . import shift_cards_dead_lines
 from . import show_action_information
-from . import show_email_creator
 from . import show_email_creator1
 from . import show_my_card_information
 from . import show_their_card_information
@@ -100,7 +96,6 @@ class Interactor(InteractorABC):
             self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
 
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
-        present_card_list.execute(self._entities, self._presenters)
 
     def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
         shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)

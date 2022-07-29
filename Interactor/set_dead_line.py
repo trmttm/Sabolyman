@@ -5,6 +5,7 @@ from Entities import Action
 from Entities import EntitiesABC
 from Presenters import PresentersABC
 from . import present_action_list
+from . import present_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, dead_line_str: str, indexes: Tuple[int, ...],
@@ -31,4 +32,5 @@ def execute(e: EntitiesABC, p: PresentersABC, dead_line_str: str, indexes: Tuple
 def update_actions_dead_lines(dead_line_str: str, actions: Tuple[Action, ...], e: EntitiesABC, p: PresentersABC):
     for action in actions:
         action.set_dead_line_by_str(dead_line_str)
+        present_card_list.execute(e, p)
         present_action_list.execute(e, p)
