@@ -37,7 +37,10 @@ from . import set_action_name
 from . import set_action_owner
 from . import set_action_time_expected
 from . import set_card_name
+from . import set_color_to_cards
 from . import set_dead_line
+from . import shift_actions_dead_lines_by
+from . import shift_cards_dead_lines
 from . import show_action_information
 from . import show_email_creator
 from . import show_email_creator1
@@ -100,27 +103,10 @@ class Interactor(InteractorABC):
         present_card_list.execute(self._entities, self._presenters)
 
     def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
-        for index_ in indexes:
-            action = self._entities.get_action_by_index(index_)
-            action.increment_deadline_by(days)
-        present_card_list.execute(self._entities, self._presenters)
+        shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)
 
     def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
-        active_card = self._entities.active_card
-        if active_card in self._entities.my_cards:
-            cards_ = self._entities.get_my_visible_cards_by_indexes(indexes1)
-            self._shift_cards_dead_lines(cards_, days)
-        elif active_card in self._entities.their_cards:
-            cards_ = self._entities.get_their_visible_cards_by_indexes(indexes2)
-            self._shift_cards_dead_lines(cards_, days)
-        present_card_list.execute(self._entities, self._presenters)
-
-    @staticmethod
-    def _shift_cards_dead_lines(cards, days: int):
-        for card in cards:
-            for action in card.all_actions:
-                if not action.is_done:
-                    action.increment_deadline_by(days)
+        shift_cards_dead_lines.execute(self._entities, self._presenters, days, indexes1, indexes2)
 
     def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)
@@ -132,14 +118,10 @@ class Interactor(InteractorABC):
         delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_my_card_information(self, indexes: Tuple[int]):
-        indexes = get_card_index.execute(self._entities, self._entities.my_visible_cards, indexes)
-        if indexes is not None:
-            show_my_card_information.execute(self._entities, self._presenters, indexes)
+        show_my_card_information.execute(self._entities, self._presenters, indexes)
 
     def show_their_card_information(self, indexes: Tuple[int]):
-        indexes = get_card_index.execute(self._entities, self._entities.their_visible_cards, indexes)
-        if indexes is not None:
-            show_their_card_information.execute(self._entities, self._presenters, indexes)
+        show_their_card_information.execute(self._entities, self._presenters, indexes)
 
     def move_my_cards_up(self, indexes: Tuple[int, ...]):
         move_my_cards_up.execute(self._entities, self._presenters, indexes)
@@ -154,22 +136,7 @@ class Interactor(InteractorABC):
         move_their_cards_down.execute(self._entities, self._presenters, indexes)
 
     def set_color_to_cards(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...], color):
-        active_card = self._entities.active_card
-        if active_card in self._entities.my_cards:
-            self.set_color_to_my_cards(indexes1, color)
-        elif active_card in self._entities.their_cards:
-            self.set_color_to_their_cards(indexes2, color)
-
-    def set_color_to_my_cards(self, indexes: Tuple[int, ...], color):
-        self._set_color_to_cards(self._entities.get_my_visible_cards_by_indexes(indexes), color)
-
-    def set_color_to_their_cards(self, indexes: Tuple[int, ...], color):
-        self._set_color_to_cards(self._entities.get_their_visible_cards_by_indexes(indexes), color)
-
-    def _set_color_to_cards(self, cards, color):
-        for card in cards:
-            card.set_color(color)
-        present_card_list.execute(self._entities, self._presenters)
+        set_color_to_cards.execute(self._entities, self._presenters, color, indexes1, indexes2)
 
     def hide_finished_cards(self):
         self._entities.hide_finished_cards()
