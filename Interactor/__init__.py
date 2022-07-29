@@ -99,11 +99,28 @@ class Interactor(InteractorABC):
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
         present_card_list.execute(self._entities, self._presenters)
 
-    def shift_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
+    def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
         for index_ in indexes:
             action = self._entities.get_action_by_index(index_)
             action.increment_deadline_by(days)
         present_card_list.execute(self._entities, self._presenters)
+
+    def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
+        active_card = self._entities.active_card
+        if active_card in self._entities.my_cards:
+            cards_ = self._entities.get_my_visible_cards_by_indexes(indexes1)
+            self._shift_cards_dead_lines(cards_, days)
+        elif active_card in self._entities.their_cards:
+            cards_ = self._entities.get_their_visible_cards_by_indexes(indexes2)
+            self._shift_cards_dead_lines(cards_, days)
+        present_card_list.execute(self._entities, self._presenters)
+
+    @staticmethod
+    def _shift_cards_dead_lines(cards, days: int):
+        for card in cards:
+            for action in card.all_actions:
+                if not action.is_done:
+                    action.increment_deadline_by(days)
 
     def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)

@@ -13,13 +13,13 @@ def get_left_tree_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_my_cards)
 
 
-def get_their_right_tree_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
+def get_right_tree_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_their_cards)
 
 
 def get_trees_selected_indexes(v: ViewABC) -> Tuple[Tuple[int, ...], ...]:
     indexes1 = get_left_tree_selected_indexes(v)
-    indexes2 = get_their_right_tree_selected_indexes(v)
+    indexes2 = get_right_tree_selected_indexes(v)
     return indexes1, indexes2
 
 
