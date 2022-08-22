@@ -212,6 +212,8 @@ class Interactor(InteractorABC):
     def set_up(self):
         loaded = True
         import os
+        if not os.path.exists(self._gateway.home_folder):
+            os.mkdir(self._gateway.home_folder)
         if not os.path.exists(self._gateway.state_folder):
             os.mkdir(self._gateway.state_folder)
         try:
