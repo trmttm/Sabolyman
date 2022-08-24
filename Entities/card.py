@@ -62,6 +62,9 @@ class Card(EntityABC):
     def date_created(self) -> datetime.datetime:
         return self._date_created
 
+    def update_date_created(self):
+        self._date_created = datetime.datetime.now()
+
     @property
     def dead_line(self) -> datetime.datetime:
         all_actions = self._actions.all_actions

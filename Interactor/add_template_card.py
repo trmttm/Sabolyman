@@ -11,4 +11,5 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
     command.execute()
     active_card = e.active_card
     active_card.load_state(card_state)
+    active_card.update_date_created()
     present_card_list.execute(e, p)
