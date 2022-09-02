@@ -15,7 +15,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f = i.add_new_keyboard_shortcut
 
     if os_identifier.is_mac:
-        main_modifier = KeyMap.command
+        main_modifier = KeyMapk.command
         sub_modifier = KeyMap.control
     else:
         main_modifier = KeyMap.control
