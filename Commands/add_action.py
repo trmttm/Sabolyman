@@ -22,3 +22,4 @@ class AddAction(UseCase):
         action.set_dead_line(dead_line)
 
         entities.add_new_action(action)
+        entities.set_active_action(action)

@@ -9,11 +9,13 @@ from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import add_template_card
+from . import convert_cards_to_actions
 from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import duplicate_selected_card
+from . import get_selected_cards_and_their_indexes
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -130,6 +132,15 @@ class Interactor(InteractorABC):
         self.filter_cards_with_keyword(self._entities.filter_key, self._entities.filter_mode)
         present_card_list.execute(self._entities, self._presenters)
         self._presenters.set_search_box(self._entities.filter_key)
+
+    def convert_selected_cards_to_actions(self, left_indexes_and_right_indexes: Tuple[Tuple[int, ...], ...]):
+        args = self._entities, self._presenters, left_indexes_and_right_indexes, self.feed_back_user_by_popup
+        convert_cards_to_actions.execute(*args)
+
+        all_cards, indexes = get_selected_cards_and_their_indexes.execute(self._entities, left_indexes_and_right_indexes)
+        cards_selected = tuple(card for (n, card) in enumerate(all_cards) if n in indexes)
+        for card in cards_selected:
+            self._entities.remove_card(card)
 
     # Action
     def add_new_action(self):
