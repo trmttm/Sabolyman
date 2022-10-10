@@ -222,3 +222,15 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         pass
+
+    @abc.abstractmethod
+    def copy_actions(self):
+        pass
+
+    @abc.abstractmethod
+    def paste_actions_as_duplicate(self):
+        pass
+
+    @abc.abstractmethod
+    def paste_actions_as_alias(self):
+        pass

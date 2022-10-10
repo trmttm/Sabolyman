@@ -192,6 +192,20 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def selected_actions(self) -> Tuple[Action, ...]:
+        pass
+
+    @abc.abstractmethod
+    def copy_actions(self, actions_passed: Tuple[Action, ...]):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def copied_actions(self) -> Tuple[Action, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def active_card_index(self) -> int:
         pass
 

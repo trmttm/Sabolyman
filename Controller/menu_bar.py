@@ -75,6 +75,11 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             },
         },
         'Actions': {
+            'Copy': lambda: i.copy_actions(),
+            'Paste as': {
+                'Duplicate copy': i.paste_actions_as_duplicate(),
+                'Alias': lambda: i.paste_actions_as_alias(),
+            },
             'Shift Deadlines by': {
                 '+5 day': lambda: i.shift_actions_dead_lines_by(5, state.get_actions_selected_indexes(v)),
                 '+4 day': lambda: i.shift_actions_dead_lines_by(4, state.get_actions_selected_indexes(v)),

@@ -100,6 +100,10 @@ class Card(EntityABC):
         self._selected_actions_indexes = indexes
 
     @property
+    def selected_actions(self) -> Tuple[Action, ...]:
+        return tuple(self._actions.get_action_by_index(i) for i in self._selected_actions_indexes)
+
+    @property
     def selected_actions_indexes(self) -> Tuple[int, ...]:
         return self._selected_actions_indexes
 

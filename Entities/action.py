@@ -166,6 +166,9 @@ class Action(EntityABC):
     def dead_line(self) -> datetime.datetime:
         return self._dead_line
 
+    def update_date_created(self):
+        self._date_created = datetime.datetime.now()
+
     @property
     def state(self) -> dict:
         state = {

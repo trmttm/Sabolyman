@@ -27,6 +27,7 @@ class Entities(EntitiesABC):
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
         self._sorter = Sorter(self._cards)
+        self._copied_action = ()
 
     # Default Values
     @property
@@ -318,6 +319,17 @@ class Entities(EntitiesABC):
         return self.active_card.selected_actions_indexes
 
     @property
+    def selected_actions(self) -> Tuple[Action, ...]:
+        return self.active_card.selected_actions
+
+    def copy_actions(self, actions_passed: Tuple[Action, ...]):
+        self._copied_action = actions_passed
+
+    @property
+    def copied_actions(self) -> Tuple[Action, ...]:
+        return self._copied_action
+
+    @property
     def user(self) -> Person:
         return self._user
 
@@ -327,9 +339,6 @@ class Entities(EntitiesABC):
 
     def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
         return self._sorter.sorter_values(cards_)
-
-    def sort_cards_by_deadline(self):
-        self._sorter.sort_cards_by_deadline()
 
 
 def get_card_by_index(cards_tuple, index) -> Card:

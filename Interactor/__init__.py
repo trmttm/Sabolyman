@@ -91,26 +91,8 @@ class Interactor(InteractorABC):
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
 
-    def set_dead_line(self, dead_line_str: str, indexes: Tuple[int, ...]):
-        def ask_user(message: str, **kwargs):
-            self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
-
-        set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
-
-    def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
-        shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)
-
     def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         shift_cards_dead_lines.execute(self._entities, self._presenters, days, indexes1, indexes2)
-
-    def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
-        set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)
-
-    def add_new_action(self):
-        add_new_action.execute(self._entities, self._presenters)
-
-    def delete_selected_actions(self, indexes: Tuple[int]):
-        delete_selected_actions.execute(self._entities, self._presenters, indexes)
 
     def show_my_card_information(self, indexes: Tuple[int]):
         show_my_card_information.execute(self._entities, self._presenters, indexes)
@@ -148,6 +130,12 @@ class Interactor(InteractorABC):
         self._presenters.set_search_box(self._entities.filter_key)
 
     # Action
+    def add_new_action(self):
+        add_new_action.execute(self._entities, self._presenters)
+
+    def delete_selected_actions(self, indexes: Tuple[int]):
+        delete_selected_actions.execute(self._entities, self._presenters, indexes)
+
     def set_action_name(self, action_name: str, actions_indexes: Tuple[int, ...]):
         set_action_name.execute(self._entities, self._presenters, action_name, actions_indexes)
 
@@ -176,6 +164,49 @@ class Interactor(InteractorABC):
 
     def move_actions_down(self, indexes: Tuple[int, ...]):
         move_actions_down.execute(self._entities, self._presenters, indexes)
+
+    def set_dead_line(self, dead_line_str: str, indexes: Tuple[int, ...]):
+        def ask_user(message: str, **kwargs):
+            self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
+
+        set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
+
+    def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
+        shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)
+
+    def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
+        set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)
+
+    def copy_actions(self):
+        selected_actions = self._entities.selected_actions
+        self._entities.copy_actions(selected_actions)
+
+    def paste_actions_as_duplicate(self):
+        for action in self._entities.copied_actions:
+            self._entities.add_new_action(action)
+
+    def paste_actions_as_alias(self):
+        copied_actions = self._entities.copied_actions
+        actions_that_already_exist_in_active_card = []
+        n_new_actions = 0
+        for action in copied_actions:
+            if action not in self._entities.active_card.all_actions:
+                self._entities.add_new_action(action)
+                n_new_actions += 1
+            else:
+                actions_that_already_exist_in_active_card.append(action)
+
+        if n_new_actions:
+            n_all_actions = len(self._entities.active_card.all_actions)
+            next_selection_index = tuple(n_all_actions - n_new_actions + i for i in range(n_new_actions))
+            present_action_list.execute(self._entities, self._presenters, next_selection_index)
+
+        if actions_that_already_exist_in_active_card:
+            title = 'Actions already exist'
+            body = 'The following alias(es) not created as the actions already exist.\n'
+            for n, action in enumerate(actions_that_already_exist_in_active_card):
+                body += f'  {n + 1} {action.name}\n'
+            self.feed_back_user_by_popup(title, body, 600, 200)
 
     # Sorter
     def sort_cards_by_deadline(self):
