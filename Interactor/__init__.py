@@ -23,6 +23,8 @@ from . import move_my_cards_down
 from . import move_my_cards_up
 from . import move_their_cards_down
 from . import move_their_cards_up
+from . import paste_action_as_duplicate
+from . import paste_actions_as_alias
 from . import present_action_list
 from . import present_card_list
 from . import save_as_template_card
@@ -182,31 +184,10 @@ class Interactor(InteractorABC):
         self._entities.copy_actions(selected_actions)
 
     def paste_actions_as_duplicate(self):
-        for action in self._entities.copied_actions:
-            self._entities.add_new_action(action)
+        paste_action_as_duplicate.execute(self._entities, self._presenters)
 
     def paste_actions_as_alias(self):
-        copied_actions = self._entities.copied_actions
-        actions_that_already_exist_in_active_card = []
-        n_new_actions = 0
-        for action in copied_actions:
-            if action not in self._entities.active_card.all_actions:
-                self._entities.add_new_action(action)
-                n_new_actions += 1
-            else:
-                actions_that_already_exist_in_active_card.append(action)
-
-        if n_new_actions:
-            n_all_actions = len(self._entities.active_card.all_actions)
-            next_selection_index = tuple(n_all_actions - n_new_actions + i for i in range(n_new_actions))
-            present_action_list.execute(self._entities, self._presenters, next_selection_index)
-
-        if actions_that_already_exist_in_active_card:
-            title = 'Actions already exist'
-            body = 'The following alias(es) not created as the actions already exist.\n'
-            for n, action in enumerate(actions_that_already_exist_in_active_card):
-                body += f'  {n + 1} {action.name}\n'
-            self.feed_back_user_by_popup(title, body, 600, 200)
+        paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)
 
     # Sorter
     def sort_cards_by_deadline(self):

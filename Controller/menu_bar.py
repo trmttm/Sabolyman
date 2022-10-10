@@ -77,7 +77,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'Actions': {
             'Copy': lambda: i.copy_actions(),
             'Paste as': {
-                'Duplicate copy': i.paste_actions_as_duplicate(),
+                'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
                 'Alias': lambda: i.paste_actions_as_alias(),
             },
             'Shift Deadlines by': {
