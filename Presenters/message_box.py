@@ -1,8 +1,8 @@
+from interface_tk import top_level_options
+from interface_tk import widget_model
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
-from view_tkinter.tk_interface import top_level_options
-from view_tkinter.tk_interface import widget_model
 
 specified_parent = 'popup_mail'
 button_id = 'pop_up_button_OK'

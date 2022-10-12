@@ -1,7 +1,7 @@
+from interface_tk import widget_model
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
-from view_tkinter.tk_interface import widget_model
 
 specified_parent = 'popup_mail'
 entry_recipient_name = 'entry_recipient_name'
