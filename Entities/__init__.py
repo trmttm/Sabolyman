@@ -63,6 +63,10 @@ class Entities(EntitiesABC):
         return tuple(c for c in self._cards.all_cards if c.owner.name != self._user.name)
 
     @property
+    def all_cards(self) -> Tuple[Card, ...]:
+        return tuple(self._cards.all_cards)
+
+    @property
     def my_visible_cards(self) -> Tuple[Card, ...]:
         return self._visible_cards(self.my_cards)
 

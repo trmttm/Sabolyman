@@ -137,7 +137,8 @@ class Interactor(InteractorABC):
         args = self._entities, self._presenters, left_indexes_and_right_indexes, self.feed_back_user_by_popup
         convert_cards_to_actions.execute(*args)
 
-        all_cards, indexes = get_selected_cards_and_their_indexes.execute(self._entities, left_indexes_and_right_indexes)
+        all_cards, indexes = get_selected_cards_and_their_indexes.execute(self._entities,
+                                                                          left_indexes_and_right_indexes)
         cards_selected = tuple(card for (n, card) in enumerate(all_cards) if n in indexes)
         for card in cards_selected:
             self._entities.remove_card(card)
@@ -307,3 +308,26 @@ class Interactor(InteractorABC):
             a = action
             data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
         self._gateway.export_data_as_csv(file_name, data)
+
+    def open_display_progress_dialogue(self):
+        self._presenters.open_display_progress_dialogue(self.display_progress)
+
+    def display_progress(self, from_: str, to_: str):
+        title = f'Frogress from {from_} to {to_}...'
+        text_to_display = ''
+        import datetime
+        date_from = datetime.datetime.strptime(from_, '%Y/%m/%d').date()
+        date_to = datetime.datetime.strptime(to_, '%Y/%m/%d').date()
+        for card in self._entities.all_cards:
+            card_text = ''
+            for action in card.actions.all_actions:
+                completion = action.time_completed
+                if completion is not None:
+                    completion_date = completion.date()
+                    if (date_from <= completion_date) and (completion_date <= date_to):
+                        card_text += f'{action.name}\n'
+            if card_text != '':
+                text_to_display += f'\n\n[{card.name}\n'
+                text_to_display += card_text
+
+        self.feed_back_user_by_popup(title, text_to_display, 400, 600)

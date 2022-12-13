@@ -238,3 +238,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def paste_actions_as_alias(self):
         pass
+
+    @abc.abstractmethod
+    def open_display_progress_dialogue(self):
+        pass

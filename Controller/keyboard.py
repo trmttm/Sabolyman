@@ -1,11 +1,11 @@
-import WidgetNames
 import os_identifier
-from Entities import EntitiesABC
-from Interactor import InteractorABC
 from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 
+import WidgetNames
+from Entities import EntitiesABC
+from Interactor import InteractorABC
 from . import state
 from . import utilities
 

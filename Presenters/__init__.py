@@ -5,6 +5,7 @@ import Utilities
 from interface_view import ViewABC
 
 import WidgetNames
+from . import display_progress_dialogue
 from . import message_box
 from . import show_mail_creator
 from . import update_actions
@@ -90,6 +91,9 @@ class Presenters(PresentersABC):
     # Popup
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):
         message_box.execute(self._view, title, body, width, height, **kwargs)
+
+    def open_display_progress_dialogue(self, method_upon_ok=None):
+        display_progress_dialogue.execute(self._view, method_upon_ok)
 
     # Search box
     def set_search_box(self, text: str):
