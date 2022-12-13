@@ -8,7 +8,7 @@ from stacker import Stacker
 from stacker import widgets as w
 
 specified_parent = 'popup_display_progress_dialogue'
-
+button_ok = 'btn_display_progress_ok'
 
 def execute(v: ViewABC, method_upon_ok: Callable = None):
     width = 600
@@ -32,7 +32,7 @@ def execute(v: ViewABC, method_upon_ok: Callable = None):
         stacker.hstack(
             w.Spacer(),
             w.Button('btn_display_progress_cancel').text("Cancel"),
-            w.Button('btn_display_progress_ok').text("OK"),
+            w.Button(button_ok).text("OK"),
         ),
         w.Spacer(),
     )
@@ -43,6 +43,7 @@ def execute(v: ViewABC, method_upon_ok: Callable = None):
 
     v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
     v.bind_command_to_widget('btn_display_progress_cancel', lambda: v.close(specified_parent))
+    v.focus(button_ok)
 
     if method_upon_ok is not None:
         def wrapper_to_delay_getting_entry_values():
@@ -50,4 +51,4 @@ def execute(v: ViewABC, method_upon_ok: Callable = None):
             method_upon_ok(**kwargs)
             v.close(specified_parent)
 
-        v.bind_command_to_widget('btn_display_progress_ok', wrapper_to_delay_getting_entry_values)
+        v.bind_command_to_widget(button_ok, wrapper_to_delay_getting_entry_values)
