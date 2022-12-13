@@ -22,6 +22,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Export Actions List': lambda: i.export_actions_list(
                 v.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
             'Display progress': lambda: i.open_display_progress_dialogue(),
+            'Display new tasks': lambda: i.open_display_new_tasks_dialogue(),
         },
         'View': {
             'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,

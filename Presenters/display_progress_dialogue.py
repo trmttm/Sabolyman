@@ -10,6 +10,7 @@ from stacker import widgets as w
 specified_parent = 'popup_display_progress_dialogue'
 button_ok = 'btn_display_progress_ok'
 
+
 def execute(v: ViewABC, method_upon_ok: Callable = None):
     width = 600
     height = 100

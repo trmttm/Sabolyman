@@ -14,6 +14,8 @@ from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
+from . import display_new_tasks
+from . import display_progress
 from . import duplicate_selected_card
 from . import get_selected_cards_and_their_indexes
 from . import load_gui
@@ -312,22 +314,11 @@ class Interactor(InteractorABC):
     def open_display_progress_dialogue(self):
         self._presenters.open_display_progress_dialogue(self.display_progress)
 
-    def display_progress(self, from_: str, to_: str):
-        title = f'Frogress from {from_} to {to_}...'
-        text_to_display = ''
-        import datetime
-        date_from = datetime.datetime.strptime(from_, '%Y/%m/%d').date()
-        date_to = datetime.datetime.strptime(to_, '%Y/%m/%d').date()
-        for card in self._entities.all_cards:
-            card_text = ''
-            for action in card.actions.all_actions:
-                completion = action.time_completed
-                if completion is not None:
-                    completion_date = completion.date()
-                    if (date_from <= completion_date) and (completion_date <= date_to):
-                        card_text += f'{action.name}\n'
-            if card_text != '':
-                text_to_display += f'\n\n[{card.name}\n'
-                text_to_display += card_text
+    def open_display_new_tasks_dialogue(self):
+        self._presenters.open_display_progress_dialogue(self.display_new_tasks)
 
-        self.feed_back_user_by_popup(title, text_to_display, 400, 600)
+    def display_progress(self, from_: str, to_: str):
+        display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
+
+    def display_new_tasks(self, from_: str, to_: str):
+        display_new_tasks.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
