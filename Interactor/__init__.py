@@ -313,4 +313,21 @@ class Interactor(InteractorABC):
         self._presenters.open_display_progress_dialogue(self.display_progress)
 
     def display_progress(self, from_: str, to_: str):
-        print(f'This is the progress from {from_} to {to_}...')
+        title = f'Frogress from {from_} to {to_}...'
+        text_to_display = ''
+        import datetime
+        date_from = datetime.datetime.strptime(from_, '%Y/%m/%d').date()
+        date_to = datetime.datetime.strptime(to_, '%Y/%m/%d').date()
+        for card in self._entities.all_cards:
+            card_text = ''
+            for action in card.actions.all_actions:
+                completion = action.time_completed
+                if completion is not None:
+                    completion_date = completion.date()
+                    if (date_from <= completion_date) and (completion_date <= date_to):
+                        card_text += f'{action.name}\n'
+            if card_text != '':
+                text_to_display += f'\n\n[{card.name}\n'
+                text_to_display += card_text
+
+        self.feed_back_user_by_popup(title, text_to_display, 400, 600)
