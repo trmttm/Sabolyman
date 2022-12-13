@@ -137,7 +137,8 @@ class Interactor(InteractorABC):
         args = self._entities, self._presenters, left_indexes_and_right_indexes, self.feed_back_user_by_popup
         convert_cards_to_actions.execute(*args)
 
-        all_cards, indexes = get_selected_cards_and_their_indexes.execute(self._entities, left_indexes_and_right_indexes)
+        all_cards, indexes = get_selected_cards_and_their_indexes.execute(self._entities,
+                                                                          left_indexes_and_right_indexes)
         cards_selected = tuple(card for (n, card) in enumerate(all_cards) if n in indexes)
         for card in cards_selected:
             self._entities.remove_card(card)
@@ -307,3 +308,9 @@ class Interactor(InteractorABC):
             a = action
             data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
         self._gateway.export_data_as_csv(file_name, data)
+
+    def open_display_progress_dialogue(self, method_upon_ok: Callable = None):
+        self._presenters.open_display_progress_dialogue(method_upon_ok)
+
+    def display_progress(self, from_: str, to_: str):
+        print(f'This is the progress from {from_} to {to_}...')

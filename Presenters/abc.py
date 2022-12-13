@@ -1,5 +1,6 @@
 import abc
 import datetime
+from typing import Callable
 from typing import Tuple
 
 
@@ -95,4 +96,8 @@ class PresentersABC(abc.ABC):
 
     @abc.abstractmethod
     def set_search_mode(self, filter_mode: str):
+        pass
+
+    @abc.abstractmethod
+    def open_display_progress_dialogue(self, method_upon_ok: Callable = None):
         pass

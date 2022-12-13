@@ -21,6 +21,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'Export': {
             'Export Actions List': lambda: i.export_actions_list(
                 v.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
+            'Display progress': lambda: i.open_display_progress_dialogue(i.display_progress),
         },
         'View': {
             'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
@@ -34,7 +35,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 state.get_left_tree_selected_indexes(v),
                 state.get_right_tree_selected_indexes(v),
                 v.ask_color()),
-            'Convert to Action(s)': lambda :i.convert_selected_cards_to_actions(state.get_trees_selected_indexes(v)),
+            'Convert to Action(s)': lambda: i.convert_selected_cards_to_actions(state.get_trees_selected_indexes(v)),
             'Sort': {
                 'By Color': i.sort_cards_by_color,
                 'By Deadline': i.sort_cards_by_deadline,
