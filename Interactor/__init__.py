@@ -309,8 +309,8 @@ class Interactor(InteractorABC):
             data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
         self._gateway.export_data_as_csv(file_name, data)
 
-    def open_display_progress_dialogue(self, method_upon_ok: Callable = None):
-        self._presenters.open_display_progress_dialogue(method_upon_ok)
+    def open_display_progress_dialogue(self):
+        self._presenters.open_display_progress_dialogue(self.display_progress)
 
     def display_progress(self, from_: str, to_: str):
         print(f'This is the progress from {from_} to {to_}...')

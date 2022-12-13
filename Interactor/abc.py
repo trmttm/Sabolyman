@@ -1,5 +1,4 @@
 import abc
-from typing import Callable
 from typing import Tuple
 
 from interface_keymaps import KeyMapsABC
@@ -241,9 +240,5 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def open_display_progress_dialogue(self, method_upon_ok: Callable = None):
-        pass
-
-    @abc.abstractmethod
-    def display_progress(self, from_: str, to_: str):
+    def open_display_progress_dialogue(self):
         pass
