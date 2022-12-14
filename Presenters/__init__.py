@@ -94,8 +94,8 @@ class Presenters(PresentersABC):
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):
         message_box.execute(self._view, title, body, width, height, **kwargs)
 
-    def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
-        display_progress_dialogue.execute(self._view, method_upon_ok, title)
+    def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
+        display_progress_dialogue.execute(self._view, method_upon_ok, **kwargs)
 
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)

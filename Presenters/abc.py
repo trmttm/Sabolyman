@@ -99,7 +99,7 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
+    def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         pass
 
     @abc.abstractmethod

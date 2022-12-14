@@ -11,24 +11,26 @@ specified_parent = 'popup_display_progress_dialogue'
 button_ok = 'btn_display_progress_ok'
 
 
-def execute(v: ViewABC, method_upon_ok: Callable = None, title: str = None):
-    title = 'Pick Date Range' if title is None else title
+def execute(v: ViewABC, method_upon_ok: Callable = None, **kwargs):
+    title = 'Pick Date Range' if kwargs.get('title') is None else kwargs.get('title')
     width = 600
     height = 100
     today = datetime.datetime.today()
     year = today.year
     month = today.month
     day = today.day
+    from_date_text = f'{year}/{month}/{day}' if kwargs.get('from') is None else kwargs.get('from')
+    to_date_text = f'{year}/{month}/{day}' if kwargs.get('to') is None else kwargs.get('to')
 
     stacker = Stacker(specified_parent)
     stacker.vstack(
         stacker.hstack(
             w.Label('lbl_from').text('From'),
-            w.Entry('entry_from').default_value(f'{year}/{month}/{day}')
+            w.Entry('entry_from').default_value(from_date_text)
         ),
         stacker.hstack(
             w.Label('lbl_to').text('To'),
-            w.Entry('entry_to').default_value(f'{year}/{month}/{day}')
+            w.Entry('entry_to').default_value(to_date_text)
         ),
         w.Spacer(),
         stacker.hstack(

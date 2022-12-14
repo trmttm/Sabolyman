@@ -328,13 +328,16 @@ class Interactor(InteractorABC):
         self._gateway.export_data_as_csv(file_name, data)
 
     def open_display_progress_dialogue(self):
-        self._presenters.open_display_progress_dialogue(self.display_progress, 'Tasks completed during...')
+        options = {'title': 'Tasks completed during...'}
+        self._presenters.open_display_progress_dialogue(self.display_progress, **options)
 
     def open_display_new_tasks_dialogue(self):
-        self._presenters.open_display_progress_dialogue(self.display_new_tasks, 'New tasks added between...')
+        options = {'title': 'New tasks added between...'}
+        self._presenters.open_display_progress_dialogue(self.display_new_tasks, **options)
 
     def open_display_due_tasks_dialogue(self):
-        self._presenters.open_display_progress_dialogue(self.display_due_tasks, 'Tasks due during...')
+        options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
+        self._presenters.open_display_progress_dialogue(self.display_due_tasks, **options)
 
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
