@@ -1,7 +1,7 @@
-import WidgetNames
-from Interactor import InteractorABC
 from interface_view import ViewABC
 
+import WidgetNames
+from Interactor import InteractorABC
 from . import state as s
 
 

@@ -1,6 +1,5 @@
 import abc
 import datetime
-from typing import Callable
 from typing import Tuple
 
 
