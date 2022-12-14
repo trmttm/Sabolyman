@@ -149,11 +149,15 @@ class Interactor(InteractorABC):
 
     def reset_card_starting_date(self):
         initial_index = self._entities.active_card_index
+        is_my_card = self._entities.active_card_is_in_my_cards
 
         def upon_user_chooses_date(date: datetime.date):
             if date is not None:
                 self._entities.active_card.reset_starting_date_to(date)
-                self.show_my_card_information((initial_index,))
+                if is_my_card:
+                    self.show_my_card_information((initial_index,))
+                else:
+                    self.show_their_card_information((initial_index,))
 
         self._presenters.ask_user_date(upon_user_chooses_date)
 
