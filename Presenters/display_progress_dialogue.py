@@ -11,7 +11,8 @@ specified_parent = 'popup_display_progress_dialogue'
 button_ok = 'btn_display_progress_ok'
 
 
-def execute(v: ViewABC, method_upon_ok: Callable = None):
+def execute(v: ViewABC, method_upon_ok: Callable = None, title: str = None):
+    title = 'Pick Date Range' if title is None else title
     width = 600
     height = 100
     today = datetime.datetime.today()
@@ -37,7 +38,7 @@ def execute(v: ViewABC, method_upon_ok: Callable = None):
         ),
         w.Spacer(),
     )
-    options = top_level_options('Display Progress', (width, height))
+    options = top_level_options(title, (width, height))
     view_model = [widget_model('root', specified_parent, 'toplevel', 0, 0, 0, 0, 'nswe', **options)]
     view_model += stacker.view_model
     v.add_widgets(view_model)

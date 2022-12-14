@@ -92,8 +92,8 @@ class Presenters(PresentersABC):
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):
         message_box.execute(self._view, title, body, width, height, **kwargs)
 
-    def open_display_progress_dialogue(self, method_upon_ok=None):
-        display_progress_dialogue.execute(self._view, method_upon_ok)
+    def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
+        display_progress_dialogue.execute(self._view, method_upon_ok, title)
 
     # Search box
     def set_search_box(self, text: str):

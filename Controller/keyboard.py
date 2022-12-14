@@ -27,8 +27,9 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
     f((main_modifier, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
     f((main_modifier, KeyMap.m), (lambda: i.make_email(), ''))
-    f((main_modifier, KeyMap.p), (lambda: i.open_display_progress_dialogue(), ''))
-    f((main_modifier, KeyMap.a), (lambda: i.open_display_new_tasks_dialogue(), ''))
+    f((main_modifier, KeyMap.zero), (lambda: i.open_display_progress_dialogue(), ''))
+    f((main_modifier, KeyMap.nine), (lambda: i.open_display_new_tasks_dialogue(), ''))
+    f((main_modifier, KeyMap.eight), (lambda: i.open_display_due_tasks_dialogue(), ''))
     f((sub_modifier, KeyMap.c), (lambda: i.set_color_to_cards(state.get_left_tree_selected_indexes(app),
                                                               state.get_right_tree_selected_indexes(app),
                                                               app.ask_color()), ''))

@@ -246,3 +246,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def open_display_new_tasks_dialogue(self):
         pass
+
+    @abc.abstractmethod
+    def open_display_due_tasks_dialogue(self):
+        pass

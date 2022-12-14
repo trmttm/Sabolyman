@@ -99,5 +99,5 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def open_display_progress_dialogue(self, method_upon_ok: Callable = None):
+    def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
         pass

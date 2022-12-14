@@ -14,6 +14,7 @@ from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
+from . import display_due_tasks
 from . import display_new_tasks
 from . import display_progress
 from . import duplicate_selected_card
@@ -312,13 +313,19 @@ class Interactor(InteractorABC):
         self._gateway.export_data_as_csv(file_name, data)
 
     def open_display_progress_dialogue(self):
-        self._presenters.open_display_progress_dialogue(self.display_progress)
+        self._presenters.open_display_progress_dialogue(self.display_progress, 'Tasks completed during...')
 
     def open_display_new_tasks_dialogue(self):
-        self._presenters.open_display_progress_dialogue(self.display_new_tasks)
+        self._presenters.open_display_progress_dialogue(self.display_new_tasks, 'New tasks added between...')
+
+    def open_display_due_tasks_dialogue(self):
+        self._presenters.open_display_progress_dialogue(self.display_due_tasks, 'Tasks due during...')
 
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
 
     def display_new_tasks(self, from_: str, to_: str):
         display_new_tasks.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
+
+    def display_due_tasks(self, from_: str, to_: str):
+        display_due_tasks.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
