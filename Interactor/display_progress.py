@@ -5,6 +5,8 @@ from Entities import Action
 from Entities import EntitiesABC
 from . import display_filtered_actions
 
+text_color = 'dark green'
+
 
 def execute(from_: str, to_: str, feedback: Callable, e: EntitiesABC):
     title = f'Progress from {from_} to {to_}...'
@@ -19,4 +21,4 @@ def execute(from_: str, to_: str, feedback: Callable, e: EntitiesABC):
                 return True
         return False
 
-    display_filtered_actions.execute(title, filter_action, feedback, e, text_color='dark green')
+    display_filtered_actions.execute(title, filter_action, feedback, e, text_color=text_color)
