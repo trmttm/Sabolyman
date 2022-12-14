@@ -250,3 +250,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def open_display_due_tasks_dialogue(self):
         pass
+
+    @abc.abstractmethod
+    def reset_card_starting_date(self):
+        pass

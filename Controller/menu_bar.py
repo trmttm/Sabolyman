@@ -45,6 +45,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'By Current Owner': i.sort_cards_by_current_owner,
                 'By Current Client': i.sort_cards_by_current_client,
             },
+            'Set starting date to': lambda: i.reset_card_starting_date(),
             'Shift Deadlines by': {
                 '+5 day': lambda: i.shift_cards_dead_lines_by(5,
                                                               state.get_left_tree_selected_indexes(v),

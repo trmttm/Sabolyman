@@ -66,10 +66,12 @@ class Card(EntityABC):
         self._date_created = datetime.datetime.now()
 
     def reset_starting_date_to_today(self):
+        self.reset_starting_date_to(datetime.datetime.today().date())
+
+    def reset_starting_date_to(self, date: datetime.date):
         all_dead_lines = tuple(a.dead_line for a in self.all_actions)
         if len(all_dead_lines) > 0:
-            today = datetime.datetime.today().date()
-            delta_days = max(tuple(today - dead_line.date() for dead_line in all_dead_lines))
+            delta_days = max(tuple(date - dead_line.date() for dead_line in all_dead_lines))
             new_dead_lines = tuple(dead_line + delta_days for dead_line in all_dead_lines)
             for new_deadline, action in zip(new_dead_lines, self.all_actions):
                 action.set_dead_line(new_deadline)

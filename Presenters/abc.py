@@ -1,5 +1,6 @@
 import abc
 import datetime
+from typing import Callable
 from typing import Tuple
 
 
@@ -99,4 +100,8 @@ class PresentersABC(abc.ABC):
 
     @abc.abstractmethod
     def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
+        pass
+
+    @abc.abstractmethod
+    def ask_user_date(self, upon_date_selected: Callable):
         pass

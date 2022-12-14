@@ -1,10 +1,12 @@
 import datetime
+from typing import Callable
 from typing import Tuple
 
 import Utilities
 from interface_view import ViewABC
 
 import WidgetNames
+from . import ask_user_date
 from . import display_progress_dialogue
 from . import message_box
 from . import show_mail_creator
@@ -94,6 +96,9 @@ class Presenters(PresentersABC):
 
     def open_display_progress_dialogue(self, method_upon_ok=None, title: str = None):
         display_progress_dialogue.execute(self._view, method_upon_ok, title)
+
+    def ask_user_date(self, upon_date_selected: Callable):
+        ask_user_date.execute(self._view, upon_date_selected)
 
     # Search box
     def set_search_box(self, text: str):
