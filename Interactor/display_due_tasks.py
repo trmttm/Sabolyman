@@ -14,7 +14,7 @@ def execute(from_: str, to_: str, feedback: Callable, e: EntitiesABC):
 
     def filter_action(action: Action):
         datetime_in_question = action.dead_line
-        if datetime_in_question is not None:
+        if (datetime_in_question is not None) and (not action.is_done):
             date = datetime_in_question.date()
             if (date_from <= date) and (date <= date_to):
                 return Tuple
