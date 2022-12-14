@@ -13,4 +13,4 @@ def execute(title: str, filter_action: Callable, feed_back: Callable, e: Entitie
         if card_text != '':
             text_to_display += f'\n\n[{card.name}]\n'
             text_to_display += card_text
-    feed_back(title, text_to_display, 400, 600)
+    feed_back(title, text_to_display, 400, 600, by_textbox=True)
