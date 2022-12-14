@@ -14,7 +14,8 @@ def execute(v: ViewABC, title: str, body: str, width=400, height=200, **kwargs):
 
     def select_text_widget():
         if by_textbox(kwargs):
-            return w.TextBox('textbox_body').padding(10, 10)
+            color = kwargs.get('text_color', 'black')
+            return w.TextBox('textbox_body').padding(10, 10).text_color(color)
         else:
             return w.Label('lbl_body').text(body).padding(10, 10).set_options('wraplength', width)
 

@@ -3,7 +3,7 @@ from typing import Callable
 from Entities import EntitiesABC
 
 
-def execute(title: str, filter_action: Callable, feed_back: Callable, e: EntitiesABC):
+def execute(title: str, filter_action: Callable, feed_back: Callable, e: EntitiesABC, text_color: str = 'black'):
     text_to_display = ''
     counter_card = 0
     counter_all_actions = 0
@@ -25,4 +25,5 @@ def execute(title: str, filter_action: Callable, feed_back: Callable, e: Entitie
             text_to_display += card_text
 
     prefix = f'Total {counter_card} cards, {counter_all_actions} actions\n\n'
-    feed_back(title, prefix + text_to_display, 800, 800, by_textbox=True)
+    kwargs = {'by_textbox': True, 'text_color': text_color}
+    feed_back(title, prefix + text_to_display, 800, 800, **kwargs)
