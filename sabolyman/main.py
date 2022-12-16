@@ -25,7 +25,7 @@ def start_app(gui_selected='gui01.gui'):
     interactor.set_up()
     # Widget command mapping
     Controller.controller.configure_controller(app, interactor)
-    app.bind_tree_enter(lambda: app.focus(WidgetNames.tree_card_actions), WidgetNames.tree_card_actions)
+    app.bind_tree_enter(lambda: app.focus('root'), WidgetNames.tree_card_actions)
     # Menu bar
     f = app.select_folder
     j = Controller.menu_bar.configure_menu_bar
