@@ -6,6 +6,8 @@ import WidgetNames
 from Interactor import InteractorABC
 from . import state as s
 
+recursive_counter = 0
+
 
 def configure_controller(v: ViewABC, i: InteractorABC):
     f = v.bind_command_to_widget
@@ -13,10 +15,15 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     ai = s.get_actions_selected_indexes
 
     def prevent_unintended_action_property_change_when_tab_is_pressed(method: Callable):
-        method()
-        if len(ai(v)) > 0:
-            next_selection = ai(v)[0]
-            v.focus(WidgetNames.tree_card_actions, tree_item_position=next_selection)
+        global recursive_counter
+        if recursive_counter == 0:
+            recursive_counter += 1
+            method()
+            if len(ai(v)) > 0:
+                next_selection = ai(v)
+                v.focus(WidgetNames.tree_card_actions, tree_item_position=next_selection)
+        else:
+            recursive_counter = 0
 
     wrapper = prevent_unintended_action_property_change_when_tab_is_pressed
 
