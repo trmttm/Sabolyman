@@ -178,12 +178,12 @@ class Card(EntityABC):
         }
         return state
 
-    def load_state(self, state: dict):
+    def load_state(self, state: dict, alias_actions_dictionary: dict = None):
         self._name = state.get('name', '')
         self._owner = factory1.factory_person(state, 'owner')
         self._importance = state.get('importance', '')
         self._date_created = state.get('date_created', datetime.datetime.today())
-        self._actions = factory2.factory_actions(state)
+        self._actions = factory2.factory_actions(state, alias_actions_dictionary)
         self._files = factory1.factory_files(state)
         self._color = state.get('color', None)
         self._selected_actions_indexes = state.get('selected_action_indexes', ())

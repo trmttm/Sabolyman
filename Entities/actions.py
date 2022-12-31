@@ -81,12 +81,22 @@ class Actions(EntityABC):
         }
         return state
 
-    def load_state(self, state: dict):
+    def load_state(self, state: dict, alias_actions_dictionary: dict = None):
         self.__init__()
         actions_state = state.get('actions_state', ())
         active_action_index = state.get('active_action', 0)
         for n, action_state in enumerate(actions_state):
-            action = Action()
+
+            action_id = action_state.get('id')
+            if action_id is not None:
+                if action_id in alias_actions_dictionary:
+                    action = alias_actions_dictionary.get(action_id)
+                else:
+                    action = Action()
+                    alias_actions_dictionary[action_id] = action
+            else:
+                action = Action()
+
             action.load_state(action_state)
             self.add_new_action(action)
             if n == active_action_index:

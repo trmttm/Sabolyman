@@ -17,6 +17,7 @@ def create_alias_of_action_if_not_duplicate(e):
 
     for action in e.copied_actions:
         if action not in e.active_card.all_actions:
+            action.set_id()
             e.add_new_action(action)
             n_new_actions += 1
         else:

@@ -27,10 +27,10 @@ def load_state(cards: CardsABC, state: dict):
     hide_finished_cards = state.get('hide_finished_cards', False)
     cards.set_hide_finished_cards(hide_finished_cards)
 
+    alias_action_dictionary = {}
     for n, card_state in enumerate(card_states):
         card = Card()
-        card.load_state(card_state)
-
+        card.load_state(card_state, alias_action_dictionary)
         cards.add_new_card(card)
         if n == active_card_index:
             cards.set_active_card(card)

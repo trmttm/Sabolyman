@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from typing import Union
 
 from . import factory1
@@ -23,6 +24,7 @@ class Action(EntityABC):
         self._color = 'White'
         self._client = Person('')
         self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
+        self._id = None
 
     @property
     def name(self) -> str:
@@ -172,6 +174,9 @@ class Action(EntityABC):
     def update_date_created(self):
         self._date_created = datetime.datetime.now()
 
+    def set_id(self):
+        self._id = str(uuid.uuid4())
+
     @property
     def state(self) -> dict:
         state = {
@@ -185,6 +190,7 @@ class Action(EntityABC):
             'client': self._client.state,
             'completed_time': self.time_completed,
             'dead_line': self._dead_line,
+            'id': self._id,
         }
         return state
 
@@ -200,6 +206,7 @@ class Action(EntityABC):
         self._client = factory1.factory_person(state, 'client')
         self._time_completed = state.get('completed_time', None)
         self._dead_line = state.get('dead_line', datetime.datetime(tm.year, tm.month, tm.day, 17, 0))
+        self._id = state.get('id', None)
 
     def __repr__(self):
         return self._name
