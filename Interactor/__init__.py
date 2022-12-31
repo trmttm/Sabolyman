@@ -148,17 +148,23 @@ class Interactor(InteractorABC):
         for card in cards_selected:
             self._entities.remove_card(card)
 
-    def reset_card_starting_date(self):
+    def reset_card_starting_date(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         initial_index = self._entities.active_card_index
         is_my_card = self._entities.active_card_is_in_my_cards
 
         def upon_user_chooses_date(date: datetime.date):
             if date is not None:
-                self._entities.active_card.reset_starting_date_to(date)
                 if is_my_card:
+                    for n, card in enumerate(self._entities.my_visible_cards):
+                        if n in indexes1:
+                            card.reset_starting_date_to(date)
                     self.show_my_card_information((initial_index,))
                 else:
+                    for n, card in enumerate(self._entities.their_visible_cards):
+                        if n in indexes2:
+                            card.reset_starting_date_to(date)
                     self.show_their_card_information((initial_index,))
+                present_card_list.execute(self._entities, self._presenters)
 
         self._presenters.ask_user_date(upon_user_chooses_date)
 
