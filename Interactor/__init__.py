@@ -45,6 +45,7 @@ from . import set_card_name
 from . import set_color_to_cards
 from . import set_dead_line
 from . import shift_actions_dead_lines_by
+from . import shift_actions_dead_lines_hours_by
 from . import shift_cards_dead_lines
 from . import show_action_information
 from . import show_email_creator1
@@ -205,6 +206,9 @@ class Interactor(InteractorABC):
 
     def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
         shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)
+
+    def shift_actions_dead_lines_hours_by(self, hours: int, indexes: Tuple[int, ...]):
+        shift_actions_dead_lines_hours_by.execute(self._entities, self._presenters, hours, indexes)
 
     def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         set_action_client.execute(self._entities, self._presenters, client_name, actions_indexes)

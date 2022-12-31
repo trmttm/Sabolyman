@@ -162,6 +162,9 @@ class Action(EntityABC):
     def increment_deadline_by(self, days: int):
         self._dead_line += datetime.timedelta(days)
 
+    def increment_deadline_hours_by(self, hours: int):
+        self._dead_line += datetime.timedelta(0, hours * 60 * 60)
+
     @property
     def dead_line(self) -> datetime.datetime:
         return self._dead_line

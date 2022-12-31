@@ -42,6 +42,13 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.four), (lambda: i.sort_cards_by_current_owner(), ''))
     f((main_modifier, KeyMap.five), (lambda: i.sort_cards_by_current_client(), ''))
 
+    f((KeyMap.control, '-'), (lambda: i.shift_actions_dead_lines_by(-1, state.get_actions_selected_indexes(app)), ''))
+    f((KeyMap.control, '='), (lambda: i.shift_actions_dead_lines_by(1, state.get_actions_selected_indexes(app)), ''))
+    f((KeyMap.shift + KeyMap.control, '-'),
+      (lambda: i.shift_actions_dead_lines_hours_by(-1, state.get_actions_selected_indexes(app)), ''))
+    f((KeyMap.shift + KeyMap.control, '='),
+      (lambda: i.shift_actions_dead_lines_hours_by(1, state.get_actions_selected_indexes(app)), ''))
+
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
     # f((KeyMap.command, KeyMap.s), (lambda: i.set_active_keymap('default'), 'switched'))

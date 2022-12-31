@@ -224,6 +224,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def shift_actions_dead_lines_hours_by(self, hours: int, indexes: Tuple[int, ...]):
+        pass
+
+    @abc.abstractmethod
     def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         pass
 
