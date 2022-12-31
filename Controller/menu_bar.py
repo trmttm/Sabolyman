@@ -85,18 +85,6 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
                 'Alias': lambda: i.paste_actions_as_alias(),
             },
-            'Shift Deadlines by': {
-                '+5 day': lambda: i.shift_actions_dead_lines_by(5, state.get_actions_selected_indexes(v)),
-                '+4 day': lambda: i.shift_actions_dead_lines_by(4, state.get_actions_selected_indexes(v)),
-                '+3 day': lambda: i.shift_actions_dead_lines_by(3, state.get_actions_selected_indexes(v)),
-                '+2 day': lambda: i.shift_actions_dead_lines_by(2, state.get_actions_selected_indexes(v)),
-                '+1 day': lambda: i.shift_actions_dead_lines_by(1, state.get_actions_selected_indexes(v)),
-                '-1 day': lambda: i.shift_actions_dead_lines_by(-1, state.get_actions_selected_indexes(v)),
-                '-2 day': lambda: i.shift_actions_dead_lines_by(-2, state.get_actions_selected_indexes(v)),
-                '-3 day': lambda: i.shift_actions_dead_lines_by(-3, state.get_actions_selected_indexes(v)),
-                '-4 day': lambda: i.shift_actions_dead_lines_by(-4, state.get_actions_selected_indexes(v)),
-                '-5 day': lambda: i.shift_actions_dead_lines_by(-5, state.get_actions_selected_indexes(v)),
-            },
         },
         'Habits': {
             'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),
