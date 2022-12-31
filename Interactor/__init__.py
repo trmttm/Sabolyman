@@ -1,4 +1,3 @@
-import datetime
 from typing import Callable
 from typing import Tuple
 
@@ -19,6 +18,7 @@ from . import display_due_tasks
 from . import display_new_tasks
 from . import display_progress
 from . import duplicate_selected_card
+from . import export_actions_list
 from . import get_selected_cards_and_their_indexes
 from . import load_gui
 from . import load_state_from_file
@@ -33,6 +33,7 @@ from . import paste_action_as_duplicate
 from . import paste_actions_as_alias
 from . import present_action_list
 from . import present_card_list
+from . import reset_card_starting_date
 from . import save_as_template_card
 from . import select_actions
 from . import set_action_client
@@ -149,24 +150,8 @@ class Interactor(InteractorABC):
             self._entities.remove_card(card)
 
     def reset_card_starting_date(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
-        initial_index = self._entities.active_card_index
-        is_my_card = self._entities.active_card_is_in_my_cards
-
-        def upon_user_chooses_date(date: datetime.date):
-            if date is not None:
-                if is_my_card:
-                    for n, card in enumerate(self._entities.my_visible_cards):
-                        if n in indexes1:
-                            card.reset_starting_date_to(date)
-                    self.show_my_card_information((initial_index,))
-                else:
-                    for n, card in enumerate(self._entities.their_visible_cards):
-                        if n in indexes2:
-                            card.reset_starting_date_to(date)
-                    self.show_their_card_information((initial_index,))
-                present_card_list.execute(self._entities, self._presenters)
-
-        self._presenters.ask_user_date(upon_user_chooses_date)
+        args = indexes1, indexes2, self.show_my_card_information, self.show_their_card_information, self._entities, self._presenters
+        reset_card_starting_date.execute(*args)
 
     # Action
     def add_new_action(self):
@@ -331,11 +316,7 @@ class Interactor(InteractorABC):
 
     # Export
     def export_actions_list(self, file_name: str):
-        data = [['No', 'Name', 'Done', 'Date Created', 'Owner', 'Time Budget', 'Description']]
-        for n, action in enumerate(self._entities.active_card.all_actions):
-            a = action
-            data.append([n, a.name, a.is_done, a.date_created, a.owner, a.time_expected, a.description])
-        self._gateway.export_data_as_csv(file_name, data)
+        export_actions_list.execute(file_name, self._entities, self._gateway)
 
     def open_display_progress_dialogue(self):
         options = {'title': 'Tasks completed during...'}
