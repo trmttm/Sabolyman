@@ -20,6 +20,7 @@ from . import display_progress
 from . import duplicate_selected_card
 from . import export_actions_list
 from . import get_selected_cards_and_their_indexes
+from . import implement_lower_level_detail
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -215,7 +216,7 @@ class Interactor(InteractorABC):
         paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)
 
     def implement_lower_level_detail(self):
-        print(f'implement_lower_level_detail to {self._entities.active_action}')
+        implement_lower_level_detail.execute(self._entities, self._presenters)
 
     # Sorter
     def sort_cards_by_deadline(self):
