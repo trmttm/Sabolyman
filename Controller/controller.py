@@ -27,6 +27,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 
     wrapper = prevent_unintended_action_property_change_when_tab_is_pressed
 
+    # prevent unintended action property change when tab is pressed
+    v.bind_tree_enter(lambda: upon_action_tree_entrance(v))
+
     # Search box
     v.set_combobox_values(wn.combobox_search_mode, i.search_mode)
     v.set_value(wn.combobox_search_mode, i.search_mode[0])
@@ -65,3 +68,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.entry_action_dead_line, lambda *_: wrapper(lambda *_: i.set_dead_line(s.get_dead_line_str(v), ai(v))))
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v), ai(v))),
+
+
+def upon_action_tree_entrance(v: ViewABC):
+    global recursive_counter
+    v.focus('root'), WidgetNames.tree_card_actions
+    recursive_counter = 0
