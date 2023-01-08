@@ -86,6 +86,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
                 'Alias': lambda: i.paste_actions_as_alias(),
             },
+            'Implement lower level detail': lambda: i.implement_lower_level_detail(),
         },
         'Habits': {
             'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),

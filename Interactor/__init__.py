@@ -214,6 +214,9 @@ class Interactor(InteractorABC):
     def paste_actions_as_alias(self):
         paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)
 
+    def implement_lower_level_detail(self):
+        print(f'implement_lower_level_detail to {self._entities.active_action}')
+
     # Sorter
     def sort_cards_by_deadline(self):
         self._sort_cards(self._entities.sort_cards_by_deadline)

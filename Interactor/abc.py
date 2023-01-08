@@ -258,3 +258,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def reset_card_starting_date(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         pass
+
+    @abc.abstractmethod
+    def implement_lower_level_detail(self):
+        pass
