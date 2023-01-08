@@ -19,9 +19,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
         if recursive_counter == 0:
             recursive_counter += 1
             method()
-            if len(ai(v)) > 0:
-                next_selection = ai(v)
-                v.focus(WidgetNames.tree_card_actions, tree_item_position=next_selection)
+            action_selected_indexes = s.get_actions_selected_indexes(v)
+            if len(action_selected_indexes) > 0:
+                v.focus(WidgetNames.tree_card_actions, tree_item_position=action_selected_indexes)
         else:
             recursive_counter = 0
 
