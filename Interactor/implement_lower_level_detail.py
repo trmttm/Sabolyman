@@ -10,7 +10,7 @@ def execute(e: EntitiesABC, p: PresentersABC):
     command.execute()
     card_implementation = e.active_card
 
-    # Implement a solution to synchronize action_policy and new_card
+    # TODO implement below
     '''
     What happens when
     1) action_policy state is changed?
