@@ -294,3 +294,7 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def sort_cards_by_color(self):
         pass
+
+    @abc.abstractmethod
+    def synchronize(self, action_policy, card_implementation):
+        pass
