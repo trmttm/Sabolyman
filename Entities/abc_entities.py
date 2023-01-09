@@ -26,6 +26,11 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def all_actions(self) -> Tuple[Action, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def my_visible_cards(self) -> Tuple[Card, ...]:
         pass
 
@@ -293,6 +298,14 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def sort_cards_by_color(self):
+        pass
+
+    @abc.abstractmethod
+    def get_action_by_id(self, action_id: str) -> Action:
+        pass
+
+    @abc.abstractmethod
+    def get_card_by_id(self, card_id: str) -> Card:
         pass
 
     @abc.abstractmethod

@@ -45,3 +45,7 @@ class CardsABC(EntityABC):
     @abc.abstractmethod
     def toggle_hide_finished_cards(self):
         pass
+
+    @abc.abstractmethod
+    def get_card_by_id(self, card_id: str) -> Card:
+        pass

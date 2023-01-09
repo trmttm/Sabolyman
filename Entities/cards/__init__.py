@@ -50,6 +50,11 @@ class Cards(CardsABC):
     def hide_finished_cards(self) -> bool:
         return self._hide_finished_cards
 
+    def get_card_by_id(self, card_id: str) -> Card:
+        for card in self._cards:
+            if card.id == str:
+                return card
+
     @property
     def state(self) -> dict:
         return state_io.create_state(self)

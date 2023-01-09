@@ -1,4 +1,5 @@
 import datetime
+from typing import Dict
 from typing import Tuple
 from typing import Union
 
@@ -28,7 +29,7 @@ class Entities(EntitiesABC):
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
         self._sorter = Sorter(self._cards)
-        self._synchronizer_action_card = SynchronizerActionCard(self._cards)
+        self._synchronizer_action_card = SynchronizerActionCard(self)
         self._copied_action = ()
 
     # Default Values
@@ -67,6 +68,13 @@ class Entities(EntitiesABC):
     @property
     def all_cards(self) -> Tuple[Card, ...]:
         return tuple(self._cards.all_cards)
+
+    @property
+    def all_actions(self) -> Tuple[Action, ...]:
+        all_actions = []
+        for card_ in self.all_cards:
+            all_actions += card_.all_actions
+        return tuple(all_actions)
 
     @property
     def my_visible_cards(self) -> Tuple[Card, ...]:
@@ -152,9 +160,25 @@ class Entities(EntitiesABC):
         return tuple(c for (n, c) in enumerate(self.their_visible_cards) if n in indexes)
 
     def get_action_by_index(self, index: int) -> Action:
-        actions = self._actions
-        if actions:
-            return actions.get_action_by_index(index)
+        actions_ = self._actions
+        if actions_:
+            return actions_.get_action_by_index(index)
+
+    def get_action_by_id(self, action_id: str) -> Action:
+        return self.get_action_id_to_action().get(action_id)
+
+    def get_card_by_id(self, card_id: str) -> Card:
+        return self.get_card_id_to_card().get(card_id)
+
+    def get_card_id_to_card(self) -> Dict[str, Card]:
+        card_ids = tuple(c.id for c in self.all_cards if c.id is not None)
+        all_cards = tuple(c for c in self.all_cards if c.id is not None)
+        return dict(zip(card_ids, all_cards))
+
+    def get_action_id_to_action(self) -> Dict[str, Action]:
+        action_ids = tuple(c.id for c in self.all_actions if c.id is not None)
+        all_actions = tuple(c for c in self.all_actions if c.id is not None)
+        return dict(zip(action_ids, all_actions))
 
     # Setters
     def set_active_card(self, card: Card):
@@ -259,10 +283,14 @@ class Entities(EntitiesABC):
     # Properties
     def load_state(self, state: dict):
         self._cards.load_state(state)
+        self._synchronizer_action_card.load_state(state)
+        print('reach')
 
     @property
     def state(self) -> dict:
-        return self._cards.state
+        state = self._cards.state
+        state.update(self._synchronizer_action_card.state)
+        return state
 
     @property
     def action_names(self) -> Tuple[str, ...]:
