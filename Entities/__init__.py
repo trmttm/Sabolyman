@@ -14,6 +14,7 @@ from .file import File
 from .files import Files
 from .person import Person
 from .sorter import Sorter
+from .synchronizer_action_card import SynchronizerActionCard
 
 
 class Entities(EntitiesABC):
@@ -27,6 +28,7 @@ class Entities(EntitiesABC):
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
         self._sorter = Sorter(self._cards)
+        self._synchronizer_action_card = SynchronizerActionCard(self._cards)
         self._copied_action = ()
 
     # Default Values
@@ -104,7 +106,8 @@ class Entities(EntitiesABC):
     def set_filter_key(self, search_key: str, search_mode: str):
         self._filter_key = search_key
         self._filter_mode = search_mode
-        self._clear_actions_highlight()
+        for card_ in self._cards.all_cards:
+            card_.set_actions_true_colors()
 
     @property
     def filter_key(self) -> str:
@@ -112,7 +115,8 @@ class Entities(EntitiesABC):
 
     def clear_filter_key(self):
         self._filter_key = ''
-        self._clear_actions_highlight()
+        for card_ in self._cards.all_cards:
+            card_.clear_actions_highlight()
 
     @property
     def all_filter_modes(self) -> Tuple[str, ...]:
@@ -233,10 +237,6 @@ class Entities(EntitiesABC):
     def remove_action(self, action: Action):
         self._actions.remove_action(action)
 
-    def _clear_actions_highlight(self):
-        for card_ in self._cards.all_cards:
-            card_.clear_actions_highlight()
-
     def set_show_this_card(self, card: Card):
         self._show_this_card = card
 
@@ -251,6 +251,10 @@ class Entities(EntitiesABC):
 
     def toggle_hide_finished_cards(self):
         self._cards.toggle_hide_finished_cards()
+
+    def synchronize(self, action_policy: Action, card_implementation: Card):
+        sync = self._synchronizer_action_card
+        sync.synchronize(action_policy, card_implementation)
 
     # Properties
     def load_state(self, state: dict):
