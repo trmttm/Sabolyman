@@ -22,6 +22,7 @@ class Action(EntityABC):
         self._files = Files()
         self._time_completed = None
         self._color = 'White'
+        self._color_set_by_user = self._color
         self._client = Person('')
         self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17)
         self._id = None
@@ -134,8 +135,14 @@ class Action(EntityABC):
     def set_color(self, color: str):
         self._color = color
 
-    def remove_color(self):
-        self._color = 'White'
+    def register_as_user_set_color(self):
+        self._color_set_by_user = self._color
+
+    def set_true_color(self):
+        self.set_color(self._color_set_by_user)
+
+    def clear_search_highlight(self):
+        self.set_color(self._color_set_by_user)
 
     @property
     def color(self) -> str:
@@ -175,7 +182,14 @@ class Action(EntityABC):
         self._date_created = datetime.datetime.now()
 
     def set_id(self):
-        self._id = str(uuid.uuid4())
+        if self._id is None:
+            self._id = str(uuid.uuid4())
+
+    @property
+    def id(self) -> str:
+        if self._id is None:
+            self.set_id()
+        return self._id
 
     @property
     def state(self) -> dict:
@@ -191,6 +205,7 @@ class Action(EntityABC):
             'completed_time': self.time_completed,
             'dead_line': self._dead_line,
             'id': self._id,
+            'color': self._color,
         }
         return state
 
@@ -207,6 +222,8 @@ class Action(EntityABC):
         self._time_completed = state.get('completed_time', None)
         self._dead_line = state.get('dead_line', datetime.datetime(tm.year, tm.month, tm.day, 17, 0))
         self._id = state.get('id', None)
+        self._color = state.get('color', 'White')
+        self._color_set_by_user = self._color
 
     def __repr__(self):
         return self._name

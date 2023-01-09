@@ -1,4 +1,5 @@
 import datetime
+import uuid
 from typing import List
 from typing import Tuple
 
@@ -23,6 +24,7 @@ class Card(EntityABC):
         self._files = Files()
         self._color = None
         self._selected_actions_indexes = ()
+        self._id = None
 
     def set_name(self, name: str):
         self._name = name
@@ -160,9 +162,31 @@ class Card(EntityABC):
             score += action.get_search_action_client_name(search_key)
         return score
 
+    def set_actions_true_colors(self):
+        for action in self._actions.all_actions:
+            action.set_true_color()
+
     def clear_actions_highlight(self):
         for action in self._actions.all_actions:
-            action.remove_color()
+            action.clear_search_highlight()
+
+    @property
+    def current_owner(self) -> Person:
+        return self._actions.current_owner
+
+    @property
+    def current_client(self) -> Person:
+        return self._actions.current_client
+
+    def set_id(self):
+        if self._id is None:
+            self._id = str(uuid.uuid4())
+
+    @property
+    def id(self) -> str:
+        if self._id is None:
+            self.set_id()
+        return self._id
 
     @property
     def state(self) -> dict:
@@ -175,6 +199,7 @@ class Card(EntityABC):
             'files': self._files.state,
             'color': self._color,
             'selected_action_indexes': self._selected_actions_indexes,
+            'id': self._id,
         }
         return state
 
@@ -187,14 +212,7 @@ class Card(EntityABC):
         self._files = factory1.factory_files(state)
         self._color = state.get('color', None)
         self._selected_actions_indexes = state.get('selected_action_indexes', ())
-
-    @property
-    def current_owner(self) -> Person:
-        return self._actions.current_owner
-
-    @property
-    def current_client(self) -> Person:
-        return self._actions.current_client
+        self._id = state.get('id', None)
 
     def __repr__(self):
         return self._name
