@@ -44,6 +44,7 @@ from . import set_action_name
 from . import set_action_owner
 from . import set_action_time_expected
 from . import set_card_name
+from . import set_color_to_actions
 from . import set_color_to_cards
 from . import set_dead_line
 from . import shift_actions_dead_lines_by
@@ -125,6 +126,9 @@ class Interactor(InteractorABC):
 
     def set_color_to_cards(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...], color):
         set_color_to_cards.execute(self._entities, self._presenters, color, indexes1, indexes2)
+
+    def set_color_to_actions(self, indexes: Tuple[int, ...], color):
+        set_color_to_actions.execute(self._entities, self._presenters, color, indexes)
 
     def hide_finished_cards(self):
         self._entities.hide_finished_cards()

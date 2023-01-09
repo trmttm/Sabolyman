@@ -143,6 +143,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def set_color_to_actions(self, indexes: Tuple[int, ...], color):
+        pass
+
+    @abc.abstractmethod
     def convert_selected_cards_to_actions(self, left_indexes_and_right_indexes: Tuple[Tuple[int, ...], ...]):
         pass
 
