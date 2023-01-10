@@ -9,4 +9,6 @@ def execute(e: EntitiesABC, p: PresentersABC):
     cards = e.get_cards_that_have_action(policy_action)
     if len(cards) > 0:
         card_containing_policy_action = cards[0]
+        indexes_ = (card_containing_policy_action.all_actions.index(policy_action),)
+        card_containing_policy_action.select_actions(indexes_)
         jump_to_card.execute(card_containing_policy_action, e, p)
