@@ -14,17 +14,6 @@ def sync_mutually(action_policy: Action, card_implementation: Card):
     action_policy.set_color = wrapper_mutual(syncing_methods)
     card_implementation.set_color = wrapper_mutual(syncing_methods)
 
-    # Name
-    '''
-                    What happens when
-                    3) action_policy is deleted
-                        all of the lower_level actions at their court must be notified to cancel.
-                    4) card_implementation is deleted
-                        high level policy action can also be deleted?
-
-                    ...fix the semantics first.
-            '''
-
 
 def wrapper_mutual(methods: List[Callable]):
     def wrapped_method(*args, **kwargs):

@@ -1,4 +1,5 @@
 import datetime
+from typing import Callable
 from typing import Dict
 from typing import Tuple
 from typing import Union
@@ -280,6 +281,9 @@ class Entities(EntitiesABC):
         sync = self._synchronizer_action_card
         sync.synchronize(action_policy, card_implementation)
 
+    def attach_to_synchronizer(self, method: Callable):
+        self._synchronizer_action_card.attach_to_notification(method)
+
     def get_implementation_card(self, action_id: str) -> Union[Card, None]:
         return self._synchronizer_action_card.get_implementation_card(action_id)
 
@@ -355,8 +359,11 @@ class Entities(EntitiesABC):
         if self._actions is not None:
             active_action = self.active_action
             if active_action is not None:
-                index = self._actions.all_actions.index(active_action)
-                return None if index is None else index
+                try:
+                    index = self._actions.all_actions.index(active_action)
+                    return None if index is None else index
+                except ValueError:
+                    pass
 
     @property
     def selected_actions_indexes(self) -> Tuple[int, ...]:

@@ -1,3 +1,4 @@
+import os
 from typing import Callable
 from typing import Tuple
 
@@ -56,6 +57,7 @@ from . import show_action_information
 from . import show_email_creator1
 from . import show_my_card_information
 from . import show_their_card_information
+from . import sync_notification_handler
 from .abc import InteractorABC
 
 
@@ -66,6 +68,8 @@ class Interactor(InteractorABC):
         self._presenters = presenters
         self._gateway = gateway
         self._keymaps = KeyMaps()
+
+        entities.attach_to_synchronizer(self.synchronizer_notification_handler)
 
     # GUI
     def load_gui(self, gui_name: str):
@@ -230,6 +234,10 @@ class Interactor(InteractorABC):
     def jump_to_policy_action(self):
         jump_to_policy_action.execute(self._entities, self._presenters)
 
+    # Synchronize
+    def synchronizer_notification_handler(self, **kwargs):
+        sync_notification_handler.execute(self._entities, self._presenters, **kwargs)
+
     # Sorter
     def sort_cards_by_deadline(self):
         self._sort_cards(self._entities.sort_cards_by_deadline)
@@ -264,7 +272,7 @@ class Interactor(InteractorABC):
     # Setup Teardown
     def set_up(self):
         loaded = True
-        import os
+
         if not os.path.exists(self._gateway.home_folder):
             os.mkdir(self._gateway.home_folder)
         if not os.path.exists(self._gateway.state_folder):

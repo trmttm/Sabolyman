@@ -1,5 +1,6 @@
 import abc
 import datetime
+from typing import Callable
 from typing import Tuple
 from typing import Union
 
@@ -322,4 +323,8 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def synchronize(self, action_policy, card_implementation):
+        pass
+
+    @abc.abstractmethod
+    def attach_to_synchronizer(self, method: Callable):
         pass
