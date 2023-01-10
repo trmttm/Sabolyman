@@ -1,8 +1,8 @@
 from typing import Tuple
 
 from Entities import EntitiesABC
-from Interactor import present_action_list
 from Presenters import PresentersABC
+from . import present_action_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, color: str, indexes: Tuple[int, ...]):

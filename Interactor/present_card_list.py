@@ -1,7 +1,7 @@
 from Entities import EntitiesABC
-from Interactor.present_my_card_list import present_my_card_list
-from Interactor.present_their_card_list import present_their_card_list
 from Presenters import PresentersABC
+from .present_my_card_list import present_my_card_list
+from .present_their_card_list import present_their_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC):

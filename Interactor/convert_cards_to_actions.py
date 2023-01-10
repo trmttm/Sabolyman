@@ -2,11 +2,11 @@ from typing import Tuple
 
 from Entities import Card
 from Entities import EntitiesABC
-from Interactor import present_card_list
 from Presenters import PresentersABC
 from . import add_new_action
 from . import add_new_card
 from . import get_selected_cards_and_their_indexes
+from . import present_card_list
 
 
 def wrapped_execute(e: EntitiesABC, p: PresentersABC, all_cards: Tuple[Card, ...], indexes: Tuple[int, ...]):

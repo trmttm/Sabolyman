@@ -1,8 +1,8 @@
 from Entities import EntitiesABC
 from Entities.synchronizer_action_card import constants
-from Interactor import delete_selected_my_cards
-from Interactor import delete_selected_their_cards
 from Presenters import PresentersABC
+from . import delete_selected_my_cards
+from . import delete_selected_their_cards
 
 
 def execute(e: EntitiesABC, p: PresentersABC, **kwargs):

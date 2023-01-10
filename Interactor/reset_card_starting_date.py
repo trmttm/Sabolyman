@@ -3,8 +3,8 @@ from typing import Callable
 from typing import Tuple
 
 from Entities import EntitiesABC
-from Interactor import present_card_list
 from Presenters import PresentersABC
+from . import present_card_list
 
 
 def execute(indexes1: Tuple[int, ...], indexes2: Tuple[int, ...], show_my_card: Callable,
