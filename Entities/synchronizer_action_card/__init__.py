@@ -1,6 +1,6 @@
 from typing import Dict
 
-from .implementation import synchronize
+from .mutual_sync import synchronize_mutually
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
 from ..action import Action
@@ -22,7 +22,7 @@ class SynchronizerActionCard(EntityABC):
         card_implementation.set_name(action_policy.name)
         card_implementation.set_color(action_policy.color)
 
-        synchronize(action_policy, card_implementation)
+        synchronize_mutually(action_policy, card_implementation)
 
     def register(self, action_id, card_id):
         self._synchronization_table[action_id] = card_id
@@ -49,7 +49,7 @@ class SynchronizerActionCard(EntityABC):
             elif card is None:
                 self.deregister_by_card(card_id)
             else:
-                synchronize(action, card)
+                synchronize_mutually(action, card)
 
     @property
     def state(self) -> dict:
