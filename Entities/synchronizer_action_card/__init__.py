@@ -64,9 +64,9 @@ class SynchronizerActionCard(EntityABC):
 
             action = self._entities.get_action_by_id(action_id)
             card = self._entities.get_card_by_id(card_id)
-            if action is None:
+            if action is None:  # clean up state
                 self.deregister_by_action(action_id)
-            elif card is None:
+            elif card is None:  # clean up state
                 self.deregister_by_card(card_id)
             else:
                 sync_mutually(action, card)
