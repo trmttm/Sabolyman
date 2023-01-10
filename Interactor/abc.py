@@ -266,3 +266,11 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def implement_lower_level_detail(self):
         pass
+
+    @abc.abstractmethod
+    def jump_to_implementation_card(self):
+        pass
+
+    @abc.abstractmethod
+    def jump_to_policy_action(self):
+        pass
