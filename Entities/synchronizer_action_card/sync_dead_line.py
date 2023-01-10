@@ -9,7 +9,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
         def wrapped(*args, **kwargs):
             implementation_card = get_implementation_card(action.id)
             if implementation_card is not None:
-                action.unwrapped_set_dead_line(implementation_card.dead_line_max())
+                action.unwrapped_set_dead_line(implementation_card.dead_line_max())  # *1
             return method(*args, **kwargs)
 
         return wrapped
@@ -18,7 +18,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
         def wrapped(*args, **kwargs):
             implementation_card = get_implementation_card(action.id)
             if implementation_card is not None:
-                current_dead_line = action.unwrapped_get_dead_line()
+                current_dead_line = action.unwrapped_get_dead_line()  # *2
                 new_dead_line = args[0]
                 days = (new_dead_line - current_dead_line).days
                 implementation_card.increment_deadline_by(days)
@@ -26,7 +26,10 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
 
         return wrapped
 
-    policy_action.unwrapped_get_dead_line = policy_action.get_dead_line
-    policy_action.unwrapped_set_dead_line = policy_action.set_dead_line
+    # keep unwrapped getter & setter accessible
+    policy_action.unwrapped_get_dead_line = policy_action.get_dead_line  # *2
+    policy_action.unwrapped_set_dead_line = policy_action.set_dead_line  # *1
+
+    # wrapping policy action (only, not implementation card)
     policy_action.get_dead_line = wrapper_get(policy_action.get_dead_line, policy_action)
     policy_action.set_dead_line = wrapper_set(policy_action.set_dead_line, policy_action)
