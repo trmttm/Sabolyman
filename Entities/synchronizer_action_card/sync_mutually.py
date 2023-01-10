@@ -5,7 +5,7 @@ from ..action import Action
 from ..card import Card
 
 
-def synchronize_mutually(action_policy: Action, card_implementation: Card):
+def sync_mutually(action_policy: Action, card_implementation: Card):
     syncing_methods = [action_policy.set_name, card_implementation.set_name]
     action_policy.set_name = wrapper_mutual(syncing_methods)
     card_implementation.set_name = wrapper_mutual(syncing_methods)

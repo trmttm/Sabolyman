@@ -18,6 +18,4 @@ def execute(e: EntitiesABC, p: PresentersABC, days: int, indexes1: Tuple[int, ..
 
 def _shift_cards_dead_lines(cards, days: int):
     for card in cards:
-        for action in card.all_actions:
-            if not action.is_done:
-                action.increment_deadline_by(days)
+        card.increment_deadline_by(days)

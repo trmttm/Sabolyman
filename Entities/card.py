@@ -71,7 +71,7 @@ class Card(EntityABC):
         self.reset_starting_date_to(datetime.datetime.today().date())
 
     def reset_starting_date_to(self, date: datetime.date):
-        all_dead_lines = tuple(a.dead_line for a in self.all_actions)
+        all_dead_lines = tuple(a.get_dead_line() for a in self.all_actions)
         if len(all_dead_lines) > 0:
             delta_days = max(tuple(date - dead_line.date() for dead_line in all_dead_lines))
             new_dead_lines = tuple(dead_line + delta_days for dead_line in all_dead_lines)
@@ -80,13 +80,27 @@ class Card(EntityABC):
 
     @property
     def dead_line(self) -> datetime.datetime:
+        return self.dead_line_min()
+
+    def dead_line_min(self):
+        return self._dead_line(min)
+
+    def dead_line_max(self):
+        return self._dead_line(max)
+
+    def _dead_line(self, max_or_min):
         all_actions = self._actions.all_actions
         undone_actions = tuple(a for a in all_actions if not a.is_done)
         try:
-            dead_line = min(a.dead_line for a in undone_actions)
+            dead_line = max_or_min(a.get_dead_line() for a in undone_actions)
         except ValueError:
             dead_line = datetime.datetime.today() + datetime.timedelta(1)
         return dead_line
+
+    def increment_deadline_by(self, days: int):
+        for action in self.all_actions:
+            if not action.is_done:
+                action.increment_deadline_by(days)
 
     @property
     def all_actions(self) -> List[Action]:

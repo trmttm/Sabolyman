@@ -20,7 +20,7 @@ def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
             p.update_action_is_done(action.is_done)
             p.update_action_description(action.description)
             p.update_action_files(action.files.names)
-            p.update_action_due_date(action.dead_line)
+            p.update_action_due_date(action.get_dead_line())
 
         else:
             p.update_action_name('')

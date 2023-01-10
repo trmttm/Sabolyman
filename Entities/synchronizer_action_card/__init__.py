@@ -1,6 +1,9 @@
 from typing import Dict
+from typing import Union
 
-from .mutual_sync import synchronize_mutually
+from . import sync_dead_line
+from .sync_dead_line import sync_dead_line
+from .sync_mutually import sync_mutually
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
 from ..action import Action
@@ -12,17 +15,18 @@ class SynchronizerActionCard(EntityABC):
         self._entities = entities
         self._synchronization_table: Dict[str, str] = {}
 
-    def synchronize(self, action_policy: Action, card_implementation: Card):
+    def synchronize(self, policy_action: Action, implementation_card: Card):
         # Register
-        action_policy.set_id()
-        card_implementation.set_id()
-        self.register(action_policy.id, card_implementation.id)
+        policy_action.set_id()
+        implementation_card.set_id()
+        self.register(policy_action.id, implementation_card.id)
 
         # initial synchronization
-        card_implementation.set_name(action_policy.name)
-        card_implementation.set_color(action_policy.color)
+        implementation_card.set_name(policy_action.name)
+        implementation_card.set_color(policy_action.color)
 
-        synchronize_mutually(action_policy, card_implementation)
+        sync_mutually(policy_action, implementation_card)
+        sync_dead_line(policy_action, self.get_implementation_card)
 
     def register(self, action_id, card_id):
         self._synchronization_table[action_id] = card_id
@@ -33,14 +37,20 @@ class SynchronizerActionCard(EntityABC):
 
     def deregister_by_card(self, card_id):
         for action_id in tuple(self._synchronization_table.keys()):
-            if self._synchronization_table.get(action_id) == card_id:
+            if self.get_implementation_card_id(action_id) == card_id:
                 del self._synchronization_table[action_id]
+
+    def get_implementation_card_id(self, action_id):
+        return self._synchronization_table.get(action_id)
+
+    def get_implementation_card(self, action_id: str) -> Union[Card, None]:
+        return self._entities.get_card_by_id(self.get_implementation_card_id(action_id))
 
     def load_state(self, state: dict):
         self._synchronization_table = state.get('sync_state', {})
 
         for action_id in tuple(self._synchronization_table.keys()):
-            card_id = self._synchronization_table.get(action_id)
+            card_id = self.get_implementation_card_id(action_id)
 
             action = self._entities.get_action_by_id(action_id)
             card = self._entities.get_card_by_id(card_id)
@@ -49,7 +59,8 @@ class SynchronizerActionCard(EntityABC):
             elif card is None:
                 self.deregister_by_card(card_id)
             else:
-                synchronize_mutually(action, card)
+                sync_mutually(action, card)
+                sync_dead_line(action, self.get_implementation_card)
 
     @property
     def state(self) -> dict:

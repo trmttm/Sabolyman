@@ -2,6 +2,8 @@ import datetime
 import uuid
 from typing import Union
 
+from Utilities import str_to_date_time
+
 from . import factory1
 from .abc_entity import EntityABC
 from .file import File
@@ -156,26 +158,19 @@ class Action(EntityABC):
         return self._client
 
     def set_dead_line_by_str(self, dead_line_str: str):
-        year_str, month_str, day_time_str = dead_line_str.split('/')
-        day_str, time_str = day_time_str.split(' ')
-        hour_str, minute_str = time_str.split(':')
-
-        year, month, day = int(year_str), int(month_str), int(day_str)
-        hour, minute = int(hour_str), int(minute_str)
-        dead_line = datetime.datetime(year, month, day, hour, minute)
-        self.set_dead_line(dead_line)
+        self.set_dead_line(str_to_date_time(dead_line_str))
 
     def set_dead_line(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
 
     def increment_deadline_by(self, days: int):
-        self._dead_line += datetime.timedelta(days)
+        new_dead_line = self._dead_line + datetime.timedelta(days)
+        self.set_dead_line(new_dead_line)
 
     def increment_deadline_hours_by(self, hours: int):
         self._dead_line += datetime.timedelta(0, hours * 60 * 60)
 
-    @property
-    def dead_line(self) -> datetime.datetime:
+    def get_dead_line(self) -> datetime.datetime:
         return self._dead_line
 
     def update_date_created(self):

@@ -284,7 +284,6 @@ class Entities(EntitiesABC):
     def load_state(self, state: dict):
         self._cards.load_state(state)
         self._synchronizer_action_card.load_state(state)
-        print('reach')
 
     @property
     def state(self) -> dict:
