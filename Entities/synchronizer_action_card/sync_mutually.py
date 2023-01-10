@@ -17,10 +17,6 @@ def sync_mutually(action_policy: Action, card_implementation: Card):
     # Name
     '''
                     What happens when
-                    1) action_policy state is changed?
-                        deadline is extended
-                        deadline is shortened -> balls at their court must be modified.
-                    2) card_implementation state is changed?
                     3) action_policy is deleted
                         all of the lower_level actions at their court must be notified to cancel.
                     4) card_implementation is deleted
