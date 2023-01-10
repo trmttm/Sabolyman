@@ -46,6 +46,16 @@ class SynchronizerActionCard(EntityABC):
     def get_implementation_card(self, action_id: str) -> Union[Card, None]:
         return self._entities.get_card_by_id(self.get_implementation_card_id(action_id))
 
+    def get_policy_action_id(self, card_id: str) -> Union[Action, str]:
+        for action_id, c_id in self._synchronization_table.items():
+            if card_id == c_id:
+                return action_id
+
+    def get_policy_action(self, card_id: str) -> Union[Action, None]:
+        action_id = self.get_policy_action_id(card_id)
+        if action_id is not None:
+            return self._entities.get_action_by_id(action_id)
+
     def load_state(self, state: dict):
         self._synchronization_table = state.get('sync_state', {})
 

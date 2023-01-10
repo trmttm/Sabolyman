@@ -309,5 +309,17 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def get_policy_action(self, card_id: str) -> Union[Action, None]:
+        pass
+
+    @abc.abstractmethod
+    def get_cards_that_have_action(self, action_: Action) -> Tuple[Card, ...]:
+        pass
+
+    @abc.abstractmethod
+    def get_implementation_card(self, action_id: str) -> Union[Card, None]:
+        pass
+
+    @abc.abstractmethod
     def synchronize(self, action_policy, card_implementation):
         pass

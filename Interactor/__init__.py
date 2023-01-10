@@ -21,6 +21,8 @@ from . import duplicate_selected_card
 from . import export_actions_list
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
+from . import jump_to_implementation_card
+from . import jump_to_policy_action
 from . import load_gui
 from . import load_state_from_file
 from . import mark_action_completed
@@ -221,6 +223,12 @@ class Interactor(InteractorABC):
 
     def implement_lower_level_detail(self):
         implement_lower_level_detail.execute(self._entities, self._presenters)
+
+    def jump_to_implementation_card(self):
+        jump_to_implementation_card.execute(self._entities, self._presenters)
+
+    def jump_to_policy_action(self):
+        jump_to_policy_action.execute(self._entities, self._presenters)
 
     # Sorter
     def sort_cards_by_deadline(self):

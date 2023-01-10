@@ -202,6 +202,9 @@ class Card(EntityABC):
             self.set_id()
         return self._id
 
+    def has_action(self, action_: Action) -> bool:
+        return action_ in self._actions.all_actions
+
     @property
     def state(self) -> dict:
         state = {

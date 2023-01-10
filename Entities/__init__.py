@@ -280,6 +280,15 @@ class Entities(EntitiesABC):
         sync = self._synchronizer_action_card
         sync.synchronize(action_policy, card_implementation)
 
+    def get_implementation_card(self, action_id: str) -> Union[Card, None]:
+        return self._synchronizer_action_card.get_implementation_card(action_id)
+
+    def get_cards_that_have_action(self, action_: Action) -> Tuple[Card, ...]:
+        return tuple(c for c in self.all_cards if c.has_action(action_))
+
+    def get_policy_action(self, card_id: str) -> Union[Action, None]:
+        return self._synchronizer_action_card.get_policy_action(card_id)
+
     # Properties
     def load_state(self, state: dict):
         self._cards.load_state(state)
