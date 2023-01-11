@@ -30,6 +30,8 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Show Finished Cards [ctrl+h]': i.unhide_finished_cards,
         },
         'Cards': {
+            'Jump ↑': lambda: i.jump_to_policy_action(),
+            'Jump ↓': lambda: i.jump_to_implementation_card(),
             'Set starting date to': lambda: i.reset_card_starting_date(state.get_left_tree_selected_indexes(v),
                                                                        state.get_right_tree_selected_indexes(v), ),
             'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
