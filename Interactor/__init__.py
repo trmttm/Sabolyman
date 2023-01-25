@@ -150,6 +150,17 @@ class Interactor(InteractorABC):
         present_card_list.execute(self._entities, self._presenters)
         self._presenters.set_search_box(self._entities.filter_key)
 
+    def filter_cards_by_due_date(self, date_str: str):
+        import datetime
+        date = datetime.datetime.strptime(date_str, '%Y/%m/%d').date()
+        date = datetime.datetime.today().date()
+        self._entities.set_filter_due_date(date)
+        present_card_list.execute(self._entities, self._presenters)
+
+    def clear_filter_due_date(self):
+        self._entities.clear_filter_due_date()
+        present_card_list.execute(self._entities, self._presenters)
+
     def convert_selected_cards_to_actions(self, left_indexes_and_right_indexes: Tuple[Tuple[int, ...], ...]):
         args = self._entities, self._presenters, left_indexes_and_right_indexes, self.feed_back_user_by_popup
         convert_cards_to_actions.execute(*args)

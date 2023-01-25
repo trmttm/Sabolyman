@@ -29,6 +29,7 @@ class Entities(EntitiesABC):
         self._show_this_card = None
         self._filter_key = ''
         self._filter_mode = self.all_filter_modes[0]
+        self._filter_due_date = None
         self._sorter = Sorter(self._cards)
         self._synchronizer_action_card = SynchronizerActionCard(self)
         self._copied_action = ()
@@ -92,6 +93,10 @@ class Entities(EntitiesABC):
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
         visible_cards = cards_tuple
 
+        # Filter 0 Filter by due date
+        if self._filter_due_date is not None:
+            visible_cards = tuple(c for c in visible_cards if c.dead_line.date() <= self._filter_due_date)
+
         # Filter 1
         if self._filter_mode == 'Owner' and self._cards.hide_finished_cards:
             visible_cards = tuple(c for c in visible_cards if c.get_search_undone_owner_result(self._filter_key) > 0)
@@ -117,6 +122,12 @@ class Entities(EntitiesABC):
         self._filter_mode = search_mode
         for card_ in self._cards.all_cards:
             card_.set_actions_true_colors()
+
+    def set_filter_due_date(self, date: datetime.datetime.day):
+        self._filter_due_date = date
+
+    def clear_filter_due_date(self):
+        self._filter_due_date = None
 
     @property
     def filter_key(self) -> str:

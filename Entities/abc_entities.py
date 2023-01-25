@@ -254,6 +254,14 @@ class EntitiesABC(abc.ABC):
     def filter_key(self) -> str:
         pass
 
+    @abc.abstractmethod
+    def set_filter_due_date(self, date: datetime.datetime.day):
+        pass
+
+    @abc.abstractmethod
+    def clear_filter_due_date(self):
+        pass
+
     @property
     @abc.abstractmethod
     def filter_mode(self) -> str:
