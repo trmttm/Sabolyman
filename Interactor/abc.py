@@ -187,7 +187,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def filter_cards_by_due_date(self, date_str: str):
+    def filter_cards_by_due_date(self):
         pass
 
     @abc.abstractmethod

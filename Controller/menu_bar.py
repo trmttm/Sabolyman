@@ -28,7 +28,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'View': {
             'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
             'Show Finished Cards [ctrl+h]': i.unhide_finished_cards,
-            'Filter by due date': lambda: i.filter_cards_by_due_date("2023/1/25"),
+            'Filter by due date': lambda: i.filter_cards_by_due_date(),
             'Clear due date filter': lambda: i.clear_filter_due_date(),
         },
         'Cards': {

@@ -20,6 +20,7 @@ from . import display_new_tasks
 from . import display_progress
 from . import duplicate_selected_card
 from . import export_actions_list
+from . import filter_cards_by_due_date
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
 from . import jump_to_implementation_card
@@ -150,12 +151,8 @@ class Interactor(InteractorABC):
         present_card_list.execute(self._entities, self._presenters)
         self._presenters.set_search_box(self._entities.filter_key)
 
-    def filter_cards_by_due_date(self, date_str: str):
-        import datetime
-        date = datetime.datetime.strptime(date_str, '%Y/%m/%d').date()
-        date = datetime.datetime.today().date()
-        self._entities.set_filter_due_date(date)
-        present_card_list.execute(self._entities, self._presenters)
+    def filter_cards_by_due_date(self):
+        filter_cards_by_due_date.execute(self._entities, self._presenters)
 
     def clear_filter_due_date(self):
         self._entities.clear_filter_due_date()
