@@ -13,21 +13,6 @@ from ..action import Action
 from ..card import Card
 
 
-def wrapper(method: Callable, s: SynchronizerABC, notify: Callable):
-    def wrapped(action: Action):
-        action_id = action.id
-
-        if s.action_has_implementation_card(action_id):
-            implementation_card = s.get_implementation_card(action_id)
-            s.deregister_by_action(action_id)
-            if implementation_card is not None:
-                kwargs = {constants.REMOVE_CARD: implementation_card}
-                notify(**kwargs)
-        method(action)
-
-    return wrapped
-
-
 class SynchronizerActionCard(EntityABC, SynchronizerABC):
     def __init__(self, entities: EntitiesABC):
         self._entities = entities
@@ -106,3 +91,18 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
     @property
     def state(self) -> dict:
         return {'sync_state': self._synchronization_table, }
+
+
+def wrapper(method: Callable, s: SynchronizerABC, notify: Callable):
+    def wrapped(action: Action):
+        action_id = action.id
+
+        if s.action_has_implementation_card(action_id):
+            implementation_card = s.get_implementation_card(action_id)
+            s.deregister_by_action(action_id)
+            if implementation_card is not None:
+                kwargs = {constants.REMOVE_CARD: implementation_card}
+                notify(**kwargs)
+        method(action)
+
+    return wrapped
