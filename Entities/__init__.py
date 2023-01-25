@@ -95,7 +95,9 @@ class Entities(EntitiesABC):
 
         # Filter 0 Filter by due date
         if self._filter_due_date is not None:
-            visible_cards = tuple(c for c in visible_cards if c.dead_line.date() <= self._filter_due_date)
+            due_today = tuple(c for c in visible_cards if c.dead_line.date() == self._filter_due_date)
+            undone = tuple(c for c in visible_cards if (c.dead_line.date() < self._filter_due_date and not c.is_done))
+            visible_cards = due_today + undone
 
         # Filter 1
         if self._filter_mode == 'Owner' and self._cards.hide_finished_cards:
