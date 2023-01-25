@@ -11,7 +11,6 @@ class Cards(CardsABC):
     def __init__(self):
         self._cards: List[Card, ...] = []
         self._active_card = None
-        self._hide_finished_cards = False
 
     @property
     def active_card(self) -> Card:
