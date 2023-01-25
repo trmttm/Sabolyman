@@ -33,19 +33,6 @@ class CardsABC(EntityABC):
     def load_state(self, state: dict):
         pass
 
-    @property
-    @abc.abstractmethod
-    def hide_finished_cards(self) -> bool:
-        pass
-
-    @abc.abstractmethod
-    def set_hide_finished_cards(self, true_false: bool):
-        pass
-
-    @abc.abstractmethod
-    def toggle_hide_finished_cards(self):
-        pass
-
     @abc.abstractmethod
     def get_card_by_id(self, card_id: str) -> Card:
         pass

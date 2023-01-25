@@ -12,7 +12,6 @@ class Cards(CardsABC):
         self._cards: List[Card, ...] = []
         self._active_card = None
         self._hide_finished_cards = False
-        self._filter_by_keyword = False
 
     @property
     def active_card(self) -> Card:
@@ -40,14 +39,6 @@ class Cards(CardsABC):
     def remove_card(self, card: Card):
         self._cards.remove(card)
 
-    def set_hide_finished_cards(self, true_false: bool):
-        self._hide_finished_cards = true_false
-
-    def toggle_hide_finished_cards(self):
-        self._hide_finished_cards = not self._hide_finished_cards
-
-    @property
-    def hide_finished_cards(self) -> bool:
         return self._hide_finished_cards
 
     def get_card_by_id(self, card_id: str) -> Card:

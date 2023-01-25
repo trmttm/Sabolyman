@@ -102,7 +102,7 @@ class Entities(EntitiesABC):
         # Filter 1
         filter_mode = self._filter.filter_mode
         filter_key = self._filter.filter_key
-        if filter_mode == 'Owner' and self._cards.hide_finished_cards:
+        if filter_mode == 'Owner' and self._filter.hide_finished_cards:
             visible_cards = tuple(c for c in visible_cards if c.get_search_undone_owner_result(filter_key) > 0)
         elif filter_mode == 'Owner':
             visible_cards = tuple(c for c in visible_cards if c.get_search_owner_result(filter_key) > 0)
@@ -113,11 +113,11 @@ class Entities(EntitiesABC):
         elif filter_mode == 'Client Name':
             visible_cards = tuple(c for c in visible_cards if c.get_search_action_client_name(filter_key) > 0)
         else:
-            if self.card_filter_is_on:
+            if self._filter.card_filter_is_on:
                 visible_cards = tuple(c for c in visible_cards if c.get_search_all_result(filter_key) > 0)
 
         # Filter 2
-        if self._cards.hide_finished_cards:
+        if self._filter.hide_finished_cards:
             visible_cards = tuple(c for c in visible_cards if not c.is_done)
         return visible_cards
 
@@ -155,13 +155,13 @@ class Entities(EntitiesABC):
 
     # Getters
     def get_my_card_by_index(self, index: int) -> Card:
-        if self._cards.hide_finished_cards or self.card_filter_is_on:
+        if self._filter.hide_finished_cards or self.card_filter_is_on:
             return get_card_by_index(self.my_visible_cards, index)
         else:
             return get_card_by_index(self.my_cards, index)
 
     def get_their_card_by_index(self, index: int) -> Card:
-        if self._cards.hide_finished_cards or self.card_filter_is_on:
+        if self._filter.hide_finished_cards or self.card_filter_is_on:
             return get_card_by_index(self.their_visible_cards, index)
         else:
             return get_card_by_index(self.their_cards, index)
@@ -284,13 +284,13 @@ class Entities(EntitiesABC):
         self._show_this_card = None
 
     def hide_finished_cards(self):
-        self._cards.set_hide_finished_cards(True)
+        self._filter.set_hide_finished_cards(True)
 
     def unhide_finished_cards(self):
-        self._cards.set_hide_finished_cards(False)
+        self._filter.set_hide_finished_cards(False)
 
     def toggle_hide_finished_cards(self):
-        self._cards.toggle_hide_finished_cards()
+        self._filter.toggle_hide_finished_cards()
 
     def synchronize(self, action_policy: Action, card_implementation: Card):
         sync = self._synchronizer_action_card
@@ -312,11 +312,13 @@ class Entities(EntitiesABC):
     def load_state(self, state: dict):
         self._cards.load_state(state)
         self._synchronizer_action_card.load_state(state)
+        self._filter.load_state(state)
 
     @property
     def state(self) -> dict:
         state = self._cards.state
         state.update(self._synchronizer_action_card.state)
+        state.update(self._filter.state)
         return state
 
     @property
