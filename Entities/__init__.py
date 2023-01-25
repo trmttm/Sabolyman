@@ -355,10 +355,12 @@ class Entities(EntitiesABC):
     def active_card_index(self) -> int:
         if self._cards is not None:
             active_card = self.active_card
-            if active_card in self.my_cards:
+            if active_card in self.my_visible_cards:
                 return self.my_visible_cards.index(active_card)
-            elif active_card in self.their_cards:
+            elif active_card in self.their_visible_cards:
                 return self.their_visible_cards.index(active_card)
+            else:
+                return 0
 
     @property
     def active_card_is_in_their_cards(self) -> bool:
