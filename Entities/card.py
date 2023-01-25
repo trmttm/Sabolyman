@@ -91,10 +91,12 @@ class Card(EntityABC):
     def _dead_line(self, max_or_min):
         all_actions = self._actions.all_actions
         undone_actions = tuple(a for a in all_actions if not a.is_done)
-        try:
+        if len(undone_actions) > 0:
             dead_line = max_or_min(a.get_dead_line() for a in undone_actions)
-        except ValueError:
+        elif len(all_actions) == 0:
             dead_line = datetime.datetime.today()
+        else:
+            dead_line = max_or_min(a.get_dead_line() for a in all_actions)
         return dead_line
 
     def increment_deadline_by(self, days: int):
