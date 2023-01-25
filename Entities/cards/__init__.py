@@ -39,8 +39,6 @@ class Cards(CardsABC):
     def remove_card(self, card: Card):
         self._cards.remove(card)
 
-        return self._hide_finished_cards
-
     def get_card_by_id(self, card_id: str) -> Card:
         for card in self._cards:
             if card.id == str:
