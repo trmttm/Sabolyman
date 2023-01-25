@@ -4,8 +4,10 @@ from typing import Union
 
 from . import constants
 from . import sync_dead_line
+from . import sync_mark_done
 from .abc import SynchronizerABC
 from .sync_dead_line import sync_dead_line
+from .sync_mark_done import sync_mark_done
 from .sync_mutually import sync_mutually
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
@@ -31,6 +33,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
 
         sync_mutually(policy_action, implementation_card)
         sync_dead_line(policy_action, self.get_implementation_card)
+        sync_mark_done(implementation_card, self.get_policy_action)
 
         self._entities.remove_action = wrapper(self._entities.remove_action, self, self.notify)
 
@@ -87,6 +90,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
             else:
                 sync_mutually(action, card)
                 sync_dead_line(action, self.get_implementation_card)
+                sync_mark_done(card, self.get_policy_action)
 
     @property
     def state(self) -> dict:
