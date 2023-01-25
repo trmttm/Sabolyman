@@ -313,12 +313,14 @@ class Entities(EntitiesABC):
         self._cards.load_state(state)
         self._synchronizer_action_card.load_state(state)
         self._filter.load_state(state)
+        self._sorter.load_state(state)
 
     @property
     def state(self) -> dict:
         state = self._cards.state
         state.update(self._synchronizer_action_card.state)
         state.update(self._filter.state)
+        state.update(self._sorter.state)
         return state
 
     @property

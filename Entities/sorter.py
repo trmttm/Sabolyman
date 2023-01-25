@@ -64,3 +64,13 @@ class Sorter:
         self.set_sort_by(mode)
         _, sorted_cards = Utilities.sort_lists(list_sorter, self._cards.all_cards)
         self._cards.sort_cards(tuple(sorted_cards))
+
+    @property
+    def state(self) -> dict:
+        return {'sorter_state': {
+            'sort_by': self._sort_by
+        }}
+
+    def load_state(self, state: dict):
+        sorter_state = state.get('sorter_state', {})
+        self._sort_by = sorter_state.get('sort_by', MANUAL)
