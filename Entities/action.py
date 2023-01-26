@@ -139,6 +139,7 @@ class Action(EntityABC):
         self._set_color_without_side_effects(color)
 
     def _set_color_without_side_effects(self, color):
+        # set_color will be wrapped by synchronizer, causing infinite recursion of present cards
         self._color = color
 
     def register_as_user_set_color(self):
