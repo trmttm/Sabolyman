@@ -26,10 +26,21 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
 
         return wrapped
 
-    # keep unwrapped getter & setter accessible
-    policy_action.unwrapped_get_dead_line = policy_action.get_dead_line  # *2
-    policy_action.unwrapped_set_dead_line = policy_action.set_dead_line  # *1
+    if not policy_has_already_been_wrapped(policy_action):
+        # keep unwrapped getter & setter accessible
+        policy_action.unwrapped_get_dead_line = policy_action.get_dead_line  # *2
+        policy_action.unwrapped_set_dead_line = policy_action.set_dead_line  # *1
 
-    # wrapping policy action (only, not implementation card)
-    policy_action.get_dead_line = wrapper_get(policy_action.get_dead_line, policy_action)
-    policy_action.set_dead_line = wrapper_set(policy_action.set_dead_line, policy_action)
+        # wrapping policy action (only, not implementation card)
+        policy_action.get_dead_line = wrapper_get(policy_action.get_dead_line, policy_action)
+        policy_action.set_dead_line = wrapper_set(policy_action.set_dead_line, policy_action)
+        policy_action.has_already_been_wrapped = True
+    else:
+        print('second attempt to wrap')
+
+
+def policy_has_already_been_wrapped(a: Action):
+    try:
+        return a.has_already_been_wrapped
+    except AttributeError:
+        return False
