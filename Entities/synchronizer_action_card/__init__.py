@@ -6,11 +6,11 @@ from . import constants
 from . import sync_dead_line
 from . import sync_mark_done
 from .abc import SynchronizerABC
-from .sync_remove_action import synchronize_remove_action
 from .sync_add_new_action import synchronize_add_new_action
 from .sync_dead_line import sync_dead_line
 from .sync_mark_done import sync_mark_done
 from .sync_mutually import sync_mutually
+from .sync_remove_action import synchronize_remove_action
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
 from ..action import Action
@@ -36,7 +36,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         implementation_card.set_name(policy_action.name)
         implementation_card.set_color(policy_action.color)
 
-        sync_mutually(policy_action, implementation_card)
+        sync_mutually(policy_action, implementation_card, self)
         sync_dead_line(policy_action, self.get_implementation_card)
         sync_mark_done(implementation_card, self.get_policy_action)
 
@@ -91,7 +91,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
             elif card is None:  # clean up state
                 self.deregister_by_card(card_id)
             else:
-                sync_mutually(action, card)
+                sync_mutually(action, card, self)
                 sync_dead_line(action, self.get_implementation_card)
                 sync_mark_done(card, self.get_policy_action)
 
