@@ -71,6 +71,7 @@ class Action(EntityABC):
 
     def mark_not_done(self):
         self._is_done = False
+        self._time_completed = None
 
     @property
     def time_expected(self) -> datetime.timedelta:
