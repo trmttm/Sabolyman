@@ -146,10 +146,10 @@ class Action(EntityABC):
         self._color_set_by_user = self._color
 
     def set_true_color(self):
-        self.set_color(self._color_set_by_user)
+        self._set_color_without_side_effects(self._color_set_by_user)
 
     def clear_search_highlight(self):
-        self.set_color(self._color_set_by_user)
+        self._set_color_without_side_effects(self._color_set_by_user)
 
     @property
     def color(self) -> str:
