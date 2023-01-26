@@ -4,6 +4,8 @@ from Presenters import PresentersABC
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 
+from . import present_card_list
+
 
 def execute(e: EntitiesABC, p: PresentersABC, **kwargs):
     if kwargs.get(constants.REMOVE_CARD, None):
@@ -14,3 +16,5 @@ def execute(e: EntitiesABC, p: PresentersABC, **kwargs):
             delete_selected_my_cards.execute(e, p, indexes_)
         else:
             delete_selected_their_cards.execute(e, p, indexes_)
+    elif kwargs.get(constants.UPDATE_CARD_LIST, False):
+        present_card_list.execute(e, p)

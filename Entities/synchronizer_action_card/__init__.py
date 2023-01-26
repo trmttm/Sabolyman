@@ -6,6 +6,8 @@ from . import constants
 from . import sync_dead_line
 from . import sync_mark_done
 from .abc import SynchronizerABC
+from .sync_remove_action import synchronize_remove_action
+from .sync_add_new_action import synchronize_add_new_action
 from .sync_dead_line import sync_dead_line
 from .sync_mark_done import sync_mark_done
 from .sync_mutually import sync_mutually
@@ -21,6 +23,9 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         self._synchronization_table: Dict[str, str] = {}
         self._subscribers = []
 
+        synchronize_remove_action(entities, self)
+        synchronize_add_new_action(self._entities, self)
+
     def synchronize(self, policy_action: Action, implementation_card: Card):
         # Register
         policy_action.set_id()
@@ -34,8 +39,6 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         sync_mutually(policy_action, implementation_card)
         sync_dead_line(policy_action, self.get_implementation_card)
         sync_mark_done(implementation_card, self.get_policy_action)
-
-        self._entities.remove_action = wrapper(self._entities.remove_action, self, self.notify)
 
     def attach_to_notification(self, method: Callable):
         self._subscribers.append(method)
@@ -95,18 +98,3 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
     @property
     def state(self) -> dict:
         return {'sync_state': self._synchronization_table, }
-
-
-def wrapper(method: Callable, s: SynchronizerABC, notify: Callable):
-    def wrapped(action: Action):
-        action_id = action.id
-
-        if s.action_has_implementation_card(action_id):
-            implementation_card = s.get_implementation_card(action_id)
-            s.deregister_by_action(action_id)
-            if implementation_card is not None:
-                kwargs = {constants.REMOVE_CARD: implementation_card}
-                notify(**kwargs)
-        method(action)
-
-    return wrapped
