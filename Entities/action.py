@@ -100,7 +100,7 @@ class Action(EntityABC):
         if search_key.lower() in self._owner.name.lower():
             score += 5
         if score > 0:
-            self.set_color('Yellow')
+            self._set_color_without_side_effects('Yellow')
         return score
 
     def get_search_undone_owner_result(self, search_key: str) -> int:
@@ -108,7 +108,7 @@ class Action(EntityABC):
         if not self._is_done and (search_key.lower() in self._owner.name.lower()):
             score += 10
         if score > 0:
-            self.set_color('Yellow')
+            self._set_color_without_side_effects('Yellow')
         return score
 
     def get_search_owner_result(self, search_key: str) -> int:
@@ -116,7 +116,7 @@ class Action(EntityABC):
         if search_key.lower() in self._owner.name.lower():
             score += 10
         if score > 0:
-            self.set_color('Yellow')
+            self._set_color_without_side_effects('Yellow')
         return score
 
     def get_search_action_name(self, search_key: str) -> int:
@@ -124,7 +124,7 @@ class Action(EntityABC):
         if search_key.lower() in self.name.lower():
             score += 10
         if score > 0:
-            self.set_color('Yellow')
+            self._set_color_without_side_effects('Yellow')
         return score
 
     def get_search_action_client_name(self, search_key: str) -> int:
@@ -132,10 +132,13 @@ class Action(EntityABC):
         if search_key.lower() in self._client.name.lower():
             score += 10
         if score > 0:
-            self.set_color('Yellow')
+            self._set_color_without_side_effects('Yellow')
         return score
 
     def set_color(self, color: str):
+        self._set_color_without_side_effects(color)
+
+    def _set_color_without_side_effects(self, color):
         self._color = color
 
     def register_as_user_set_color(self):
