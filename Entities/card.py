@@ -195,8 +195,11 @@ class Card(EntityABC):
         return self._actions.current_client
 
     def set_id(self):
-        if self._id is None:
-            self._id = str(uuid.uuid4())
+        self._id = str(uuid.uuid4())
+
+    def reset_all_actions_ids(self):
+        for action in self.all_actions:
+            action.set_id()
 
     @property
     def id(self) -> str:
