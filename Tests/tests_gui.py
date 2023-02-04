@@ -113,7 +113,7 @@ class MyTestCase(unittest.TestCase):
         from stacker import Stacker
         from stacker import widgets as w
         stacker = Stacker()
-        nb_frames = 'by Owners', 'Card Information'
+        nb_frames = 'Cards', 'Detail'
         stacker.vstack(
             w.NoteBook('notebook_main', stacker).frame_names(nb_frames).stackers(
                 w.Label('1').text(''),
