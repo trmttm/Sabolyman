@@ -216,7 +216,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def show_minutes_setter(self):
+    def show_minutes_setter(self, indexes):
         pass
 
     @abc.abstractmethod

@@ -351,8 +351,8 @@ class Interactor(InteractorABC):
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200, **kwargs):
         self._presenters.feed_back_user_by_popup(title, text, width, height, **kwargs)
 
-    def show_minutes_setter(self):
-        show_minutes_setter.execute(self._entities, self._presenters, self._gateway)
+    def show_minutes_setter(self, indexes):
+        show_minutes_setter.execute(self._entities, self._presenters, self._gateway, indexes)
 
     # Export
     def export_actions_list(self, file_name: str):
