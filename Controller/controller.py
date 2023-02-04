@@ -59,6 +59,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.button_delete_selected_actions, lambda: i.delete_selected_actions(ai(v)))
     f(wn.button_move_up_selected_actions, lambda: i.move_actions_up(ai(v)))
     f(wn.button_move_down_selected_actions, lambda: i.move_actions_down(ai(v)))
+    f(wn.button_set_duration, lambda: i.show_minutes_setter())
     f(wn.tree_card_actions, lambda: i.show_action_information(ai(v)))
     f(wn.entry_action_name, lambda *_: wrapper(lambda *_: i.set_action_name(s.get_action_name(v), ai(v))))
     f(wn.entry_action_owner, lambda *_: wrapper(lambda *_: i.set_action_owner(s.get_action_owner_name(v), ai(v))))
