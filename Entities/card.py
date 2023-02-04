@@ -210,6 +210,13 @@ class Card(EntityABC):
     def has_action(self, action_: Action) -> bool:
         return action_ in self._actions.all_actions
 
+    def increment_importance(self, increment: int):
+        new_importance = self._importance + increment
+        self._importance = max(min(10, new_importance), 0)
+
+    def get_importance(self) -> int:
+        return self._importance
+
     @property
     def state(self) -> dict:
         state = {

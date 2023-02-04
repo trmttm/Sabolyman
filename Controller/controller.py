@@ -49,6 +49,8 @@ def configure_controller(v: ViewABC, i: InteractorABC):
       lambda: i.move_their_cards_down(s.get_right_tree_selected_indexes(v)))
     f(wn.button_delete_selected_their_card,
       lambda: i.delete_selected_their_cards(s.get_right_tree_selected_indexes(v)))
+    f(wn.button_importance_down, lambda: i.increment_importance(-1))
+    f(wn.button_importance_up, lambda: i.increment_importance(1))
 
     f(wn.tree_my_cards, lambda: i.show_my_card_information(s.get_left_tree_selected_indexes(v)))
     f(wn.tree_their_cards, lambda: i.show_their_card_information(s.get_right_tree_selected_indexes(v)))

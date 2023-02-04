@@ -23,6 +23,7 @@ from . import export_actions_list
 from . import filter_cards_by_due_date
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
+from . import increment_card_importance
 from . import jump_to_implementation_card
 from . import jump_to_policy_action
 from . import load_gui
@@ -110,6 +111,9 @@ class Interactor(InteractorABC):
 
     def set_card_name(self, card_name: str):
         set_card_name.execute(self._entities, self._presenters, card_name)
+
+    def increment_importance(self, increment: int):
+        increment_card_importance.execute(self._entities, self._presenters, increment)
 
     def shift_cards_dead_lines_by(self, days: int, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         shift_cards_dead_lines.execute(self._entities, self._presenters, days, indexes1, indexes2)

@@ -44,6 +44,9 @@ class Presenters(PresentersABC):
     def update_card_name(self, name: str):
         self._view.set_value(WidgetNames.entry_card_name, name)
 
+    def update_card_importance(self, importance: int):
+        self._view.set_value(WidgetNames.entry_card_importance, importance)
+
     def update_card_date_created(self, date_created: datetime.datetime):
         self._view.set_value(WidgetNames.label_date_created, Utilities.datetime_to_str(date_created))
 

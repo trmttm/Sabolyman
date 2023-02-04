@@ -102,6 +102,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def increment_importance(self, increment: int):
+        pass
+
+    @abc.abstractmethod
     def move_their_cards_up(self, indexes: Tuple[int, ...]):
         pass
 

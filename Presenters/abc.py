@@ -21,6 +21,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def update_card_importance(self, importance: int):
+        pass
+
+    @abc.abstractmethod
     def update_card_date_created(self, date_created: datetime.datetime):
         pass
 
