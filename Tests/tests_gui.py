@@ -14,33 +14,16 @@ def instantiate_view(module, parent: str = 'root', **kwargs):
     return view
 
 
-def bind_command_minutes_setter(view):
-    import datetime
-    d = datetime.timedelta()
-
-    def clear_minutes():
-        nonlocal d
-        d = datetime.timedelta()
-        update_label(d)
-
-    def increment_minutes(minutes: int):
-        nonlocal d
-        d += datetime.timedelta(seconds=minutes * 60)
-        update_label(d)
-
-    def update_label(timedelta: datetime.timedelta):
-        view.set_value('lbl_minutes', timedelta)
-
-    def upon_ok(timedelta: datetime.timedelta):
-        print(timedelta)
-
-    view.bind_command_to_widget('btn_05', lambda: increment_minutes(5))
-    view.bind_command_to_widget('btn_10', lambda: increment_minutes(10))
-    view.bind_command_to_widget('btn_15', lambda: increment_minutes(15))
-    view.bind_command_to_widget('btn_30', lambda: increment_minutes(30))
-    view.bind_command_to_widget('btn_60', lambda: increment_minutes(60))
-    view.bind_command_to_widget('btn_clear', lambda: clear_minutes())
-    view.bind_command_to_widget('btn_OK', lambda: upon_ok(d))
+def load_gui_from_pickle(file_name, specified_parent, parent_widget='toplevel'):
+    from interface_tk import widget_model
+    from view_tkinter import View
+    import pickle
+    view = View()
+    view_model = [widget_model('root', specified_parent, parent_widget, 0, 0, 0, 0, 'nswe', **{})]
+    with open(file_name, 'rb') as f:
+        view_model += pickle.load(f)
+    view.add_widgets(view_model)
+    return view
 
 
 class MyTestCase(unittest.TestCase):
@@ -63,12 +46,37 @@ class MyTestCase(unittest.TestCase):
         # binding commands here - END
         view.launch_app()
 
+    def test_save_sand_box_as_pickle(self):
+        import GUI
+        file_name = 'minutes_setter.gui'
+        parent = 'minute_setter_parent'
+
+        view_model = GUI.create_sand_box.get_view_model(parent)
+        import pickle
+        with open(file_name, 'wb') as f:
+            pickle.dump(view_model, f)
+
+    def test_load_pickle(self):
+        file_name = 'minutes_setter.gui'
+        specified_parent = 'minute_setter_parent'
+        parent_widget = 'toplevel'
+
+        app = load_gui_from_pickle(file_name, specified_parent, parent_widget)
+
+        # binding commands here - START
+        from Presenters.show_minute_setter import bind_command
+        bind_command(app)
+        # binding commands here - END
+
+        app.launch_app()
+
     def test_gui_minutes_setter(self):
         import GUI
         module = GUI.minutes_setter
         view = instantiate_view(module, width=250, height=100)
         # binding commands here - START
-        bind_command_minutes_setter(view)
+        from Presenters.show_minute_setter import bind_command
+        bind_command(view)
         # binding commands here - END
         view.launch_app()
 
@@ -125,16 +133,6 @@ class MyTestCase(unittest.TestCase):
         view = View(width=800, height=900)
         view.add_widgets(view_model)
         view.launch_app()
-
-    def test_load_pickle(self):
-        from view_tkinter import View
-        app = View()
-
-        import pickle
-        with open('gui02.gui', 'rb') as f:
-            view_model = pickle.load(f)
-        app.add_widgets(view_model)
-        app.launch_app()
 
 
 if __name__ == '__main__':

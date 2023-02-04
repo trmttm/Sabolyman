@@ -87,6 +87,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def show_minutes_setter(self, view_model, upon_ok: Callable = None):
+        pass
+
+    @abc.abstractmethod
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):
         pass
 

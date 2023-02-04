@@ -212,6 +212,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def show_minutes_setter(self):
+        pass
+
+    @abc.abstractmethod
     def sort_cards_by_color(self):
         pass
 

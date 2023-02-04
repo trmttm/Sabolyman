@@ -56,6 +56,7 @@ from . import shift_actions_dead_lines_hours_by
 from . import shift_cards_dead_lines
 from . import show_action_information
 from . import show_email_creator1
+from . import show_minutes_setter
 from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
@@ -345,6 +346,9 @@ class Interactor(InteractorABC):
     # Popup
     def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200, **kwargs):
         self._presenters.feed_back_user_by_popup(title, text, width, height, **kwargs)
+
+    def show_minutes_setter(self):
+        show_minutes_setter.execute(self._entities, self._presenters, self._gateway)
 
     # Export
     def export_actions_list(self, file_name: str):

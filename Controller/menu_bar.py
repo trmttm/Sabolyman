@@ -94,6 +94,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 state.get_actions_selected_indexes(v),
                 v.ask_color()),
             'Implement lower level detail': lambda: i.implement_lower_level_detail(),
+            'Set time expected': lambda: i.show_minutes_setter(),
         },
         'Habits': {
             'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),
