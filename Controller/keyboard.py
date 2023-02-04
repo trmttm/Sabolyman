@@ -40,7 +40,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.two), (lambda: i.sort_cards_by_deadline(), ''))
     f((main_modifier, KeyMap.three), (lambda: i.sort_cards_by_name(), ''))
     f((main_modifier, KeyMap.four), (lambda: i.sort_cards_by_current_owner(), ''))
-    f((main_modifier, KeyMap.five), (lambda: i.sort_cards_by_current_client(), ''))
+    f((main_modifier, KeyMap.five), (lambda: i.sort_by_importance(), ''))
+    f((main_modifier, KeyMap.six), (lambda: i.sort_cards_by_current_client(), ''))
 
     f((main_modifier, KeyMap.i), (lambda: i.implement_lower_level_detail(), ''))
 

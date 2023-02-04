@@ -267,6 +267,9 @@ class Interactor(InteractorABC):
     def sort_cards_by_color(self):
         self._sort_cards(self._entities.sort_cards_by_color)
 
+    def sort_by_importance(self):
+        self._sort_cards(self._entities.sort_cards_by_importance)
+
     def _sort_cards(self, sort_method):
         sort_method()
         present_card_list.execute(self._entities, self._presenters)

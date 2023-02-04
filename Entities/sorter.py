@@ -10,6 +10,7 @@ DEAD_LINE = 'Due Date'
 NAME = 'Name'
 CURRENT_OWNER = 'Current Owner'
 CURRENT_CLIENT = 'Current Client'
+IMPORTANCE = 'Importance'
 COLOR = 'Color'
 
 
@@ -34,6 +35,8 @@ class Sorter:
             return tuple(c.current_owner.name for c in cards_)
         elif self._sort_by == CURRENT_CLIENT:
             return tuple(c.current_client.name for c in cards_)
+        elif self._sort_by == IMPORTANCE:
+            return tuple(str(c.get_importance()) for c in cards_)
         else:
             return tuple(Utilities.datetime_to_str(c.dead_line) for c in cards_)
 
@@ -56,14 +59,26 @@ class Sorter:
         list_sorter = [c.current_client.name for c in self._cards.all_cards]
         self._sort(CURRENT_CLIENT, list_sorter)
 
+    def sort_cards_by_importance(self):
+        list_sorter = [c.get_importance() for c in self._cards.all_cards]
+        self._sort_reverse(IMPORTANCE, list_sorter)
+
     def sort_cards_by_color(self):
         list_sorter = [c.color for c in self._cards.all_cards]
         self._sort(COLOR, list_sorter)
 
     def _sort(self, mode: str, list_sorter: list):
+        sorted_cards = self._get_sorted_cards(mode, list_sorter)
+        self._cards.sort_cards(tuple(sorted_cards))
+
+    def _sort_reverse(self, mode: str, list_sorter: list):
+        sorted_cards = self._get_sorted_cards(mode, list_sorter)
+        self._cards.sort_cards(tuple(reversed(sorted_cards)))
+
+    def _get_sorted_cards(self, mode: str, list_sorter: list):
         self.set_sort_by(mode)
         _, sorted_cards = Utilities.sort_lists(list_sorter, self._cards.all_cards)
-        self._cards.sort_cards(tuple(sorted_cards))
+        return sorted_cards
 
     @property
     def state(self) -> dict:

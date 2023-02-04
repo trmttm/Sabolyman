@@ -250,6 +250,9 @@ class Entities(EntitiesABC):
     def sort_cards_by_current_client(self):
         self._sorter.sort_cards_by_current_client()
 
+    def sort_cards_by_importance(self):
+        self._sorter.sort_cards_by_importance()
+
     def sort_cards_by_color(self):
         self._sorter.sort_cards_by_color()
 

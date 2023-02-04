@@ -224,6 +224,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def sort_by_importance(self):
+        pass
+
+    @abc.abstractmethod
     def sort_cards_by_deadline(self):
         pass
 

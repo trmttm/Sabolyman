@@ -54,6 +54,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'By Name': i.sort_cards_by_name,
                 'By Current Owner': i.sort_cards_by_current_owner,
                 'By Current Client': i.sort_cards_by_current_client,
+                'By Importance': i.sort_by_importance,
             },
             'Shift Deadlines by': {
                 '+5 day': lambda: i.shift_cards_dead_lines_by(5,
