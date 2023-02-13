@@ -3,8 +3,14 @@ from stacker import widgets as w
 
 
 def get_view_model(parent: str = 'root'):
-    stacker = Stacker(specified_parent=parent)
+    stacker = create_stacker(parent)
 
+    view_model = stacker.view_model
+    return view_model
+
+
+def create_stacker(parent):
+    stacker = Stacker(specified_parent=parent)
     stacker.vstack(
         stacker.hstack(
             w.Spacer(),
@@ -23,6 +29,4 @@ def get_view_model(parent: str = 'root'):
         ),
         w.Spacer().adjust(-2),
     )
-
-    view_model = stacker.view_model
-    return view_model
+    return stacker

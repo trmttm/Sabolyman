@@ -5,16 +5,19 @@ import WidgetNames
 
 
 def get_view_model(parent: str = 'root'):
-    stacker = Stacker(specified_parent=parent)
+    stacker = create_stacker(parent)
+    view_model = stacker.view_model
+    return view_model
 
+
+def create_stacker(parent):
+    stacker = Stacker(specified_parent=parent)
     stacker.vstack(
         get_card_property_entry(stacker),
         get_actions(stacker),
         w.Spacer().adjust(-1),
     )
-
-    view_model = stacker.view_model
-    return view_model
+    return stacker
 
 
 def get_actions(stacker: Stacker):

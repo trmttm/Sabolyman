@@ -5,6 +5,12 @@ import WidgetNames
 
 
 def get_view_model(parent: str = 'root'):
+    stacker = create_stacker(parent)
+    view_model = stacker.view_model
+    return view_model
+
+
+def create_stacker(parent):
     wn = WidgetNames
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
@@ -23,9 +29,7 @@ def get_view_model(parent: str = 'root'):
         ),
         w.Spacer().adjust(-1),
     )
-
-    view_model = stacker.view_model
-    return view_model
+    return stacker
 
 
 def list_of_balls(text, index, stacker: Stacker):
