@@ -3,8 +3,6 @@ from typing import Dict
 from typing import Union
 
 from . import constants
-from . import sync_dead_line
-from . import sync_mark_done
 from .abc import SynchronizerABC
 from .sync_add_new_action import synchronize_add_new_action
 from .sync_dead_line import sync_dead_line
