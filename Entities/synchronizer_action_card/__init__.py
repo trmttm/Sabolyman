@@ -34,9 +34,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         implementation_card.set_name(policy_action.name)
         implementation_card.set_color(policy_action.color)
 
-        sync_mutually(policy_action, implementation_card, self)
-        sync_dead_line(policy_action, self.get_implementation_card)
-        sync_mark_done(implementation_card, self.get_policy_action)
+        synchronize(implementation_card, policy_action, self)
 
     def attach_to_notification(self, method: Callable):
         self._subscribers.append(method)
@@ -85,17 +83,21 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         for action_id in tuple(self._synchronization_table.keys()):
             card_id = self.get_implementation_card_id(action_id)
 
-            action = self._entities.get_action_by_id(action_id)
-            card = self._entities.get_card_by_id(card_id)
-            if action is None:  # clean up state
+            policy_action = self._entities.get_action_by_id(action_id)
+            implementation_card = self._entities.get_card_by_id(card_id)
+            if policy_action is None:  # clean up state
                 self.deregister_by_action(action_id)
-            elif card is None:  # clean up state
+            elif implementation_card is None:  # clean up state
                 self.deregister_by_card(card_id)
             else:
-                sync_mutually(action, card, self)
-                sync_dead_line(action, self.get_implementation_card)
-                sync_mark_done(card, self.get_policy_action)
+                synchronize(implementation_card, policy_action, self)
 
     @property
     def state(self) -> dict:
         return {'sync_state': self._synchronization_table, }
+
+
+def synchronize(implementation_card: Card, policy_action: Action, synchronizer: SynchronizerABC):
+    sync_mutually(policy_action, implementation_card, synchronizer)
+    sync_dead_line(policy_action, synchronizer.get_implementation_card)
+    sync_mark_done(implementation_card, synchronizer.get_policy_action)
