@@ -193,10 +193,6 @@ class Interactor(InteractorABC):
     def mark_action_completed(self, done_or_not: bool, actions_indexes: Tuple[int, ...] = None):
         mark_action_completed.execute(self._entities, self._presenters, done_or_not, actions_indexes)
 
-    def set_action_complete_time(self, done_or_not: bool):
-        set_action_complete_time.execute(self._entities, done_or_not)
-        present_action_list.execute(self._entities, self._presenters)
-
     def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
         set_action_description.execute(self._entities, self._presenters, description, actions_indexes)
 

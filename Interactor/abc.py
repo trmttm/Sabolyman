@@ -82,10 +82,6 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_action_complete_time(self, done_or_not: bool):
-        pass
-
-    @abc.abstractmethod
     def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
         pass
 
