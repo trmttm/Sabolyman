@@ -11,7 +11,7 @@ from Presenters import Presenters
 
 def start_app(gui_selected='gui01.gui'):
     # Instantiation
-    app = View(width=900, height=960)
+    app = View(width=900, height=960, fullscreen=True)
     entities = Entities()
     presenters = Presenters(app)
     gateway = Gateway(entities.user.name)
