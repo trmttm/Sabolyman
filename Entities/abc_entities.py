@@ -340,3 +340,8 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def attach_to_synchronizer(self, method: Callable):
         pass
+
+    @property
+    @abc.abstractmethod
+    def synchronizer(self):
+        pass

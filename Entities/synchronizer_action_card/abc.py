@@ -25,3 +25,7 @@ class SynchronizerABC(abc.ABC):
     @abc.abstractmethod
     def action_has_implementation_card(self, action_id: str) -> bool:
         pass
+
+    @abc.abstractmethod
+    def card_has_policy_action(self, card_id: str) -> bool:
+        pass

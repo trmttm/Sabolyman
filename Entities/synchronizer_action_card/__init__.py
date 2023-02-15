@@ -60,6 +60,9 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
     def action_has_implementation_card(self, action_id: str) -> bool:
         return action_id in self._synchronization_table
 
+    def card_has_policy_action(self, card_id: str) -> bool:
+        return card_id in self._synchronization_table.values()
+
     def get_implementation_card_id(self, action_id):
         return self._synchronization_table.get(action_id)
 

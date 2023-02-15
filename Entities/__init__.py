@@ -17,10 +17,15 @@ from .file import File
 from .files import Files
 from .person import Person
 from .sorter import Sorter
+from .synchronizer_action_card import SynchronizerABC
 from .synchronizer_action_card import SynchronizerActionCard
 
 
 class Entities(EntitiesABC):
+
+    @property
+    def synchronizer(self) -> SynchronizerABC:
+        return self._synchronizer_action_card
 
     def __init__(self):
         user_name = 'Taro Yamaka'
