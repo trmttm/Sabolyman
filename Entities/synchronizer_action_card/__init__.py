@@ -4,6 +4,7 @@ from typing import Union
 
 from . import constants
 from .abc import SynchronizerABC
+from .prevent_mark_done_policy_action import prevent_mark_done_policy_action
 from .sync_add_new_action import synchronize_add_new_action
 from .sync_dead_line import sync_dead_line
 from .sync_mark_done import sync_mark_done
@@ -101,3 +102,4 @@ def synchronize(implementation_card: Card, policy_action: Action, synchronizer: 
     sync_mutually(policy_action, implementation_card, synchronizer)
     sync_dead_line(policy_action, synchronizer.get_implementation_card)
     sync_mark_done(implementation_card, synchronizer.get_policy_action)
+    prevent_mark_done_policy_action(policy_action, synchronizer)
