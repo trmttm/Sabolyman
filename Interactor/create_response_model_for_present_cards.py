@@ -14,6 +14,6 @@ def execute(cards: Tuple[Card, ...], e: EntitiesABC, next_selection_indexes) -> 
     kwargs = {
         'completions_status': tuple(c.is_done for c in cards),
         'colors': tuple(c.color for c in cards),
-        'text_colors': tuple('red' if s.card_has_policy_action(c.id) else 'black' for c in cards),
+        'text_colors': tuple('blue' if s.card_has_policy_action(c.id) else 'black' for c in cards),
     }
     return args, kwargs
