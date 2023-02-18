@@ -34,7 +34,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
         # wrapping policy action (only, not implementation card)
         policy_action.get_dead_line = wrapper_get(policy_action.get_dead_line, policy_action)
         policy_action.set_dead_line = wrapper_set(policy_action.set_dead_line, policy_action)
-        policy_action.has_already_been_wrapped = True
+        policy_action.has_already_been_wrapped_to_sync_deadline = True
     else:
         # 'second attempt to wrap prevented'
         pass
@@ -42,6 +42,6 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
 
 def policy_has_already_been_wrapped(a: Action):
     try:
-        return a.has_already_been_wrapped
+        return a.has_already_been_wrapped_to_sync_deadline
     except AttributeError:
         return False
