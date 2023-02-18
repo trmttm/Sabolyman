@@ -8,9 +8,12 @@ from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
 from . import utilities
-
+import WidgetNames as wn
 
 def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_injected: dict = None):
+    def focus_on_tree_actions():
+        v.focus(wn.tree_card_actions)
+
     menu_bar_model = {
         'File': {
             'Save Sate [cmd+s]': lambda: i.save_state(),
@@ -37,8 +40,8 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Clear due date filter': lambda: i.clear_filter_due_date(),
         },
         'Cards': {
-            'Jump ↑': lambda: i.jump_to_policy_action(),
-            'Jump ↓': lambda: i.jump_to_implementation_card(),
+            'Jump ↑': lambda: i.jump_to_policy_action(focus_on_tree_actions),
+            'Jump ↓': lambda: i.jump_to_implementation_card(focus_on_tree_actions),
             'Set starting date to': lambda: i.reset_card_starting_date(state.get_left_tree_selected_indexes(v),
                                                                        state.get_right_tree_selected_indexes(v), ),
             'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),

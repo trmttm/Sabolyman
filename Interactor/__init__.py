@@ -237,11 +237,11 @@ class Interactor(InteractorABC):
     def implement_lower_level_detail(self):
         implement_lower_level_detail.execute(self._entities, self._presenters)
 
-    def jump_to_implementation_card(self):
-        jump_to_implementation_card.execute(self._entities, self._presenters)
+    def jump_to_implementation_card(self, callback):
+        jump_to_implementation_card.execute(self._entities, self._presenters, callback)
 
-    def jump_to_policy_action(self):
-        jump_to_policy_action.execute(self._entities, self._presenters)
+    def jump_to_policy_action(self, callback):
+        jump_to_policy_action.execute(self._entities, self._presenters, callback)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):

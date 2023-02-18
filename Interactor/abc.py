@@ -284,9 +284,9 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def jump_to_implementation_card(self):
+    def jump_to_implementation_card(self, callback):
         pass
 
     @abc.abstractmethod
-    def jump_to_policy_action(self):
+    def jump_to_policy_action(self, callback):
         pass

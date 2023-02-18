@@ -3,7 +3,7 @@ from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 
-import WidgetNames
+import WidgetNames as wn
 from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
@@ -13,6 +13,9 @@ from . import utilities
 def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     i.set_active_keymap('default')
     f = i.add_new_keyboard_shortcut
+
+    def focus_on_tree_actions():
+        app.focus(wn.tree_card_actions)
 
     if os_identifier.is_mac:
         main_modifier = KeyMap.command
@@ -39,7 +42,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
                                                               state.get_right_tree_selected_indexes(app),
                                                               app.ask_color()), ''))
     f((sub_modifier, KeyMap.h), (lambda: i.toggle_hide_finished_cards(), ''))
-    f((main_modifier, KeyMap.f), (lambda: app.focus(WidgetNames.entry_search_box), ''))
+    f((main_modifier, KeyMap.f), (lambda: app.focus(wn.entry_search_box), ''))
 
     f((main_modifier, KeyMap.one), (lambda: i.sort_cards_by_color(), ''))
     f((main_modifier, KeyMap.two), (lambda: i.sort_cards_by_deadline(), ''))
@@ -57,8 +60,10 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.shift + KeyMap.control, '='),
       (lambda: i.shift_actions_dead_lines_hours_by(1, state.get_actions_selected_indexes(app)), ''))
 
-    f((KeyMap.shift + main_modifier, '='), (lambda: i.jump_to_implementation_card(), ''))
-    f((KeyMap.shift + main_modifier, '-'), (lambda: i.jump_to_policy_action(), ''))
+    f((KeyMap.shift + main_modifier, '='),
+      (lambda: i.jump_to_implementation_card(focus_on_tree_actions), ''))
+    f((KeyMap.shift + main_modifier, '-'),
+      (lambda: i.jump_to_policy_action(focus_on_tree_actions), ''))
 
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
