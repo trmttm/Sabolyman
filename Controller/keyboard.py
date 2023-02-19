@@ -14,8 +14,9 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     i.set_active_keymap('default')
     f = i.add_new_keyboard_shortcut
 
-    def focus_on_tree_actions():
+    def focus_on_tree_actions(action_index: int = 0):
         app.focus(wn.tree_card_actions)
+        app.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
 
     if os_identifier.is_mac:
         main_modifier = KeyMap.command

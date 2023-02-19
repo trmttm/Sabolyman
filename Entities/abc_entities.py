@@ -196,6 +196,10 @@ class EntitiesABC(abc.ABC):
     def active_action_index(self) -> int:
         pass
 
+    @abc.abstractmethod
+    def get_action_index(self, card_: Card, action_: Action):
+        pass
+
     @property
     @abc.abstractmethod
     def selected_actions_indexes(self) -> Tuple[int, ...]:

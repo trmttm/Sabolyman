@@ -4,15 +4,17 @@ from os import path
 import Utilities
 from interface_view import ViewABC
 
+import WidgetNames as wn
 from Entities import EntitiesABC
 from Interactor import InteractorABC
 from . import state
 from . import utilities
-import WidgetNames as wn
+
 
 def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_injected: dict = None):
-    def focus_on_tree_actions():
+    def focus_on_tree_actions(action_index: int = 0):
         v.focus(wn.tree_card_actions)
+        v.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
 
     menu_bar_model = {
         'File': {

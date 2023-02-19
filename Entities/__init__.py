@@ -385,14 +385,10 @@ class Entities(EntitiesABC):
 
     @property
     def active_action_index(self) -> int:
-        if self._actions is not None:
-            active_action = self.active_action
-            if active_action is not None:
-                try:
-                    index = self._actions.all_actions.index(active_action)
-                    return None if index is None else index
-                except ValueError:
-                    pass
+        return get_action_index(self.active_card, self.active_action)
+
+    def get_action_index(self, card_: Card, action_: Action):
+        return get_action_index(card_, action_)
 
     @property
     def selected_actions_indexes(self) -> Tuple[int, ...]:
@@ -427,3 +423,13 @@ def get_card_by_index(cards_tuple, index) -> Card:
     except IndexError:
         target_card = None
     return target_card
+
+
+def get_action_index(c: Card, a: Action):
+    if (a is not None) and (c is not None):
+        if a is not None:
+            try:
+                index = c.actions.all_actions.index(a)
+                return None if index is None else index
+            except ValueError:
+                pass
