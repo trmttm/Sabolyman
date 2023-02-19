@@ -1,6 +1,7 @@
 import abc
 from typing import Iterable
 from typing import Tuple
+from typing import Union
 
 
 class GatewayABC(abc.ABC):
@@ -30,9 +31,23 @@ class GatewayABC(abc.ABC):
     def home_folder(self) -> str:
         pass
 
+    @abc.abstractmethod
+    def load_json(self, path) -> Union[dict, None]:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def script_json_path(self) -> str:
+        pass
+
     @property
     @abc.abstractmethod
     def state_folder(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def graph_folder(self) -> str:
         pass
 
     @property

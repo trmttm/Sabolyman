@@ -19,6 +19,7 @@ from . import delete_selected_their_cards
 from . import display_due_tasks
 from . import display_new_tasks
 from . import display_progress
+from . import draw_graph_on_browser
 from . import duplicate_selected_card
 from . import export_actions_list
 from . import filter_cards_by_due_date
@@ -81,11 +82,16 @@ class Interactor(InteractorABC):
 
     # Save
     def save_state(self):
-        path = self._gateway.auto_save_path
-        self.save_to_file(path)
+        self.save_to_file(self._gateway.auto_save_path)
+
+    def save_state_silently(self):
+        self.save_state_to_file_silently(self._gateway.auto_save_path)
+
+    def save_state_to_file_silently(self, file_name):
+        self._gateway.save_file(file_name, self._entities.state)
 
     def save_to_file(self, file_name: str):
-        self._gateway.save_file(file_name, self._entities.state)
+        self.save_state_to_file_silently(file_name)
         self.feed_back_user_by_popup('File saved!', f'Files was successfully saved to \n{file_name}', 600, 100)
 
     def load_state_from_file(self, file_name: str):
@@ -293,6 +299,8 @@ class Interactor(InteractorABC):
             os.mkdir(self._gateway.home_folder)
         if not os.path.exists(self._gateway.state_folder):
             os.mkdir(self._gateway.state_folder)
+        if not os.path.exists(self._gateway.graph_folder):
+            os.mkdir(self._gateway.graph_folder)
         try:
             self.load_state_from_file(self._gateway.auto_save_path)
         except:
@@ -381,3 +389,7 @@ class Interactor(InteractorABC):
 
     def display_due_tasks(self, from_: str, to_: str):
         display_due_tasks.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
+
+    def display_selected_card_as_a_graph_on_the_browser(self):
+        save, feedback = self.save_state_silently, self.feed_back_user_by_popup
+        draw_graph_on_browser.execute(self._entities, self._gateway, save, feedback)

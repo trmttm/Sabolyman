@@ -1,8 +1,10 @@
 import importlib.resources
+import json
 import os
 import pickle
 from typing import Iterable
 from typing import Tuple
+from typing import Union
 
 import Utilities
 
@@ -41,6 +43,12 @@ class Gateway(GatewayABC):
         folder_path = Utilities.get_proper_path_depending_on_development_or_distribution(folder_path)
         return tuple(Utilities.get_files_in_the_folder(folder_path, specified_extension))
 
+    def load_json(self, path) -> Union[dict, None]:
+        try:
+            with open(path, 'rb') as f:
+                return json.load(f)
+        except:
+            return None
     @property
     def home_folder(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman')
@@ -48,6 +56,14 @@ class Gateway(GatewayABC):
     @property
     def state_folder(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman', self._user_name)
+
+    @property
+    def script_json_path(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman', "script_path.json")
+
+    @property
+    def graph_folder(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman', 'Graph')
 
     @property
     def mail_template_package(self) -> str:

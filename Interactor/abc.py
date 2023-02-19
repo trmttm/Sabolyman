@@ -294,3 +294,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def jump_to_policy_action(self, callback):
         pass
+
+    @abc.abstractmethod
+    def display_selected_card_as_a_graph_on_the_browser(self):
+        pass
