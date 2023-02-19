@@ -54,6 +54,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
 
     f((main_modifier, KeyMap.i), (lambda: i.implement_lower_level_detail(), ''))
     f((main_modifier, KeyMap.p), (lambda: i.display_selected_card_as_a_graph_on_the_browser(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.p),
+      (lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(), ''))
 
     f((KeyMap.control, '-'), (lambda: i.shift_actions_dead_lines_by(-1, state.get_actions_selected_indexes(app)), ''))
     f((KeyMap.control, '='), (lambda: i.shift_actions_dead_lines_by(1, state.get_actions_selected_indexes(app)), ''))

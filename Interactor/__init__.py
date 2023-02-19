@@ -393,3 +393,8 @@ class Interactor(InteractorABC):
     def display_selected_card_as_a_graph_on_the_browser(self):
         save, feedback = self.save_state_silently, self.feed_back_user_by_popup
         draw_graph_on_browser.execute(self._entities, self._gateway, save, feedback)
+
+    def display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(self):
+        save, feedback = self.save_state_silently, self.feed_back_user_by_popup
+        kwargs = {'configure_dynamically': True}
+        draw_graph_on_browser.execute(self._entities, self._gateway, save, feedback, **kwargs)

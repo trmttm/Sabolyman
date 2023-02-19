@@ -296,5 +296,9 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(self):
+        pass
+
+    @abc.abstractmethod
     def display_selected_card_as_a_graph_on_the_browser(self):
         pass

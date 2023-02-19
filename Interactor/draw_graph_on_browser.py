@@ -4,7 +4,7 @@ from Entities import EntitiesABC
 from Gateway import GatewayABC
 
 
-def execute(e: EntitiesABC, g: GatewayABC, save, feedback):
+def execute(e: EntitiesABC, g: GatewayABC, save, feedback, **kwargs):
     save()
     path = g.script_json_path
     data = g.load_json(path)
@@ -13,8 +13,9 @@ def execute(e: EntitiesABC, g: GatewayABC, save, feedback):
         pickle_path = g.auto_save_path
         card_id = e.active_card.id
         graph_path = g.graph_folder
+        configure_dynamically = kwargs.get('configure_dynamically', False)
 
-        draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path)
+        draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path, configure_dynamically)
     feedback_graphing_error(feedback, path, python_path, script_path)
 
 
@@ -40,11 +41,12 @@ def feedback_graphing_error(feedback, path, python_path, script_path):
         feedback("Invalid script path", message)
 
 
-def draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path):
+def draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path, conigure_dynamically: bool):
     argv = [
         f'"{pickle_path}"',
         f'"{card_id}"',
         f'"{graph_path}"',
+        f'"{conigure_dynamically}"',
     ]
-    command = f'"{python_path}" "{script_path}" {argv[0]} {argv[1]} {argv[2]}'
+    command = f'"{python_path}" "{script_path}" {argv[0]} {argv[1]} {argv[2]} {argv[3]}'
     os.system(command)

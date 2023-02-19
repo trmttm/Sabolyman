@@ -35,6 +35,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Display progress': lambda: i.open_display_progress_dialogue(),
             'Display new tasks': lambda: i.open_display_new_tasks_dialogue(),
             'Node Edge Graph': lambda: i.display_selected_card_as_a_graph_on_the_browser(),
+            'Node Edge Graph (config)': lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(),
         },
         'View': {
             'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
