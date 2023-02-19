@@ -49,6 +49,7 @@ class Gateway(GatewayABC):
                 return json.load(f)
         except:
             return None
+
     @property
     def home_folder(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman')
@@ -56,6 +57,10 @@ class Gateway(GatewayABC):
     @property
     def state_folder(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman', self._user_name)
+
+    @property
+    def color_options_json_path(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman', "color_options.json")
 
     @property
     def script_json_path(self) -> str:

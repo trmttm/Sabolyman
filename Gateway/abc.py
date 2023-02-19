@@ -42,6 +42,11 @@ class GatewayABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def color_options_json_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def state_folder(self) -> str:
         pass
 

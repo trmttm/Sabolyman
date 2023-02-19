@@ -1,0 +1,11 @@
+{
+  "color_node_done": "yellow",
+  "color_node_not_done": "orange",
+  "color_font_my_ball": "black",
+  "color_font_their_ball": "blue",
+  "color_font_hidden": "white",
+  "color_node_hidden": "white",
+  "color_node_goal": "red",
+  "color_edge_hidden": "white",
+  "color_edge_default": "black"
+}
