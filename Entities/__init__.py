@@ -300,9 +300,11 @@ class Entities(EntitiesABC):
     def toggle_hide_finished_cards(self):
         self._filter.toggle_hide_finished_cards()
 
-    def synchronize(self, action_policy: Action, card_implementation: Card):
-        sync = self._synchronizer_action_card
-        sync.synchronize(action_policy, card_implementation)
+    def synchronize_card_to_action(self, action_policy: Action, card_implementation: Card):
+        self._synchronizer_action_card.synchronize_card_to_action(action_policy, card_implementation)
+
+    def synchronize_action_to_card(self, action_policy: Action, card_implementation: Card):
+        self._synchronizer_action_card.synchronize_action_to_card(action_policy, card_implementation)
 
     def attach_to_synchronizer(self, method: Callable):
         self._synchronizer_action_card.attach_to_notification(method)

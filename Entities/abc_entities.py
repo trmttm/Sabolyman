@@ -338,7 +338,11 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def synchronize(self, action_policy, card_implementation):
+    def synchronize_action_to_card(self, action_policy: Action, card_implementation: Card):
+        pass
+
+    @abc.abstractmethod
+    def synchronize_card_to_action(self, action_policy, card_implementation):
         pass
 
     @abc.abstractmethod

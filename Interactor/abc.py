@@ -280,6 +280,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def abstract_out_card_as_an_action_and_copy(self):
+        pass
+
+    @abc.abstractmethod
     def implement_lower_level_detail(self):
         pass
 

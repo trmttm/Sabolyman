@@ -25,15 +25,22 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         synchronize_remove_action(entities, self)
         synchronize_add_new_action(self._entities, self)
 
-    def synchronize(self, policy_action: Action, implementation_card: Card):
+    def synchronize_card_to_action(self, policy_action: Action, implementation_card: Card):
+        self.synchronize_(implementation_card, policy_action, implementation_card, policy_action)
+
+    def synchronize_action_to_card(self, policy_action: Action, implementation_card: Card):
+        self.synchronize_(implementation_card, policy_action, policy_action, implementation_card)
+
+    def synchronize_(self, implementation_card: Card, policy_action: Action,
+                     synchronize_what: Union[Action, Card], to_what: Union[Action, Card]):
         # Register
         policy_action.set_id()
         implementation_card.set_id()
         self.register(policy_action.id, implementation_card.id)
 
         # initial synchronization
-        implementation_card.set_name(policy_action.name)
-        implementation_card.set_color(policy_action.color)
+        synchronize_what.set_name(to_what.name)
+        synchronize_what.set_color(to_what.color)
 
         synchronize(implementation_card, policy_action, self)
 

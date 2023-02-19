@@ -182,7 +182,8 @@ class Action(EntityABC):
         self._date_created = datetime.datetime.now()
 
     def set_id(self):
-        self._id = str(uuid.uuid4())
+        if self._id is None:
+            self._id = str(uuid.uuid4())
 
     @property
     def id(self) -> str:

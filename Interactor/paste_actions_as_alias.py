@@ -11,7 +11,7 @@ def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable):
     feedback_user_if_duplicate(duplicate_actions, feedback_method)
 
 
-def create_alias_of_action_if_not_duplicate(e):
+def create_alias_of_action_if_not_duplicate(e: EntitiesABC):
     duplicate_actions = []
     n_new_actions = 0
 

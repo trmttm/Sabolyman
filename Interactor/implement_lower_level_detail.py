@@ -11,7 +11,7 @@ def execute(e: EntitiesABC, p: PresentersABC):
     command.execute()
     card_implementation = e.active_card
 
-    e.synchronize(action_policy, card_implementation)
+    e.synchronize_card_to_action(action_policy, card_implementation)
 
     next_selection_indexes = (len(e.my_visible_cards) - 1,)
     present_my_card_list(e, p, next_selection_indexes)

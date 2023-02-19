@@ -7,6 +7,7 @@ from keyboard_shortcut import KeyMaps
 from Entities import EntitiesABC
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
+from . import abstract_out
 from . import add_new_action
 from . import add_new_card
 from . import add_template_card
@@ -236,6 +237,9 @@ class Interactor(InteractorABC):
 
     def implement_lower_level_detail(self):
         implement_lower_level_detail.execute(self._entities, self._presenters)
+
+    def abstract_out_card_as_an_action_and_copy(self):
+        abstract_out.execute(self._entities)
 
     def jump_to_implementation_card(self, callback):
         jump_to_implementation_card.execute(self._entities, self._presenters, callback)
