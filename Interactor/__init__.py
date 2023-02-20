@@ -343,11 +343,14 @@ class Interactor(InteractorABC):
             self._filter_cards_with_keyword(keyword, search_mode)
 
     def clear_card_filter(self):
+        initially_selected_card = self._entities.active_card
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
         self._filter_cards_with_keyword('', self.search_mode[0])
         self._presenters.set_search_box(self._entities.filter_key)
         self._presenters.set_search_mode(self._entities.filter_mode)
+        self._entities.set_active_card(initially_selected_card)
+        present_card_list.execute(self._entities, self._presenters)
 
     def _filter_cards_with_keyword(self, keyword: str, search_mode: str):
         self._entities.set_filter_key(keyword, search_mode)
