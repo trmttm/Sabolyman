@@ -7,7 +7,7 @@ def execute(e: EntitiesABC, p: PresentersABC, callback):
     card = e.active_card
     policy_action = e.get_policy_action(card.id)
     cards = e.get_cards_that_have_action(policy_action)
-    action_index = 0
+    action_index = e.active_action_index
     if len(cards) > 0:
         card_containing_policy_action = cards[0]
         indexes_ = (card_containing_policy_action.all_actions.index(policy_action),)
