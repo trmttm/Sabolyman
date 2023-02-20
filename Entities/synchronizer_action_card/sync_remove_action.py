@@ -15,7 +15,7 @@ def synchronize_remove_action(entities: EntitiesABC, synchronizer: SynchronizerA
 def wrapper(remove_action: Callable, synchronizer: SynchronizerABC, e: EntitiesABC):
     def wrapped(action: Action):
         remove_action(action)  # Wrapped / extended method
-        remove_implementation_card(action.id)  # active card changes here (side effect)
+        remove_implementation_card(action.id)
         synch_mark_done_passively(e, synchronizer)
         update_card_list()
 

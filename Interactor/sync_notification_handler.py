@@ -18,5 +18,10 @@ def execute(e: EntitiesABC, p: PresentersABC, **kwargs):
         else:
             delete_selected_their_cards.execute(e, p, indexes_)
         e.set_active_card(initial_active_card)  # remove side effect 2/2
+    elif kwargs.get(constants.REMOVE_ACTION, None):
+        action_to_remove = kwargs.get(constants.REMOVE_ACTION)
+        for c in e.all_cards:
+            if c.has_action(action_to_remove):
+                c.actions.remove_action(action_to_remove)
     elif kwargs.get(constants.UPDATE_CARD_LIST, False):
         present_card_list.execute(e, p)

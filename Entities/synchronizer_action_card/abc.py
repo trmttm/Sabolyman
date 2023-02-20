@@ -19,6 +19,10 @@ class SynchronizerABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def deregister_by_card(self, card_id):
+        pass
+
+    @abc.abstractmethod
     def notify(self, **kwargs):
         pass
 

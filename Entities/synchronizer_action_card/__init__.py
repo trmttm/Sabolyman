@@ -10,6 +10,7 @@ from .sync_dead_line import sync_dead_line
 from .sync_mark_done import sync_mark_done
 from .sync_mutually import sync_mutually
 from .sync_remove_action import synchronize_remove_action
+from .sync_remove_card import synchronize_remove_card
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
 from ..action import Action
@@ -23,6 +24,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         self._subscribers = []
 
         synchronize_remove_action(entities, self)
+        synchronize_remove_card(entities, self)
         synchronize_add_new_action(self._entities, self)
 
     def synchronize_card_to_action(self, policy_action: Action, implementation_card: Card):
