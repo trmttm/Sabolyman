@@ -47,7 +47,8 @@ class Gateway(GatewayABC):
         try:
             with open(path, 'rb') as f:
                 return json.load(f)
-        except:
+        except Exception as e:
+            print(f'Failed to load json file {path} {e}')
             return None
 
     @property
