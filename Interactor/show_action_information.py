@@ -15,7 +15,7 @@ def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
             p.update_action_name(action.name)
             p.update_action_date_created(action.date_created)
             p.update_action_time_expected(action.time_expected)
-            p.update_action_owner(action.owner.name)
+            p.update_action_owner(action.get_owner().name)
             p.update_action_client(action.client.name)
             p.update_action_is_done(action.is_done)
             p.update_action_description(action.description)

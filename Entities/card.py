@@ -36,7 +36,7 @@ class Card(EntityABC):
     def owner(self) -> Person:
         for action in self.actions.all_actions:
             if not action.is_done:
-                return action.owner
+                return action.get_owner()
         return self._owner
 
     def set_importance(self, importance: int):

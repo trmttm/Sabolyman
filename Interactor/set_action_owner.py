@@ -14,5 +14,5 @@ def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, actions_indexes: 
                 person = e.create_new_person(owner_name)
             action.set_owner(person)
 
-            p.update_action_owner(action.owner.name)
+            p.update_action_owner(action.get_owner().name)
             present_card_list.execute(e, p)

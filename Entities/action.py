@@ -54,8 +54,7 @@ class Action(EntityABC):
             self.set_completed_time(datetime.datetime.now())
         return self._time_completed
 
-    @property
-    def owner(self) -> Person:
+    def get_owner(self) -> Person:
         return self._owner
 
     @property

@@ -57,7 +57,7 @@ class Actions(EntityABC):
     def current_owner(self) -> Person:
         for action in self._actions:
             if not action.is_done:
-                return action.owner
+                return action.get_owner()
         return Person('No Current Owner')
 
     @property
