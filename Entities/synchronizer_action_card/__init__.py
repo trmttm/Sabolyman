@@ -9,6 +9,7 @@ from .sync_add_new_action import synchronize_add_new_action
 from .sync_dead_line import sync_dead_line
 from .sync_mark_done import sync_mark_done
 from .sync_mutually import sync_mutually
+from .sync_owner import sync_owner
 from .sync_remove_action import synchronize_remove_action
 from .sync_remove_card import synchronize_remove_card
 from ..abc_entities import EntitiesABC
@@ -112,3 +113,4 @@ def synchronize(implementation_card: Card, policy_action: Action, synchronizer: 
     sync_dead_line(policy_action, synchronizer.get_implementation_card)
     sync_mark_done(implementation_card, synchronizer.get_policy_action)
     prevent_mark_done_policy_action(policy_action, synchronizer)
+    sync_owner(policy_action, implementation_card)
