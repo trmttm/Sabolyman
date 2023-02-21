@@ -47,18 +47,25 @@ def feedback_graphing_error(feedback, path, python_path, script_path):
 
 
 def draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path, **kwargs):
-    argv = [
-        f'"{pickle_path}"',
-        f'"{card_id}"',
-        f'"{graph_path}"',
-        str(kwargs.get('configure_dynamically', False)),
-        json.dumps(kwargs.get('color_options', {})),
-    ]
     if sys.platform == 'darwin':
+        argv = [
+            f'"{pickle_path}"',
+            f'"{card_id}"',
+            f'"{graph_path}"',
+            str(kwargs.get('configure_dynamically', False)),
+            json.dumps(kwargs.get('color_options', {})),
+        ]
         command = f'''
         "{python_path}" "{script_path}" {argv[0]} {argv[1]} {argv[2]} {argv[3]} '{argv[4]}'
         '''
         os.system(command)
     else:
+        argv = [
+            pickle_path,
+            card_id,
+            graph_path,
+            str(kwargs.get('configure_dynamically', False)),
+            json.dumps(kwargs.get('color_options', {})),
+        ]
         command = '"' + '" "'.join([python_path, script_path] + argv) + '"'
         subprocess.call(command)
