@@ -72,7 +72,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.five), (lambda: i.sort_by_importance(), ''))
     f((main_modifier, KeyMap.six), (lambda: i.sort_cards_by_current_client(), ''))
 
-    f((main_modifier, KeyMap.i), (lambda: i.implement_lower_level_detail(), ''))
+    f((main_modifier, KeyMap.i), (lambda: i.feed_back_user_by_popup('Implement?', 'Implement as a Card', height=100,
+                                                                    action_ok=i.implement_lower_level_detail), ''))
     f((main_modifier, KeyMap.p), (lambda: i.display_selected_card_as_a_graph_on_the_browser(), ''))
     f((main_modifier + KeyMap.shift, KeyMap.p),
       (lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(), ''))

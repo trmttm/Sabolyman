@@ -213,6 +213,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def feed_back_user_by_popup(self, title: str, text: str, width=200, height=200, **kwargs):
+        pass
+
+    @abc.abstractmethod
     def show_minutes_setter(self, indexes):
         pass
 
