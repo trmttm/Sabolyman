@@ -8,4 +8,4 @@ def execute(e: EntitiesABC, p: PresentersABC, callback):
     if action is not None:
         implementation_card = e.get_implementation_card(action.id)
         jump_to_card.execute(implementation_card, e, p)
-    callback(e.active_action_index)
+    callback(e.active_card_is_in_my_cards, e.active_card_index, e.active_action_index)

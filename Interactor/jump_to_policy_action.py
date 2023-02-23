@@ -14,4 +14,4 @@ def execute(e: EntitiesABC, p: PresentersABC, callback):
         card_containing_policy_action.select_actions(indexes_)
         jump_to_card.execute(card_containing_policy_action, e, p)
         action_index = e.get_action_index(card_containing_policy_action, policy_action)
-    callback(action_index)
+    callback(e.active_card_is_in_my_cards, e.active_card_index, action_index)
