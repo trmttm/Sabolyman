@@ -18,24 +18,13 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         app.focus(wn.tree_card_actions)
         app.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
 
-    def focus_on_tree_cards(active_card_is_my_ball: bool = True):
+    def focus_on_tree_cards(active_card_is_my_ball: bool, card_index):
         tree_id = wn.tree_my_cards if active_card_is_my_ball else wn.tree_their_cards
         app.focus(tree_id)
-
-    def callback_jump_to_policy_action(active_card_is_my_ball, card_index, action_index):
-        tree_id = wn.tree_my_cards if active_card_is_my_ball else wn.tree_their_cards
-        app.focus(tree_id)
-        focus_on_tree_cards(active_card_is_my_ball)
         app.select_multiple_tree_items(tree_id, (card_index,))
 
-        focus_on_tree_actions(action_index)
-
-    def callback_jump_to_implementation_card(active_card_is_my_ball, card_index, action_index):
-        tree_id = wn.tree_my_cards if active_card_is_my_ball else wn.tree_their_cards
-        app.focus(tree_id)
-        focus_on_tree_cards(active_card_is_my_ball)
-        app.select_multiple_tree_items(tree_id, (card_index,))
-
+    def focus_cards_tree_then_actions_tree(active_card_is_my_ball, card_index, action_index):
+        focus_on_tree_cards(active_card_is_my_ball, card_index)
         focus_on_tree_actions(action_index)
 
     if os_identifier.is_mac:
@@ -85,8 +74,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.shift + KeyMap.control, '='),
       (lambda: i.shift_actions_dead_lines_hours_by(1, state.get_actions_selected_indexes(app)), ''))
 
-    f((main_modifier, KeyMap.right), (lambda: i.jump_to_implementation_card(callback_jump_to_implementation_card), ''))
-    f((main_modifier, KeyMap.left), (lambda: i.jump_to_policy_action(callback_jump_to_policy_action), ''))
+    f((main_modifier, KeyMap.right), (lambda: i.jump_to_implementation_card(focus_cards_tree_then_actions_tree), ''))
+    f((main_modifier, KeyMap.left), (lambda: i.jump_to_policy_action(focus_cards_tree_then_actions_tree), ''))
     f((main_modifier, KeyMap.j), (lambda: i.jump_to_card_list(focus_on_tree_cards), ''))
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
 

@@ -255,7 +255,7 @@ class Interactor(InteractorABC):
         jump_to_implementation_card.execute(self._entities, self._presenters, callback)
 
     def jump_to_card_list(self, callback: Callable):
-        callback(self._entities.active_card_is_in_my_cards)
+        callback(self._entities.active_card_is_in_my_cards, self._entities.active_card_index)
 
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)
