@@ -261,6 +261,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def cut_actions(self):
+        pass
+
+    @abc.abstractmethod
     def paste_actions_as_duplicate(self):
         pass
 

@@ -219,6 +219,24 @@ class EntitiesABC(abc.ABC):
     def copied_actions(self) -> Tuple[Action, ...]:
         pass
 
+    @abc.abstractmethod
+    def turn_off_cut_mode(self):
+        pass
+
+    @abc.abstractmethod
+    def turn_on_cut_mode(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def is_cut_mode(self) -> bool:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def card_to_cut_action_from(self) -> Card:
+        pass
+
     @property
     @abc.abstractmethod
     def active_card_index(self) -> int:

@@ -12,6 +12,7 @@ from .actions import Actions
 from .card import Card
 from .card_filter import CardFilter
 from .cards import Cards
+from .cut_action_manager import CutActionManager
 from .default_values import DefaultValues
 from .file import File
 from .files import Files
@@ -37,6 +38,7 @@ class Entities(EntitiesABC):
         self._sorter = Sorter(self._cards)
         self._synchronizer_action_card = SynchronizerActionCard(self)
         self._copied_action = ()
+        self._cut_manager = CutActionManager()
 
     # Default Values
     @property
@@ -406,6 +408,20 @@ class Entities(EntitiesABC):
     @property
     def copied_actions(self) -> Tuple[Action, ...]:
         return self._copied_action
+
+    def turn_off_cut_mode(self):
+        self._cut_manager.turn_off_cut_mode()
+
+    def turn_on_cut_mode(self):
+        self._cut_manager.set_card_to_cut_action_fom(self.active_card)
+        self._cut_manager.turn_on_cut_mode()
+
+    def is_cut_mode(self) -> bool:
+        return self._cut_manager.get_cut_mode()
+
+    @property
+    def card_to_cut_action_from(self) -> Card:
+        return self._cut_manager.get_card_to_cut_action_fom()
 
     @property
     def user(self) -> Person:

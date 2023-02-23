@@ -7,6 +7,13 @@ from . import present_action_list
 
 def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable):
     duplicate_actions, n_new_actions = create_alias_of_action_if_not_duplicate(e)
+    if e.is_cut_mode:
+        card_to_cut_action_from = e.card_to_cut_action_from
+        for action in card_to_cut_action_from.all_actions:
+            if action in e.copied_actions:
+                card_to_cut_action_from.actions.remove_action(action)
+        e.turn_off_cut_mode()
+
     present_actions(e, p, n_new_actions)
     feedback_user_if_duplicate(duplicate_actions, feedback_method)
 

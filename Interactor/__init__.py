@@ -235,6 +235,10 @@ class Interactor(InteractorABC):
         selected_actions = self._entities.selected_actions
         self._entities.copy_actions(selected_actions)
 
+    def cut_actions(self):
+        self._entities.turn_on_cut_mode()
+        self.copy_actions()
+
     def paste_actions_as_duplicate(self):
         paste_action_as_duplicate.execute(self._entities, self._presenters)
 

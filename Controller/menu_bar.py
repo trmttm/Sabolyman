@@ -100,6 +100,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         },
         'Actions': {
             'Copy': lambda: i.copy_actions(),
+            'Cut': lambda: i.cut_actions(),
             'Paste as': {
                 'Alias': lambda: i.paste_actions_as_alias(),
                 'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
