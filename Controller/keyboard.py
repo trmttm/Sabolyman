@@ -68,10 +68,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((KeyMap.shift + KeyMap.control, '='),
       (lambda: i.shift_actions_dead_lines_hours_by(1, state.get_actions_selected_indexes(app)), ''))
 
-    f((main_modifier, KeyMap.right),
-      (lambda: i.jump_to_implementation_card(focus_on_tree_actions), ''))
-    f((main_modifier, KeyMap.left),
-      (lambda: i.jump_to_policy_action(focus_on_tree_actions), ''))
+    f((main_modifier, KeyMap.right), (lambda: i.jump_to_implementation_card(focus_on_tree_actions), ''))
+    f((main_modifier, KeyMap.left), (lambda: i.jump_to_policy_action(focus_on_tree_actions), ''))
     f((main_modifier, KeyMap.j), (lambda: i.jump_to_card_list(focus_on_tree_cards), ''))
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
     # i.set_active_keymap('special')
