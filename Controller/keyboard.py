@@ -18,6 +18,11 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         app.focus(wn.tree_card_actions)
         app.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
 
+    def toggle_focus_on_tree_cards():
+        tree_id = wn.tree_my_cards if not i.active_card_in_my_ball else wn.tree_their_cards
+        app.focus(tree_id)
+        app.select_multiple_tree_items(tree_id, (i.active_card_index,))
+
     def focus_on_tree_cards(active_card_is_my_ball: bool, card_index):
         tree_id = wn.tree_my_cards if active_card_is_my_ball else wn.tree_their_cards
         app.focus(tree_id)
@@ -78,6 +83,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.left), (lambda: i.jump_to_policy_action(focus_cards_tree_then_actions_tree), ''))
     f((main_modifier, KeyMap.j), (lambda: i.jump_to_card_list(focus_on_tree_cards), ''))
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.j), (lambda: toggle_focus_on_tree_cards(), ''))
 
     f((main_modifier, KeyMap.c), (lambda: i.copy_actions(), ''))
     f((main_modifier, KeyMap.x), (lambda: i.cut_actions(), ''))

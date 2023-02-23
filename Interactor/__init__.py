@@ -184,6 +184,14 @@ class Interactor(InteractorABC):
         args = indexes1, indexes2, self.show_my_card_information, self.show_their_card_information, self._entities, self._presenters
         reset_card_starting_date.execute(*args)
 
+    @property
+    def active_card_in_my_ball(self) -> bool:
+        return self._entities.active_card_is_in_my_cards
+
+    @property
+    def active_card_index(self) -> int:
+        return self._entities.active_card_index
+
     # Action
     def add_new_action(self):
         add_new_action.execute(self._entities, self._presenters)

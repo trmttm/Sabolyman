@@ -6,6 +6,16 @@ from interface_keymaps import KeyMapsABC
 
 
 class InteractorABC(abc.ABC):
+    @property
+    @abc.abstractmethod
+    def active_card_in_my_ball(self) -> bool:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def active_card_index(self) -> int:
+        pass
+
     @abc.abstractmethod
     def save_state(self):
         pass
