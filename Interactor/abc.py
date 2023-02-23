@@ -1,4 +1,5 @@
 import abc
+from typing import Callable
 from typing import Tuple
 
 from interface_keymaps import KeyMapsABC
@@ -288,11 +289,11 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def jump_to_implementation_card(self, callback):
+    def jump_to_implementation_card(self, callback: Callable):
         pass
 
     @abc.abstractmethod
-    def jump_to_policy_action(self, callback):
+    def jump_to_policy_action(self, callback: Callable):
         pass
 
     @abc.abstractmethod
@@ -301,4 +302,12 @@ class InteractorABC(abc.ABC):
 
     @abc.abstractmethod
     def display_selected_card_as_a_graph_on_the_browser(self):
+        pass
+
+    @abc.abstractmethod
+    def jump_to_card_list(self, callback: Callable):
+        pass
+
+    @abc.abstractmethod
+    def jump_to_action_list(self, callback: Callable):
         pass

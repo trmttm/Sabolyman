@@ -18,6 +18,10 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         app.focus(wn.tree_card_actions)
         app.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
 
+    def focus_on_tree_cards(active_card_is_my_ball: bool = True):
+        tree_id = wn.tree_my_cards if active_card_is_my_ball else wn.tree_their_cards
+        app.focus(tree_id)
+
     if os_identifier.is_mac:
         main_modifier = KeyMap.command
         sub_modifier = KeyMap.control
@@ -68,7 +72,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
       (lambda: i.jump_to_implementation_card(focus_on_tree_actions), ''))
     f((main_modifier, KeyMap.left),
       (lambda: i.jump_to_policy_action(focus_on_tree_actions), ''))
-
+    f((main_modifier, KeyMap.j), (lambda: i.jump_to_card_list(focus_on_tree_cards), ''))
+    f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
     # f((KeyMap.command, KeyMap.s), (lambda: i.set_active_keymap('default'), 'switched'))
