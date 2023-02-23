@@ -89,6 +89,11 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.left), (lambda: i.jump_to_policy_action(callback_jump_to_policy_action), ''))
     f((main_modifier, KeyMap.j), (lambda: i.jump_to_card_list(focus_on_tree_cards), ''))
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
+
+    f((main_modifier, KeyMap.c), (lambda: i.copy_actions(), ''))
+    f((main_modifier, KeyMap.x), (lambda: i.cut_actions(), ''))
+    f((main_modifier, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
+
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
     # f((KeyMap.command, KeyMap.s), (lambda: i.set_active_keymap('default'), 'switched'))

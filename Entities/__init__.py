@@ -416,6 +416,7 @@ class Entities(EntitiesABC):
         self._cut_manager.set_card_to_cut_action_fom(self.active_card)
         self._cut_manager.turn_on_cut_mode()
 
+    @property
     def is_cut_mode(self) -> bool:
         return self._cut_manager.get_cut_mode()
 
