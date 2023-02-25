@@ -95,21 +95,20 @@ def get_card_property_entry(stacker: Stacker):
     return stacker.vstack(
         stacker.hstack(
             w.Label('lbl_name').text('Name').width(10).padding(10, 0),
-            w.Entry(wn.entry_card_name).default_value('New Card Name', ).padding(25, 0),
-            w.Spacer().adjust(-1),
-        ),
-        stacker.hstack(
-            w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
-            w.Label(wn.label_card_dead_line).text('2022/5/30 15:00', ).padding(25, 0),
-            w.Label('lbl_date_created1').text('Created:').width(6).padding(10, 0),
+            w.Entry(wn.entry_card_name).default_value('New Card Name', ).padding(5, 0),
+
+            w.Label('lbl_dead_line').text('Deadline').width(10).padding(0, 0),
+            w.Label(wn.label_card_dead_line).text('2022/5/30 15:00', ).padding(5, 0),
+            w.Label('lbl_date_created1').text('Created:').width(6).padding(0, 0),
             w.Label(WidgetNames.label_date_created).text('2022/5/30 15:00').padding(10, 0),
-            w.Spacer().adjust(-1),
+            w.Spacer().adjust(-5),
         ),
         stacker.hstack(
             w.Label(wn.label_card_importance).text('Importance').width(12).padding(10, 0),
             w.Button(wn.button_importance_down).text('-').width(1).padding(5, 0),
             w.Entry(wn.entry_card_importance).default_value(5).width(3),
             w.Button(wn.button_importance_up).text('+').width(1).padding(5, 0),
+
             w.Spacer(),
         ),
         w.Spacer(),
