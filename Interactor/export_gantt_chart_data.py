@@ -1,8 +1,11 @@
+import os
+
 from Entities import EntitiesABC
 from Gateway import GatewayABC
 
 
-def execute(file_name: str, e: EntitiesABC, g: GatewayABC):
+def execute(e: EntitiesABC, g: GatewayABC):
+    file_name = os.path.join(g.gantt_chart_folder_path, 'gantt chart data.csv')
     data = [['No', 'Name', 'Done', 'Date Created', 'Owner', 'Start From', 'Dead Line', 'Time Budget', 'Description']]
     for n, action in enumerate(e.active_card.all_actions):
         a = action

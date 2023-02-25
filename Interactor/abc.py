@@ -221,6 +221,10 @@ class InteractorABC(abc.ABC):
     def export_actions_list(self, file_name: str):
         pass
 
+    @abc.abstractmethod
+    def export_gantt_chart_data(self):
+        pass
+
     @property
     @abc.abstractmethod
     def search_mode(self) -> Tuple[str, ...]:

@@ -22,6 +22,7 @@ from . import display_progress
 from . import draw_graph_on_browser
 from . import duplicate_selected_card
 from . import export_actions_list
+from . import export_gantt_chart_data
 from . import filter_cards_by_due_date
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
@@ -326,8 +327,10 @@ class Interactor(InteractorABC):
             os.mkdir(self._gateway.home_folder)
         if not os.path.exists(self._gateway.state_folder):
             os.mkdir(self._gateway.state_folder)
-        if not os.path.exists(self._gateway.graph_folder):
-            os.mkdir(self._gateway.graph_folder)
+        if not os.path.exists(self._gateway.graph_folder_path):
+            os.mkdir(self._gateway.graph_folder_path)
+        if not os.path.exists(self._gateway.gantt_chart_folder_path):
+            os.mkdir(self._gateway.gantt_chart_folder_path)
         try:
             self.load_state_from_file(self._gateway.auto_save_path)
         except:
@@ -404,6 +407,9 @@ class Interactor(InteractorABC):
     # Export
     def export_actions_list(self, file_name: str):
         export_actions_list.execute(file_name, self._entities, self._gateway)
+
+    def export_gantt_chart_data(self):
+        export_gantt_chart_data.execute(self._entities, self._gateway)
 
     def open_display_progress_dialogue(self):
         options = {'title': 'Tasks completed during...'}

@@ -19,7 +19,7 @@ def execute(e: EntitiesABC, g: GatewayABC, save, feedback, **kwargs):
     if None not in [python_path, script_path]:
         pickle_path = g.auto_save_path
         card_id = e.active_card.id
-        graph_path = g.graph_folder
+        graph_path = g.graph_folder_path
         draw_graph_on_browser(card_id, graph_path, pickle_path, python_path, script_path, **kwargs)
     feedback_graphing_error(feedback, path, python_path, script_path)
 

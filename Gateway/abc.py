@@ -52,7 +52,12 @@ class GatewayABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def graph_folder(self) -> str:
+    def gantt_chart_folder_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def graph_folder_path(self) -> str:
         pass
 
     @property

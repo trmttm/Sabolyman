@@ -68,8 +68,12 @@ class Gateway(GatewayABC):
         return os.path.join(Utilities.documents, f'Sabolyman', "script_path.json")
 
     @property
-    def graph_folder(self) -> str:
+    def graph_folder_path(self) -> str:
         return os.path.join(Utilities.documents, f'Sabolyman', 'Graph')
+
+    @property
+    def gantt_chart_folder_path(self) -> str:
+        return os.path.join(Utilities.documents, f'Sabolyman', 'Gantt Chart')
 
     @property
     def mail_template_package(self) -> str:
