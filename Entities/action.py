@@ -27,6 +27,7 @@ class Action(EntityABC):
         self._color_set_by_user = self._color
         self._client = Person('')
         self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17)
+        self._start_from = self._date_created
         self._id = None
 
     @property
@@ -177,6 +178,22 @@ class Action(EntityABC):
     def get_dead_line(self) -> datetime.datetime:
         return self._dead_line
 
+    def set_start_from_by_str(self, start_from_str: str):
+        self.set_start_from(str_to_date_time(start_from_str))
+
+    def set_start_from(self, start_from: datetime.datetime):
+        self._start_from = start_from
+
+    def increment_start_from_by(self, days: int):
+        new_start_from = self._start_from + datetime.timedelta(days)
+        self.set_start_from(new_start_from)
+
+    def increment_start_from_hours_by(self, hours: int):
+        self._start_from += datetime.timedelta(0, hours * 60 * 60)
+
+    def get_start_from(self) -> datetime.datetime:
+        return self._start_from
+
     def update_date_created(self):
         self._date_created = datetime.datetime.now()
 
@@ -203,6 +220,7 @@ class Action(EntityABC):
             'client': self._client.state,
             'completed_time': self.time_completed,
             'dead_line': self._dead_line,
+            'start_from': self._start_from,
             'id': self._id,
             'color': self._color,
         }
@@ -220,6 +238,7 @@ class Action(EntityABC):
         self._client = factory1.factory_person(state, 'client')
         self._time_completed = state.get('completed_time', None)
         self._dead_line = state.get('dead_line', datetime.datetime(tm.year, tm.month, tm.day, 17, 0))
+        self._start_from = state.get('start_from', self._date_created)
         self._id = state.get('id', None)
         self._color = state.get('color', 'White')
         self._color_set_by_user = self._color

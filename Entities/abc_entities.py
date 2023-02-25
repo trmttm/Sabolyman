@@ -87,6 +87,11 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def default_start_from(self) -> datetime.datetime:
+        pass
+
+    @property
+    @abc.abstractmethod
     def default_client_name(self) -> str:
         pass
 

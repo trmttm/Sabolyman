@@ -50,6 +50,10 @@ class Entities(EntitiesABC):
         return self._default_values.dead_line
 
     @property
+    def default_start_from(self) -> datetime.datetime:
+        return self._default_values.start_from
+
+    @property
     def default_client_name(self) -> str:
         return self._default_values.client_name
 

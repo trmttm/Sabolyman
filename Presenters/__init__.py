@@ -56,6 +56,9 @@ class Presenters(PresentersABC):
     def update_action_due_date(self, due_date: datetime.datetime):
         self._view.set_value(WidgetNames.entry_action_dead_line, Utilities.datetime_to_str(due_date))
 
+    def update_action_start_from(self, start_from: datetime.datetime):
+        self._view.set_value(WidgetNames.entry_action_start_from, Utilities.datetime_to_str(start_from))
+
     def update_action_client(self, client_name: str):
         self._view.set_value(WidgetNames.entry_action_client, client_name)
 

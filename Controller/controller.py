@@ -69,6 +69,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.entry_action_time_expected,
       lambda *_: wrapper(lambda *_: i.set_action_time_expected(s.get_action_time_expected(v), ai(v))))
     f(wn.entry_action_dead_line, lambda *_: wrapper(lambda *_: i.set_dead_line(s.get_dead_line_str(v), ai(v))))
+    f(wn.entry_action_start_from, lambda *_: wrapper(lambda *_: i.set_start_from(s.get_start_from_str(v), ai(v))))
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v), ai(v))),
 

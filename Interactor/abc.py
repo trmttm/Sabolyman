@@ -65,6 +65,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def set_start_from(self, start_from_str: str, indexes: Tuple[int, ...]):
+        pass
+
+    @abc.abstractmethod
     def set_client(self, client_name: str, actions_indexes: Tuple[int, ...]):
         pass
 

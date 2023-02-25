@@ -54,6 +54,7 @@ from . import set_card_name
 from . import set_color_to_actions
 from . import set_color_to_cards
 from . import set_dead_line
+from . import set_start_from
 from . import shift_actions_dead_lines_by
 from . import shift_actions_dead_lines_hours_by
 from . import shift_cards_dead_lines
@@ -229,6 +230,12 @@ class Interactor(InteractorABC):
             self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
 
         set_dead_line.execute(self._entities, self._presenters, dead_line_str, indexes, ask_user)
+
+    def set_start_from(self, start_from_str: str, indexes: Tuple[int, ...]):
+        def ask_user(message: str, **kwargs):
+            self.feed_back_user_by_popup('Changing multiple actions!', message, 400, 400, **kwargs)
+
+        set_start_from.execute(self._entities, self._presenters, start_from_str, indexes, ask_user)
 
     def shift_actions_dead_lines_by(self, days: int, indexes: Tuple[int, ...]):
         shift_actions_dead_lines_by.execute(self._entities, self._presenters, days, indexes)

@@ -15,6 +15,11 @@ class DefaultValues:
         return datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
 
     @property
+    def start_from(self) -> datetime.datetime:
+        tm = datetime.datetime.today() + datetime.timedelta(0)
+        return datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
+
+    @property
     def client_name(self) -> str:
         return self._user_name
 

@@ -11,12 +11,12 @@ from . import present_card_list
 
 def execute(e: EntitiesABC, p: PresentersABC, datetime_str: str, indexes: Tuple[int, ...],
             ask_user: Callable = None):
-    update_method = update_actions_dead_lines
+    update_method = update_actions_start_from
     ask_and_set_datetime_by_str.execute(datetime_str, update_method, ask_user, e, p, indexes)
 
 
-def update_actions_dead_lines(datetime_str: str, actions: Tuple[Action, ...], e: EntitiesABC, p: PresentersABC):
+def update_actions_start_from(datetime_str: str, actions: Tuple[Action, ...], e: EntitiesABC, p: PresentersABC):
     for action in actions:
-        action.set_dead_line_by_str(datetime_str)
+        action.set_start_from_by_str(datetime_str)
         present_card_list.execute(e, p)
         present_action_list.execute(e, p)

@@ -55,6 +55,10 @@ def get_dead_line_str(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_action_dead_line)
 
 
+def get_start_from_str(v: ViewABC) -> str:
+    return v.get_value(WidgetNames.entry_action_start_from)
+
+
 def get_client(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_action_client)
 
