@@ -39,7 +39,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         main_modifier = KeyMap.control
         sub_modifier = KeyMap.control + KeyMap.shift
 
-    f((main_modifier, KeyMap.l), (lambda: i.load_state_from_file(app.select_open_file()), ''))
+    f((main_modifier, KeyMap.l), (lambda: i.load_state_from_file(app.select_open_file(i.save_state_path)), ''))
     f((main_modifier, KeyMap.s), (lambda: i.save_state(), ''))
     f((main_modifier + KeyMap.shift, KeyMap.s), (lambda: i.save_to_file(utilities.default_file_path(i, e)), ''))
     f((main_modifier, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))

@@ -24,10 +24,6 @@ from .synchronizer_action_card import SynchronizerActionCard
 
 class Entities(EntitiesABC):
 
-    @property
-    def synchronizer(self) -> SynchronizerABC:
-        return self._synchronizer_action_card
-
     def __init__(self):
         user_name = 'Taro Yamaka'
         self._cards = Cards()
@@ -39,6 +35,10 @@ class Entities(EntitiesABC):
         self._synchronizer_action_card = SynchronizerActionCard(self)
         self._copied_action = ()
         self._cut_manager = CutActionManager()
+
+    @property
+    def synchronizer(self) -> SynchronizerABC:
+        return self._synchronizer_action_card
 
     # Default Values
     @property

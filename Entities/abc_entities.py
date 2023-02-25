@@ -10,6 +10,7 @@ from .person import Person
 
 
 class EntitiesABC(abc.ABC):
+
     @property
     @abc.abstractmethod
     def my_cards(self) -> Tuple[Card, ...]:

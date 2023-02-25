@@ -21,7 +21,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Save Sate [cmd+s]': lambda: i.save_state(),
             'Save Sate as [shift+cmd+s]': lambda: i.save_to_file(
                 v.select_save_file(initialfile=utilities.default_file_name(e))),
-            'Load State': lambda: i.load_state_from_file(v.select_open_file()),
+            'Load State': lambda: i.load_state_from_file(v.select_open_file(i.save_state_path)),
             'Select GUI': {
                 'GUI 01': lambda: i.change_gui('gui01.gui'),
                 'GUI 02': lambda: i.change_gui('gui02.gui'),
@@ -49,8 +49,8 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Jump ↓': lambda: i.jump_to_implementation_card(focus_on_tree_actions),
             'Set starting date to': lambda: i.reset_card_starting_date(state.get_left_tree_selected_indexes(v),
                                                                        state.get_right_tree_selected_indexes(v), ),
-            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file()),
-            'Add Template Card': lambda: i.add_template_card(v.select_open_file()),
+            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file(i.cards_template_path)),
+            'Add Template Card': lambda: i.add_template_card(v.select_open_file(i.cards_template_path)),
             'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
             'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
                 state.get_left_tree_selected_indexes(v),

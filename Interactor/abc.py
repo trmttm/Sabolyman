@@ -167,6 +167,11 @@ class InteractorABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def save_state_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def mail_template_path(self) -> str:
         pass
 

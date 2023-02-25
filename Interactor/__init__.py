@@ -357,6 +357,10 @@ class Interactor(InteractorABC):
         return self._gateway.home_folder
 
     @property
+    def save_state_path(self) -> str:
+        return self._gateway.auto_save_path
+
+    @property
     def mail_template_path(self) -> str:
         return self._gateway.mail_template_path
 
