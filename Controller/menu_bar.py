@@ -44,12 +44,12 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'Show [ctrl+h]': i.unhide_finished_cards,
             },
             'Filter by Due Date': {
-                'Apply Filter': lambda: i.filter_cards_by_due_date(),
-                'Clear Filter': lambda: i.clear_filter_due_date(),
+                'Apply': lambda: i.filter_cards_by_due_date(),
+                'Clear': lambda: i.clear_filter_due_date(),
             },
             'Filter by Parent Card': {
-                'Apply Filter': lambda: i.filter_cards_by_parent(),
-                'Clear Filter': lambda: i.clear_filter_by_parent(),
+                'Apply': lambda: i.filter_cards_by_parent(),
+                'Clear': lambda: i.clear_filter_by_parent(),
             },
             'Filter by parent card': lambda: i.filter_cards_by_parent(),
         },
