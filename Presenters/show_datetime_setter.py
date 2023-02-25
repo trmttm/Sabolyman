@@ -20,12 +20,14 @@ def execute(v: ViewABC, view_model_passed: str, callback: Callable = None, **kwa
 
 def bind_command(view: ViewABC, callback: Callable = None):
     d = datetime.datetime.today()
+    d = datetime.datetime(d.year, d.month,d.day, d.hour, 0)
     if callback is None:
         callback = print
 
     def clear_datetime():
         nonlocal d
         d = datetime.datetime.today()
+        d = datetime.datetime(d.year, d.month, d.day, d.hour, 0)
         update_label(d)
 
     def increment_year(year: int):
@@ -113,3 +115,4 @@ def bind_command(view: ViewABC, callback: Callable = None):
     view.bind_command_to_widget('btn_Min-', lambda: increment_minutes(-5))
     view.bind_command_to_widget('btn_clear', lambda: clear_datetime())
     view.bind_command_to_widget('btn_OK', lambda: upon_ok(d))
+    update_label(d)
