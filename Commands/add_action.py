@@ -12,5 +12,6 @@ class AddAction(UseCase):
         entities = self._entities
 
         action = self._command_create_action.execute()
+        action.set_color(entities.active_card.color)
         entities.add_new_action(action)
         entities.set_active_action(action)
