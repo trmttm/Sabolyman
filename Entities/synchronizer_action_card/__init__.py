@@ -12,6 +12,7 @@ from .sync_mutually import sync_mutually
 from .sync_owner import sync_owner
 from .sync_remove_action import synchronize_remove_action
 from .sync_remove_card import synchronize_remove_card
+from .sync_start_from import sync_start_from
 from ..abc_entities import EntitiesABC
 from ..abc_entity import EntityABC
 from ..action import Action
@@ -111,6 +112,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
 def synchronize(implementation_card: Card, policy_action: Action, synchronizer: SynchronizerABC):
     sync_mutually(policy_action, implementation_card, synchronizer)
     sync_dead_line(policy_action, synchronizer.get_implementation_card)
+    sync_start_from(policy_action, synchronizer.get_implementation_card)
     sync_mark_done(implementation_card, synchronizer.get_policy_action)
     prevent_mark_done_policy_action(policy_action, synchronizer)
     sync_owner(policy_action, implementation_card)

@@ -88,6 +88,12 @@ class Card(EntityABC):
     def dead_line_max(self):
         return self._dead_line(max)
 
+    def start_from_max(self):
+        return self._start_from(max)
+
+    def start_from_min(self):
+        return self._start_from(min)
+
     def _dead_line(self, max_or_min):
         all_actions = self._actions.all_actions
         undone_actions = tuple(a for a in all_actions if not a.is_done)
@@ -99,10 +105,23 @@ class Card(EntityABC):
             dead_line = max_or_min(a.get_dead_line() for a in all_actions)
         return dead_line
 
+    def _start_from(self, max_or_min):
+        all_actions = self._actions.all_actions
+        if len(all_actions) == 0:
+            start_from = datetime.datetime.today()
+        else:
+            start_from = max_or_min(a.get_start_from() for a in all_actions)
+        return start_from
+
     def increment_deadline_by(self, days: int):
         for action in self.all_actions:
             if not action.is_done:
                 action.increment_deadline_by(days)
+
+    def increment_start_from_by(self, days: int):
+        for action in self.all_actions:
+            if not action.is_done:
+                action.increment_start_from_by(days)
 
     @property
     def all_actions(self) -> List[Action]:
