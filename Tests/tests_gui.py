@@ -80,6 +80,16 @@ class MyTestCase(unittest.TestCase):
         # binding commands here - END
         view.launch_app()
 
+    def test_datetime_setter(self):
+        import GUI
+        module = GUI.datetime_setter
+        view = instantiate_view(module, width=400, height=150)
+        # binding commands here - START
+        from Presenters.show_datetime_setter import bind_command
+        bind_command(view)
+        # binding commands here - END
+        view.launch_app()
+
     def test_combined_01(self):
         save_pickle = True
 
