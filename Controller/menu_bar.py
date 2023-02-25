@@ -39,10 +39,19 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Node Edge Graph (config)': lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(),
         },
         'View': {
-            'Hide Finished Cards [ctrl+h]': i.hide_finished_cards,
-            'Show Finished Cards [ctrl+h]': i.unhide_finished_cards,
-            'Filter by due date': lambda: i.filter_cards_by_due_date(),
-            'Clear due date filter': lambda: i.clear_filter_due_date(),
+            'Filter Finished Cards': {
+                'Hide [ctrl+h]': i.hide_finished_cards,
+                'Show [ctrl+h]': i.unhide_finished_cards,
+            },
+            'Filter by Due Date': {
+                'Apply Filter': lambda: i.filter_cards_by_due_date(),
+                'Clear Filter': lambda: i.clear_filter_due_date(),
+            },
+            'Filter by Parent Card': {
+                'Apply Filter': lambda: i.filter_cards_by_parent(),
+                'Clear Filter': lambda: i.clear_filter_by_parent(),
+            },
+            'Filter by parent card': lambda: i.filter_cards_by_parent(),
         },
         'Cards': {
             'Jump ↑': lambda: i.jump_to_policy_action(focus_on_tree_actions),

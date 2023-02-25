@@ -287,7 +287,15 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def set_filter_parent_card_id(self, card_id: str):
+        pass
+
+    @abc.abstractmethod
     def clear_filter_due_date(self):
+        pass
+
+    @abc.abstractmethod
+    def clear_filter_by_parent(self):
         pass
 
     @property

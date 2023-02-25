@@ -103,6 +103,13 @@ class Entities(EntitiesABC):
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
         visible_cards = cards_tuple
 
+        # Filter by parent card
+        s = self._synchronizer_action_card
+
+        if self._filter.filter_parent_card_id is not None:
+            parent_card = self.get_card_by_id(self._filter.filter_parent_card_id)
+            visible_cards = tuple(c for c in s.get_all_descendants(parent_card) if c in visible_cards)
+
         # Filter 0 Filter by due date
         if self._filter.filter_due_date is not None:
             filter_due_date = self._filter.filter_due_date
@@ -141,9 +148,14 @@ class Entities(EntitiesABC):
     def set_filter_due_date(self, date: datetime.datetime.day):
         self._filter.set_filter_due_date(date)
 
+    def set_filter_parent_card_id(self, card_id: str):
+        self._filter.set_filter_parent_card_id(card_id)
+
     def clear_filter_due_date(self):
         self._filter.set_filter_due_date(None)
 
+    def clear_filter_by_parent(self):
+        self._filter.set_filter_parent_card_id(None)
     @property
     def filter_key(self) -> str:
         return self._filter.filter_key

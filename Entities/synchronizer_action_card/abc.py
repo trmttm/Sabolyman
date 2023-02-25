@@ -31,5 +31,9 @@ class SynchronizerABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def get_all_descendants(self, parent_card: Card) -> list[Card]:
+        pass
+
+    @abc.abstractmethod
     def card_has_policy_action(self, card_id: str) -> bool:
         pass

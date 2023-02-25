@@ -8,6 +8,7 @@ class CardFilter:
         self._filter_mode = self._all_filter_modes[0]
         self._filter_key = ''
         self._filter_due_date = None
+        self._filter_parent_card_id = None
         self._hide_finished_cards = True
 
     @property
@@ -21,6 +22,10 @@ class CardFilter:
     @property
     def filter_due_date(self) -> Union[None, datetime.date]:
         return self._filter_due_date
+
+    @property
+    def filter_parent_card_id(self) -> Union[None, str]:
+        return self._filter_parent_card_id
 
     @property
     def filter_mode(self) -> str:
@@ -38,6 +43,9 @@ class CardFilter:
 
     def set_filter_due_date(self, filter_due_date: Union[None, datetime.date]):
         self._filter_due_date = filter_due_date
+
+    def set_filter_parent_card_id(self, card_id):
+        self._filter_parent_card_id = card_id
 
     def clear_filter_mode(self):
         self.set_filter_mode(self._all_filter_modes[0])
@@ -58,6 +66,7 @@ class CardFilter:
             'filter_mode': self._filter_mode,
             'filter_key': self._filter_key,
             'filter_due_date': self._filter_due_date,
+            'filter_parent_card_id': self._filter_parent_card_id,
             'hide_finished_cards': self._hide_finished_cards,
         }}
 
@@ -66,4 +75,5 @@ class CardFilter:
         self._filter_mode = filter_state.get('filter_mode', self._all_filter_modes[0])
         self._filter_key = filter_state.get('filter_key', '')
         self._filter_due_date = filter_state.get('filter_due_date', None)
+        self._filter_parent_card_id = filter_state.get('filter_parent_card_id', None)
         self._hide_finished_cards = filter_state.get('hide_finished_cards', True)

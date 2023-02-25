@@ -3,6 +3,7 @@ from typing import Dict
 from typing import Union
 
 from . import constants
+from . import get_all_descendants
 from .abc import SynchronizerABC
 from .prevent_mark_done_policy_action import prevent_mark_done_policy_action
 from .sync_add_new_action import synchronize_add_new_action
@@ -88,6 +89,9 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         action_id = self.get_policy_action_id(card_id)
         if action_id is not None:
             return self._entities.get_action_by_id(action_id)
+
+    def get_all_descendants(self, parent_card: Card) -> list[Card]:
+        return get_all_descendants.execute(parent_card, self)
 
     def load_state(self, state: dict):
         self._synchronization_table = state.get('sync_state', {})

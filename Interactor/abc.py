@@ -211,7 +211,15 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def filter_cards_by_parent(self):
+        pass
+
+    @abc.abstractmethod
     def clear_filter_due_date(self):
+        pass
+
+    @abc.abstractmethod
+    def clear_filter_by_parent(self):
         pass
 
     @abc.abstractmethod

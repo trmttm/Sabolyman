@@ -24,6 +24,7 @@ from . import duplicate_selected_card
 from . import export_actions_list
 from . import export_gantt_chart_data
 from . import filter_cards_by_due_date
+from . import filter_cards_by_parent
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
 from . import increment_card_importance
@@ -172,6 +173,13 @@ class Interactor(InteractorABC):
 
     def clear_filter_due_date(self):
         self._entities.clear_filter_due_date()
+        present_card_list.execute(self._entities, self._presenters)
+
+    def filter_cards_by_parent(self):
+        filter_cards_by_parent.execute(self._entities, self._presenters)
+
+    def clear_filter_by_parent(self):
+        self._entities.clear_filter_by_parent()
         present_card_list.execute(self._entities, self._presenters)
 
     def convert_selected_cards_to_actions(self, left_indexes_and_right_indexes: Tuple[Tuple[int, ...], ...]):
