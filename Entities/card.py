@@ -217,10 +217,6 @@ class Card(EntityABC):
         if self._id is None:
             self._id = str(uuid.uuid4())
 
-    def reset_all_actions_ids(self):
-        for action in self.all_actions:
-            action.set_id()
-
     @property
     def id(self) -> str:
         if self._id is None:
