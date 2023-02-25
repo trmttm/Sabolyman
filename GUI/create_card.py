@@ -55,18 +55,22 @@ def get_actions_properties(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_action_name').text('Name').width(10).padding(5, 0),
             w.Entry(wn.entry_action_name).default_value('Action Name', ).padding(25, 0),
+            w.Spacer().adjust(-1),
+        ),
+        stacker.hstack(
             w.Label('lbl_action_deadline').text('Dead line:').width(10).padding(5, 0),
             w.Entry(wn.entry_action_dead_line).default_value('2022/07/22 15:00').padding(25, 0),
-            w.Spacer().adjust(-3),
-            w.Spacer().adjust(-2),
+            w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_owner').text('Owner').width(10).padding(5, 0),
             w.Entry(wn.entry_action_owner).default_value('Owner Name').padding(25, 0),
+            w.Spacer().adjust(-1),
+        ),
+        stacker.hstack(
             w.Label('lbl_client').text('Client').width(10).padding(5, 0),
             w.Entry(wn.entry_action_client).default_value('Client Name').padding(25, 0),
-            w.Spacer().adjust(-3),
-            w.Spacer().adjust(-2),
+            w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_time').text('Time expected').width(10).padding(5, 0),
@@ -75,7 +79,9 @@ def get_actions_properties(stacker: Stacker):
                 w.Button(wn.button_set_duration).text('+').width(1),
             ),
             w.Spacer(),
-            w.Label('lbl_done').text('Done').width(10).padding(30, 0),
+        ),
+        stacker.hstack(
+            w.Label('lbl_done').text('Done').width(10).padding(5, 0),
             w.CheckButton(wn.check_button_action_done).value(False).padding(25, 0),
             w.Spacer().adjust(-2),
         ),
