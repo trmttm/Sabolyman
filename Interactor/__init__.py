@@ -253,7 +253,7 @@ class Interactor(InteractorABC):
     def paste_actions_as_alias(self):
         paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)
 
-    def implement_lower_level_detail(self):
+    def implement_lower_level_detail(self, *_):
         implement_lower_level_detail.execute(self._entities, self._presenters)
 
     def abstract_out_card_as_an_action_and_copy(self):

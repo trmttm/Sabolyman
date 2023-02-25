@@ -303,7 +303,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def implement_lower_level_detail(self):
+    def implement_lower_level_detail(self, *_):
         pass
 
     @abc.abstractmethod
