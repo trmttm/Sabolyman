@@ -9,6 +9,7 @@ import WidgetNames
 from . import ask_user_date
 from . import display_progress_dialogue
 from . import message_box
+from . import show_datetime_setter
 from . import show_mail_creator
 from . import show_minute_setter
 from . import update_actions
@@ -97,8 +98,11 @@ class Presenters(PresentersABC):
     def show_mail_creator(self, file_name: str, template_to_text: dict):
         show_mail_creator.execute(self._view, file_name, template_to_text)
 
-    def show_minutes_setter(self, view_model, upon_ok: Callable = None):
-        show_minute_setter.execute(self._view, view_model, upon_ok)
+    def show_minutes_setter(self, view_model, upon_ok: Callable = None,**kwargs):
+        show_minute_setter.execute(self._view, view_model, upon_ok, **kwargs)
+
+    def show_datetime_setter(self, view_model, upon_ok: Callable = None, **kwargs):
+        show_datetime_setter.execute(self._view, view_model, upon_ok, **kwargs)
 
     # Popup
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):

@@ -51,20 +51,20 @@ class MyTestCase(unittest.TestCase):
         file_name = 'minutes_setter.gui'
         parent = 'minute_setter_parent'
 
-        view_model = GUI.create_sand_box.get_view_model(parent)
+        view_model = GUI.minutes_setter.get_view_model(parent)
         import pickle
         with open(file_name, 'wb') as f:
             pickle.dump(view_model, f)
 
     def test_load_pickle(self):
-        file_name = 'minutes_setter.gui'
-        specified_parent = 'minute_setter_parent'
+        file_name = 'datetime_setter.gui'
+        specified_parent = 'datetime_setter_parent'
         parent_widget = 'toplevel'
 
         app = load_gui_from_pickle(file_name, specified_parent, parent_widget)
 
         # binding commands here - START
-        from Presenters.show_minute_setter import bind_command
+        from Presenters.show_datetime_setter import bind_command
         bind_command(app)
         # binding commands here - END
 

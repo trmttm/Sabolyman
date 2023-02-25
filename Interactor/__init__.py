@@ -59,6 +59,8 @@ from . import shift_actions_dead_lines_by
 from . import shift_actions_dead_lines_hours_by
 from . import shift_cards_dead_lines
 from . import show_action_information
+from . import show_datetime_setter_dead_line
+from . import show_datetime_setter_start_from
 from . import show_email_creator1
 from . import show_minutes_setter
 from . import show_my_card_information
@@ -392,6 +394,12 @@ class Interactor(InteractorABC):
 
     def show_minutes_setter(self, indexes):
         show_minutes_setter.execute(self._entities, self._presenters, self._gateway, indexes)
+
+    def show_datetime_setter_start_from(self, indexes):
+        show_datetime_setter_start_from.execute(self._entities, self._presenters, self._gateway, indexes)
+
+    def show_datetime_setter_dead_line(self, indexes):
+        show_datetime_setter_dead_line.execute(self._entities, self._presenters, self._gateway, indexes)
 
     # Export
     def export_actions_list(self, file_name: str):

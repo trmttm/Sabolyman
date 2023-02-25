@@ -235,6 +235,14 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def show_datetime_setter_start_from(self, indexes):
+        pass
+
+    @abc.abstractmethod
+    def show_datetime_setter_dead_line(self, indexes):
+        pass
+
+    @abc.abstractmethod
     def sort_cards_by_color(self):
         pass
 

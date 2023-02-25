@@ -95,7 +95,11 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def show_minutes_setter(self, view_model, upon_ok: Callable = None):
+    def show_minutes_setter(self, view_model, upon_ok: Callable = None, **kwargs):
+        pass
+
+    @abc.abstractmethod
+    def show_datetime_setter(self, view_model, upon_ok: Callable = None, **kwargs):
         pass
 
     @abc.abstractmethod

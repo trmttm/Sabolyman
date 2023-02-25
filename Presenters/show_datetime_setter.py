@@ -8,9 +8,10 @@ file_name = 'datetime_setter.gui'
 specified_parent = 'datetime_setter_parent'
 
 
-def execute(v: ViewABC, view_model_passed: str, callback: Callable = None):
+def execute(v: ViewABC, view_model_passed: str, callback: Callable = None, **kwargs):
     parent_widget = 'toplevel'
-    view_model = [widget_model('root', specified_parent, parent_widget, 0, 0, 0, 0, 'nswe', **{'geometry': '250x100'})]
+    view_model = [widget_model('root', specified_parent, parent_widget, 0, 0, 0, 0, 'nswe', **{'geometry': '400x150'
+        , 'title': kwargs.get('title', 'Set Date Time')})]
     view_model += view_model_passed
 
     v.add_widgets(view_model)

@@ -14,6 +14,7 @@ def create_stacker(parent):
         stacker.hstack(
             w.Spacer(),
             w.Label('lbl_minutes').text(f'00:00'),
+            w.Spacer(),
         ),
         stacker.hstack(
             w.Button('btn_05').text('5').width(2),
