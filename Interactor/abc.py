@@ -235,7 +235,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def export_gantt_chart_data(self):
+    def export_gantt_chart_data(self, max_level: int = None):
         pass
 
     @property

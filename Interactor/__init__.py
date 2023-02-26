@@ -420,8 +420,8 @@ class Interactor(InteractorABC):
     def export_actions_list(self, file_name: str):
         export_actions_list.execute(file_name, self._entities, self._gateway)
 
-    def export_gantt_chart_data(self):
-        export_gantt_chart_data.execute(self._entities, self._gateway)
+    def export_gantt_chart_data(self,max_level:int=None):
+        export_gantt_chart_data.execute(self._entities, self._gateway, max_level=max_level)
 
     def open_display_progress_dialogue(self):
         options = {'title': 'Tasks completed during...'}

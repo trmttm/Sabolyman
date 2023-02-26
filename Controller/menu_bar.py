@@ -31,7 +31,13 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'Export': {
             'Export Actions List': lambda: i.export_actions_list(
                 v.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
-            'Export Gantt Chart': lambda: i.export_gantt_chart_data(),
+            'Export Gantt Chart': {
+                'level 0': lambda: i.export_gantt_chart_data(),
+                'level 1': lambda: i.export_gantt_chart_data(1),
+                'level 2': lambda: i.export_gantt_chart_data(2),
+                'level 3': lambda: i.export_gantt_chart_data(3),
+                'level 4': lambda: i.export_gantt_chart_data(4),
+            },
             'Display due tasks': lambda: i.open_display_due_tasks_dialogue(),
             'Display progress': lambda: i.open_display_progress_dialogue(),
             'Display new tasks': lambda: i.open_display_new_tasks_dialogue(),
