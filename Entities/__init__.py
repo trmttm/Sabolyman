@@ -156,6 +156,7 @@ class Entities(EntitiesABC):
 
     def clear_filter_by_parent(self):
         self._filter.set_filter_parent_card_id(None)
+
     @property
     def filter_key(self) -> str:
         return self._filter.filter_key
@@ -450,6 +451,11 @@ class Entities(EntitiesABC):
 
     def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
         return self._sorter.sorter_values(cards_)
+
+    def force_set_ids(self, c: Card):
+        c.force_set_id()
+        for a in c.all_actions:
+            a.force_set_id()
 
 
 def get_card_by_index(cards_tuple, index) -> Card:

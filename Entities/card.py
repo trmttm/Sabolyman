@@ -217,6 +217,9 @@ class Card(EntityABC):
         if self._id is None:
             self._id = str(uuid.uuid4())
 
+    def force_set_id(self):
+        self._id = str(uuid.uuid4())
+
     @property
     def id(self) -> str:
         if self._id is None:

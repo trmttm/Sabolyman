@@ -385,3 +385,7 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def synchronizer(self):
         pass
+
+    @abc.abstractmethod
+    def force_set_ids(self, c: Card):
+        pass

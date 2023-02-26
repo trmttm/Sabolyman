@@ -33,7 +33,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_template_card(self, file_name: str):
+    def load_template_card(self, file_name: str):
         pass
 
     @abc.abstractmethod

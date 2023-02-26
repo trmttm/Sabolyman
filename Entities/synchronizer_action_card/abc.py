@@ -37,3 +37,11 @@ class SynchronizerABC(abc.ABC):
     @abc.abstractmethod
     def card_has_policy_action(self, card_id: str) -> bool:
         pass
+
+    @property
+    @abc.abstractmethod
+    def state(self) -> dict:
+        pass
+
+    def synchronize_card_to_action(self, policy_action: Action, implementation_card: Card):
+        pass

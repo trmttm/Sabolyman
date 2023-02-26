@@ -10,7 +10,6 @@ from Presenters import PresentersABC
 from . import abstract_out
 from . import add_new_action
 from . import add_new_card
-from . import add_template_card
 from . import convert_cards_to_actions
 from . import create_mail_menu
 from . import delete_selected_actions
@@ -32,6 +31,7 @@ from . import jump_to_implementation_card
 from . import jump_to_policy_action
 from . import load_gui
 from . import load_state_from_file
+from . import load_template_card
 from . import mark_action_completed
 from . import move_actions_down
 from . import move_actions_up
@@ -105,8 +105,8 @@ class Interactor(InteractorABC):
     def save_as_template_card(self, file_name: str):
         save_as_template_card.execute(self._entities, self._gateway, file_name)
 
-    def add_template_card(self, file_name: str):
-        add_template_card.execute(self._entities, self._gateway, self._presenters, file_name)
+    def load_template_card(self, file_name: str):
+        load_template_card.execute(self._entities, self._gateway, self._presenters, file_name)
 
     # Cards
     def add_new_card(self):

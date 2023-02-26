@@ -56,15 +56,19 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'Cards': {
             'Jump ↑': lambda: i.jump_to_policy_action(focus_on_tree_actions),
             'Jump ↓': lambda: i.jump_to_implementation_card(focus_on_tree_actions),
-            'Set starting date to': lambda: i.reset_card_starting_date(state.get_left_tree_selected_indexes(v),
-                                                                       state.get_right_tree_selected_indexes(v), ),
-            'Save as Template Card': lambda: i.save_as_template_card(v.select_save_file(i.cards_template_path)),
-            'Add Template Card': lambda: i.add_template_card(v.select_open_file(i.cards_template_path)),
-            'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
-            'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
-                state.get_left_tree_selected_indexes(v),
-                state.get_right_tree_selected_indexes(v),
-                v.ask_color()),
+            'Template Card': {
+                'Load': lambda: i.load_template_card(v.select_open_file(i.cards_template_path)),
+                'Save': lambda: i.save_as_template_card(v.select_save_file(i.cards_template_path)),
+            },
+            'Edit': {
+                'Duplicate Card [cmd+d]': lambda: i.duplicate_selected_card(),
+                'Set starting date to': lambda: i.reset_card_starting_date(state.get_left_tree_selected_indexes(v),
+                                                                           state.get_right_tree_selected_indexes(v), ),
+                'Set Color [ctrl+c]': lambda: i.set_color_to_cards(
+                    state.get_left_tree_selected_indexes(v),
+                    state.get_right_tree_selected_indexes(v),
+                    v.ask_color()),
+            },
             'Convert to Action(s)': lambda: i.convert_selected_cards_to_actions(state.get_trees_selected_indexes(v)),
             'Abstract out as an action': lambda: i.abstract_out_card_as_an_action_and_copy(),
             'Sort': {
@@ -143,4 +147,4 @@ def now() -> str:
 
 
 def load_habit(i: InteractorABC, file_name: str):
-    i.add_template_card(path.join(i.cards_template_path, file_name))
+    i.load_template_card(path.join(i.cards_template_path, file_name))
