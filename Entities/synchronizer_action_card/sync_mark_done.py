@@ -13,7 +13,7 @@ def sync_mark_done(implementation_card: Card, get_policy_action: Callable):
                 if implementation_card.is_done:
                     policy_action = get_policy_action(implementation_card.id)
                     if policy_action is not None:
-                        policy_action.unwrapped_mark_done()
+                        policy_action.mark_not_done_programmatically()
 
             return wrapped
 
@@ -22,7 +22,7 @@ def sync_mark_done(implementation_card: Card, get_policy_action: Callable):
                 mark_not_done()
                 policy_action = get_policy_action(implementation_card.id)
                 if policy_action is not None:
-                    policy_action.unwrapped_mark_not_done()
+                    policy_action.mark_not_done_programmatically()
 
             return wrapped
 
@@ -35,6 +35,6 @@ def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
     policy_action = synchronizer.get_policy_action(active_card.id)
     if policy_action is not None:
         if active_card.is_done:
-            policy_action.mark_done()
+            policy_action.mark_done_programmatically()
         else:
-            policy_action.mark_not_done()
+            policy_action.mark_not_done_programmatically()

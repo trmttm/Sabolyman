@@ -67,9 +67,17 @@ class Action(EntityABC):
         return self._date_created
 
     def mark_done(self):
-        self._is_done = True
+        self.mark_done_programmatically()
 
     def mark_not_done(self):
+        self.mark_not_done_programmatically()
+
+    def mark_done_programmatically(self):
+        # Not subject to synchronizer wrapper
+        self._is_done = True
+
+    def mark_not_done_programmatically(self):
+        # Not subject to synchronizer wrapper
         self._is_done = False
         self._time_completed = None
 
