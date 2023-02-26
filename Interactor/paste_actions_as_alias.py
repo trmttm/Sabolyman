@@ -33,7 +33,7 @@ def create_alias_of_action_if_not_duplicate(e: EntitiesABC):
 def remove_actions_if_cut_mode(e: EntitiesABC):
     if e.is_cut_mode:
         card_to_cut_action_from = e.card_to_cut_action_from
-        for action in card_to_cut_action_from.all_actions:
+        for action in tuple(card_to_cut_action_from.all_actions):
             if action in e.copied_actions:
                 card_to_cut_action_from.actions.remove_action(action)
         e.turn_off_cut_mode()
@@ -45,6 +45,7 @@ def handle_done_not_done_status_and_select_the_right_card(e: EntitiesABC):
         if s.card_has_policy_action(e.active_card.id):
             policy_action = s.get_policy_action(e.active_card.id)
             policy_action.mark_done_programmatically()
+            policy_action.set_completed_time(max(a.time_completed for a in e.active_card.all_actions))
             find_and_activate_a_card_that_has_the_policy_action(e, policy_action)
 
 
