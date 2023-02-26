@@ -78,6 +78,7 @@ class Interactor(InteractorABC):
         self._presenters = presenters
         self._gateway = gateway
         self._keymaps = KeyMaps()
+        self._recursive_counter = 0
 
         entities.attach_to_synchronizer(self.synchronizer_notification_handler)
 
@@ -420,7 +421,7 @@ class Interactor(InteractorABC):
     def export_actions_list(self, file_name: str):
         export_actions_list.execute(file_name, self._entities, self._gateway)
 
-    def export_gantt_chart_data(self,max_level:int=None):
+    def export_gantt_chart_data(self, max_level: int = None):
         export_gantt_chart_data.execute(self._entities, self._gateway, max_level=max_level)
 
     def open_display_progress_dialogue(self):
@@ -452,3 +453,13 @@ class Interactor(InteractorABC):
         save, feedback = self.save_state_silently, self.feed_back_user_by_popup
         kwargs = {'configure_dynamically': True}
         draw_graph_on_browser.execute(self._entities, self._gateway, save, feedback, **kwargs)
+
+    def increment_recursive_counter(self):
+        self._recursive_counter += 1
+
+    def reset_recursive_counter(self):
+        self._recursive_counter = 0
+
+    @property
+    def recursive_counter(self):
+        return self._recursive_counter

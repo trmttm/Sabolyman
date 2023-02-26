@@ -6,29 +6,26 @@ import WidgetNames
 from Interactor import InteractorABC
 from . import state as s
 
-recursive_counter = 0
-
 
 def configure_controller(v: ViewABC, i: InteractorABC):
     f = v.bind_command_to_widget
     wn = WidgetNames
     ai = s.get_actions_selected_indexes
 
-    def prevent_unintended_action_property_change_when_tab_is_pressed(method: Callable):
-        global recursive_counter
-        if recursive_counter == 0:
-            recursive_counter += 1
+    def prevent_unintended_action_property_change_when_tab_is_pressed(method: Callable, i: InteractorABC):
+        if i.recursive_counter == 0:
+            i.increment_recursive_counter()
             method()
             action_selected_indexes = s.get_actions_selected_indexes(v)
             if len(action_selected_indexes) > 0:
                 v.focus(WidgetNames.tree_card_actions, tree_item_position=action_selected_indexes)
         else:
-            recursive_counter = 0
+            i.reset_recursive_counter()
 
     wrapper = prevent_unintended_action_property_change_when_tab_is_pressed
 
     # prevent unintended action property change when tab is pressed
-    v.bind_tree_enter(lambda: upon_action_tree_entrance(v))
+    v.bind_tree_enter(lambda: upon_action_tree_entrance(v, i))
 
     # Search box
     v.set_combobox_values(wn.combobox_search_mode, i.search_mode)
@@ -65,18 +62,17 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.button_set_start_from, lambda: i.show_datetime_setter_start_from(ai(v)))
     f(wn.button_set_deadline, lambda: i.show_datetime_setter_dead_line(ai(v)))
     f(wn.tree_card_actions, lambda: i.show_action_information(ai(v)))
-    f(wn.entry_action_name, lambda *_: wrapper(lambda *_: i.set_action_name(s.get_action_name(v), ai(v))))
-    f(wn.entry_action_owner, lambda *_: wrapper(lambda *_: i.set_action_owner(s.get_action_owner_name(v), ai(v))))
-    f(wn.entry_action_client, lambda *_: wrapper(lambda *_: i.set_client(s.get_client(v), ai(v))))
+    f(wn.entry_action_name, lambda *_: wrapper(lambda *_: i.set_action_name(s.get_action_name(v), ai(v)), i))
+    f(wn.entry_action_owner, lambda *_: wrapper(lambda *_: i.set_action_owner(s.get_action_owner_name(v), ai(v)), i))
+    f(wn.entry_action_client, lambda *_: wrapper(lambda *_: i.set_client(s.get_client(v), ai(v)), i))
     f(wn.entry_action_time_expected,
-      lambda *_: wrapper(lambda *_: i.set_action_time_expected(s.get_action_time_expected(v), ai(v))))
-    f(wn.entry_action_dead_line, lambda *_: wrapper(lambda *_: i.set_dead_line(s.get_dead_line_str(v), ai(v))))
-    f(wn.entry_action_start_from, lambda *_: wrapper(lambda *_: i.set_start_from(s.get_start_from_str(v), ai(v))))
+      lambda *_: wrapper(lambda *_: i.set_action_time_expected(s.get_action_time_expected(v), ai(v)), i))
+    f(wn.entry_action_dead_line, lambda *_: wrapper(lambda *_: i.set_dead_line(s.get_dead_line_str(v), ai(v)), i))
+    f(wn.entry_action_start_from, lambda *_: wrapper(lambda *_: i.set_start_from(s.get_start_from_str(v), ai(v)), i))
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v), ai(v)))
 
 
-def upon_action_tree_entrance(v: ViewABC):
-    global recursive_counter
+def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):
     v.focus('root'), WidgetNames.tree_card_actions
-    recursive_counter = 0
+    i.reset_recursive_counter()

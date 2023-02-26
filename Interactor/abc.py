@@ -358,3 +358,16 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def jump_to_action_list(self, callback: Callable):
         pass
+
+    @abc.abstractmethod
+    def increment_recursive_counter(self):
+        pass
+
+    @abc.abstractmethod
+    def reset_recursive_counter(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def recursive_counter(self):
+        pass

@@ -32,6 +32,10 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         focus_on_tree_cards(active_card_is_my_ball, card_index)
         focus_on_tree_actions(action_index)
 
+    def user_means_to_edit():
+        print('User means to edit')
+        i.reset_recursive_counter()
+
     if os_identifier.is_mac:
         main_modifier = KeyMap.command
         sub_modifier = KeyMap.control
@@ -88,6 +92,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.c), (lambda: i.copy_actions(), ''))
     f((main_modifier, KeyMap.x), (lambda: i.cut_actions(), ''))
     f((main_modifier, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
+
+    f((main_modifier, KeyMap.e), (lambda: user_means_to_edit(), ''))
 
     # i.set_active_keymap('special')
     # f((KeyMap.command, KeyMap.a), (lambda: print('Hello!'), ''))
