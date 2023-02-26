@@ -41,6 +41,10 @@ class EntitiesABC(abc.ABC):
     def their_visible_cards(self) -> Tuple[Card, ...]:
         pass
 
+    @abc.abstractmethod
+    def card_is_visible(self, c: Card) -> bool:
+        pass
+
     @property
     @abc.abstractmethod
     def default_card_name(self) -> str:
@@ -190,6 +194,11 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def active_card_is_in_my_cards(self) -> bool:
+        pass
+
+    @property
+    @abc.abstractmethod
+    def active_card_is_in_my_visible_cards(self) -> bool:
         pass
 
     @property

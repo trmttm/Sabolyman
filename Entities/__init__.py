@@ -96,6 +96,9 @@ class Entities(EntitiesABC):
     def their_visible_cards(self) -> Tuple[Card, ...]:
         return self._visible_cards(self.their_cards)
 
+    def card_is_visible(self, c: Card) -> bool:
+        return (c in self.my_visible_cards) or (c in self.their_visible_cards)
+
     @property
     def card_filter_is_on(self) -> bool:
         return self._filter.card_filter_is_on
@@ -379,6 +382,10 @@ class Entities(EntitiesABC):
     @property
     def active_card_is_in_my_cards(self) -> bool:
         return self.active_card in self.my_cards
+
+    @property
+    def active_card_is_in_my_visible_cards(self) -> bool:
+        return self.active_card in self.my_visible_cards
 
     @property
     def active_card_index(self) -> int:
