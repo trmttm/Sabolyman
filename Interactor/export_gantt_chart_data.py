@@ -54,6 +54,7 @@ def recursively_add_data(e: EntitiesABC, action, index_n, level, **kwargs):
         'level': level,
         'index_n': index_n,
         'separator': kwargs.get('separator'),
+        'max_level': kwargs.get('max_level'),
     }
     implementation_card = s.get_implementation_card(action.id)
     add_data_recursively(implementation_card.all_actions, e, **kw)

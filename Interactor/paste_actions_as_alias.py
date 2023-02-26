@@ -59,7 +59,7 @@ def get_all_visible_cards_that_have_the_policy_action(e: EntitiesABC, policy_act
 
 
 def present_actions(e: EntitiesABC, p: PresentersABC, last_n_actions: int):
-    if last_n_actions:
+    if last_n_actions and e.active_card is not None:
         n_all_actions = len(e.active_card.all_actions)
         next_selection_index = tuple(n_all_actions - last_n_actions + i for i in range(last_n_actions))
         present_action_list.execute(e, p, next_selection_index)
