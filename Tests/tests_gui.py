@@ -145,7 +145,7 @@ class MyTestCase(unittest.TestCase):
         view.launch_app()
 
     def test_combined_03(self):
-        save_pickle = True
+        save_pickle = False
 
         import GUI
         from stacker import Stacker
@@ -167,7 +167,7 @@ class MyTestCase(unittest.TestCase):
                 pickle.dump(view_model, f)
 
         from view_tkinter import View
-        view = View(width=800, height=900)
+        view = View(fullscreen=True)
         view.add_widgets(view_model)
         view.launch_app()
 
