@@ -32,6 +32,38 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         focus_on_tree_cards(active_card_is_my_ball, card_index)
         focus_on_tree_actions(action_index)
 
+    def draw_node_graph_and_feedback():
+        i.display_selected_card_as_a_graph_on_the_browser()
+        kw = {'by_textbox': True, 'width': 800, 'height': 100}
+        i.feed_back_user_by_popup('Graph drawn', f'{i.active_card.name} graph saved to {i.graph_folder_path}', **kw)
+
+    def draw_node_graph_with_dynamic_config_and_feedback():
+        i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config()
+        kw = {'by_textbox': True, 'width': 800, 'height': 100}
+        i.feed_back_user_by_popup('Graph drawn', f'{i.active_card.name} graph saved to {i.graph_folder_path}', **kw)
+
+    def duplicate_and_feedback():
+        message = f'Card {i.active_card.name} duplicated\n\n'
+        i.duplicate_selected_card()
+        kw = {'by_textbox': True, 'width': 800, 'height': 100}
+        i.feed_back_user_by_popup('Cards duplicated', f'{message}', **kw)
+
+    def copy_and_feedback():
+        i.copy_actions()
+        message = 'Action(s) copied\n\n'
+        for n, a in enumerate(i.copied_actions):
+            message += f'{n + 1}:  {a.name}\n'
+        kw = {'by_textbox': True, 'width': 800, 'height': 200}
+        i.feed_back_user_by_popup('Actions copied', f'{message}', **kw)
+
+    def cut_and_feedback():
+        i.cut_actions()
+        message = 'Action(s) cut\n\n'
+        for n, a in enumerate(i.copied_actions):
+            message += f'{n + 1}:  {a.name}\n'
+        kw = {'by_textbox': True, 'width': 800, 'height': 200}
+        i.feed_back_user_by_popup('Actions cut', f'{message}', **kw)
+
     def user_means_to_edit():
         print('User means to edit')
         i.reset_recursive_counter()
@@ -47,7 +79,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.s), (lambda: i.save_state(), ''))
     f((main_modifier + KeyMap.shift, KeyMap.s), (lambda: i.save_to_file(utilities.default_file_path(i, e)), ''))
     f((main_modifier, KeyMap.w), (lambda: i.close(lambda: app.close('root')), ''))
-    f((main_modifier, KeyMap.d), (lambda: i.duplicate_selected_card(), ''))
+    f((main_modifier, KeyMap.d), (lambda: duplicate_and_feedback(), ''))
     f((main_modifier, KeyMap.m), (lambda: i.make_email(), ''))
     f((main_modifier, KeyMap.zero), (lambda: i.open_display_progress_dialogue(), ''))
     f((main_modifier, KeyMap.nine), (lambda: i.open_display_new_tasks_dialogue(), ''))
@@ -72,9 +104,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
 
     f((main_modifier, KeyMap.i), (lambda: i.feed_back_user_by_popup('Implement?', 'Implement as a Card', height=100,
                                                                     action_ok=i.implement_lower_level_detail), ''))
-    f((main_modifier, KeyMap.p), (lambda: i.display_selected_card_as_a_graph_on_the_browser(), ''))
-    f((main_modifier + KeyMap.shift, KeyMap.p),
-      (lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(), ''))
+    f((main_modifier, KeyMap.p), (lambda: draw_node_graph_and_feedback(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.p), (lambda: draw_node_graph_with_dynamic_config_and_feedback(), ''))
 
     f((KeyMap.control, '-'), (lambda: i.shift_actions_dead_lines_by(-1, state.get_actions_selected_indexes(app)), ''))
     f((KeyMap.control, '='), (lambda: i.shift_actions_dead_lines_by(1, state.get_actions_selected_indexes(app)), ''))
@@ -89,8 +120,8 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
     f((main_modifier + KeyMap.shift, KeyMap.j), (lambda: toggle_focus_on_tree_cards(), ''))
 
-    f((main_modifier, KeyMap.c), (lambda: i.copy_actions(), ''))
-    f((main_modifier, KeyMap.x), (lambda: i.cut_actions(), ''))
+    f((main_modifier, KeyMap.c), (lambda: copy_and_feedback(), ''))
+    f((main_modifier, KeyMap.x), (lambda: cut_and_feedback(), ''))
     f((main_modifier, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
 
     f((main_modifier, KeyMap.e), (lambda: user_means_to_edit(), ''))

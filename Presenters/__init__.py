@@ -98,7 +98,7 @@ class Presenters(PresentersABC):
     def show_mail_creator(self, file_name: str, template_to_text: dict):
         show_mail_creator.execute(self._view, file_name, template_to_text)
 
-    def show_minutes_setter(self, view_model, upon_ok: Callable = None,**kwargs):
+    def show_minutes_setter(self, view_model, upon_ok: Callable = None, **kwargs):
         show_minute_setter.execute(self._view, view_model, upon_ok, **kwargs)
 
     def show_datetime_setter(self, view_model, upon_ok: Callable = None, **kwargs):

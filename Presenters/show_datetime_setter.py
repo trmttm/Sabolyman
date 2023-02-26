@@ -20,7 +20,7 @@ def execute(v: ViewABC, view_model_passed: str, callback: Callable = None, **kwa
 
 def bind_command(view: ViewABC, callback: Callable = None):
     d = datetime.datetime.today()
-    d = datetime.datetime(d.year, d.month,d.day, d.hour, 0)
+    d = datetime.datetime(d.year, d.month, d.day, d.hour, 0)
     if callback is None:
         callback = print
 

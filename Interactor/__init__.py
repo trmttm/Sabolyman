@@ -198,6 +198,10 @@ class Interactor(InteractorABC):
         reset_card_starting_date.execute(*args)
 
     @property
+    def active_card(self):
+        return self._entities.active_card
+
+    @property
     def active_card_in_my_ball(self) -> bool:
         return self._entities.active_card_is_in_my_cards
 
@@ -265,6 +269,10 @@ class Interactor(InteractorABC):
     def cut_actions(self):
         self._entities.turn_on_cut_mode()
         self.copy_actions()
+
+    @property
+    def copied_actions(self) -> tuple:
+        return self._entities.copied_actions
 
     def paste_actions_as_duplicate(self):
         paste_action_as_duplicate.execute(self._entities, self._presenters)
@@ -368,6 +376,10 @@ class Interactor(InteractorABC):
     @property
     def save_state_path(self) -> str:
         return self._gateway.auto_save_path
+
+    @property
+    def graph_folder_path(self) -> str:
+        return self._gateway.graph_folder_path
 
     @property
     def mail_template_path(self) -> str:

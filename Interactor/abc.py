@@ -8,6 +8,11 @@ from interface_keymaps import KeyMapsABC
 class InteractorABC(abc.ABC):
     @property
     @abc.abstractmethod
+    def active_card(self):
+        pass
+
+    @property
+    @abc.abstractmethod
     def active_card_in_my_ball(self) -> bool:
         pass
 
@@ -172,6 +177,11 @@ class InteractorABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def graph_folder_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def mail_template_path(self) -> str:
         pass
 
@@ -301,6 +311,11 @@ class InteractorABC(abc.ABC):
 
     @abc.abstractmethod
     def cut_actions(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def copied_actions(self) -> tuple:
         pass
 
     @abc.abstractmethod
