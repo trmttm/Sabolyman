@@ -120,9 +120,9 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier, KeyMap.k), (lambda: i.jump_to_action_list(focus_on_tree_actions), ''))
     f((main_modifier + KeyMap.shift, KeyMap.j), (lambda: toggle_focus_on_tree_cards(), ''))
 
-    f((main_modifier, KeyMap.c), (lambda: copy_and_feedback(), ''))
-    f((main_modifier, KeyMap.x), (lambda: cut_and_feedback(), ''))
-    f((main_modifier, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.c), (lambda: copy_and_feedback(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.x), (lambda: cut_and_feedback(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
 
     f((main_modifier, KeyMap.e), (lambda: user_means_to_edit(), ''))
 
