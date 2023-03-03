@@ -145,7 +145,7 @@ class MyTestCase(unittest.TestCase):
         view.launch_app()
 
     def test_combined_03(self):
-        save_pickle = False
+        save_pickle = True
 
         import GUI
         from stacker import Stacker
