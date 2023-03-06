@@ -25,7 +25,13 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     wrapper = prevent_unintended_action_property_change_when_tab_is_pressed
 
     # prevent unintended action property change when tab is pressed
-    v.bind_tree_enter(lambda: upon_action_tree_entrance(v, i))
+    v.bind_tree_enter(lambda: upon_action_tree_entrance(v, i), wn.tree_card_actions)
+    v.bind_widget_entry(wn.entry_action_name, lambda: i.reset_recursive_counter())
+    v.bind_widget_entry(wn.entry_action_dead_line, lambda: i.reset_recursive_counter())
+    v.bind_widget_entry(wn.entry_action_client, lambda: i.reset_recursive_counter())
+    v.bind_widget_entry(wn.entry_action_owner, lambda: i.reset_recursive_counter())
+    v.bind_widget_entry(wn.entry_action_start_from, lambda: i.reset_recursive_counter())
+    v.bind_widget_entry(wn.entry_action_time_expected, lambda: i.reset_recursive_counter())
 
     # Search box
     v.set_combobox_values(wn.combobox_search_mode, i.search_mode)
