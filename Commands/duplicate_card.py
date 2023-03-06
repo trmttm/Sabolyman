@@ -18,8 +18,8 @@ class DuplicateCard(UseCase):
         for clone_action, original_action in zip(clone_card.all_actions, self._original_card.all_actions):
             if s.action_has_implementation_card(original_action.id):
                 # Recursively clone
-                sub_clone_card = DuplicateCard(self._entities, s.get_implementation_card(original_action.id)).execute()
-                self._entities.synchronize_action_to_card(clone_action, sub_clone_card)
+                impl_card = DuplicateCard(self._entities, s.get_implementation_card(original_action.id)).execute()
+                self._entities.synchronize_action_to_card(clone_action, impl_card)
 
         clone_card.set_name(f'{clone_card.name} copied')
         clone_card.update_date_created()
