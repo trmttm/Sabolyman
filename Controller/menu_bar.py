@@ -57,7 +57,6 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'Apply': lambda: i.filter_cards_by_parent(),
                 'Clear': lambda: i.clear_filter_by_parent(),
             },
-            'Filter by parent card': lambda: i.filter_cards_by_parent(),
         },
         'Cards': {
             'Jump ↑': lambda: i.jump_to_policy_action(focus_on_tree_actions),

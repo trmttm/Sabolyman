@@ -6,6 +6,7 @@ from typing import Union
 
 import Utilities
 
+from . import apply_filter
 from .abc_entities import EntitiesABC
 from .action import Action
 from .actions import Actions
@@ -39,6 +40,10 @@ class Entities(EntitiesABC):
     @property
     def synchronizer(self) -> SynchronizerABC:
         return self._synchronizer_action_card
+
+    @property
+    def filter(self) -> CardFilter:
+        return self._filter
 
     # Default Values
     @property
@@ -104,43 +109,7 @@ class Entities(EntitiesABC):
         return self._filter.card_filter_is_on
 
     def _visible_cards(self, cards_tuple: Tuple[Card, ...]) -> Tuple[Card, ...]:
-        visible_cards = cards_tuple
-
-        # Filter by parent card
-        s = self._synchronizer_action_card
-
-        if self._filter.filter_parent_card_id is not None:
-            parent_card = self.get_card_by_id(self._filter.filter_parent_card_id)
-            visible_cards = tuple(c for c in s.get_all_descendants(parent_card) if c in visible_cards)
-
-        # Filter 0 Filter by due date
-        if self._filter.filter_due_date is not None:
-            filter_due_date = self._filter.filter_due_date
-            due_today = tuple(c for c in visible_cards if c.dead_line.date() == filter_due_date)
-            undone = tuple(c for c in visible_cards if (c.dead_line.date() < filter_due_date and not c.is_done))
-            visible_cards = due_today + undone
-
-        # Filter 1
-        filter_mode = self._filter.filter_mode
-        filter_key = self._filter.filter_key
-        if filter_mode == 'Owner' and self._filter.hide_finished_cards:
-            visible_cards = tuple(c for c in visible_cards if c.get_search_undone_owner_result(filter_key) > 0)
-        elif filter_mode == 'Owner':
-            visible_cards = tuple(c for c in visible_cards if c.get_search_owner_result(filter_key) > 0)
-        elif filter_mode == 'Action Name':
-            visible_cards = tuple(c for c in visible_cards if c.get_search_action_name(filter_key) > 0)
-        elif filter_mode == 'Card Name':
-            visible_cards = tuple(c for c in visible_cards if c.get_search_card_name(filter_key) > 0)
-        elif filter_mode == 'Client Name':
-            visible_cards = tuple(c for c in visible_cards if c.get_search_action_client_name(filter_key) > 0)
-        else:
-            if self._filter.card_filter_is_on:
-                visible_cards = tuple(c for c in visible_cards if c.get_search_all_result(filter_key) > 0)
-
-        # Filter 2
-        if self._filter.hide_finished_cards:
-            visible_cards = tuple(c for c in visible_cards if not c.is_done)
-        return visible_cards
+        return apply_filter.execute(cards_tuple, self)
 
     def set_filter_key(self, search_key: str, search_mode: str):
         self._filter.set_filter_key(search_key)

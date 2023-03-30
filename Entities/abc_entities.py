@@ -6,6 +6,7 @@ from typing import Union
 
 from .action import Action
 from .card import Card
+from .card_filter import CardFilter
 from .person import Person
 
 
@@ -393,6 +394,11 @@ class EntitiesABC(abc.ABC):
     @property
     @abc.abstractmethod
     def synchronizer(self):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def filter(self) -> CardFilter:
         pass
 
     @abc.abstractmethod
