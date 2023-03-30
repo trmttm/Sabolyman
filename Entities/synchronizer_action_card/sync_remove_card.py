@@ -16,6 +16,7 @@ def wrapper(remove_card: Callable, synchronizer: SynchronizerABC, e: EntitiesABC
         remove_card(card)  # Wrapped / extended method
         card_to_select = decide_what_card_to_select_next(card)
         remove_policy_action(card.id)
+        remove_actions_implementation_cards(card)
         select_next_card_correctly(card_to_select)
         update_card_list()
 
@@ -38,6 +39,12 @@ def wrapper(remove_card: Callable, synchronizer: SynchronizerABC, e: EntitiesABC
             policy_action = synchronizer.get_policy_action(card_id)
             synchronizer.deregister_by_card(card_id)
             remove_action(policy_action)
+
+    def remove_actions_implementation_cards(card: Card):
+        # Recursively remove implementation cards
+        for action in card.all_actions:
+            if synchronizer.action_has_implementation_card(action.id):
+                wrapped(synchronizer.get_implementation_card(action.id))
 
     def select_next_card_correctly(card: Card):
         if card is not None:
