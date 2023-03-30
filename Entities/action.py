@@ -161,7 +161,7 @@ class Action(EntityABC):
 
     @property
     def color(self) -> str:
-        return self._color
+        return self._color or 'white'
 
     def set_client(self, client: Person):
         self._client = client
