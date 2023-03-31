@@ -2,6 +2,7 @@ from typing import Tuple
 
 from Entities.abc_entities import EntitiesABC
 from Entities.card import Card
+from Entities.synchronizer_action_card.abc import SynchronizerABC
 
 
 def execute(cards_tuple: Tuple[Card, ...], e: EntitiesABC):
@@ -16,10 +17,11 @@ def execute(cards_tuple: Tuple[Card, ...], e: EntitiesABC):
 
 def filter_by_parent_card(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tuple[Card, ...]:
     filter_ = e.filter
-    s = e.synchronizer
+    s: SynchronizerABC = e.synchronizer
     if filter_.filter_parent_card_id is not None:
         parent_card = e.get_card_by_id(filter_.filter_parent_card_id)
-        visible_cards = tuple(c for c in s.get_all_descendants(parent_card) if c in visible_cards)
+        unordered_visible_cards = set(c for c in s.get_all_descendants(parent_card) if c in visible_cards)
+        visible_cards = tuple(c for c in visible_cards if c in unordered_visible_cards)  # maintain card order
     return visible_cards
 
 
