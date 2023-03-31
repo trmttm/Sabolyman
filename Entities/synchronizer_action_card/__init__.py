@@ -97,6 +97,9 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
     def get_immediate_parents(self, child_card: Card) -> list[Card]:
         return get_immediate_parents.execute(child_card, self._entities)
 
+    def number_of_immediate_parents(self, child_card: Card) -> int:
+        return len(self.get_immediate_parents(child_card))
+
     def load_state(self, state: dict):
         self._synchronization_table = state.get('sync_state', {})
 

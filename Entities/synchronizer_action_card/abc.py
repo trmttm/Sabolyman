@@ -39,6 +39,10 @@ class SynchronizerABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def number_of_immediate_parents(self, child_card: Card) -> int:
+        pass
+
+    @abc.abstractmethod
     def card_has_policy_action(self, card_id: str) -> bool:
         pass
 
