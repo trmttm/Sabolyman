@@ -47,3 +47,4 @@ def bind_command(view: ViewABC, callback: Callable = None):
     view.bind_command_to_widget('btn_60', lambda: increment_minutes(60))
     view.bind_command_to_widget('btn_clear', lambda: clear_minutes())
     view.bind_command_to_widget('btn_OK', lambda: upon_ok(d))
+    view.bind_command_to_widget(specified_parent, lambda: view.close(specified_parent))

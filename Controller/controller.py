@@ -33,14 +33,6 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     v.bind_widget_entry(wn.entry_action_start_from, lambda: i.reset_recursive_counter())
     v.bind_widget_entry(wn.entry_action_time_expected, lambda: i.reset_recursive_counter())
 
-    # Search box
-    v.set_combobox_values(wn.combobox_search_mode, i.search_mode)
-    v.set_value(wn.combobox_search_mode, i.search_mode[0])
-    f(wn.entry_search_box, lambda *_: i.filter_cards_with_keyword(s.get_search_box_entry(v), s.get_search_model(v)))
-    f(wn.combobox_search_mode,
-      lambda *_: i.filter_cards_with_keyword(s.get_search_box_entry(v), s.get_search_model(v)))
-    f(wn.btn_clear_search, lambda *_: i.clear_card_filter())
-
     # My Cards
     f(wn.button_add_new_my_card, lambda: i.add_new_card())
     f(wn.button_move_up_selected_my_card, lambda: i.move_my_cards_up(s.get_left_tree_selected_indexes(v)))

@@ -107,19 +107,15 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def set_search_box(self, text: str):
-        pass
-
-    @abc.abstractmethod
-    def set_search_mode(self, filter_mode: str):
-        pass
-
-    @abc.abstractmethod
     def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         pass
 
     @abc.abstractmethod
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
+        pass
+
+    @abc.abstractmethod
+    def open_filter_setting(self, commands: dict, states: dict):
         pass
 
     @abc.abstractmethod

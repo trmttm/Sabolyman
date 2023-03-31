@@ -249,6 +249,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def open_filter_setting(self):
+        pass
+
+    @abc.abstractmethod
     def export_actions_list(self, file_name: str):
         pass
 

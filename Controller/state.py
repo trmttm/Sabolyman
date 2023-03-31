@@ -5,10 +5,6 @@ from interface_view import ViewABC
 import WidgetNames
 
 
-def get_search_box_entry(v: ViewABC) -> str:
-    return v.get_value(WidgetNames.entry_search_box)
-
-
 def get_left_tree_selected_indexes(v: ViewABC) -> Tuple[int, ...]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_my_cards)
 
@@ -61,7 +57,3 @@ def get_start_from_str(v: ViewABC) -> str:
 
 def get_client(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_action_client)
-
-
-def get_search_model(v: ViewABC) -> str:
-    return v.get_value(WidgetNames.combobox_search_mode)

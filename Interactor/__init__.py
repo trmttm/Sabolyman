@@ -1,7 +1,9 @@
+import datetime
 import os
 from typing import Callable
 from typing import Tuple
 
+import Utilities
 from keyboard_shortcut import KeyMaps
 
 from Entities import EntitiesABC
@@ -157,6 +159,7 @@ class Interactor(InteractorABC):
     def set_color_to_actions(self, indexes: Tuple[int, ...], color):
         set_color_to_actions.execute(self._entities, self._presenters, color, indexes)
 
+    # Filter
     def hide_finished_cards(self):
         self._entities.hide_finished_cards()
         present_card_list.execute(self._entities, self._presenters)
@@ -169,7 +172,6 @@ class Interactor(InteractorABC):
         self._entities.toggle_hide_finished_cards()
         self.filter_cards_with_keyword(self._entities.filter_key, self._entities.filter_mode)
         present_card_list.execute(self._entities, self._presenters)
-        self._presenters.set_search_box(self._entities.filter_key)
 
     def filter_cards_by_due_date(self):
         filter_cards_by_due_date.execute(self._entities, self._presenters)
@@ -206,6 +208,34 @@ class Interactor(InteractorABC):
     def reset_card_starting_date(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         args = indexes1, indexes2, self.show_my_card_information, self.show_their_card_information, self._entities, self._presenters
         reset_card_starting_date.execute(*args)
+
+    def open_filter_setting(self):
+        f = self._entities.filter
+
+        def filter_by_due_date(date: datetime.datetime):
+            self._entities.set_filter_due_date(date)
+            present_card_list.execute(self._entities, self._presenters)
+
+        commands = {
+            'filter_with_keyword': self._filter_cards_with_keyword,
+            'clear_search': self.clear_card_filter,
+            'hide_finished': self.hide_finished_cards,
+            'show_finished': self.unhide_finished_cards,
+            'filter_by_due_date': filter_by_due_date,
+            'clear_filter_by_due_date': self.clear_filter_due_date,
+            'filter_by_parent': self.filter_cards_by_parent,
+            'clear_filter_by_parent': self.clear_filter_by_parent,
+            'clear_all_filters': self.clear_all_filters,
+        }
+
+        states = {
+            'search_modes': self._entities.filter.all_filter_modes,
+            'show_finished': not f.hide_finished_cards,
+            'due_date': f.filter_due_date_time or Utilities.datetime_to_str(datetime.datetime.today()),
+            'filter_by_date': f.filtering_by_due_date,
+            'filter_by_parent': f.filtering_by_parent,
+        }
+        self._presenters.open_filter_setting(commands, states)
 
     @property
     def active_card(self):
@@ -412,8 +442,6 @@ class Interactor(InteractorABC):
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
         self._filter_cards_with_keyword('', self.search_mode[0])
-        self._presenters.set_search_box(self._entities.filter_key)
-        self._presenters.set_search_mode(self._entities.filter_mode)
         self._entities.set_active_card(initially_selected_card)
         present_card_list.execute(self._entities, self._presenters)
 

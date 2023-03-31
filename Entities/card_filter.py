@@ -24,6 +24,22 @@ class CardFilter:
         return self._filter_due_date
 
     @property
+    def filter_due_date_time(self) -> Union[None, datetime.date]:
+        d = self._filter_due_date
+        if d is None:
+            return None
+        else:
+            return datetime.datetime(d.year, d.month, d.day, 17, 0)
+
+    @property
+    def filtering_by_due_date(self) -> bool:
+        return self._filter_due_date is not None
+
+    @property
+    def filtering_by_parent(self) -> bool:
+        return self._filter_parent_card_id is not None
+
+    @property
     def filter_parent_card_id(self) -> Union[None, str]:
         return self._filter_parent_card_id
 

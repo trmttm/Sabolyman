@@ -95,7 +95,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((sub_modifier + KeyMap.shift, KeyMap.c), (
         lambda: i.set_color_to_actions(state.get_actions_selected_indexes(app), app.ask_color()), ''))
     f((sub_modifier, KeyMap.h), (lambda: i.toggle_hide_finished_cards(), ''))
-    f((main_modifier, KeyMap.f), (lambda: app.focus(wn.entry_search_box), ''))
+    f((main_modifier, KeyMap.f), (lambda: i.open_filter_setting(), ''))
 
     f((main_modifier, KeyMap.one), (lambda: i.sort_cards_by_color(), ''))
     f((main_modifier, KeyMap.two), (lambda: i.sort_cards_by_deadline(), ''))

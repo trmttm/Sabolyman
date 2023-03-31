@@ -10,6 +10,7 @@ from . import ask_user_date
 from . import ask_user_to_select_from_a_list
 from . import display_progress_dialogue
 from . import message_box
+from . import open_filter_setting
 from . import show_datetime_setter
 from . import show_mail_creator
 from . import show_minute_setter
@@ -115,12 +116,8 @@ class Presenters(PresentersABC):
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
         ask_user_to_select_from_a_list.execute(self._view, display_to_data, callback)
 
+    def open_filter_setting(self, commands: dict, states: dict):
+        open_filter_setting.execute(self._view, commands, states)
+
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)
-
-    # Search box
-    def set_search_box(self, text: str):
-        self._view.set_value(WidgetNames.entry_search_box, text)
-
-    def set_search_mode(self, filter_mode: str):
-        self._view.set_value(WidgetNames.combobox_search_mode, filter_mode)

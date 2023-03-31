@@ -26,6 +26,8 @@ def execute(v: ViewABC, display_to_data: dict, callback: Callable):
     view_model += stacker.view_model
     v.add_widgets(view_model)
 
+    v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
+
 
 def wrapped_callback(parent_id, callback: Callable, v: ViewABC):
     callback(parent_id)
