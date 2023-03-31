@@ -26,6 +26,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'GUI 01': lambda: i.change_gui('gui01.gui'),
                 'GUI 02': lambda: i.change_gui('gui02.gui'),
                 'GUI 03': lambda: i.change_gui('gui03.gui'),
+                'GUI 04': lambda: i.change_gui('gui04.gui'),
             },
         },
         'Export': {

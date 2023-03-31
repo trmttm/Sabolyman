@@ -4,25 +4,34 @@ from stacker import widgets as w
 import WidgetNames
 
 
-def get_view_model(parent: str = 'root'):
-    stacker = create_stacker(parent)
+def get_view_model(parent: str = 'root', vertical: bool = False):
+    stacker = create_stacker(parent, vertical)
     view_model = stacker.view_model
     return view_model
 
 
-def create_stacker(parent):
+def create_stacker(parent, vertical: bool = False):
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
         get_card_property_entry(stacker),
-        get_actions(stacker),
+        get_actions_vertical(stacker) if vertical else get_actions_horizontal(stacker),
         w.Spacer().adjust(-1),
     )
     return stacker
 
 
-def get_actions(stacker: Stacker):
+def get_actions_horizontal(stacker: Stacker):
     return stacker.hstack(
         w.PanedWindow('paned_window_entry', stacker).is_horizontal().weights((3, 1)).stackers(
+            get_actions_tree(stacker),
+            get_actions_properties(stacker),
+        ),
+    )
+
+
+def get_actions_vertical(stacker: Stacker):
+    return stacker.hstack(
+        w.PanedWindow('paned_window_entry', stacker).is_vertical().weights((3, 1)).stackers(
             get_actions_tree(stacker),
             get_actions_properties(stacker),
         ),

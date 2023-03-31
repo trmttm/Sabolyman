@@ -88,6 +88,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier + KeyMap.shift, KeyMap.eight), (lambda: i.change_gui('gui01.gui'), ''))
     f((main_modifier + KeyMap.shift, KeyMap.nine), (lambda: i.change_gui('gui02.gui'), ''))
     f((main_modifier + KeyMap.shift, KeyMap.zero), (lambda: i.change_gui('gui03.gui'), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.minus), (lambda: i.change_gui('gui04.gui'), ''))
 
     f((sub_modifier, KeyMap.c), (lambda: i.set_color_to_cards(state.get_left_tree_selected_indexes(app),
                                                               state.get_right_tree_selected_indexes(app),
