@@ -41,7 +41,7 @@ class Card(EntityABC):
         return self._owner
 
     def set_importance(self, importance: int):
-        self._importance = importance
+        self._importance.set(importance)
 
     def set_color(self, color):
         self._color = color

@@ -20,7 +20,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
         'File': {
             'Save Sate [cmd+s]': lambda: i.save_state(),
             'Save Sate as [shift+cmd+s]': lambda: i.save_to_file(
-                v.select_save_file(initialfile=utilities.default_file_name(e))),
+                v.select_save_file(initialdir=i.state_folder, initialfile=utilities.default_file_name(e))),
             'Load State': lambda: i.load_state_from_file(v.select_open_file(i.save_state_path)),
             'Select GUI': {
                 'GUI 01': lambda: i.change_gui('gui01.gui'),
