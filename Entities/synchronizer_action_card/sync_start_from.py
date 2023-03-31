@@ -1,7 +1,7 @@
 from typing import Callable
 
-from Entities import Action
-from Entities import Card
+from Entities.action import Action
+from Entities.card import Card
 
 
 def sync_start_from(policy_action: Action, get_implementation_card: Callable[[str], Card]):

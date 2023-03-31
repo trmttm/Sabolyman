@@ -1,8 +1,8 @@
 import abc
 from typing import Union
 
-from Entities import Action
-from Entities import Card
+from Entities.action import Action
+from Entities.card import Card
 
 
 class SynchronizerABC(abc.ABC):

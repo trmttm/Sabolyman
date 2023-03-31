@@ -1,7 +1,7 @@
 from typing import Callable
 
-from Entities import Card
-from Entities import EntitiesABC
+from Entities.abc_entities import EntitiesABC
+from Entities.card import Card
 from . import constants
 from .abc import SynchronizerABC
 

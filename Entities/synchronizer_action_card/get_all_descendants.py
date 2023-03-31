@@ -1,4 +1,4 @@
-from Entities import Card
+from Entities.card import Card
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 
 

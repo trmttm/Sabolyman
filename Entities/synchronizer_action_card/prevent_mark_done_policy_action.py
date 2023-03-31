@@ -1,6 +1,6 @@
 from typing import Callable
 
-from Entities import Action
+from Entities.action import Action
 from .abc import SynchronizerABC
 
 

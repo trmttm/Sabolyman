@@ -1,5 +1,5 @@
-from Entities import Action
-from Entities import EntitiesABC
+from Entities.abc_entities import EntitiesABC
+from Entities.action import Action
 from . import constants
 from .abc import SynchronizerABC
 from .sync_mark_done import sync_mark_done

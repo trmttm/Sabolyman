@@ -1,5 +1,5 @@
-from Entities import Action
-from Entities import Card
+from Entities.action import Action
+from Entities.card import Card
 
 
 def sync_owner(policy_action: Action, implementation_card: Card):
