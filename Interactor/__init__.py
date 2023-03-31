@@ -173,12 +173,16 @@ class Interactor(InteractorABC):
     def filter_cards_by_due_date(self):
         filter_cards_by_due_date.execute(self._entities, self._presenters)
 
+    def filter_cards_by_parent(self):
+        filter_cards_by_parent.execute(self._entities, self._presenters)
+
+    def clear_all_filters(self):
+        self._entities.clear_all_filters()
+        present_card_list.execute(self._entities, self._presenters)
+
     def clear_filter_due_date(self):
         self._entities.clear_filter_due_date()
         present_card_list.execute(self._entities, self._presenters)
-
-    def filter_cards_by_parent(self):
-        filter_cards_by_parent.execute(self._entities, self._presenters)
 
     def clear_filter_by_parent(self):
         self._entities.clear_filter_by_parent()

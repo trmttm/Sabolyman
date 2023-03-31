@@ -41,6 +41,9 @@ class CardFilter:
     def set_filter_mode(self, filter_mode: str):
         self._filter_mode = filter_mode
 
+    def clear_all_filters(self):
+        self.__init__()
+
     def set_filter_due_date(self, filter_due_date: Union[None, datetime.date]):
         self._filter_due_date = filter_due_date
 

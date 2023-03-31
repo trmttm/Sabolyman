@@ -45,6 +45,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Node Edge Graph (config)': lambda: i.display_selected_card_as_a_graph_on_the_browser_with_dynamic_config(),
         },
         'View': {
+            'Clear All Filters': i.clear_all_filters,
             'Filter Finished Cards': {
                 'Hide [ctrl+h]': i.hide_finished_cards,
                 'Show [ctrl+h]': i.unhide_finished_cards,

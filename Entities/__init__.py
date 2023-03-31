@@ -127,6 +127,9 @@ class Entities(EntitiesABC):
     def set_filter_parent_card_id(self, card_id: str):
         self._filter.set_filter_parent_card_id(card_id)
 
+    def clear_all_filters(self):
+        self._filter.clear_all_filters()
+
     def clear_filter_due_date(self):
         self._filter.set_filter_due_date(None)
 

@@ -225,6 +225,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def clear_all_filters(self):
+        pass
+
+    @abc.abstractmethod
     def clear_filter_due_date(self):
         pass
 
