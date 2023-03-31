@@ -119,5 +119,9 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def ask_user_to_select_a_parent_card(self, parent_name_to_id: dict, callback: Callable):
+        pass
+
+    @abc.abstractmethod
     def ask_user_date(self, upon_date_selected: Callable):
         pass

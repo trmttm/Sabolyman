@@ -7,6 +7,7 @@ from interface_view import ViewABC
 
 import WidgetNames
 from . import ask_user_date
+from . import ask_user_to_select_a_parent_card
 from . import display_progress_dialogue
 from . import message_box
 from . import show_datetime_setter
@@ -110,6 +111,9 @@ class Presenters(PresentersABC):
 
     def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         display_progress_dialogue.execute(self._view, method_upon_ok, **kwargs)
+
+    def ask_user_to_select_a_parent_card(self, parent_name_to_id: dict, callback: Callable):
+        ask_user_to_select_a_parent_card.execute(self._view, parent_name_to_id, callback)
 
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)
