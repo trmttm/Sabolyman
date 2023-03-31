@@ -9,11 +9,12 @@ def execute(headings: Tuple[str, ...], sorter_values: tuple, names: tuple, selec
     tree_datas = []
     all_status = kwargs.get('completions_status', tuple(False for _ in names))
     colors = kwargs.get('colors', tuple(False for _ in names))
+    bolds = kwargs.get('bolds', tuple(False for _ in names))
     text_colors = kwargs.get('text_colors', tuple(False for _ in names))
-    z = zip(names, sorter_values, all_status, colors, text_colors)
-    for n, (name, sort_by_value, status, color, text_color) in enumerate(z):
+    z = zip(names, sorter_values, all_status, colors, bolds, text_colors)
+    for n, (name, sort_by_value, status, color, bold, text_color) in enumerate(z):
         tree_datas.append(create_tree_data('', f'{n}', '', (n, name, sort_by_value), (), n in select_indexes,
-                                           foreground=text_color, strikethrough=status, background=color))
+                                           foreground=text_color, strikethrough=status, background=color, bold=bold))
     stretches = False, True, False
     scroll_v = True
     scroll_h = True
