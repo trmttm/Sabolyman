@@ -10,7 +10,7 @@ DEAD_LINE = 'Due Date'
 NAME = 'Name'
 CURRENT_OWNER = 'Current Owner'
 CURRENT_CLIENT = 'Current Client'
-IMPORTANCE = 'Importance'
+IMPORTANCE = 'Priority'
 COLOR = 'Color'
 
 
@@ -36,7 +36,7 @@ class Sorter:
         elif self._sort_by == CURRENT_CLIENT:
             return tuple(c.current_client.name for c in cards_)
         elif self._sort_by == IMPORTANCE:
-            return tuple(str(c.get_importance()) for c in cards_)
+            return tuple(str(c.get_priority()) for c in cards_)
         else:
             return tuple(Utilities.datetime_to_str(c.dead_line) for c in cards_)
 
@@ -60,7 +60,7 @@ class Sorter:
         self._sort(CURRENT_CLIENT, list_sorter)
 
     def sort_cards_by_importance(self):
-        list_sorter = [c.get_importance() for c in self._cards.all_cards]
+        list_sorter = [c.get_priority() for c in self._cards.all_cards]
         self._sort_reverse(IMPORTANCE, list_sorter)
 
     def sort_cards_by_color(self):

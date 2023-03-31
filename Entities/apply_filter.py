@@ -12,6 +12,7 @@ def execute(cards_tuple: Tuple[Card, ...], e: EntitiesABC):
     visible_cards = filter_by_due_date(e, visible_cards)
     visible_cards = filter_by_search_key(e, visible_cards)
     visible_cards = filter_by_finished_status(e, visible_cards)
+    visible_cards = filter_by_priority(e, visible_cards)
     return visible_cards
 
 
@@ -58,4 +59,11 @@ def filter_by_search_key(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tup
 def filter_by_finished_status(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tuple[Card, ...]:
     if e.filter.hide_finished_cards:
         visible_cards = tuple(c for c in visible_cards if not c.is_done)
+    return visible_cards
+
+
+def filter_by_priority(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tuple[Card, ...]:
+    priority = e.filter.filter_priority
+    if priority is not None:
+        visible_cards = tuple(c for c in visible_cards if c.get_priority() == priority)
     return visible_cards

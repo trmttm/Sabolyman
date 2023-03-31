@@ -124,7 +124,7 @@ def get_card_property_entry(stacker: Stacker):
             w.Spacer(),
         ),
         stacker.hstack(
-            w.Label(wn.label_card_importance).text('Importance').width(12).padding(10, 0),
+            w.Label(wn.label_card_importance).text('Priority').width(12).padding(10, 0),
             w.Button(wn.button_importance_down).text('-').width(1).padding(0, 0),
             w.Entry(wn.entry_card_importance).default_value(5).width(3),
             w.Button(wn.button_importance_up).text('+').width(1).padding(0, 0),

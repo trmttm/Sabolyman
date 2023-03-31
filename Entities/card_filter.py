@@ -10,6 +10,7 @@ class CardFilter:
         self._filter_due_date = None
         self._filter_parent_card_id = None
         self._hide_finished_cards = True
+        self._filter_priority = None
 
     @property
     def all_filter_modes(self) -> tuple:
@@ -79,6 +80,20 @@ class CardFilter:
     def hide_finished_cards(self) -> bool:
         return self._hide_finished_cards
 
+    def set_filter_priority(self, priority: int):
+        self._filter_priority = priority
+
+    def clear_filter_by_priority(self):
+        self._filter_priority = None
+
+    @property
+    def filter_priority(self) -> int:
+        return self._filter_priority
+
+    @property
+    def filtering_by_priority(self) -> int:
+        return self._filter_priority is not None
+
     @property
     def state(self) -> dict:
         return {'card_filter_state': {
@@ -87,6 +102,7 @@ class CardFilter:
             'filter_due_date': self._filter_due_date,
             'filter_parent_card_id': self._filter_parent_card_id,
             'hide_finished_cards': self._hide_finished_cards,
+            'filter_priority': self._filter_priority,
         }}
 
     def load_state(self, state: dict):
@@ -96,3 +112,4 @@ class CardFilter:
         self._filter_due_date = filter_state.get('filter_due_date', None)
         self._filter_parent_card_id = filter_state.get('filter_parent_card_id', None)
         self._hide_finished_cards = filter_state.get('hide_finished_cards', True)
+        self._filter_priority = filter_state.get('filter_priority', None)

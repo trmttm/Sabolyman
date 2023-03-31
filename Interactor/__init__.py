@@ -7,12 +7,14 @@ import Utilities
 from keyboard_shortcut import KeyMaps
 
 from Entities import EntitiesABC
+from Entities.priority import Priority
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import abstract_out
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
+from . import clear_filter_by_priority
 from . import convert_cards_to_actions
 from . import create_mail_menu
 from . import delete_selected_actions
@@ -25,6 +27,7 @@ from . import draw_graph_on_browser
 from . import duplicate_selected_card
 from . import export_actions_list
 from . import export_gantt_chart_data
+from . import filter_by_priority
 from . import filter_cards_by_due_date
 from . import filter_cards_by_parent
 from . import filter_cards_move_up_one_parent
@@ -179,6 +182,12 @@ class Interactor(InteractorABC):
     def filter_cards_by_parent(self):
         filter_cards_by_parent.execute(self._entities, self._presenters)
 
+    def filter_by_priority(self, priority: int):
+        filter_by_priority.execute(self._entities, self._presenters, priority)
+
+    def clear_filter_by_priority(self):
+        clear_filter_by_priority.execute(self._entities, self._presenters)
+
     def clear_all_filters(self):
         self._entities.clear_all_filters()
         present_card_list.execute(self._entities, self._presenters)
@@ -222,6 +231,10 @@ class Interactor(InteractorABC):
             e.set_active_card(initially_active_card)
             self.filter_cards_by_parent()
 
+        def reset_active_card():
+            e.set_active_card(initially_active_card)
+            present_card_list.execute(e, p)
+
         initially_active_card = e.active_card
         commands = {
             'filter_with_keyword': self._filter_cards_with_keyword,
@@ -232,8 +245,10 @@ class Interactor(InteractorABC):
             'clear_filter_by_due_date': self.clear_filter_due_date,
             'filter_by_parent': filter_by_parent,
             'clear_filter_by_parent': self.clear_filter_by_parent,
+            'filter_by_priority': self.filter_by_priority,
+            'clear_filter_by_priority': self.clear_filter_by_priority,
             'clear_all_filters': self.clear_all_filters,
-            'reset_active_card': lambda: e.set_active_card(initially_active_card),
+            'reset_active_card': reset_active_card,
         }
 
         states = {
@@ -242,6 +257,9 @@ class Interactor(InteractorABC):
             'due_date': f.filter_due_date_time or Utilities.datetime_to_str(datetime.datetime.today()),
             'filter_by_date': f.filtering_by_due_date,
             'filter_by_parent': f.filtering_by_parent,
+            'filter_by_priority': f.filtering_by_priority,
+            'priority_max': Priority().priority_max,
+            'priority_min': Priority().priority_min,
         }
         p.open_filter_setting(commands, states)
 

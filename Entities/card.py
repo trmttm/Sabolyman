@@ -10,7 +10,7 @@ from .action import Action
 from .actions import Actions
 from .file import File
 from .files import Files
-from .importance import Importance
+from .priority import Priority
 from .person import Person
 
 
@@ -19,7 +19,7 @@ class Card(EntityABC):
     def __init__(self):
         self._name = 'New Card'
         self._owner = Person('Name')
-        self._importance = Importance()
+        self._priority = Priority()
         self._date_created = datetime.datetime.now()
         self._actions = Actions()
         self._files = Files()
@@ -41,7 +41,7 @@ class Card(EntityABC):
         return self._owner
 
     def set_importance(self, importance: int):
-        self._importance.set(importance)
+        self._priority.set(importance)
 
     def set_color(self, color):
         self._color = color
@@ -233,17 +233,17 @@ class Card(EntityABC):
     def has_action(self, action_: Action) -> bool:
         return action_ in self._actions.all_actions
 
-    def increment_importance(self, increment: int):
-        self._importance.increment_importance(increment)
+    def increment_priority(self, increment: int):
+        self._priority.increment_importance(increment)
 
-    def get_importance(self) -> int:
-        return self._importance.value
+    def get_priority(self) -> int:
+        return self._priority.value
 
     @property
     def state(self) -> dict:
         state = {
             'name': self._name,
-            'importance': self._importance.value,
+            'priority': self._priority.value,
             'date_created': self._date_created,
             'owner': self._owner.state,
             'actions': self._actions.state,
@@ -257,7 +257,7 @@ class Card(EntityABC):
     def load_state(self, state: dict, alias_actions_dictionary: dict = None):
         self._name = state.get('name', '')
         self._owner = factory1.factory_person(state, 'owner')
-        self._importance.set(state.get('importance', ''))
+        self._priority.set(state.get('priority', 1))
         self._date_created = state.get('date_created', datetime.datetime.today())
         self._actions = factory2.factory_actions(state, alias_actions_dictionary)
         self._files = factory1.factory_files(state)
