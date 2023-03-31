@@ -1,5 +1,4 @@
 import datetime
-from os import path
 
 import Utilities
 from interface_view import ViewABC
@@ -132,12 +131,6 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 v.ask_color()),
             'Implement lower level detail': lambda: i.implement_lower_level_detail(),
         },
-        'Habits': {
-            'Morning': lambda: load_habit(i, 'Habit - Wake up.card'),
-            'Work Beginning': lambda: load_habit(i, 'Habit - Beginning of Work.card'),
-            'Work End': lambda: load_habit(i, 'Habit - End of Work.card'),
-            'Evening': lambda: load_habit(i, 'Habit - Evening.card'),
-        },
     }
     if menu_injected is not None:
         menu_bar_model.update(menu_injected)
@@ -152,7 +145,3 @@ def now() -> str:
     hour = f(now.hour)
     minute = f(now.minute)
     return f'{now.year}{month}{day}_{hour}{minute}'
-
-
-def load_habit(i: InteractorABC, file_name: str):
-    i.load_template_card(path.join(i.cards_template_path, file_name))
