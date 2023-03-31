@@ -68,6 +68,9 @@ class Card(EntityABC):
     def update_date_created(self):
         self._date_created = datetime.datetime.now()
 
+    def update_date_start(self):
+        self._actions.update_date_start()
+
     def reset_starting_date_to_today(self):
         self.reset_starting_date_to(datetime.datetime.today().date())
 

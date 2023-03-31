@@ -81,6 +81,11 @@ class Actions(EntityABC):
         }
         return state
 
+    def update_date_start(self):
+        for action in self._actions:
+            action.update_date_created()
+            action.update_date_start()
+
     def load_state(self, state: dict, alias_actions_dictionary: dict = None):
         self.__init__()
         actions_state = state.get('actions_state', ())

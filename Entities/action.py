@@ -189,6 +189,9 @@ class Action(EntityABC):
     def set_start_from_by_str(self, start_from_str: str):
         self.set_start_from(str_to_date_time(start_from_str))
 
+    def update_date_start(self):
+        self._start_from = datetime.datetime.now()
+
     def set_start_from(self, start_from: datetime.datetime):
         self._start_from = start_from
 

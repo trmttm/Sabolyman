@@ -15,6 +15,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
         card.load_state(card_state)
         e.force_set_ids(card)
         card.update_date_created()
+        card.update_date_start()
         card.reset_starting_date_to_today()
     else:
         cards_state = card_state.get('cards_state', {})
