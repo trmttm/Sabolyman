@@ -15,7 +15,7 @@ def execute(v: ViewABC, display_to_data: dict, callback: Callable):
     height = 300
 
     stacker = Stacker(specified_parent)
-    stacker.vstack(
+    stacker.vstack_scrollable(
         *tuple(w.Button(f'btn_parent_{n}').text(parent_name).command(
             lambda id_=parent_id: wrapped_callback(id_, callback, v)
         ) for (n, (parent_name, parent_id)) in enumerate(display_to_data.items())),
