@@ -126,6 +126,9 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     f((main_modifier + KeyMap.shift, KeyMap.x), (lambda: cut_and_feedback(), ''))
     f((main_modifier + KeyMap.shift, KeyMap.v), (lambda: i.paste_actions_as_alias(), ''))
 
+    f((main_modifier, KeyMap.b), (lambda: i.filter_cards_by_parent(), ''))
+    f((main_modifier + KeyMap.shift, KeyMap.b), (lambda: i.clear_filter_by_parent(), ''))
+
     f((main_modifier, KeyMap.e), (lambda: user_means_to_edit(), ''))
 
     # i.set_active_keymap('special')
