@@ -448,6 +448,9 @@ class Entities(EntitiesABC):
     def set_temporarily_display_card(self, card_: Card):
         self._temporarily_display_card = card_
 
+    def clear_temporarily_display_card(self):
+        self._temporarily_display_card = None
+
 
 def get_card_by_index(cards_tuple, index) -> Card:
     try:

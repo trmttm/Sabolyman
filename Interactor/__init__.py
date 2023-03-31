@@ -388,6 +388,7 @@ class Interactor(InteractorABC):
         self._sort_cards(self._entities.sort_cards_by_importance)
 
     def _sort_cards(self, sort_method):
+        self._entities.clear_temporarily_display_card()
         sort_method()
         present_card_list.execute(self._entities, self._presenters)
 

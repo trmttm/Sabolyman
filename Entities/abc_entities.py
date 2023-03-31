@@ -417,3 +417,7 @@ class EntitiesABC(abc.ABC):
     @abc.abstractmethod
     def set_temporarily_display_card(self, card_: Card):
         pass
+
+    @abc.abstractmethod
+    def clear_temporarily_display_card(self):
+        pass
