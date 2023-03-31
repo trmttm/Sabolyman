@@ -210,12 +210,19 @@ class Interactor(InteractorABC):
         reset_card_starting_date.execute(*args)
 
     def open_filter_setting(self):
-        f = self._entities.filter
+        e = self._entities
+        p = self._presenters
+        f = e.filter
 
         def filter_by_due_date(date: datetime.datetime):
-            self._entities.set_filter_due_date(date)
-            present_card_list.execute(self._entities, self._presenters)
+            e.set_filter_due_date(date)
+            present_card_list.execute(e, p)
 
+        def filter_by_parent():
+            e.set_active_card(initially_active_card)
+            self.filter_cards_by_parent()
+
+        initially_active_card = e.active_card
         commands = {
             'filter_with_keyword': self._filter_cards_with_keyword,
             'clear_search': self.clear_card_filter,
@@ -223,19 +230,20 @@ class Interactor(InteractorABC):
             'show_finished': self.unhide_finished_cards,
             'filter_by_due_date': filter_by_due_date,
             'clear_filter_by_due_date': self.clear_filter_due_date,
-            'filter_by_parent': self.filter_cards_by_parent,
+            'filter_by_parent': filter_by_parent,
             'clear_filter_by_parent': self.clear_filter_by_parent,
             'clear_all_filters': self.clear_all_filters,
         }
 
         states = {
-            'search_modes': self._entities.filter.all_filter_modes,
+            'search_modes': e.filter.all_filter_modes,
             'show_finished': not f.hide_finished_cards,
             'due_date': f.filter_due_date_time or Utilities.datetime_to_str(datetime.datetime.today()),
             'filter_by_date': f.filtering_by_due_date,
             'filter_by_parent': f.filtering_by_parent,
+            'reset_active_card': lambda: e.set_active_card(initially_active_card),
         }
-        self._presenters.open_filter_setting(commands, states)
+        p.open_filter_setting(commands, states)
 
     @property
     def active_card(self):

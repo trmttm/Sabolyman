@@ -68,7 +68,7 @@ def execute(v: ViewABC, commands: dict, states: dict):
     v.bind_command_to_widget(entry_search_box, lambda *_: filter_by_search_word(commands, v))
     v.bind_command_to_widget(combobox_search_mode, lambda *_: filter_by_search_word(commands, v))
     v.bind_command_to_widget(btn_clear_search, lambda: commands['clear_search']())
-    v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
+    v.bind_command_to_widget(specified_parent, lambda: close(v, commands))
 
 
 def filter_by_search_word(commands: dict, v: ViewABC):
@@ -112,5 +112,6 @@ def clear_filters(commands: dict, states: dict, v: ViewABC):
     v.set_value(entry_due_date, states['due_date'])
 
 
-def close(v: ViewABC):
+def close(v: ViewABC, commands: dict):
     v.close(specified_parent)
+    commands['reset_active_card']()
