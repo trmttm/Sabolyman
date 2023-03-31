@@ -233,6 +233,7 @@ class Interactor(InteractorABC):
             'filter_by_parent': filter_by_parent,
             'clear_filter_by_parent': self.clear_filter_by_parent,
             'clear_all_filters': self.clear_all_filters,
+            'reset_active_card': lambda: e.set_active_card(initially_active_card),
         }
 
         states = {
@@ -241,7 +242,6 @@ class Interactor(InteractorABC):
             'due_date': f.filter_due_date_time or Utilities.datetime_to_str(datetime.datetime.today()),
             'filter_by_date': f.filtering_by_due_date,
             'filter_by_parent': f.filtering_by_parent,
-            'reset_active_card': lambda: e.set_active_card(initially_active_card),
         }
         p.open_filter_setting(commands, states)
 
