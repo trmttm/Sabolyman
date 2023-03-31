@@ -94,6 +94,10 @@ class Entities(EntitiesABC):
         return tuple(all_actions)
 
     @property
+    def all_visible_cards(self) -> Tuple[Card, ...]:
+        return self._visible_cards(self.all_cards)
+
+    @property
     def my_visible_cards(self) -> Tuple[Card, ...]:
         return self._visible_cards(self.my_cards)
 

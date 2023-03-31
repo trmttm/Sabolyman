@@ -34,6 +34,11 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def all_visible_cards(self) -> Tuple[Card, ...]:
+        pass
+
+    @property
+    @abc.abstractmethod
     def my_visible_cards(self) -> Tuple[Card, ...]:
         pass
 

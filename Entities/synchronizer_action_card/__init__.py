@@ -4,6 +4,7 @@ from typing import Union
 
 from . import constants
 from . import get_all_descendants
+from . import get_immediate_parents
 from .abc import SynchronizerABC
 from .prevent_mark_done_policy_action import prevent_mark_done_policy_action
 from .sync_add_new_action import synchronize_add_new_action
@@ -92,6 +93,9 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
 
     def get_all_descendants(self, parent_card: Card) -> list[Card]:
         return get_all_descendants.execute(parent_card, self)
+
+    def get_immediate_parents(self, child_card: Card) -> list[Card]:
+        return get_immediate_parents.execute(child_card, self._entities)
 
     def load_state(self, state: dict):
         self._synchronization_table = state.get('sync_state', {})
