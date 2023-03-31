@@ -274,7 +274,7 @@ class Interactor(InteractorABC):
         mark_action_completed.execute(self._entities, self._presenters, done_or_not, actions_indexes)
 
     def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
-        set_action_description.execute(self._entities, self._presenters, description, actions_indexes)
+        set_action_description.execute(self._entities, self._presenters, description[:-1], actions_indexes)
 
     def set_action_time_expected(self, time_expected: str, actions_indexes: Tuple[int, ...]):
         set_action_time_expected.execute(self._entities, self._presenters, time_expected, actions_indexes)
