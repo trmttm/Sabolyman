@@ -36,6 +36,7 @@ class Entities(EntitiesABC):
         self._synchronizer_action_card = SynchronizerActionCard(self)
         self._copied_action = ()
         self._cut_manager = CutActionManager()
+        self._temporarily_display_card = None
 
     @property
     def synchronizer(self) -> SynchronizerABC:
@@ -99,7 +100,11 @@ class Entities(EntitiesABC):
 
     @property
     def my_visible_cards(self) -> Tuple[Card, ...]:
-        return self._visible_cards(self.my_cards)
+        card_forced_to_display = self._temporarily_display_card
+        visible_cards = self._visible_cards(self.my_cards)
+        if (card_forced_to_display is not None) and card_forced_to_display not in visible_cards:
+            visible_cards += (card_forced_to_display,)
+        return visible_cards
 
     @property
     def their_visible_cards(self) -> Tuple[Card, ...]:
@@ -439,6 +444,9 @@ class Entities(EntitiesABC):
         c.force_set_id()
         for a in c.all_actions:
             a.force_set_id()
+
+    def set_temporarily_display_card(self, card_: Card):
+        self._temporarily_display_card = card_
 
 
 def get_card_by_index(cards_tuple, index) -> Card:

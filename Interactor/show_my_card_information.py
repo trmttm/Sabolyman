@@ -3,7 +3,7 @@ from typing import Tuple
 from Entities import EntitiesABC
 from Presenters import PresentersABC
 from . import get_card_index
-from .show_card_information import display_card_information
+from . import show_card_information_by_indexes
 
 
 def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
@@ -11,4 +11,4 @@ def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
     if indexes is not None:
         p.deselect_their_cards()
         getter = e.get_my_card_by_index
-        display_card_information(e, p, getter, indexes)
+        show_card_information_by_indexes.execute(e, p, getter, indexes)
