@@ -128,6 +128,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
 
     f((main_modifier, KeyMap.b), (lambda: i.filter_cards_by_parent(), ''))
     f((main_modifier + KeyMap.shift, KeyMap.b), (lambda: i.filter_move_up_one_parent(), ''))
+    f((main_modifier + sub_modifier + KeyMap.shift, KeyMap.b), (lambda: i.clear_all_filters(), ''))
 
     f((main_modifier, KeyMap.e), (lambda: user_means_to_edit(), ''))
 
