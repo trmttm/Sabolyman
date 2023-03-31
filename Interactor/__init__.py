@@ -112,7 +112,18 @@ class Interactor(InteractorABC):
 
     # Cards
     def add_new_card(self):
-        add_new_card.execute(self._entities, self._presenters)
+        def callback(file_name):
+            if file_name is None:
+                pass
+            elif file_name == 'default':
+                add_new_card.execute(self._entities, self._presenters)
+            else:
+                self.load_template_card(os.path.join(self._gateway.cards_template_path, file_name))
+
+        file_names = self._gateway.get_files_in_the_folder(self._gateway.cards_template_path)
+        display = ('Default',) + file_names
+        data = ('default',) + file_names
+        self._presenters.ask_user_to_select_from_a_list(dict(zip(display, data)), callback)
 
     def duplicate_selected_card(self):
         duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)

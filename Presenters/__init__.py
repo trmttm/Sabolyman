@@ -7,7 +7,7 @@ from interface_view import ViewABC
 
 import WidgetNames
 from . import ask_user_date
-from . import ask_user_to_select_a_card
+from . import ask_user_to_select_from_a_list
 from . import display_progress_dialogue
 from . import message_box
 from . import show_datetime_setter
@@ -112,8 +112,8 @@ class Presenters(PresentersABC):
     def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         display_progress_dialogue.execute(self._view, method_upon_ok, **kwargs)
 
-    def ask_user_to_select_a_card(self, card_name_to_id: dict, callback: Callable):
-        ask_user_to_select_a_card.execute(self._view, card_name_to_id, callback)
+    def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
+        ask_user_to_select_from_a_list.execute(self._view, display_to_data, callback)
 
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)

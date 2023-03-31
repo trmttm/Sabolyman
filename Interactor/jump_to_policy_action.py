@@ -32,7 +32,7 @@ def ask_user_and_decide_where_to_jump_to(callback_select_tree, cards, e, p, poli
                 action_index_ = jump(card_selected_by_user, policy_action, e, p)
                 callback_select_tree(e.active_card_is_in_my_cards, e.active_card_index, action_index_)
 
-    p.ask_user_to_select_a_card(dict(zip(tuple(c.name for c in cards), tuple(c.id for c in cards))), callback_jump)
+    p.ask_user_to_select_from_a_list(dict(zip(tuple(c.name for c in cards), tuple(c.id for c in cards))), callback_jump)
 
 
 def no_jump(callback_select_tree, e):
