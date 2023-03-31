@@ -10,7 +10,7 @@ specified_parent = 'popup_ask_for_a_parent'
 button_ok = 'btn_ask_date_ok'
 
 
-def execute(v: ViewABC, parent_name_to_id: dict, callback: Callable):
+def execute(v: ViewABC, card_name_to_id: dict, callback: Callable):
     title = 'Select a parent card'
     width = 300
     height = 300
@@ -19,7 +19,7 @@ def execute(v: ViewABC, parent_name_to_id: dict, callback: Callable):
     stacker.vstack(
         *tuple(w.Button(f'btn_parent_{n}').text(parent_name).command(
             lambda id_=parent_id: wrapped_callback(id_, callback, v)
-        ) for (n, (parent_name, parent_id)) in enumerate(parent_name_to_id.items())),
+        ) for (n, (parent_name, parent_id)) in enumerate(card_name_to_id.items())),
         w.Spacer(),
     )
     options = top_level_options(title, (width, height))
