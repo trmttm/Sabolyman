@@ -100,7 +100,7 @@ def get_actions_properties(stacker: Stacker):
             ),
             w.TextBox(wn.text_box_action_description).padding(5, 5),
             stacker.vstack(
-                w.TreeView('tree_action_files'),
+                w.TreeView(wn.tree_action_resources),
             ),
         ),
         w.Spacer().adjust(-1)

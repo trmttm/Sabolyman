@@ -70,6 +70,17 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.check_button_action_done, lambda *_: i.mark_action_completed(s.get_action_is_done_or_not(v), ai(v)))
     f(wn.text_box_action_description, lambda *_: i.set_action_description(s.get_action_description(v), ai(v)))
 
+    # DND
+    def callback(e):
+        d = '__||__'
+        paths = tuple(s.strip() for s in e.data.replace('{', d).replace('}', d).split(d) if s.strip() != '')
+        text = ''
+        for n, path in enumerate(paths):
+            text += f'\n{n} {path}'
+        i.feed_back_user_by_popup('File Dropped', text, 600, 600)
+
+    v.bind_upon_drag_and_drop_drop(wn.tree_action_resources, callback)
+
 
 def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):
     v.focus('root'), WidgetNames.tree_card_actions
