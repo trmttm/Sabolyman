@@ -17,7 +17,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC):
             load_template_card.execute(e, g, p, os.path.join(g.cards_template_path, file_name))
 
     file_names = g.get_files_in_the_folder(g.cards_template_path)
-    display = ('Default',) + tuple(f.split('.')[0] for f in file_names)
-    data = ('default',) + file_names
+    display = ('Default',) + tuple(f.split('.')[0] for f in file_names if f[0] != '.')
+    data = ('default',) + tuple(f for f in file_names if f[0] != '.')
 
     p.ask_user_to_select_from_a_list(dict(zip(display, data)), callback)

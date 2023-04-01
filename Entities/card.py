@@ -10,8 +10,8 @@ from .action import Action
 from .actions import Actions
 from .file import File
 from .files import Files
-from .priority import Priority
 from .person import Person
+from .priority import Priority
 
 
 class Card(EntityABC):
