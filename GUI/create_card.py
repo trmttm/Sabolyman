@@ -41,7 +41,6 @@ def get_actions_vertical(stacker: Stacker):
 def get_actions_tree(stacker: Stacker):
     wn = WidgetNames
     return stacker.vstack(
-        w.Label('lbl_actions').text('Actions').padding(10, 0),
         stacker.hstack(
             w.TreeView(wn.tree_card_actions).padding(10, 10),
         ),
@@ -114,7 +113,11 @@ def get_card_property_entry(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_name').text('Card').width(10).padding(10, 0),
             w.Entry(wn.entry_card_name).default_value('New Card Name', ).padding(5, 0),
-            w.Spacer().adjust(-1),
+            w.Label(wn.label_card_importance).text('Priority').width(12).padding(10, 0),
+            w.Button(wn.button_importance_down).text('-').width(1).padding(10, 0),
+            w.Entry(wn.entry_card_importance).default_value(5).width(3),
+            w.Button(wn.button_importance_up).text('+').width(1).padding(10, 0),
+            w.Spacer().adjust(-5),
         ),
         stacker.hstack(
             w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
@@ -124,17 +127,8 @@ def get_card_property_entry(stacker: Stacker):
             w.Spacer(),
         ),
         stacker.hstack(
-            w.Label(wn.label_card_importance).text('Priority').width(12).padding(10, 0),
-            w.Button(wn.button_importance_down).text('-').width(1).padding(0, 0),
-            w.Entry(wn.entry_card_importance).default_value(5).width(3),
-            w.Button(wn.button_importance_up).text('+').width(1).padding(0, 0),
-
-            w.Spacer(),
-        ),
-        w.Label('empty_row_between_card_and_action').text(''),
-        stacker.hstack(
             w.Label('lbl_action_name').text('Action').width(10).padding(10, 0),
-            w.Entry(wn.entry_action_name).default_value('Action Name', ).padding(25, 0),
+            w.Entry(wn.entry_action_name).default_value('Action Name', ).padding(10, 0),
             w.Spacer().adjust(-1),
         ),
         w.Spacer(),
