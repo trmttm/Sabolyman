@@ -445,7 +445,11 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def get_action_resources(self) -> tuple:
+    def get_action_resource_names(self) -> tuple:
+        pass
+
+    @abc.abstractmethod
+    def get_selected_uris(self) -> tuple:
         pass
 
     @abc.abstractmethod

@@ -85,6 +85,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.button_delete_selected_resources, lambda: i.remove_selected_action_resources(select_resources_tree))
     f(wn.button_move_up_selected_resources, lambda: i.shift_resources(-1, select_resources_tree))
     f(wn.button_move_down_selected_resources, lambda: i.shift_resources(1, select_resources_tree))
+    f(wn.button_open_resources, lambda: i.open_resources())
 
 
 def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):

@@ -408,7 +408,11 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def shift_resources(self, shift: int,callback=None):
+    def shift_resources(self, shift: int, callback=None):
+        pass
+
+    @abc.abstractmethod
+    def open_resources(self):
         pass
 
     @abc.abstractmethod

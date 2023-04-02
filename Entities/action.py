@@ -253,8 +253,11 @@ class Action(EntityABC):
     def shift_resources(self, shift: int):
         self._resources.data.sort_data(shift)
 
-    def get_action_resources(self) -> tuple[tuple, tuple]:
+    def get_action_resource_names(self) -> tuple[tuple, tuple]:
         return self._resources.data.names
+
+    def get_selected_resources(self) -> tuple[tuple, tuple]:
+        return self._resources.data.selected_datas
 
     @property
     def state(self) -> dict:

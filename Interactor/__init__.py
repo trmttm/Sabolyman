@@ -70,6 +70,7 @@ from . import set_start_from
 from . import shift_actions_dead_lines_by
 from . import shift_actions_dead_lines_hours_by
 from . import shift_cards_dead_lines
+from . import shift_resources
 from . import show_action_information
 from . import show_datetime_setter_dead_line
 from . import show_datetime_setter_start_from
@@ -377,13 +378,12 @@ class Interactor(InteractorABC):
     def remove_selected_action_resources(self, callback: Callable = None):
         remove_selected_action_resources.execute(self._entities, self._presenters, callback)
 
-    def shift_resources(self, shift: int,callback=None):
-        e = self._entities
-        p = self._presenters
-        e.shift_resources(shift)
-        show_action_information.execute(e, p, (e.active_action_index,))
-        if callback is not None:
-            callback(e.selected_resources_indexes)
+    def shift_resources(self, shift: int, callback=None):
+        shift_resources.execute(self._entities, self._presenters, shift, callback)
+
+    def open_resources(self):
+        for uri in self._entities.get_selected_uris():
+            Utilities.open_file(uri)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):

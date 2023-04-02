@@ -483,10 +483,19 @@ class Entities(EntitiesABC):
         if active_action is not None:
             active_action.select_action_resources(indexes)
 
-    def get_action_resources(self) -> tuple:
+    def get_action_resource_names(self) -> tuple:
         active_action = self.active_action
         if active_action is not None:
-            return active_action.get_action_resources()
+            return active_action.get_action_resource_names()
+        else:
+            return ()
+
+    def get_selected_uris(self) -> tuple:
+        active_action = self.active_action
+        if active_action is not None:
+            return active_action.get_selected_resources()
+        else:
+            return ()
 
 
 def get_card_by_index(cards_tuple, index) -> Card:
