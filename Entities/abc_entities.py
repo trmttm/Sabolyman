@@ -437,6 +437,10 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def shift_resources(self, shift: int):
+        pass
+
+    @abc.abstractmethod
     def remove_selected_action_resources(self):
         pass
 

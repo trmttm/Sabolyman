@@ -408,5 +408,9 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def shift_resources(self, shift: int,callback=None):
+        pass
+
+    @abc.abstractmethod
     def remove_selected_action_resources(self, callback: Callable = None):
         pass

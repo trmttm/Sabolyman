@@ -250,6 +250,9 @@ class Action(EntityABC):
     def remove_selected_action_resources(self):
         self._resources.data.remove_selected()
 
+    def shift_resources(self, shift: int):
+        self._resources.data.sort_data(shift)
+
     def get_action_resources(self) -> tuple[tuple, tuple]:
         return self._resources.data.names
 

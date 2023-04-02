@@ -52,6 +52,7 @@ from . import paste_action_as_duplicate
 from . import paste_actions_as_alias
 from . import present_action_list
 from . import present_card_list
+from . import remove_selected_action_resources
 from . import reset_card_starting_date
 from . import save_as_template_card
 from . import select_actions
@@ -374,9 +375,12 @@ class Interactor(InteractorABC):
         add_action_resources.execute(self._entities, self._presenters, paths)
 
     def remove_selected_action_resources(self, callback: Callable = None):
+        remove_selected_action_resources.execute(self._entities, self._presenters, callback)
+
+    def shift_resources(self, shift: int,callback=None):
         e = self._entities
         p = self._presenters
-        e.remove_selected_action_resources()
+        e.shift_resources(shift)
         show_action_information.execute(e, p, (e.active_action_index,))
         if callback is not None:
             callback(e.selected_resources_indexes)

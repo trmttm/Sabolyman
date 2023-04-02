@@ -76,11 +76,15 @@ def configure_controller(v: ViewABC, i: InteractorABC):
         i.add_action_resources(utilities.get_paths(e))
 
     # Action Resources
+    def select_resources_tree(indexes: tuple):
+        v.select_multiple_tree_items(wn.tree_action_resources, indexes)
+
     v.bind_upon_drag_and_drop_drop(wn.tree_action_resources, callback)
     f(wn.tree_action_resources, lambda: i.select_action_resources(s.get_action_resources_selected_indexes(v)))
     f(wn.button_add_new_resources, lambda: i.add_action_resources((v.select_open_file(),)))
-    f(wn.button_delete_selected_resources, lambda: i.remove_selected_action_resources(
-        lambda indexes: v.select_multiple_tree_items(wn.tree_action_resources, indexes)))
+    f(wn.button_delete_selected_resources, lambda: i.remove_selected_action_resources(select_resources_tree))
+    f(wn.button_move_up_selected_resources, lambda: i.shift_resources(-1, select_resources_tree))
+    f(wn.button_move_down_selected_resources, lambda: i.shift_resources(1, select_resources_tree))
 
 
 def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):

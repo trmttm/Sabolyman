@@ -473,6 +473,11 @@ class Entities(EntitiesABC):
         else:
             return 0,
 
+    def shift_resources(self, shift: int):
+        active_action = self.active_action
+        if active_action is not None:
+            return self.active_action.shift_resources(shift)
+
     def select_action_resources(self, indexes):
         active_action = self.active_action
         if active_action is not None:
