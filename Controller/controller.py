@@ -75,7 +75,9 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     def callback(e):
         i.add_action_resources(utilities.get_paths(e))
 
+    # Action Resources
     v.bind_upon_drag_and_drop_drop(wn.tree_action_resources, callback)
+    f(wn.button_add_new_resources, lambda: i.add_action_resources((v.select_open_file(),)))
 
 
 def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):
