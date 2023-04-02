@@ -455,10 +455,10 @@ class Entities(EntitiesABC):
     def clear_temporarily_display_card(self):
         self._temporarily_display_card = None
 
-    def add_action_resources(self, paths: tuple):
+    def add_action_resources(self,names:tuple, paths: tuple):
         active_action = self.active_action
         if active_action is not None:
-            active_action.add_action_resources(paths)
+            active_action.add_action_resources(names, paths)
 
     def get_action_resources(self) -> tuple:
         active_action = self.active_action

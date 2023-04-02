@@ -366,7 +366,16 @@ class Interactor(InteractorABC):
         jump_to_policy_action.execute(self._entities, self._presenters, callback)
 
     def add_action_resources(self, paths: tuple):
-        add_action_resources.execute(self._entities, self._presenters, paths)
+        def callback(entries: tuple):
+            names = entries
+            add_action_resources.execute(self._entities, self._presenters, names, paths)
+
+        kwargs = {
+            'title': 'Name Recourses',
+            'message': 'Set names for the following resources',
+            'default_values': paths,
+        }
+        self._presenters.ask_user_for_entries(callback, **kwargs)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):

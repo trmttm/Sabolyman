@@ -3,6 +3,7 @@ import uuid
 from typing import Union
 
 from Utilities import str_to_date_time
+from Utilities.tree_data import TreeData
 
 from . import factory1
 from .abc_entity import EntityABC
@@ -13,19 +14,27 @@ from .person import Person
 
 class Resources:
     def __init__(self):
-        self._resources = ()
-
-    def add_action_resources(self, uris: tuple):
-        for uri in uris:
-            if uri not in self._resources:
-                self._resources += (uri,)
+        self._resources = TreeData()
 
     @property
-    def state(self) -> tuple:
-        return self._resources
+    def names(self) -> tuple:
+        return self._resources.names
+
+    @property
+    def uris(self) -> tuple:
+        return self._resources.data
+
+    def add_action_resources(self, names: tuple, uris: tuple):
+        for name, uri in zip(names, uris):
+            if uri not in self._resources.data:
+                self._resources.add_data(name, uri)
+
+    @property
+    def state(self) -> dict:
+        return self._resources.state
 
     def set_state(self, resources):
-        self._resources = resources
+        self._resources.set_state(resources)
 
 
 class Action(EntityABC):
@@ -239,11 +248,11 @@ class Action(EntityABC):
             self.set_id()
         return self._id
 
-    def add_action_resources(self, uris: tuple):
-        self._resources.add_action_resources(uris)
+    def add_action_resources(self, names: tuple, uris: tuple):
+        self._resources.add_action_resources(names, uris)
 
-    def get_action_resources(self) -> tuple:
-        return self._resources.state
+    def get_action_resources(self) -> tuple[tuple, tuple]:
+        return self._resources.names
 
     @property
     def state(self) -> dict:

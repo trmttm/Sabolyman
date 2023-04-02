@@ -7,6 +7,7 @@ from interface_view import ViewABC
 
 import WidgetNames
 from . import ask_user_date
+from . import ask_user_for_entries
 from . import ask_user_to_select_from_a_list
 from . import display_progress_dialogue
 from . import message_box
@@ -119,6 +120,9 @@ class Presenters(PresentersABC):
 
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
         ask_user_to_select_from_a_list.execute(self._view, display_to_data, callback)
+
+    def ask_user_for_entries(self, callback: Callable, **kwargs):
+        ask_user_for_entries.execute(self._view, callback, **kwargs)
 
     def open_filter_setting(self, commands: dict, states: dict):
         open_filter_setting.execute(self._view, commands, states)

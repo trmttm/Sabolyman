@@ -1,9 +1,11 @@
 from Entities.abc_entities import EntitiesABC
 from Presenters.abc import PresentersABC
 
+from . import show_action_information
 
-def execute(e: EntitiesABC, p: PresentersABC, paths: tuple):
-    e.add_action_resources(paths)
+
+def execute(e: EntitiesABC, p: PresentersABC, names: tuple, paths: tuple):
+    e.add_action_resources(names, paths)
 
     kwargs = {}
     """ Tree view options
@@ -13,5 +15,4 @@ def execute(e: EntitiesABC, p: PresentersABC, paths: tuple):
     bolds = kwargs.get('bolds', tuple(False for _ in names))
     text_colors = kwargs.get('text_colors', tuple('Black' for _ in names))
     """
-
-    p.update_action_resources(e.get_action_resources(), **kwargs)
+    show_action_information.execute(e, p, (e.active_action_index,))

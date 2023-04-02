@@ -424,7 +424,7 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def add_action_resources(self, paths: tuple):
+    def add_action_resources(self, names: tuple, paths: tuple):
         pass
 
     @abc.abstractmethod

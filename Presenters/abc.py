@@ -111,6 +111,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def ask_user_for_entries(self, callback: Callable, **kwargs):
+        pass
+
+    @abc.abstractmethod
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
         pass
 
