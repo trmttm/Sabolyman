@@ -101,7 +101,7 @@ def get_actions_properties(stacker: Stacker):
             w.TextBox(wn.text_box_action_description).padding(5, 5),
             stacker.vstack(
                 w.TreeView(wn.tree_action_resources),
-                w.Label('resources_spacer_label').text(''),
+                w.Label('spacer_to_prevent_scroll_bar_buttons_overlap').text(''),
                 stacker.hstack(
                     w.Spacer(),
                     w.Button(wn.button_delete_selected_resources).text('X').width(1),
