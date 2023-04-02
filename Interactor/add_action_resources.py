@@ -4,15 +4,15 @@ from Presenters.abc import PresentersABC
 from . import show_action_information
 
 
-def execute(e: EntitiesABC, p: PresentersABC, names: tuple, paths: tuple):
-    e.add_action_resources(names, paths)
+def execute(e: EntitiesABC, p: PresentersABC, paths: tuple):
+    def callback(entries: tuple):
+        names = entries
+        e.add_action_resources(names, paths)
+        show_action_information.execute(e, p, (e.active_action_index,))
 
-    kwargs = {}
-    """ Tree view options
-    strikethroughs = kwargs.get('strikethroughs', tuple(False for _ in names))
-    colors = kwargs.get('colors', tuple('Black' for _ in names))
-    underlines = kwargs.get('underlines', tuple(False for _ in names))
-    bolds = kwargs.get('bolds', tuple(False for _ in names))
-    text_colors = kwargs.get('text_colors', tuple('Black' for _ in names))
-    """
-    show_action_information.execute(e, p, (e.active_action_index,))
+    kwargs = {
+        'title': 'Name Recourses',
+        'message': 'Set names for the following resources',
+        'default_values': paths,
+    }
+    p.ask_user_for_entries(callback, **kwargs)

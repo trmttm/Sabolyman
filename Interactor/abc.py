@@ -400,5 +400,13 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def select_action_resources(self, indexes: tuple):
+        pass
+
+    @abc.abstractmethod
     def add_action_resources(self, paths: tuple):
+        pass
+
+    @abc.abstractmethod
+    def remove_selected_action_resources(self, callback: Callable = None):
         pass

@@ -428,6 +428,19 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def select_action_resources(self, indexes):
+        pass
+
+    @property
+    @abc.abstractmethod
+    def selected_resources_indexes(self):
+        pass
+
+    @abc.abstractmethod
+    def remove_selected_action_resources(self):
+        pass
+
+    @abc.abstractmethod
     def get_action_resources(self) -> tuple:
         pass
 

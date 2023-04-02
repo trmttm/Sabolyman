@@ -23,6 +23,10 @@ def get_actions_selected_indexes(v: ViewABC) -> Tuple[int]:
     return v.get_selected_tree_item_indexes(WidgetNames.tree_card_actions)
 
 
+def get_action_resources_selected_indexes(v: ViewABC) -> Tuple[int]:
+    return v.get_selected_tree_item_indexes(WidgetNames.tree_action_resources)
+
+
 def get_card_name(v: ViewABC) -> str:
     return v.get_value(WidgetNames.entry_card_name)
 

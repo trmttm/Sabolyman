@@ -17,24 +17,13 @@ class Resources:
         self._resources = TreeData()
 
     @property
-    def names(self) -> tuple:
-        return self._resources.names
-
-    @property
-    def uris(self) -> tuple:
-        return self._resources.data
+    def data(self) -> TreeData:
+        return self._resources
 
     def add_action_resources(self, names: tuple, uris: tuple):
         for name, uri in zip(names, uris):
             if uri not in self._resources.data:
                 self._resources.add_data(name, uri)
-
-    @property
-    def state(self) -> dict:
-        return self._resources.state
-
-    def set_state(self, resources):
-        self._resources.set_state(resources)
 
 
 class Action(EntityABC):
@@ -248,11 +237,21 @@ class Action(EntityABC):
             self.set_id()
         return self._id
 
+    def select_action_resources(self, indexes: tuple):
+        self._resources.data.select_data_by_indexes(indexes)
+
+    @property
+    def selected_resources_indexes(self) -> tuple:
+        return self._resources.data.selected_indexes
+
     def add_action_resources(self, names: tuple, uris: tuple):
         self._resources.add_action_resources(names, uris)
 
+    def remove_selected_action_resources(self):
+        self._resources.data.remove_selected()
+
     def get_action_resources(self) -> tuple[tuple, tuple]:
-        return self._resources.names
+        return self._resources.data.names
 
     @property
     def state(self) -> dict:
@@ -270,7 +269,7 @@ class Action(EntityABC):
             'start_from': self._start_from,
             'id': self._id,
             'color': self._color,
-            'resources': self._resources.state,
+            'resources': self._resources.data.state,
         }
         return state
 
@@ -290,7 +289,7 @@ class Action(EntityABC):
         self._id = state.get('id', None)
         self._color = state.get('color', 'White')
         self._color_set_by_user = self._color
-        self._resources.set_state(state.get('resources', ()))
+        self._resources.data.set_state(state.get('resources', ()))
 
     def __repr__(self):
         return self._name

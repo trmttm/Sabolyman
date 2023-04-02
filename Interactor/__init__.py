@@ -12,6 +12,7 @@ from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import abstract_out
 from . import add_action_resources
+from . import add_action_resources
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
@@ -365,17 +366,20 @@ class Interactor(InteractorABC):
     def jump_to_policy_action(self, callback):
         jump_to_policy_action.execute(self._entities, self._presenters, callback)
 
-    def add_action_resources(self, paths: tuple):
-        def callback(entries: tuple):
-            names = entries
-            add_action_resources.execute(self._entities, self._presenters, names, paths)
+    # Action Resources
+    def select_action_resources(self, indexes: tuple):
+        self._entities.select_action_resources(indexes)
 
-        kwargs = {
-            'title': 'Name Recourses',
-            'message': 'Set names for the following resources',
-            'default_values': paths,
-        }
-        self._presenters.ask_user_for_entries(callback, **kwargs)
+    def add_action_resources(self, paths: tuple):
+        add_action_resources.execute(self._entities, self._presenters, paths)
+
+    def remove_selected_action_resources(self, callback: Callable = None):
+        e = self._entities
+        p = self._presenters
+        e.remove_selected_action_resources()
+        show_action_information.execute(e, p, (e.active_action_index,))
+        if callback is not None:
+            callback(e.selected_resources_indexes)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):
