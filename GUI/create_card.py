@@ -108,6 +108,7 @@ def get_actions_properties(stacker: Stacker):
                     w.Button(wn.button_move_down_selected_resources).text('↓').width(1),
                     w.Button(wn.button_move_up_selected_resources).text('↑').width(1),
                     w.Button(wn.button_add_new_resources).text('+').width(1),
+                    w.Button(wn.button_open_resource_folders).text('Folder').width(6),
                     w.Button(wn.button_open_resources).text('Open').width(4),
                     w.Spacer(),
                 ),

@@ -416,5 +416,9 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def open_folder_of_resources(self):
+        pass
+
+    @abc.abstractmethod
     def remove_selected_action_resources(self, callback: Callable = None):
         pass

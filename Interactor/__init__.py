@@ -12,7 +12,6 @@ from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import abstract_out
 from . import add_action_resources
-from . import add_action_resources
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
@@ -384,6 +383,19 @@ class Interactor(InteractorABC):
     def open_resources(self):
         for uri in self._entities.get_selected_uris():
             Utilities.open_file(uri)
+
+    def open_folder_of_resources(self):
+        folder_to_open = set()
+        for uri in self._entities.get_selected_uris():
+            split_by_slash = uri.split('/')
+            last_element = split_by_slash[-1]
+            if '.' not in last_element:
+                folder_to_open.add(uri)
+            else:
+                folder_to_open.add(uri.replace(last_element, ''))
+
+        for folder in folder_to_open:
+            Utilities.open_file(folder)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):

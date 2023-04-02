@@ -14,6 +14,25 @@ def default_file_name(e: EntitiesABC) -> str:
 
 
 def get_paths(e):
-    d = '__||__'
-    paths = tuple(s.strip() for s in e.data.replace('{', d).replace('}', d).split(d) if s.strip() != '')
+    separator = '__||__'
+    if ' /' in e.data:
+        # 正しい可能性を確認
+        paths_str = e.data
+        paths = get_paths_tuple(separator, paths_str)
+        space_slash_in_path_is_valid = []
+        for p in paths:
+            space_slash_in_path_is_valid.append(os.path.exists(p))
+
+        if False not in space_slash_in_path_is_valid:
+            paths_str = e.data.replace(' /', '}/')
+            paths = get_paths_tuple(separator, paths_str)
+    else:
+        paths_str = e.data
+        paths = get_paths_tuple(separator, paths_str)
+    return paths
+
+
+def get_paths_tuple(separator, paths_str):
+    d = separator
+    paths = tuple(s for s in paths_str.replace('{', d).replace('}', d).split(d) if s.strip() != '')
     return paths
