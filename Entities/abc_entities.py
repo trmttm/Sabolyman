@@ -103,6 +103,11 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def default_action_resources(self) -> tuple:
+        pass
+
+    @property
+    @abc.abstractmethod
     def default_client_name(self) -> str:
         pass
 
@@ -416,6 +421,14 @@ class EntitiesABC(abc.ABC):
 
     @abc.abstractmethod
     def set_temporarily_display_card(self, card_: Card):
+        pass
+
+    @abc.abstractmethod
+    def add_action_resources(self, paths: tuple):
+        pass
+
+    @abc.abstractmethod
+    def get_action_resources(self) -> tuple:
         pass
 
     @abc.abstractmethod

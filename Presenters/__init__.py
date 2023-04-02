@@ -14,6 +14,7 @@ from . import open_filter_setting
 from . import show_datetime_setter
 from . import show_mail_creator
 from . import show_minute_setter
+from . import update_action_resources
 from . import update_actions
 from . import update_my_cards_list
 from . import update_their_cards_list
@@ -105,6 +106,9 @@ class Presenters(PresentersABC):
 
     def show_datetime_setter(self, view_model, upon_ok: Callable = None, **kwargs):
         show_datetime_setter.execute(self._view, view_model, upon_ok, **kwargs)
+
+    def update_action_resources(self, resources: tuple, **kwargs):
+        update_action_resources.execute(self._view, resources, **kwargs)
 
     # Popup
     def feed_back_user_by_popup(self, title: str, body: str, width: int, height: int, **kwargs):

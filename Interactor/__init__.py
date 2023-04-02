@@ -76,6 +76,7 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
+from . import add_action_resources
 
 
 class Interactor(InteractorABC):
@@ -363,6 +364,9 @@ class Interactor(InteractorABC):
 
     def jump_to_policy_action(self, callback):
         jump_to_policy_action.execute(self._entities, self._presenters, callback)
+
+    def add_action_resources(self, paths: tuple):
+        add_action_resources.execute(self._entities, self._presenters, paths)
 
     # Synchronize
     def synchronizer_notification_handler(self, **kwargs):

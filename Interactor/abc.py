@@ -398,3 +398,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def recursive_counter(self):
         pass
+
+    @abc.abstractmethod
+    def add_action_resources(self, paths: tuple):
+        pass

@@ -121,3 +121,7 @@ class PresentersABC(abc.ABC):
     @abc.abstractmethod
     def ask_user_date(self, upon_date_selected: Callable):
         pass
+
+    @abc.abstractmethod
+    def update_action_resources(self, resources: tuple, **kwargs):
+        pass

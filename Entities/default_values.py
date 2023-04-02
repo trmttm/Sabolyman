@@ -20,6 +20,10 @@ class DefaultValues:
         return datetime.datetime(tm.year, tm.month, tm.day, 17, 0)
 
     @property
+    def default_action_resources(self) -> tuple:
+        return ()
+
+    @property
     def client_name(self) -> str:
         return self._user_name
 

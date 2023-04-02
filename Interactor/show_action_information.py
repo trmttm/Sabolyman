@@ -22,6 +22,7 @@ def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
             p.update_action_files(action.files.names)
             p.update_action_due_date(action.get_dead_line())
             p.update_action_start_from(action.get_start_from())
+            p.update_action_resources(action.get_action_resources())
 
         else:
             p.update_action_name('')
@@ -34,3 +35,4 @@ def execute(e: EntitiesABC, p: PresentersABC, indexes: Tuple[int]):
             p.update_action_files(())
             p.update_action_due_date(e.default_dead_line)
             p.update_action_start_from(e.default_start_from)
+            p.update_action_resources(e.default_action_resources)

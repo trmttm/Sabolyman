@@ -11,6 +11,23 @@ from .files import Files
 from .person import Person
 
 
+class Resources:
+    def __init__(self):
+        self._resources = ()
+
+    def add_action_resources(self, uris: tuple):
+        for uri in uris:
+            if uri not in self._resources:
+                self._resources += (uri,)
+
+    @property
+    def state(self) -> tuple:
+        return self._resources
+
+    def set_state(self, resources):
+        self._resources = resources
+
+
 class Action(EntityABC):
 
     def __init__(self):
@@ -28,6 +45,7 @@ class Action(EntityABC):
         self._client = Person('')
         self._dead_line = datetime.datetime(tm.year, tm.month, tm.day, 17)
         self._start_from = self._date_created
+        self._resources = Resources()
         self._id = None
 
     @property
@@ -221,6 +239,12 @@ class Action(EntityABC):
             self.set_id()
         return self._id
 
+    def add_action_resources(self, uris: tuple):
+        self._resources.add_action_resources(uris)
+
+    def get_action_resources(self) -> tuple:
+        return self._resources.state
+
     @property
     def state(self) -> dict:
         state = {
@@ -237,6 +261,7 @@ class Action(EntityABC):
             'start_from': self._start_from,
             'id': self._id,
             'color': self._color,
+            'resources': self._resources.state,
         }
         return state
 
@@ -256,6 +281,7 @@ class Action(EntityABC):
         self._id = state.get('id', None)
         self._color = state.get('color', 'White')
         self._color_set_by_user = self._color
+        self._resources.set_state(state.get('resources', ()))
 
     def __repr__(self):
         return self._name

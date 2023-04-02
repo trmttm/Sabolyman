@@ -60,6 +60,10 @@ class Entities(EntitiesABC):
         return self._default_values.start_from
 
     @property
+    def default_action_resources(self) -> tuple:
+        return self._default_values.default_action_resources
+
+    @property
     def default_client_name(self) -> str:
         return self._default_values.client_name
 
@@ -450,6 +454,16 @@ class Entities(EntitiesABC):
 
     def clear_temporarily_display_card(self):
         self._temporarily_display_card = None
+
+    def add_action_resources(self, paths: tuple):
+        active_action = self.active_action
+        if active_action is not None:
+            active_action.add_action_resources(paths)
+
+    def get_action_resources(self) -> tuple:
+        active_action = self.active_action
+        if active_action is not None:
+            return active_action.get_action_resources()
 
 
 def get_card_by_index(cards_tuple, index) -> Card:

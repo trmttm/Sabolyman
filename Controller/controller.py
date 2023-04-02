@@ -5,6 +5,7 @@ from interface_view import ViewABC
 import WidgetNames
 from Interactor import InteractorABC
 from . import state as s
+from . import utilities
 
 
 def configure_controller(v: ViewABC, i: InteractorABC):
@@ -72,12 +73,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 
     # DND
     def callback(e):
-        d = '__||__'
-        paths = tuple(s.strip() for s in e.data.replace('{', d).replace('}', d).split(d) if s.strip() != '')
-        text = ''
-        for n, path in enumerate(paths):
-            text += f'\n{n} {path}'
-        i.feed_back_user_by_popup('File Dropped', text, 600, 600)
+        i.add_action_resources(utilities.get_paths(e))
 
     v.bind_upon_drag_and_drop_drop(wn.tree_action_resources, callback)
 
