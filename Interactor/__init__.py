@@ -11,6 +11,7 @@ from Entities.priority import Priority
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import abstract_out
+from . import add_action_resources
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
@@ -76,7 +77,6 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
-from . import add_action_resources
 
 
 class Interactor(InteractorABC):

@@ -101,6 +101,14 @@ def get_actions_properties(stacker: Stacker):
             w.TextBox(wn.text_box_action_description).padding(5, 5),
             stacker.vstack(
                 w.TreeView(wn.tree_action_resources),
+                stacker.hstack(
+                    w.Spacer(),
+                    w.Button(wn.button_delete_selected_resources).text('X').width(1),
+                    w.Button(wn.button_move_down_selected_resources).text('↓').width(1),
+                    w.Button(wn.button_move_up_selected_resources).text('↑').width(1),
+                    w.Button(wn.button_add_new_resources).text('+').width(1),
+                    w.Spacer(),
+                ),
             ),
         ),
         w.Spacer().adjust(-1)
