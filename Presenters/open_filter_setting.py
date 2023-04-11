@@ -99,6 +99,7 @@ def bind_commands_to_widgets(commands: dict, states: dict, v):
 
 def filter_by_search_word(commands: dict, v: ViewABC):
     commands['filter_with_keyword'](v.get_value(entry_search_box), v.get_value(combobox_search_mode))
+    close(v, commands)
 
 
 def toggle_show_hide_finished_cards(v: ViewABC, commands: dict):
@@ -149,11 +150,12 @@ def increment_priority(n: int, commands: dict, states: dict, v: ViewABC):
 
 
 def clear_filters(commands: dict, states: dict, v: ViewABC):
-    commands['clear_all_filters']()
+    commands['clear_search']()
     v.set_value(ch_btn_finished, False)
     v.set_value(ch_btn_filter_by_parent, False)
     v.set_value(ch_btn_due_date, False)
     v.set_value(entry_due_date, states['due_date'])
+    close(v, commands)
 
 
 def close(v: ViewABC, commands: dict):
