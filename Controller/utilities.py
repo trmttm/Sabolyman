@@ -15,7 +15,7 @@ def default_file_name(e: EntitiesABC) -> str:
 
 def get_paths(e):
     separator = '__||__'
-    if ' /' in e.data:
+    if ' /' in e.data or ' ¥' in e.data:
         # 正しい可能性を確認
         paths_str = e.data
         paths = get_paths_tuple(separator, paths_str)
