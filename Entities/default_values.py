@@ -7,7 +7,7 @@ class DefaultValues:
 
     @property
     def card_name(self) -> str:
-        return f'Default Card Name'
+        return f'Default goal name'
 
     @property
     def dead_line(self) -> datetime.datetime:
@@ -33,7 +33,7 @@ class DefaultValues:
 
     @property
     def action_name(self) -> str:
-        return f'Default Action Name'
+        return f'Identify next action'
 
     @property
     def action_time_expected(self) -> datetime.timedelta:
