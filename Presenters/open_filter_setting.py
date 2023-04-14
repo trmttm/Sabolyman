@@ -18,7 +18,7 @@ btn_priority_down = 'btn_priority_down'
 btn_priority_up = 'btn_priority_up'
 lbl_priority = 'lbl_priority'
 priority = 5
-
+btn_ok = 'btn_filter_close'
 
 def execute(v: ViewABC, commands: dict, states: dict):
     title = 'Filter setting'
@@ -75,7 +75,7 @@ def create_stacker(v: ViewABC, commands: dict, states: dict) -> Stacker:
         stacker.hstack(
             w.Button('btn_filter_default').text('Clear filters').command(
                 lambda: clear_filters(commands, states, v)).padding(20, 5),
-            w.Button('btn_filter_close').text('Done').command(lambda: v.close(specified_parent)).padding(20, 5),
+            w.Button(btn_ok).text('Done').command(lambda: v.close(specified_parent)).padding(20, 5),
             w.Spacer().adjust(-2),
             w.Spacer().adjust(-2),
         ),
@@ -88,7 +88,7 @@ def bind_commands_to_widgets(commands: dict, states: dict, v):
     v.bind_command_to_widget(ch_btn_finished, lambda: toggle_show_hide_finished_cards(v, commands))
     v.bind_command_to_widget(ch_btn_filter_by_parent, lambda: toggle_filter_by_parent(v, commands))
     v.bind_command_to_widget(ch_btn_due_date, lambda: toggle_due_date_filter(v, commands))
-    v.bind_command_to_widget(entry_search_box, lambda *_: filter_by_search_word(commands, v))
+    v.bind_command_to_widget(entry_search_box, lambda *_: v.focus(btn_ok))
     v.bind_command_to_widget(combobox_search_mode, lambda *_: filter_by_search_word(commands, v))
     v.bind_command_to_widget(btn_clear_search, lambda: commands['clear_search']())
     v.bind_command_to_widget(btn_priority_up, lambda: increment_priority(1, commands, states, v))
