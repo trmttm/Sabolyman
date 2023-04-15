@@ -156,7 +156,7 @@ def increment_priority(n: int, commands: dict, states: dict, v: ViewABC):
 
 
 def clear_filters(commands: dict, states: dict, v: ViewABC):
-    commands['clear_search']()
+    commands['clear_all_filters']()
     v.set_value(ch_btn_finished, False)
     v.set_value(ch_btn_filter_by_parent, False)
     v.set_value(ch_btn_due_date, False)
