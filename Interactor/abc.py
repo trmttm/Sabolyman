@@ -355,7 +355,7 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def abstract_out_card_as_an_action_and_copy(self):
+    def abstract_out_card_as_an_action_and_copy(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         pass
 
     @abc.abstractmethod

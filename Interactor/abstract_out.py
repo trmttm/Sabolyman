@@ -1,13 +1,21 @@
+from typing import Tuple
+
 from Commands import CreateAction
 from Entities import EntitiesABC
 
 
-def execute(e: EntitiesABC):
-    implementation_card = e.active_card
+def execute(e: EntitiesABC, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
+    cards_selected = ()
+    if e.active_card in e.my_cards:
+        cards_selected = e.get_my_visible_cards_by_indexes(indexes1)
+    elif e.active_card in e.their_cards:
+        cards_selected = e.get_their_visible_cards_by_indexes(indexes2)
 
-    command = CreateAction(e)
-    action_policy = command.execute()
-
-    e.synchronize_action_to_card(action_policy, implementation_card)
-    e.copy_actions((action_policy,))
-    print(f'Implementation card {implementation_card.name} is copied.')
+    actions_to_copy = []
+    for implementation_card in cards_selected:
+        command = CreateAction(e)
+        policy_action = command.execute()
+        e.synchronize_action_to_card(policy_action, implementation_card)
+        actions_to_copy.append(policy_action)
+    e.copy_actions(tuple(actions_to_copy))
+    print(f'Implementation card(s) {actions_to_copy} are copied.')

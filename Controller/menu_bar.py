@@ -77,7 +77,10 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                     v.ask_color()),
             },
             'Convert to Action(s)': lambda: i.convert_selected_cards_to_actions(state.get_trees_selected_indexes(v)),
-            'Abstract out as an action': lambda: i.abstract_out_card_as_an_action_and_copy(),
+            'Abstract out as an action': lambda: i.abstract_out_card_as_an_action_and_copy(
+                state.get_left_tree_selected_indexes(v),
+                state.get_right_tree_selected_indexes(v),
+            ),
             'Sort': {
                 'By Color': i.sort_cards_by_color,
                 'By Deadline': i.sort_cards_by_deadline,
