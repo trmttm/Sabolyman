@@ -20,6 +20,7 @@ lbl_priority = 'lbl_priority'
 priority = 5
 btn_ok = 'btn_filter_close'
 
+
 def execute(v: ViewABC, commands: dict, states: dict):
     title = 'Filter setting'
     width = 550
@@ -75,12 +76,17 @@ def create_stacker(v: ViewABC, commands: dict, states: dict) -> Stacker:
         stacker.hstack(
             w.Button('btn_filter_default').text('Clear filters').command(
                 lambda: clear_filters(commands, states, v)).padding(20, 5),
-            w.Button(btn_ok).text('Done').command(lambda: v.close(specified_parent)).padding(20, 5),
+            w.Button(btn_ok).text('Done').command(lambda: upon_ok(v, commands)).padding(20, 5),
             w.Spacer().adjust(-2),
             w.Spacer().adjust(-2),
         ),
     )
     return stacker
+
+
+def upon_ok(v: ViewABC, commands: dict):
+    filter_by_search_word(commands, v)
+    v.close(specified_parent)
 
 
 def bind_commands_to_widgets(commands: dict, states: dict, v):
