@@ -501,7 +501,7 @@ class Interactor(InteractorABC):
         initially_selected_card = self._entities.active_card
         self._entities.clear_filter_key()
         self._entities.clear_filter_mode()
-        self._filter_cards_with_keyword('', self.search_mode[0])
+        self._entities.set_filter_key('', self.search_mode[0])
         self._entities.set_active_card(initially_selected_card)
         present_card_list.execute(self._entities, self._presenters)
 
