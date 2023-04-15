@@ -6,6 +6,11 @@ from Entities.card import Card
 
 
 class SynchronizerABC(abc.ABC):
+    @property
+    @abc.abstractmethod
+    def all_implementation_card_ids(self) -> tuple[str]:
+        pass
+
     @abc.abstractmethod
     def get_implementation_card(self, action_id: str) -> Union[Card, None]:
         pass

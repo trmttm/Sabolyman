@@ -31,6 +31,10 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         synchronize_remove_card(entities, self)
         synchronize_add_new_action(self._entities, self)
 
+    @property
+    def all_implementation_card_ids(self) -> tuple[str]:
+        return tuple(self._synchronization_table.values())
+
     def synchronize_card_to_action(self, policy_action: Action, implementation_card: Card):
         self.synchronize_(implementation_card, policy_action, implementation_card, policy_action)
 

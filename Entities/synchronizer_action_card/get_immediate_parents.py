@@ -3,15 +3,14 @@ from Entities.card import Card
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 
 
-def execute(child_card: Card, e: EntitiesABC, parents: list = None) -> list[Card, ...]:
+def execute(child_card: Card, e: EntitiesABC) -> list[Card, ...]:
     s: SynchronizerABC = e.synchronizer
-    if parents is None:
-        parents = []
+    parents = []
 
-    for card in e.all_cards:
-        for action in card.all_actions:
-            implementation_card = s.get_implementation_card(action.id)
-            if implementation_card is not None:
-                if implementation_card.id == child_card.id:
-                    parents.append(card)
+    policy_action = s.get_policy_action(child_card.id)
+    if policy_action is not None:
+        for implementation_card_id in s.all_implementation_card_ids:
+            card = e.get_card_by_id(implementation_card_id)  # guaranteed to be not None
+            if policy_action in card.all_actions:
+                parents.append(card)
     return parents
