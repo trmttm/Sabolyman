@@ -353,7 +353,7 @@ class Interactor(InteractorABC):
         implement_lower_level_detail.execute(self._entities, self._presenters)
 
     def abstract_out_card_as_an_action_and_copy(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
-        abstract_out.execute(self._entities, indexes1, indexes2)
+        abstract_out.execute(self._entities, indexes1, indexes2, self.feed_back_user_by_popup)
 
     def jump_to_implementation_card(self, callback):
         jump_to_implementation_card.execute(self._entities, self._presenters, callback)
