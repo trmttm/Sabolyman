@@ -20,6 +20,8 @@ button_move_down_selected_later_card = 'button_move_down_selected_later_card'
 
 label_date_created = 'label_date_created'
 
+notebook_actions = 'notebook_actions'
+
 selector_tree_cards = {
     0: tree_my_cards,
     1: tree_their_cards,

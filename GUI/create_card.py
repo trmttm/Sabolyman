@@ -59,7 +59,7 @@ def get_actions_tree(stacker: Stacker):
 def get_actions_properties(stacker: Stacker):
     wn = WidgetNames
     return stacker.vstack(
-        w.NoteBook('notebook_actions', stacker).frame_names(('Properties', 'Notes', 'Resources')).stackers(
+        w.NoteBook(wn.notebook_actions, stacker).frame_names(('Properties', 'Notes', 'Resources')).stackers(
             stacker.vstack(
                 stacker.hstack(
                     w.Label('lbl_action_deadline').text('Dead line:').width(10).padding(5, 0),
