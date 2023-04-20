@@ -88,6 +88,10 @@ class Gateway(GatewayABC):
         return os.path.join(self.home_folder, 'Card Template')
 
     @property
+    def keyboard_config_folder_path(self) -> str:
+        return os.path.join(self.home_folder, 'Keyboard Shortcut')
+
+    @property
     def auto_save_path(self) -> str:
         return os.path.join(self.state_folder, 'save.sb')
 

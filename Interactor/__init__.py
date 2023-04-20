@@ -448,6 +448,8 @@ class Interactor(InteractorABC):
             os.mkdir(self._gateway.graph_folder_path)
         if not os.path.exists(self._gateway.gantt_chart_folder_path):
             os.mkdir(self._gateway.gantt_chart_folder_path)
+        if not os.path.exists(self._gateway.keyboard_config_folder_path):
+            os.mkdir(self._gateway.keyboard_config_folder_path)
         try:
             self.load_state_from_file(self._gateway.auto_save_path)
         except:
@@ -488,6 +490,10 @@ class Interactor(InteractorABC):
     @property
     def cards_template_path(self) -> str:
         return self._gateway.cards_template_path
+
+    @property
+    def keyboard_config_folder_path(self) -> str:
+        return self._gateway.keyboard_config_folder_path
 
     def make_email(self):
         show_email_creator1.execute(self._entities, self._presenters, self._gateway)

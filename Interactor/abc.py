@@ -200,6 +200,11 @@ class InteractorABC(abc.ABC):
     def cards_template_path(self) -> str:
         pass
 
+    @property
+    @abc.abstractmethod
+    def keyboard_config_folder_path(self) -> str:
+        pass
+
     @abc.abstractmethod
     def make_email(self):
         pass

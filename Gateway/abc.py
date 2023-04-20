@@ -77,6 +77,11 @@ class GatewayABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def keyboard_config_folder_path(self) -> str:
+        pass
+
+    @property
+    @abc.abstractmethod
     def auto_save_path(self) -> str:
         pass
 

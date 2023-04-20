@@ -2,6 +2,7 @@ from view_tkinter import View
 
 import Controller.controller
 import Controller.keyboard
+import Controller.keyboard_config_file
 import Controller.menu_bar
 from Entities import Entities
 from Gateway import Gateway
@@ -30,6 +31,7 @@ def start_app(gui_selected='gui01.gui'):
     interactor.create_mail_menu(f, lambda menu_injected: j(app, interactor, entities, menu_injected))
     # Keyboard shortcut
     Controller.keyboard.configure_keyboard_shortcut(app, interactor, entities)
+    # Controller.keyboard_config_file.configure_keyboard_shortcut(app, interactor, entities)
     # Teardown
     app.attach_to_event_upon_closing(lambda: interactor.close(lambda: app.close('root')))
 
