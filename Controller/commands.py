@@ -132,7 +132,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Export Gantt Chart level 3': lambda: i.export_gantt_chart_data(3),
         'Export Gantt Chart level 4': lambda: i.export_gantt_chart_data(4),
 
-        'Load Template card': lambda: i.load_template_card(app.select_open_file(i.cards_template_path)),
+        'Load Template card': lambda: i.add_new_card(),
         'Save as Template card': lambda: i.save_as_template_card(app.select_save_file(i.cards_template_path)),
 
         'Abstract out as an action': lambda: i.abstract_out_card_as_an_action_and_copy(
