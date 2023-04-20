@@ -429,6 +429,9 @@ class Interactor(InteractorABC):
     def set_active_keymap(self, name: str):
         self._keymaps.set_active_keymap(name)
 
+    def clear_keyboard_shortcuts(self):
+        self._keymaps.active_keymap.clear()
+
     def add_new_keyboard_shortcut(self, key_combo: tuple, command_and_feedback: tuple):
         self._keymaps.active_keymap.add_new_keyboard_shortcut(key_combo, command_and_feedback)
 

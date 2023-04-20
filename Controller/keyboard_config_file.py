@@ -87,13 +87,14 @@ key_text_to_key_combo_element = {
 def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     i.set_active_keymap('default')
     command_name_to_command = get_command_name_to_command(app, i, e)
-    method_to_key_combo = get_method_name_to_key_combo(i)
+    method_to_key_combo = get_method_name_to_key_combo(app, i, e)
 
     register_keyboard_shortcuts(command_name_to_command, i, method_to_key_combo)
     app.set_keyboard_shortcut_handler_to_root(lambda modifier, key: handler(i.keymaps, modifier, key))
 
 
 def register_keyboard_shortcuts(command_name_to_command: dict, i: InteractorABC, method_to_key_combo: dict):
+    i.clear_keyboard_shortcuts()
     for method_name, key_combo_str in method_to_key_combo.items():
         key_combo_list = []
         modifier = 0
@@ -109,16 +110,21 @@ def register_keyboard_shortcuts(command_name_to_command: dict, i: InteractorABC,
         i.add_new_keyboard_shortcut(key_combo, (method, ''))
 
 
-def get_method_name_to_key_combo(i: InteractorABC):
+def get_method_name_to_key_combo(v: ViewABC, i: InteractorABC, e: EntitiesABC):
+    try:
+        method_to_key_combo = gui.load_shortcut_configuration_file(get_file_path(i))
+    except FileNotFoundError:
+        command_names = get_command_name_to_command(v, i, e).keys()
+        method_to_key_combo = dict(zip(command_names, ('' for _ in command_names)))
+    return method_to_key_combo
+
+
+def get_file_path(interactor: InteractorABC) -> str:
     if os_identifier.is_mac:
-        file_path = os.path.join(i.keyboard_config_folder_path, 'keyboard_shortcut_config_mac.json')
+        file_path = os.path.join(interactor.keyboard_config_folder_path, 'keyboard_shortcut_config_mac.json')
     else:
         file_path = 'keyboard_shortcut_config_windows.json'
-    try:
-        method_to_key_combo = gui.load_shortcut_configuration_file(file_path)
-    except FileNotFoundError:
-        method_to_key_combo = {}
-    return method_to_key_combo
+    return file_path
 
 
 def handler(k: KeyMapsABC, modifier, key):

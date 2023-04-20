@@ -146,6 +146,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def clear_keyboard_shortcuts(self):
+        pass
+
+    @abc.abstractmethod
     def add_new_keyboard_shortcut(self, key_combo: tuple, command_and_feedback: tuple):
         pass
 
