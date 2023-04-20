@@ -1,6 +1,6 @@
 import os
 
-import gui
+import shortcut_setter
 import os_identifier
 from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
@@ -114,7 +114,7 @@ def get_method_name_to_key_combo(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     command_names = get_command_name_to_command(v, i, e).keys()
     method_to_key_combo = dict(zip(command_names, ('' for _ in command_names)))
     try:
-        method_to_key_combo_from_json = gui.load_shortcut_configuration_file(get_file_path(i))
+        method_to_key_combo_from_json = shortcut_setter.load_shortcut_configuration_file(get_file_path(i))
     except FileNotFoundError:
         method_to_key_combo_from_json = {}
     method_to_key_combo.update(method_to_key_combo_from_json)
