@@ -116,10 +116,30 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Copy selected actions': lambda: copy_and_feedback(),
         'Cut selected actions': lambda: cut_and_feedback(),
         'Paste actions as alias': lambda: i.paste_actions_as_alias(),
+        'Paste actions as duplicate copy': lambda: i.paste_actions_as_duplicate(),
         'Filter by parent': lambda: i.filter_cards_by_parent(),
         'Filter move up on parent': lambda: i.filter_move_up_one_parent(),
         'Clear all filters': lambda: i.clear_all_filters(),
+        'Apply filter by due date': lambda: i.filter_cards_by_due_date(),
+        'Clear filter by due date': lambda: i.clear_filter_due_date(),
         'User means to edit': lambda: user_means_to_edit(),
+
+        'Export Actions List': lambda: i.export_actions_list(
+            app.select_save_file(i.home_folder, initialfile='Actions.csv'), ),
+        'Export Gantt Chart level 0': lambda: i.export_gantt_chart_data(),
+        'Export Gantt Chart level 1': lambda: i.export_gantt_chart_data(1),
+        'Export Gantt Chart level 2': lambda: i.export_gantt_chart_data(2),
+        'Export Gantt Chart level 3': lambda: i.export_gantt_chart_data(3),
+        'Export Gantt Chart level 4': lambda: i.export_gantt_chart_data(4),
+
+        'Load Template card': lambda: i.load_template_card(app.select_open_file(i.cards_template_path)),
+        'Save as Template card': lambda: i.save_as_template_card(app.select_save_file(i.cards_template_path)),
+
+        'Abstract out as an action': lambda: i.abstract_out_card_as_an_action_and_copy(
+            state.get_left_tree_selected_indexes(app),
+            state.get_right_tree_selected_indexes(app),
+        ),
+
     }
 
 
