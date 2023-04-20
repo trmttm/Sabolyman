@@ -85,20 +85,15 @@ key_text_to_key_combo_element = {
 
 
 def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
-    command_name_to_command = get_command_name_to_command(app, i, e)
-
     i.set_active_keymap('default')
+    command_name_to_command = get_command_name_to_command(app, i, e)
+    method_to_key_combo = get_method_name_to_key_combo(i)
 
-    if os_identifier.is_mac:
-        file_path = os.path.join(i.keyboard_config_folder_path, 'keyboard_shortcut_config_mac.json')
-    else:
-        file_path = 'keyboard_shortcut_config_windows.json'
+    register_keyboard_shortcuts(command_name_to_command, i, method_to_key_combo)
+    app.set_keyboard_shortcut_handler_to_root(lambda modifier, key: handler(i.keymaps, modifier, key))
 
-    try:
-        method_to_key_combo = gui.load_shortcut_configuration_file(file_path)
-    except FileNotFoundError:
-        method_to_key_combo = {}
 
+def register_keyboard_shortcuts(command_name_to_command: dict, i: InteractorABC, method_to_key_combo: dict):
     for method_name, key_combo_str in method_to_key_combo.items():
         key_combo_list = []
         modifier = 0
@@ -113,7 +108,17 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
         method = command_name_to_command.get(method_name, lambda: print(method_name))
         i.add_new_keyboard_shortcut(key_combo, (method, ''))
 
-    app.set_keyboard_shortcut_handler_to_root(lambda modifier, key: handler(i.keymaps, modifier, key))
+
+def get_method_name_to_key_combo(i: InteractorABC):
+    if os_identifier.is_mac:
+        file_path = os.path.join(i.keyboard_config_folder_path, 'keyboard_shortcut_config_mac.json')
+    else:
+        file_path = 'keyboard_shortcut_config_windows.json'
+    try:
+        method_to_key_combo = gui.load_shortcut_configuration_file(file_path)
+    except FileNotFoundError:
+        method_to_key_combo = {}
+    return method_to_key_combo
 
 
 def handler(k: KeyMapsABC, modifier, key):
