@@ -31,6 +31,7 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
     def focus_cards_tree_then_actions_tree(active_card_is_my_ball, card_index, action_index):
         focus_on_tree_cards(active_card_is_my_ball, card_index)
         focus_on_tree_actions(action_index)
+        i.filter_cards_by_parent()
 
     def draw_node_graph_and_feedback():
         i.display_selected_card_as_a_graph_on_the_browser()

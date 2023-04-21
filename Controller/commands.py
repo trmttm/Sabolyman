@@ -45,6 +45,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
     def focus_cards_tree_then_actions_tree(active_card_is_my_ball, card_index, action_index):
         focus_on_tree_cards(active_card_is_my_ball, card_index)
         focus_on_tree_actions(action_index)
+        i.filter_cards_by_parent()
 
     def copy_and_feedback():
         i.copy_actions()

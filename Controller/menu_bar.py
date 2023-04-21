@@ -14,6 +14,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
     def focus_on_tree_actions(action_index: int = 0):
         v.focus(wn.tree_card_actions)
         v.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
+        i.filter_cards_by_parent()
 
     menu_bar_model = {
         'File': {
