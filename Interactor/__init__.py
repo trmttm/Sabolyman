@@ -357,15 +357,17 @@ class Interactor(InteractorABC):
 
     def jump_to_implementation_card(self, callback):
         jump_to_implementation_card.execute(self._entities, self._presenters, callback)
+        self.filter_cards_by_parent()
+
+    def jump_to_policy_action(self, callback):
+        jump_to_policy_action.execute(self._entities, self._presenters, callback)
+        self.filter_cards_by_parent()
 
     def jump_to_card_list(self, callback: Callable):
         callback(self._entities.active_card_is_in_my_cards, self._entities.active_card_index)
 
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)
-
-    def jump_to_policy_action(self, callback):
-        jump_to_policy_action.execute(self._entities, self._presenters, callback)
 
     # Action Resources
     def select_action_resources(self, indexes: tuple):
