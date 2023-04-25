@@ -360,6 +360,14 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def open_display_due_tasks_dialogue_my_ball(self):
+        pass
+
+    @abc.abstractmethod
+    def open_display_due_tasks_dialogue_their_ball(self):
+        pass
+
+    @abc.abstractmethod
     def reset_card_starting_date(self, indexes1: Tuple[int, ...], indexes2: Tuple[int, ...]):
         pass
 

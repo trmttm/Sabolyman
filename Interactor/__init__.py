@@ -22,6 +22,8 @@ from . import delete_selected_actions
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
 from . import display_due_tasks
+from . import display_due_tasks_my_ball
+from . import display_due_tasks_their_ball
 from . import display_new_tasks
 from . import display_progress
 from . import draw_graph_on_browser
@@ -555,6 +557,14 @@ class Interactor(InteractorABC):
         options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
         self._presenters.open_display_progress_dialogue(self.display_due_tasks, **options)
 
+    def open_display_due_tasks_dialogue_my_ball(self):
+        options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
+        self._presenters.open_display_progress_dialogue(self.display_due_tasks_my_ball, **options)
+
+    def open_display_due_tasks_dialogue_their_ball(self):
+        options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
+        self._presenters.open_display_progress_dialogue(self.display_due_tasks_their_ball, **options)
+
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
 
@@ -563,6 +573,12 @@ class Interactor(InteractorABC):
 
     def display_due_tasks(self, from_: str, to_: str):
         display_due_tasks.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
+
+    def display_due_tasks_my_ball(self, from_: str, to_: str):
+        display_due_tasks_my_ball.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
+
+    def display_due_tasks_their_ball(self, from_: str, to_: str):
+        display_due_tasks_their_ball.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
 
     def display_selected_card_as_a_graph_on_the_browser(self):
         save, feedback = self.save_state_silently, self.feed_back_user_by_popup
