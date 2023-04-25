@@ -17,8 +17,8 @@ def execute(from_: str, to_: str, feedback: Callable, e: EntitiesABC):
 
     def filter_action(action: Action):
         datetime_in_question = action.get_dead_line()
-        if (datetime_in_question is not None) and (not action.is_done) and (
-        not s.action_has_implementation_card(action.id)):
+        action_has_no_implementation = not s.action_has_implementation_card(action.id)
+        if (datetime_in_question is not None) and (not action.is_done) and action_has_no_implementation:
             date = datetime_in_question.date()
             if (date_from <= date) and (date <= date_to):
                 return True
