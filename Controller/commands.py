@@ -6,7 +6,7 @@ from interface_view import ViewABC
 import WidgetNames as wn
 from Entities.abc_entities import EntitiesABC
 from Interactor.abc import InteractorABC
-from . import keyboard_config_file
+from . import keyboard
 from . import state
 from . import utilities
 from .shared_commands import paste_description_then_display_notex
