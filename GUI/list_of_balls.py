@@ -44,6 +44,7 @@ def tree_buttons(index: int, stacker: Stacker):
     id_down = wn.selector_button_move_down_selected_card.get(index)
     id_up = wn.selector_button_move_up_selected_card.get(index)
     id_add = wn.selector_button_add_card.get(index)
+    id_insert = wn.selector_button_insert_card.get(index)
 
     return stacker.hstack(
         w.Spacer(),
@@ -51,5 +52,6 @@ def tree_buttons(index: int, stacker: Stacker):
         w.Button(id_down).text('↓').width(1),
         w.Button(id_up).text('↑').width(1),
         w.Button(id_add).text('+').width(1),
+        w.Button(id_insert).text('+i').width(2),
         w.Spacer(),
     )

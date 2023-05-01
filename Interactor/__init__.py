@@ -37,6 +37,7 @@ from . import filter_cards_move_up_one_parent
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
 from . import increment_card_importance
+from . import insert_as_policy_action_new_card_from_templates
 from . import jump_to_implementation_card
 from . import jump_to_policy_action
 from . import load_gui
@@ -126,6 +127,9 @@ class Interactor(InteractorABC):
     # Cards
     def add_new_card(self):
         add_new_card_from_templates.execute(self._entities, self._gateway, self._presenters)
+
+    def insert_new_card(self):
+        insert_as_policy_action_new_card_from_templates.execute(self._entities, self._gateway, self._presenters)
 
     def duplicate_selected_card(self):
         duplicate_selected_card.execute(self._entities, self._presenters, self._entities.active_card)

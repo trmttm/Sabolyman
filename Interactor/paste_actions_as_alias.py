@@ -8,12 +8,13 @@ from Presenters import PresentersABC
 from . import present_action_list
 
 
-def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable):
+def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable = None):
     feedback, n_new_actions = create_alias_of_action_if_not_duplicate_or_incursion(e)
     handle_done_not_done_status_and_select_the_right_card(e)
     remove_actions_if_cut_mode(e)
     present_actions(e, p, n_new_actions)
-    feedback_user_if_duplicate_or_incursion(feedback, feedback_method)
+    if feedback_method is not None:
+        feedback_user_if_duplicate_or_incursion(feedback, feedback_method)
 
 
 def create_alias_of_action_if_not_duplicate_or_incursion(e: EntitiesABC):

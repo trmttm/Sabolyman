@@ -6,6 +6,10 @@ button_add_new_my_card = 'button_my_cards_add_new_card'
 button_add_new_their_card = 'button_their_cards_add_new_card'
 button_add_new_later_card = 'button_later_cards_add_new_card'
 
+button_insert_new_my_card = 'button_my_cards_insert_new_card'
+button_insert_new_their_card = 'button_their_cards_insert_new_card'
+button_insert_new_later_card = 'button_later_cards_insert_new_card'
+
 button_delete_selected_my_card = 'button_my_cards_delete_selected_card'
 button_delete_selected_their_card = 'button_their_cards_delete_selected_card'
 button_delete_selected_later_card = 'button_later_cards_delete_selected_card'
@@ -31,6 +35,11 @@ selector_button_add_card = {
     0: button_add_new_my_card,
     1: button_add_new_their_card,
     2: button_add_new_later_card,
+}
+selector_button_insert_card = {
+    0: button_insert_new_my_card,
+    1: button_insert_new_their_card,
+    2: button_insert_new_later_card,
 }
 selector_button_delete_selected_card = {
     0: button_delete_selected_my_card,

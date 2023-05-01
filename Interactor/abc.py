@@ -46,6 +46,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def insert_new_card(self):
+        pass
+
+    @abc.abstractmethod
     def delete_selected_my_cards(self, indexes: Tuple[int]):
         pass
 

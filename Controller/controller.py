@@ -36,6 +36,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 
     # My Cards
     f(wn.button_add_new_my_card, lambda: i.add_new_card())
+    f(wn.button_insert_new_my_card, lambda: i.insert_new_card())
     f(wn.button_move_up_selected_my_card, lambda: i.move_my_cards_up(s.get_left_tree_selected_indexes(v)))
     f(wn.button_move_down_selected_my_card, lambda: i.move_my_cards_down(s.get_left_tree_selected_indexes(v)))
     f(wn.button_delete_selected_my_card, lambda: i.delete_selected_my_cards(s.get_left_tree_selected_indexes(v)))

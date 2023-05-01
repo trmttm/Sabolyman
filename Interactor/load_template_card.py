@@ -21,10 +21,13 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
         cards_state = card_state.get('cards_state', {})
         sync_state = card_state.get('sync_state').get('sync_state')
         new_cards = {}
-        for c_state in cards_state:
+        top_card = None
+        for n, c_state in enumerate(cards_state):
             command = AddCard(e)
             command.execute()
             card = e.active_card
+            if n == 0:
+                top_card = card
             card.load_state(c_state)
 
             old_id = card.id
@@ -41,5 +44,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, file_name: str):
                 if implementation_card_id in new_cards:
                     implementation_card = new_cards[implementation_card_id]
                     s.synchronize_card_to_action(a, implementation_card)
+        if top_card is not None:
+            e.set_active_card(top_card)
 
     present_card_list.execute(e, p)

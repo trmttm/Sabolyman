@@ -1,7 +1,7 @@
 import os
 
-import shortcut_setter
 import os_identifier
+import shortcut_setter
 from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
