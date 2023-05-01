@@ -190,5 +190,3 @@ def _save_commands(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     data = dict(zip(command_names, ss.get_state(v, len(command_names))))
     ss.save_shortcut_configuration_file(file_path, data)
     keyboard_config_file.configure_keyboard_shortcut(v, i, e)
-
-
