@@ -4,7 +4,7 @@ from Entities.abc_entities import EntitiesABC
 from Entities.card import Card
 from .abc import SynchronizerABC
 
-
+from . import constants
 def sync_mark_done(implementation_card: Card, get_policy_action: Callable):
     for action in implementation_card.all_actions:
         def wrapper_mark_done(mark_done: Callable):
@@ -36,5 +36,8 @@ def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
     if policy_action is not None:
         if active_card.is_done:
             policy_action.mark_done_programmatically()
+            parent_cards = synchronizer.get_immediate_parents(active_card)
+            if len(parent_cards) > 0:
+                e.set_active_card(parent_cards[0])
         else:
             policy_action.mark_not_done_programmatically()
