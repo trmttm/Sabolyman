@@ -12,7 +12,7 @@ def synchronize_add_new_action(entities: EntitiesABC, s: SynchronizerABC):
             policy_action: Action = s.get_policy_action(active_card.id)
 
             e.unwrapped_add_new_action(new_action)
-            sync_mark_done(active_card, s.get_policy_action)
+            sync_mark_done(entities, active_card, s.get_policy_action)
 
             if policy_action is not None:
                 policy_action.mark_not_done()

@@ -1,11 +1,13 @@
 from typing import Callable
 
 from Entities.abc_entities import EntitiesABC
+from Entities.action import Action
 from Entities.card import Card
 from .abc import SynchronizerABC
 
-from . import constants
-def sync_mark_done(implementation_card: Card, get_policy_action: Callable):
+
+def sync_mark_done(e: EntitiesABC, implementation_card: Card, get_policy_action: Callable[[str], Action]):
+    synchronizer: SynchronizerABC = e.synchronizer
     for action in implementation_card.all_actions:
         def wrapper_mark_done(mark_done: Callable):
             def wrapped():
@@ -14,6 +16,9 @@ def sync_mark_done(implementation_card: Card, get_policy_action: Callable):
                     policy_action = get_policy_action(implementation_card.id)
                     if policy_action is not None:
                         policy_action.mark_done_programmatically()
+                        parent_cards = synchronizer.get_immediate_parents(e.active_card)
+                        if len(parent_cards) > 0:
+                            e.set_active_card(parent_cards[0])
 
             return wrapped
 

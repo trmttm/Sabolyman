@@ -52,7 +52,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
         synchronize_what.set_name(to_what.name)
         synchronize_what.set_color(to_what.color)
 
-        synchronize(implementation_card, policy_action, self)
+        synchronize(self._entities, implementation_card, policy_action, self)
 
     def attach_to_notification(self, method: Callable):
         self._subscribers.append(method)
@@ -117,17 +117,17 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
             elif implementation_card is None:  # clean up state
                 self.deregister_by_card(card_id)
             else:
-                synchronize(implementation_card, policy_action, self)
+                synchronize(self._entities, implementation_card, policy_action, self)
 
     @property
     def state(self) -> dict:
         return {'sync_state': self._synchronization_table, }
 
 
-def synchronize(implementation_card: Card, policy_action: Action, synchronizer: SynchronizerABC):
+def synchronize(e: EntitiesABC, implementation_card: Card, policy_action: Action, synchronizer: SynchronizerABC):
     sync_mutually(policy_action, implementation_card, synchronizer)
     sync_dead_line(policy_action, synchronizer.get_implementation_card)
     sync_start_from(policy_action, synchronizer.get_implementation_card)
-    sync_mark_done(implementation_card, synchronizer.get_policy_action)
+    sync_mark_done(e, implementation_card, synchronizer.get_policy_action)
     prevent_mark_done_policy_action(policy_action, synchronizer)
     sync_owner(policy_action, implementation_card)
