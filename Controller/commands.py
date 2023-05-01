@@ -157,7 +157,7 @@ specified_parent = 'pop_up_shortcut_setting'
 
 
 def open_keyboard_shortcut_setting(v: ViewABC, i: InteractorABC, e: EntitiesABC):
-    command_names = keyboard_config_file.get_method_name_to_key_combo(v, i, e).keys()
+    command_names = keyboard.get_method_name_to_key_combo(v, i, e).keys()
     n_commands = len(command_names)
     v.add_widgets(_get_view_model_shortcut_setting(v, i, e, n_commands))
     [ss.bind_commands(n, v) for n in range(n_commands)]
@@ -169,7 +169,7 @@ def _get_view_model_shortcut_setting(v: ViewABC, i: InteractorABC, e: EntitiesAB
     height = 500
     options = top_level_options(title, (width, height))
     view_model = [widget_model('root', specified_parent, 'toplevel', 0, 0, 0, 0, 'nswe', **options)]
-    commands_to_short_cuts = keyboard_config_file.get_method_name_to_key_combo(v, i, e)
+    commands_to_short_cuts = keyboard.get_method_name_to_key_combo(v, i, e)
 
     def callback(command_str):
         print(command_str, ss.get_state(v, n_commands))
@@ -185,8 +185,8 @@ def _get_view_model_shortcut_setting(v: ViewABC, i: InteractorABC, e: EntitiesAB
 
 
 def _save_commands(v: ViewABC, i: InteractorABC, e: EntitiesABC):
-    command_names = keyboard_config_file.get_method_name_to_key_combo(v, i, e).keys()
-    file_path = keyboard_config_file.get_file_path(i)
+    command_names = keyboard.get_method_name_to_key_combo(v, i, e).keys()
+    file_path = keyboard.get_file_path(i)
     data = dict(zip(command_names, ss.get_state(v, len(command_names))))
     ss.save_shortcut_configuration_file(file_path, data)
-    keyboard_config_file.configure_keyboard_shortcut(v, i, e)
+    keyboard.configure_keyboard_shortcut(v, i, e)
