@@ -295,7 +295,7 @@ class Action(EntityABC):
         self._id = state.get('id', None)
         self._color = state.get('color', 'White')
         self._color_set_by_user = self._color
-        self._resources.data.set_state(state.get('resources', ()))
+        self._resources.data.set_state(state.get('resources', Resources().data.state))
 
     def __repr__(self):
         return self._name
