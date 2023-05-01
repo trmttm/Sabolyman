@@ -256,6 +256,9 @@ class Action(EntityABC):
     def get_action_resource_names(self) -> tuple[tuple, tuple]:
         return self._resources.data.names
 
+    def get_action_resource_datas(self) -> tuple[tuple, tuple]:
+        return self._resources.data.data
+
     def get_selected_resources(self) -> tuple[tuple, tuple]:
         return self._resources.data.selected_datas
 

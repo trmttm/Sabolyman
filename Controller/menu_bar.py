@@ -131,6 +131,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Paste as': {
                 'Alias': lambda: i.paste_actions_as_alias(),
                 'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
+                'Paste Resources': lambda: i.paste_resources(),
             },
             'Set Color': lambda: i.set_color_to_actions(
                 state.get_actions_selected_indexes(v),

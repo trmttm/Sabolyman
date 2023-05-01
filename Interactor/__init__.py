@@ -81,6 +81,7 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
+from .import paste_resources
 
 
 class Interactor(InteractorABC):
@@ -347,6 +348,9 @@ class Interactor(InteractorABC):
 
     def paste_actions_as_duplicate(self):
         paste_action_as_duplicate.execute(self._entities, self._presenters)
+
+    def paste_resources(self):
+        paste_resources.execute(self._entities, self._presenters)
 
     def paste_actions_as_alias(self):
         paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)

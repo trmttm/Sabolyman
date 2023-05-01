@@ -344,6 +344,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def paste_resources(self):
+        pass
+
+    @abc.abstractmethod
     def paste_actions_as_alias(self):
         pass
 
