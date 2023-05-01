@@ -6,6 +6,7 @@ from interface_view import ViewABC
 import WidgetNames as wn
 from Entities import EntitiesABC
 from Interactor import InteractorABC
+from . import shared_commands
 from . import state
 from . import utilities
 
@@ -131,7 +132,8 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             'Paste as': {
                 'Alias': lambda: i.paste_actions_as_alias(),
                 'Duplicate copy': lambda: i.paste_actions_as_duplicate(),
-                'Paste Resources': lambda: i.paste_resources(),
+                'Paste Resources': lambda: shared_commands.paste_resources_then_display_resources(i, v),
+                'Paste Notes': lambda: shared_commands.paste_description_then_display_notex(i, v),
             },
             'Set Color': lambda: i.set_color_to_actions(
                 state.get_actions_selected_indexes(v),

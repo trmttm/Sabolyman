@@ -50,6 +50,8 @@ from . import move_my_cards_up
 from . import move_their_cards_down
 from . import move_their_cards_up
 from . import paste_action_as_duplicate
+from . import paste_action_notes
+from . import paste_action_resources
 from . import paste_actions_as_alias
 from . import present_action_list
 from . import present_card_list
@@ -81,7 +83,6 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
-from .import paste_resources
 
 
 class Interactor(InteractorABC):
@@ -350,7 +351,10 @@ class Interactor(InteractorABC):
         paste_action_as_duplicate.execute(self._entities, self._presenters)
 
     def paste_resources(self):
-        paste_resources.execute(self._entities, self._presenters)
+        paste_action_resources.execute(self._entities, self._presenters)
+
+    def paste_description(self):
+        paste_action_notes.execute(self._entities, self._presenters)
 
     def paste_actions_as_alias(self):
         paste_actions_as_alias.execute(self._entities, self._presenters, self.feed_back_user_by_popup)

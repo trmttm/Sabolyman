@@ -9,6 +9,8 @@ from Interactor.abc import InteractorABC
 from . import keyboard_config_file
 from . import state
 from . import utilities
+from .shared_commands import paste_description_then_display_notex
+from .shared_commands import paste_resources_then_display_resources
 
 
 def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) -> dict:
@@ -119,6 +121,8 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Cut selected actions': lambda: cut_and_feedback(),
         'Paste actions as alias': lambda: i.paste_actions_as_alias(),
         'Paste actions as duplicate copy': lambda: i.paste_actions_as_duplicate(),
+        'Paste Resources': lambda: paste_resources_then_display_resources(i, app),
+        'Paste Notes': lambda: paste_description_then_display_notex(i, app),
         'Filter by parent': lambda: i.filter_cards_by_parent(),
         'Filter move up on parent': lambda: i.filter_move_up_one_parent(),
         'Clear all filters': lambda: i.clear_all_filters(),
@@ -186,3 +190,5 @@ def _save_commands(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     data = dict(zip(command_names, ss.get_state(v, len(command_names))))
     ss.save_shortcut_configuration_file(file_path, data)
     keyboard_config_file.configure_keyboard_shortcut(v, i, e)
+
+
