@@ -21,7 +21,7 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
     stacker = Stacker(specified_parent)
     stacker.vstack_scrollable(
         w.Label('user_entry_body').text(message),
-        *tuple(w.Entry(f'{entry_by_user}{n}').default_value(default_value)
+        *tuple(w.Entry(f'{entry_by_user}{n}').default_value(default_value.split('/')[-1])
                for (n, default_value) in enumerate(default_values)),
         w.Button(button_ok).text('OK'),
         w.Spacer(),
