@@ -6,7 +6,7 @@ import WidgetNames
 from Interactor import InteractorABC
 from . import state as s
 from . import utilities
-
+import clipboard
 
 def configure_controller(v: ViewABC, i: InteractorABC):
     f = v.bind_command_to_widget
@@ -27,6 +27,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 
     # prevent unintended action property change when tab is pressed
     v.bind_tree_enter(lambda: upon_action_tree_entrance(v, i), wn.tree_card_actions)
+    v.bind_tree_enter(lambda: upon_resources_tree_entrance(v, i), wn.tree_action_resources)
     v.bind_widget_entry(wn.entry_action_name, lambda: i.reset_recursive_counter())
     v.bind_widget_entry(wn.entry_action_dead_line, lambda: i.reset_recursive_counter())
     v.bind_widget_entry(wn.entry_action_client, lambda: i.reset_recursive_counter())
@@ -93,3 +94,14 @@ def configure_controller(v: ViewABC, i: InteractorABC):
 def upon_action_tree_entrance(v: ViewABC, i: InteractorABC):
     v.focus('root'), WidgetNames.tree_card_actions
     i.reset_recursive_counter()
+
+
+def upon_resources_tree_entrance(v: ViewABC, i: InteractorABC):
+    key = "SBLM Resources"
+    clipboard_text = clipboard.paste()
+    if clipboard_text[:len(key)] == key:
+        clipboard_text = clipboard_text.replace(key + '\n', '')
+        clipboard_text = clipboard_text.replace('\n', ',')
+        paths = clipboard_text.split(',')
+        i.add_action_resources(paths)
+        clipboard.copy('')
