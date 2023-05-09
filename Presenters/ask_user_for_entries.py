@@ -1,5 +1,6 @@
 from typing import Callable
 
+import os_identifier
 from interface_tk import top_level_options
 from interface_tk import widget_model
 from interface_view import ViewABC
@@ -21,7 +22,7 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
     stacker = Stacker(specified_parent)
     stacker.vstack_scrollable(
         w.Label('user_entry_body').text(message),
-        *tuple(w.Entry(f'{entry_by_user}{n}').default_value(default_value.split('/')[-1])
+        *tuple(w.Entry(f'{entry_by_user}{n}').default_value(default_value.split(os_identifier.DIRECTORY_SEPARATOR)[-1])
                for (n, default_value) in enumerate(default_values)),
         w.Button(button_ok).text('OK'),
         w.Spacer(),

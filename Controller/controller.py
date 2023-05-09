@@ -1,12 +1,14 @@
 from typing import Callable
 
+import clipboard
+import os_identifier
 from interface_view import ViewABC
 
 import WidgetNames
 from Interactor import InteractorABC
 from . import state as s
 from . import utilities
-import clipboard
+
 
 def configure_controller(v: ViewABC, i: InteractorABC):
     f = v.bind_command_to_widget
@@ -100,8 +102,8 @@ def upon_resources_tree_entrance(v: ViewABC, i: InteractorABC):
     key = "SBLM Resources"
     clipboard_text = clipboard.paste()
     if clipboard_text[:len(key)] == key:
-        clipboard_text = clipboard_text.replace(key + '\n', '')
-        clipboard_text = clipboard_text.replace('\n', ',')
-        paths = clipboard_text.split(',')
+        clipboard_text = clipboard_text.replace(key + os_identifier.NEW_LINE_SYMBOL, '')
+        clipboard_text = clipboard_text.replace(os_identifier.NEW_LINE_SYMBOL, ',')
+        paths = tuple(p for p in clipboard_text.split(',') if p.strip() != '')
         i.add_action_resources(paths)
         clipboard.copy('')
