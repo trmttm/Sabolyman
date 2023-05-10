@@ -14,6 +14,8 @@ from .shared_commands import paste_resources_then_display_resources
 
 
 def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) -> dict:
+    ai = state.get_actions_selected_indexes
+
     def focus_on_tree_actions(action_index: int = 0):
         app.focus(wn.tree_card_actions)
         app.select_multiple_tree_items(wn.tree_card_actions, (action_index,))
@@ -112,6 +114,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Action deadline +1 Hour': lambda: i.shift_actions_dead_lines_hours_by(1,
                                                                                state.get_actions_selected_indexes(app)),
 
+        'Mark Done': lambda: i.mark_action_completed(not state.get_action_is_done_or_not(app), ai(app)),
         'Jump to Implementation Card': lambda: i.jump_to_implementation_card(focus_cards_tree_then_actions_tree),
         'Jump to Policy Action': lambda: i.jump_to_policy_action(focus_cards_tree_then_actions_tree),
         'Focus on Tree Cards': lambda: i.jump_to_card_list(focus_on_tree_cards),
