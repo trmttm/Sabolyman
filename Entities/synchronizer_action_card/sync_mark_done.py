@@ -12,8 +12,7 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
             def wrapped():
                 visible_cards = []
                 mark_done_recursively(action_passed, e, get_policy_action, visible_cards)
-                if len(visible_cards) > 0:
-                    e.set_active_card(visible_cards[0])  # decide what to select
+                select_first_visible_card(visible_cards, e)
 
             return wrapped
 
@@ -46,6 +45,11 @@ def mark_undone_recursively(action_passed: Action, e: EntitiesABC, get_policy_ac
         policy_action = get_policy_action(parent_card.id)
         if policy_action is not None:
             mark_undone_recursively(policy_action, e, get_policy_action)
+
+
+def select_first_visible_card(visible_cards: list, e: EntitiesABC):
+    if len(visible_cards) > 0:
+        e.set_active_card(visible_cards[0])
 
 
 def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
