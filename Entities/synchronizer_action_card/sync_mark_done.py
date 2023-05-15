@@ -15,17 +15,14 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
 
             return wrapped
 
-        def wrapper_mark_not_done(mark_not_done: Callable):
+        def wrapper_mark_not_done(action_passed: Action):
             def wrapped():
-                mark_not_done()
-                policy_action = get_policy_action(active_card.id)
-                if policy_action is not None:
-                    policy_action.mark_not_done_programmatically()
+                mark_undone_recursively(action_passed, e, get_policy_action)
 
             return wrapped
 
         action.mark_done = wrapper_mark_done(action)
-        action.mark_not_done = wrapper_mark_not_done(action.mark_not_done)
+        action.mark_not_done = wrapper_mark_not_done(action)
 
 
 def mark_done_recursively(action_passed: Action, e: EntitiesABC, get_policy_action: Callable):
@@ -36,6 +33,15 @@ def mark_done_recursively(action_passed: Action, e: EntitiesABC, get_policy_acti
             policy_action = get_policy_action(parent_card.id)  # This has to happen recursively
             if policy_action is not None:
                 mark_done_recursively(policy_action, e, get_policy_action)
+
+
+def mark_undone_recursively(action_passed: Action, e: EntitiesABC, get_policy_action: Callable):
+    action_passed.mark_not_done_programmatically()
+    parent_cards = e.get_cards_that_have_action(action_passed)
+    for parent_card in parent_cards:
+        policy_action = get_policy_action(parent_card.id)
+        if policy_action is not None:
+            mark_undone_recursively(policy_action, e, get_policy_action)
 
 
 def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
