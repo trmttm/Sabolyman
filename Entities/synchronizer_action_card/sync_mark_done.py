@@ -10,8 +10,10 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
     for action in active_card.all_actions:
         def wrapper_mark_done(action_passed: Action):
             def wrapped():
-                mark_done_recursively(action_passed, e, get_policy_action)
-                # e.set_active_card(parent_cards[0])  # decide what to select
+                visible_cards = []
+                mark_done_recursively(action_passed, e, get_policy_action, visible_cards)
+                if len(visible_cards) > 0:
+                    e.set_active_card(visible_cards[0])  # decide what to select
 
             return wrapped
 
@@ -25,14 +27,16 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
         action.mark_not_done = wrapper_mark_not_done(action)
 
 
-def mark_done_recursively(action_passed: Action, e: EntitiesABC, get_policy_action: Callable):
-    action_passed.mark_done_programmatically()
-    parents = e.get_cards_that_have_action(action_passed)
+def mark_done_recursively(action: Action, e: EntitiesABC, get_policy_action: Callable, visible_cards: list):
+    action.mark_done_programmatically()
+    parents = e.get_cards_that_have_action(action)
     for parent_card in parents:
         if parent_card.is_done:
             policy_action = get_policy_action(parent_card.id)  # This has to happen recursively
             if policy_action is not None:
-                mark_done_recursively(policy_action, e, get_policy_action)
+                mark_done_recursively(policy_action, e, get_policy_action, visible_cards)
+        else:
+            visible_cards.append(parent_card)
 
 
 def mark_undone_recursively(action_passed: Action, e: EntitiesABC, get_policy_action: Callable):
