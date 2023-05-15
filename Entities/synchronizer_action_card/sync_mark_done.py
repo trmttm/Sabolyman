@@ -7,19 +7,11 @@ from .abc import SynchronizerABC
 
 
 def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callable[[str], Action]):
-    synchronizer: SynchronizerABC = e.synchronizer
     for action in active_card.all_actions:
         def wrapper_mark_done(action_passed: Action):
             def wrapped():
-                action_passed.mark_done_programmatically()
-                parents = e.get_cards_that_have_action(action_passed)
-                for parent_card in parents:
-                    if parent_card.is_done:
-                        policy_action = get_policy_action(parent_card.id)  # This has to happen recursively
-                        if policy_action is not None:
-                            policy_action.mark_done_programmatically()
-                            parent_cards = synchronizer.get_immediate_parents(e.active_card)
-                            e.set_active_card(parent_cards[0])
+                mark_done_recursively(action_passed, e, get_policy_action)
+                # e.set_active_card(parent_cards[0])  # decide what to select
 
             return wrapped
 
@@ -34,6 +26,16 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
 
         action.mark_done = wrapper_mark_done(action)
         action.mark_not_done = wrapper_mark_not_done(action.mark_not_done)
+
+
+def mark_done_recursively(action_passed: Action, e: EntitiesABC, get_policy_action: Callable):
+    action_passed.mark_done_programmatically()
+    parents = e.get_cards_that_have_action(action_passed)
+    for parent_card in parents:
+        if parent_card.is_done:
+            policy_action = get_policy_action(parent_card.id)  # This has to happen recursively
+            if policy_action is not None:
+                mark_done_recursively(policy_action, e, get_policy_action)
 
 
 def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
