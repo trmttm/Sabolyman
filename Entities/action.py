@@ -190,6 +190,9 @@ class Action(EntityABC):
         self.set_dead_line(str_to_date_time(dead_line_str))
 
     def set_dead_line(self, dead_line: datetime.datetime):
+        self.set_dead_line_programmatically(dead_line)
+
+    def set_dead_line_programmatically(self, dead_line: datetime.datetime):
         self._dead_line = dead_line
 
     def increment_deadline_by(self, days: int):
@@ -200,6 +203,9 @@ class Action(EntityABC):
         self._dead_line += datetime.timedelta(0, hours * 60 * 60)
 
     def get_dead_line(self) -> datetime.datetime:
+        return self.get_dead_line_programmatically()
+
+    def get_dead_line_programmatically(self):
         return self._dead_line
 
     def set_start_from_by_str(self, start_from_str: str):
