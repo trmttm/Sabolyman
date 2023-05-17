@@ -22,7 +22,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
                 new_dead_line = args[0]
                 days = (new_dead_line - current_dead_line).days
                 implementation_card.increment_deadline_by(days)
-            action.set_dead_line(*args, **kwargs)
+            action.set_dead_line_programmatically(*args, **kwargs)
 
         return wrapped
 
