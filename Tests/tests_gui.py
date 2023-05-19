@@ -1,5 +1,7 @@
 import unittest
 
+from Presenters.open_display_list_of_actions import pop_up_list_of_actions
+
 
 def load_gui(module, parent: str = 'root', **kwargs):
     view = instantiate_view(module, parent, **kwargs)
@@ -26,7 +28,7 @@ def load_gui_from_pickle(file_name, specified_parent, parent_widget='toplevel'):
     return view
 
 
-def create_data():
+def create_data() -> dict:
     import datetime
     import Utilities
     import GUI.list_of_actions as c
@@ -265,25 +267,17 @@ class MyTestCase(unittest.TestCase):
         view.launch_app()
 
     def test_list_of_actions(self):
-        import GUI
-        data = create_data()
-
-        from interface_tk import widget_model as wm
-        from interface_tk import top_level_options
-        options = top_level_options('List of Acgtions', (600, 400))
-        view_model = [wm('root', GUI.list_of_actions.POPUP, 'toplevel', 0, 0, 0, 0, 'nswe', **options)]
-        view_model += GUI.list_of_actions.get_view_model(GUI.list_of_actions.POPUP, data)
-
         from view_tkinter import View
         view = View()
-        view.add_widgets(view_model)
+
+        data = create_data()
 
         def callback(state: tuple):
             print()
             for action_state in state:
                 print(action_state)
 
-        GUI.list_of_actions.bind_commands(view, callback, data)
+        pop_up_list_of_actions(data, view, callback)
         view.launch_app()
 
 
