@@ -11,6 +11,7 @@ from . import ask_user_for_entries
 from . import ask_user_to_select_from_a_list
 from . import display_progress_dialogue
 from . import message_box
+from . import open_display_list_of_actions
 from . import open_filter_setting
 from . import show_datetime_setter
 from . import show_mail_creator
@@ -117,6 +118,9 @@ class Presenters(PresentersABC):
 
     def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         display_progress_dialogue.execute(self._view, method_upon_ok, **kwargs)
+
+    def open_display_list_of_actions(self, data: dict, state: tuple, callback: Callable[[tuple], None]):
+        open_display_list_of_actions.execute(self._view, data, callback)
 
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):
         ask_user_to_select_from_a_list.execute(self._view, display_to_data, callback)

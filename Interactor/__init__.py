@@ -578,6 +578,10 @@ class Interactor(InteractorABC):
         options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
         self._presenters.open_display_progress_dialogue(self.display_due_tasks_their_ball, **options)
 
+    def open_display_list_of_actions(self):
+        data = {}
+        self._presenters.open_display_list_of_actions(data)
+
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)
 

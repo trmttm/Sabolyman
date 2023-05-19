@@ -111,6 +111,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def open_display_list_of_actions(self, data: dict, state: tuple, callback: Callable[[tuple], None]):
+        pass
+
+    @abc.abstractmethod
     def ask_user_for_entries(self, callback: Callable, **kwargs):
         pass
 
