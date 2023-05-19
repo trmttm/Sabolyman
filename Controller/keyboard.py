@@ -125,7 +125,7 @@ def get_file_path(interactor: InteractorABC) -> str:
     if os_identifier.is_mac:
         file_path = os.path.join(interactor.keyboard_config_folder_path, 'keyboard_shortcut_config_mac.json')
     else:
-        file_path = 'keyboard_shortcut_config_windows.json'
+        file_path = os.path.join(interactor.keyboard_config_folder_path, 'keyboard_shortcut_config_windows.json')
     return file_path
 
 
