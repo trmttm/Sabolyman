@@ -5,7 +5,7 @@ import shortcut_setter
 from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
-
+from view_tkinter.TkImplementations.keyboard_shortcut import tk_n_none  # this may be undesirable dependency to tkinter
 from Entities import EntitiesABC
 from Interactor import InteractorABC
 from .commands import get_command_name_to_command
@@ -96,12 +96,16 @@ def configure_keyboard_shortcut(app: ViewABC, i: InteractorABC, e: EntitiesABC):
 def register_keyboard_shortcuts(command_name_to_command: dict, i: InteractorABC, method_to_key_combo: dict):
     i.clear_keyboard_shortcuts()
     for method_name, key_combo_str in method_to_key_combo.items():
+        tk_n_none_applied_once = False
         key_combo_list = []
         modifier = 0
         for element in key_combo_str.split(','):
             key = key_text_to_key_combo_element.get(element.lower(), None)
             if type(key) == int:
                 modifier += key
+                if not tk_n_none_applied_once:
+                    modifier += tk_n_none
+                    tk_n_none_applied_once = True
             else:
                 key_combo_list.append(key)
         key_combo_list.insert(0, modifier)
@@ -130,6 +134,8 @@ def get_file_path(interactor: InteractorABC) -> str:
 
 
 def handler(k: KeyMapsABC, modifier, key):
+    if len(key) == 1:
+        key = key.lower()
     command, feedback = k.active_keymap.get_command_and_feedback((modifier, key))
     if command is not None:
         command()
