@@ -9,7 +9,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
         def wrapped(*args, **kwargs):
             implementation_card = get_implementation_card(action.id)
             if implementation_card is not None:
-                action.set_dead_line_programmatically(implementation_card.dead_line_max())  # *1
+                action.set_dead_line_programmatically(implementation_card.dead_line_max())
             return action.get_dead_line_programmatically()
 
         return wrapped
@@ -18,7 +18,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
         def wrapped(*args, **kwargs):
             implementation_card = get_implementation_card(action.id)
             if implementation_card is not None:
-                current_dead_line = action.get_dead_line_programmatically()  # *2
+                current_dead_line = action.get_dead_line_programmatically()
                 new_dead_line = args[0]
                 days = (new_dead_line - current_dead_line).days
                 implementation_card.increment_deadline_by(days)
