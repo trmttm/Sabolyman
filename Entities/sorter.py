@@ -47,6 +47,10 @@ class Sorter:
         list_sorter = [c.dead_line for c in self._cards.all_cards]
         self._sort(DEAD_LINE, list_sorter)
 
+    def sort_cards_by_the_same_method(self):  # re-sort by current method (i.e. deadline, color, etc)
+        list_sorter = [c.name for c in self._cards.all_cards]
+        self._sort(self._sort_by, list_sorter)
+
     def sort_cards_by_name(self):
         list_sorter = [c.name for c in self._cards.all_cards]
         self._sort(NAME, list_sorter)

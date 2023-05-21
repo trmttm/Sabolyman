@@ -250,6 +250,9 @@ class Entities(EntitiesABC):
         self._cards.sort_cards(sorted_cards)
         return d
 
+    def sort_cards_by_the_same_method(self):
+        self._sorter.sort_cards_by_the_same_method()
+
     def sort_cards_by_deadline(self):
         self._sorter.sort_cards_by_deadline()
 

@@ -456,6 +456,9 @@ class Interactor(InteractorABC):
         sync_notification_handler.execute(self._entities, self._presenters, **kwargs)
 
     # Sorter
+    def sort_cards(self):
+        self._sort_cards(self._entities.sort_cards_by_the_same_method)
+
     def sort_cards_by_deadline(self):
         self._sort_cards(self._entities.sort_cards_by_deadline)
 
@@ -652,7 +655,7 @@ class Interactor(InteractorABC):
                     print(f'{number_of_changes} [{action.name}] has new owner {action.get_owner()}.')
                     number_of_changes += 1
             if number_of_changes > 1:
-                self.sort_cards_by_deadline()
+                self.sort_cards()
 
         p.open_display_list_of_actions(data, callback)
 
