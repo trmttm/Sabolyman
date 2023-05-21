@@ -127,6 +127,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
             },
         },
         'Actions': {
+            'Display list of Actions': lambda: i.open_display_list_of_actions(),
             'Copy': lambda: i.copy_actions(),
             'Cut': lambda: i.cut_actions(),
             'Paste as': {

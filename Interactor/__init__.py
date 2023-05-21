@@ -579,8 +579,53 @@ class Interactor(InteractorABC):
         self._presenters.open_display_progress_dialogue(self.display_due_tasks_their_ball, **options)
 
     def open_display_list_of_actions(self):
-        data = {}
-        self._presenters.open_display_list_of_actions(data)
+        e = self._entities
+        p = self._presenters
+        from Entities.synchronizer_action_card.abc import SynchronizerABC
+        s:SynchronizerABC = e.synchronizer
+        import datetime
+        specified_datetime_from = datetime.datetime(2022, 1, 1)
+        specified_datetime_to = datetime.datetime(2023, 5, 21)
+
+        import GUI.list_of_actions as c
+        data = {
+            c.KEY_DATE: specified_datetime_to,
+        }
+        card_states = []
+        for card in self._entities.all_cards:
+            if not card.is_done:
+                card_state = {
+                    c.CARD_NAME: card.name,
+                    c.KEY_ACTION_IDS: [],
+                    c.KEY_NAMES: [],
+                    c.KEY_DONE_OR_NOT: [],
+                    c.KEY_DUE_DATES: [],
+                    c.KEY_OWNERS: [],
+                }
+                for action in card.all_actions:
+                    has_no_implementation = (not s.action_has_implementation_card(action.id))
+                    not_done = (not action.is_done)
+                    due_date_within_specified_range = (action.get_dead_line() <= specified_datetime_to)
+                    if has_no_implementation and not_done and due_date_within_specified_range:
+                        card_state[c.KEY_ACTION_IDS].append(action.id)
+                        card_state[c.KEY_NAMES].append(action.name)
+                        card_state[c.KEY_DONE_OR_NOT].append(action.is_done)
+                        card_state[c.KEY_DUE_DATES].append(action.get_dead_line())
+                        card_state[c.KEY_OWNERS].append(action.get_owner())
+                if len(card_state[c.KEY_NAMES]) > 0:
+                    card_state[c.KEY_ACTION_IDS] = tuple(card_state[c.KEY_ACTION_IDS])
+                    card_state[c.KEY_NAMES] = tuple(card_state[c.KEY_NAMES])
+                    card_state[c.KEY_DONE_OR_NOT] = tuple(card_state[c.KEY_DONE_OR_NOT])
+                    card_state[c.KEY_DUE_DATES] = tuple(card_state[c.KEY_DUE_DATES])
+                    card_state[c.KEY_OWNERS] = tuple(card_state[c.KEY_OWNERS])
+                    card_states.append(card_state)
+        card_states = tuple(card_states)
+        data.update({c.KEY_CARD_STATES: card_states})
+
+        def callback(state: tuple):
+            print(state)
+
+        p.open_display_list_of_actions(data, callback)
 
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)

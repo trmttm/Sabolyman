@@ -2,6 +2,7 @@ import datetime
 from typing import Callable
 
 import Utilities
+import os_identifier
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
@@ -12,6 +13,7 @@ KEY_ACTION_IDS = 'action_ids'
 KEY_NAMES = 'action_names'
 KEY_DUE_DATES = 'action_due_dates'
 KEY_DONE_OR_NOT = 'done_or_not'
+KEY_OWNERS = 'owners'
 BTN_ACTIONS_CANCEL = 'btn_actions_cancel'
 BTN_ACTIONS_REVERT_ALL = 'btn_actions_revert'
 BTN_ACTIONS_APPLY = 'btn_actions_apply'
@@ -22,11 +24,12 @@ BTN_DD_UP = 'button_due_date_up_'
 BTN_REVERT = 'button_revert_'
 ENTRY_DD = 'entry_due_date'
 CB_DONE = 'done_or_not_'
-NUMBER = 'number_'
+OWNER = 'owner_'
 ACTION_NAME = 'action_name_'
 SELECTION_COLOR = 'red'
 DEFAULT_COLOR = 'blue'
 SELECTION_FONT_SIZE = 15
+ELIMINATED_FONT_SIZE = 13 if os_identifier.is_windows else None
 
 CARD_PADX = 20
 ACTION_PADX = 40
@@ -70,36 +73,35 @@ def ALL_CARDS_WIDGETS(stacker, data: dict) -> tuple:
 
 def CARD_WIDGETS(stacker, n: int, data: dict):
     return (
-               w.Label('blank').text(''),
-               w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
+        w.Label('blank').text(''),
+        w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
 
-           ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
+    ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
 
 
 def ACTION_WITHIN_A_CARD(stacker, action_state):
     return tuple(
         stacker.hstack(
-            w.Label(f'{NUMBER}{action_id}').text(f'{action_id}').padding(ACTION_PADX, 1),
-            w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]),
+            w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]).padding(ACTION_PADX, 1),
+            w.Entry(f'{OWNER}{action_id}').default_value(f'{owner}'),
             w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2),
             w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]).width(10),
             w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
             w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]).padding(20, 0),
-            w.Button(f'{BTN_REVERT}{action_id}').text('Revert'),
-            w.Spacer().adjust(-6),
-        ) for (n, action_id) in enumerate(action_state.get(KEY_ACTION_IDS, ()))
+            w.Button(f'{BTN_REVERT}{action_id}').text('Revert').padding(ACTION_PADX, 1),
+            w.Spacer().adjust(-7),
+        ) for (n, (action_id, owner)) in
+        enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
     )
 
 
 def update_label(v: ViewABC, action_id_: str, color: str, data: dict):
-    v.change_label_text_color(f'{NUMBER}{action_id_}', color)
     v.change_label_text_color(f'{ACTION_NAME}{action_id_}', color)
 
     kw = {
-        'size': SELECTION_FONT_SIZE if not decide_overstrike(action_id_, v, data) else None,
+        'size': SELECTION_FONT_SIZE if not decide_overstrike(action_id_, v, data) else 13,
         'overstrike': decide_overstrike(action_id_, v, data)
     }
-    v.change_label_font_size(f'{NUMBER}{action_id_}', **kw)
     v.change_label_font_size(f'{ACTION_NAME}{action_id_}', **kw)
 
 
@@ -127,7 +129,13 @@ def apply(v: ViewABC, callback: Callable[[tuple], None], data: dict):
     state = []
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
-            state.append((action_id, v.get_value(f'{ENTRY_DD}{action_id}'), v.get_value(f'{CB_DONE}{action_id}')))
+            action_state = (
+                action_id,
+                v.get_value(f'{ENTRY_DD}{action_id}'),
+                v.get_value(f'{CB_DONE}{action_id}'),
+                v.get_value(f'{OWNER}{action_id}'),
+            )
+            state.append(action_state)
     callback(tuple(state))
 
 
@@ -200,6 +208,6 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
 def bind_mouse_hover(action_id, v: ViewABC, data: dict):
     aid = action_id
 
-    for key in (BTN_DD_UP, BTN_DD_DOWN, ENTRY_DD, CB_DONE, ACTION_NAME, NUMBER):
+    for key in (BTN_DD_UP, BTN_DD_DOWN, ENTRY_DD, CB_DONE, ACTION_NAME, OWNER, BTN_REVERT):
         v.bind_mouse_enter(lambda i=aid: update_label(v, i, SELECTION_COLOR, data), f'{key}{aid}')
         v.bind_mouse_leave(lambda i=aid: update_label(v, i, DEFAULT_COLOR, data), f'{key}{aid}')
