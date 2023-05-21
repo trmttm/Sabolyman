@@ -5,6 +5,7 @@ from typing import Tuple
 
 import Utilities
 import os_identifier
+from . import display_list_of_actions
 from keyboard_shortcut import KeyMaps
 
 from Entities import EntitiesABC
@@ -84,46 +85,6 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
-
-
-def create_data_for_action_list(e, from_, to_) -> dict:
-    from Entities.synchronizer_action_card.abc import SynchronizerABC
-    s: SynchronizerABC = e.synchronizer
-    import GUI.list_of_actions as c
-    data = {
-        c.KEY_DATE: to_,
-    }
-    card_states = []
-    for card in e.all_cards:
-        if not card.is_done:
-            card_state = {
-                c.CARD_NAME: card.name,
-                c.KEY_ACTION_IDS: [],
-                c.KEY_NAMES: [],
-                c.KEY_DONE_OR_NOT: [],
-                c.KEY_DUE_DATES: [],
-                c.KEY_OWNERS: [],
-            }
-            for action in card.all_actions:
-                has_no_implementation = (not s.action_has_implementation_card(action.id))
-                not_done = (not action.is_done)
-                due_date_within_specified_range = from_ <= action.get_dead_line() <= to_
-                if has_no_implementation and not_done and due_date_within_specified_range:
-                    card_state[c.KEY_ACTION_IDS].append(action.id)
-                    card_state[c.KEY_NAMES].append(action.name)
-                    card_state[c.KEY_DONE_OR_NOT].append(action.is_done)
-                    card_state[c.KEY_DUE_DATES].append(action.get_dead_line())
-                    card_state[c.KEY_OWNERS].append(action.get_owner())
-            if len(card_state[c.KEY_NAMES]) > 0:
-                card_state[c.KEY_ACTION_IDS] = tuple(card_state[c.KEY_ACTION_IDS])
-                card_state[c.KEY_NAMES] = tuple(card_state[c.KEY_NAMES])
-                card_state[c.KEY_DONE_OR_NOT] = tuple(card_state[c.KEY_DONE_OR_NOT])
-                card_state[c.KEY_DUE_DATES] = tuple(card_state[c.KEY_DUE_DATES])
-                card_state[c.KEY_OWNERS] = tuple(card_state[c.KEY_OWNERS])
-                card_states.append(card_state)
-    card_states = tuple(card_states)
-    data.update({c.KEY_CARD_STATES: card_states})
-    return data
 
 
 class Interactor(InteractorABC):
@@ -623,41 +584,19 @@ class Interactor(InteractorABC):
     def open_display_list_of_actions(self):
         e = self._entities
         p = self._presenters
-        import datetime
-        from_ = datetime.datetime(2022, 1, 1)
-        to_ = datetime.datetime(2023, 5, 21)
+        sort_cards = self.sort_cards
 
-        data = create_data_for_action_list(e, from_, to_)
+        def callback(**state):
+            from_ = Utilities.str_to_date_time_no_time(state['from'])
+            to_ = Utilities.str_to_date_time_no_time(state['to'])
+            owner_name = state['owner']
+            display_list_of_actions.execute(e, p, owner_name, from_, to_, sort_cards)
 
-        def callback(state: tuple):
-            number_of_changes = 1
-            for each_action_state in state:
-                action_id, due_date_str, is_done, owner = each_action_state
-                action = e.get_action_by_id(action_id)
-                new_dead_line = Utilities.str_to_date_time_no_time(due_date_str)
-
-                initial_dead_line = action.get_dead_line()
-                i, n = initial_dead_line, new_dead_line
-                if datetime.datetime(i.year, i.month, i.day) != datetime.datetime(n.year, n.month, n.day):
-                    action.set_dead_line(new_dead_line)
-                    print(f'{number_of_changes} New deadline [{action.name}]. {initial_dead_line} -> {new_dead_line}')
-                    number_of_changes += 1
-                if action.is_done != is_done:
-                    if is_done:
-                        action.mark_done()
-                        print(f'{number_of_changes} [{action.name}] is marked Done.')
-                    else:
-                        action.mark_not_done()
-                        print(f'{number_of_changes} [{action.name}] is marked Not Done.')
-                    number_of_changes += 1
-                if action.get_owner().name != owner:
-                    action.set_owner(e.create_new_person(owner))
-                    print(f'{number_of_changes} [{action.name}] has new owner {action.get_owner()}.')
-                    number_of_changes += 1
-            if number_of_changes > 1:
-                self.sort_cards()
-
-        p.open_display_list_of_actions(data, callback)
+        default_from = '2023/01/01'
+        default_to = Utilities.datetime_to_str_no_time(datetime.datetime.today())
+        default_owner = e.user.name
+        default_values = {'from': default_from, 'to': default_to, 'owner': default_owner}
+        p.ask_user_from_to_owner(callback, **default_values)
 
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)

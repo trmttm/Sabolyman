@@ -115,6 +115,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def ask_user_from_to_owner(self, callback: Callable, **kwargs):
+        pass
+
+    @abc.abstractmethod
     def ask_user_for_entries(self, callback: Callable, **kwargs):
         pass
 
