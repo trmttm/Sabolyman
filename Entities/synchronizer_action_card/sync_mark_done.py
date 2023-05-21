@@ -4,6 +4,7 @@ from Entities.abc_entities import EntitiesABC
 from Entities.action import Action
 from Entities.card import Card
 from .abc import SynchronizerABC
+from .sync_dead_line import synch_with_higher_level_recursively
 
 
 def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callable[[str], Action]):
@@ -18,7 +19,13 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
 
         def wrapper_mark_not_done(action_passed: Action):
             def wrapped():
+                s: SynchronizerABC = e.synchronizer
                 mark_undone_recursively(action_passed, e, get_policy_action)
+                for card in e.get_cards_that_have_action(action_passed):
+                    policy_action = s.get_policy_action(card.id)
+                    if policy_action is not None:
+                        policy_action.set_dead_line_programmatically(card.dead_line)
+                        # synch_with_higher_level_recursively(policy_action, set(), (), e, {})
 
             return wrapped
 
