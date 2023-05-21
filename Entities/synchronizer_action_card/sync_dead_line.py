@@ -20,7 +20,7 @@ def sync_dead_line(policy_action: Action, get_implementation_card: Callable[[str
 
     def wrapper_set(action: Action):
         def wrapped(*args, **kwargs):
-            actions_already_handled = {action.id}
+            actions_already_handled = set()
             set_dead_line_recursively(action, get_implementation_card, e, args, kwargs, actions_already_handled)
 
         return wrapped
@@ -44,8 +44,8 @@ def policy_has_already_been_wrapped(a: Action):
 
 def set_dead_line_recursively(action: Action, get_implementation_card: Callable, e: EntitiesABC, args, kwargs,
                               already_handled: set):
-    already_handled.add(action.id)
-    if action.id not in already_handled:
+    if (action is not None) and action.id not in already_handled:
+        already_handled.add(action.id)
         synch_with_implementation_card(action, args, get_implementation_card)
         action.set_dead_line_programmatically(*args, **kwargs)
         synch_with_higher_level_recursively(action, already_handled, args, e, get_implementation_card, kwargs)
