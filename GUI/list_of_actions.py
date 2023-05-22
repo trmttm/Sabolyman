@@ -2,6 +2,7 @@ import datetime
 from typing import Callable
 
 import Utilities
+import WidgetNames as wn
 from GUI import ask_user_for_entries
 from interface_view import ViewABC
 from stacker import Stacker
@@ -36,6 +37,10 @@ ACTION_PADX = 40
 
 KEY_CARD_STATES = 'card_states'
 KEY_DATE = 'date'
+
+KEY_KW_OPEN_RESOURCE = 'open_resource'
+KEY_KW_OPEN_RESOURCE_METHOD = 'open_resource_method'
+KEY_KW_STATES = 'state'
 
 
 def get_view_model(parent: str = 'root', data: dict = None):
@@ -117,7 +122,7 @@ def date_changed(action_id_, v: ViewABC, data: dict) -> bool:
 
 
 def bind_commands(v: ViewABC, callback: Callable[[dict], None], data: dict):
-    bind_card_widgets(v, data)
+    bind_card_widgets(v, callback, data)
     v.bind_command_to_widget(BTN_ACTIONS_CANCEL, lambda: upon_cancel(v))
     v.bind_command_to_widget(BTN_REPLACE, lambda: ask_user_what_to_replace(v, data))
     v.bind_command_to_widget(BTN_ACTIONS_REVERT_ALL, lambda: revert_all(v, data))
@@ -128,6 +133,11 @@ def bind_commands(v: ViewABC, callback: Callable[[dict], None], data: dict):
 
 
 def apply(v: ViewABC, callback: Callable[[dict], None], data: dict):
+    kwargs = create_kwargs_state(data, v)
+    callback(**kwargs)
+
+
+def create_kwargs_state(data: dict, v: ViewABC) -> dict:
     state = []
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
@@ -138,8 +148,8 @@ def apply(v: ViewABC, callback: Callable[[dict], None], data: dict):
                 v.get_value(f'{OWNER}{action_id}'),
             )
             state.append(action_state)
-    kwargs = {'state': tuple(state)}
-    callback(**kwargs)
+    kwargs = {KEY_KW_STATES: tuple(state)}
+    return kwargs
 
 
 def close(v):
@@ -217,24 +227,35 @@ def increment_date(v: ViewABC, shift: int, action_id):
     v.set_value(f'{ENTRY_DD}{action_id}', Utilities.datetime_to_str_no_time(new_date))
 
 
+def upon_right_click(v: ViewABC, callback, data: dict, action_id):
+    kwargs = create_kwargs_state(data, v)
+    kwargs.update(
+        {
+            KEY_KW_OPEN_RESOURCE: action_id,
+            KEY_KW_OPEN_RESOURCE_METHOD: lambda: v.select_note_book_tab(wn.notebook_actions, 2)
+        })
+    callback(**kwargs)
+    close(v)
+
+
 def set_initial_label_appearances(v: ViewABC, data: dict):
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
             update_label(v, action_id, DEFAULT_COLOR, data)
 
 
-def bind_card_widgets(v: ViewABC, data: dict):
+def bind_card_widgets(v: ViewABC, callback: Callable[[dict], None], data: dict):
     for card_state in data[KEY_CARD_STATES]:
-        bind_each_card_widget(card_state, v, data)
+        bind_each_card_widget(card_state, v, callback, data)
 
 
-def bind_each_card_widget(card_state: dict, v: ViewABC, data: dict):
+def bind_each_card_widget(card_state: dict, v: ViewABC, callback: Callable[[dict], None], data: dict):
     cs = card_state
     for id_, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
-        bind_action(id_, date, done_or_not, v, data)
+        bind_action(id_, date, done_or_not, v, callback, data)
 
 
-def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
+def bind_action(action_id, date, done_or_not: bool, v: ViewABC, callback: Callable[[dict], None], data: dict):
     bind = v.bind_command_to_widget
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
@@ -244,7 +265,7 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
 
     entry_id = f'{ACTION_NAME}{action_id}'
     v.bind_left_click(lambda e: print(f'Right clicked {v.get_value(entry_id)}'), entry_id)
-    v.bind_right_click(lambda e: print(f'Right clicked {v.get_value(entry_id)}'), entry_id)
+    v.bind_right_click(lambda e: upon_right_click(v, callback, data, action_id), entry_id)
     v.bind_middle_click(lambda e: print(f'Middle clicked {v.get_value(entry_id)}'), entry_id)
 
 

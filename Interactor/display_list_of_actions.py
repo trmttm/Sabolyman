@@ -2,14 +2,20 @@ import datetime
 from typing import Callable
 
 import Utilities
-from Entities import EntitiesABC
-from Presenters import PresentersABC
+from Entities.abc_entities import EntitiesABC
+from Presenters.abc import PresentersABC
+
+from . import present_action_list
+from . import show_action_information
+from . import show_card_information
 
 
 def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, from_: datetime.datetime,
             to_: datetime.datetime, sort_cards: Callable):
     def callback(**kwargs):
         state = kwargs.get('state', ())
+        action_id_open_resource = kwargs.get('open_resource', None)
+        open_resource_method = kwargs.get('open_resource_method', None)
 
         number_of_changes = 1
         for each_action_state in state:
@@ -39,6 +45,17 @@ def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, from_: datetime.d
                 number_of_changes += 1
         if number_of_changes > 1:
             sort_cards()
+
+        if action_id_open_resource is not None:
+            action = e.get_action_by_id(action_id_open_resource)
+            card = e.get_cards_that_have_action(action)
+            e.set_active_card(card[0])
+            e.set_active_action(action)
+
+            show_card_information.execute(e.active_card, e, p)
+            present_action_list.execute(e, p)
+            show_action_information.show_action_information_by_action(e.active_action, e, p)
+            open_resource_method()
 
     data = create_data_for_action_list(e, owner_name, from_, to_)
     p.open_display_list_of_actions(data, callback)
