@@ -7,7 +7,8 @@ from interface_view import ViewABC
 
 import WidgetNames
 from . import ask_user_date
-from . import ask_user_for_entries, ask_user_from_to_owner
+from . import ask_user_from_to_owner
+from GUI import ask_user_for_entries
 from . import ask_user_to_select_from_a_list
 from . import display_progress_dialogue
 from . import message_box

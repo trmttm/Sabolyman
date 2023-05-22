@@ -5,6 +5,7 @@ from typing import Tuple
 
 import Utilities
 import os_identifier
+
 from . import display_list_of_actions
 from keyboard_shortcut import KeyMaps
 
@@ -13,7 +14,7 @@ from Entities.priority import Priority
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
 from . import abstract_out
-from . import add_action_resources
+from . import add_action_resources, open_display_list_of_actions
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
@@ -582,21 +583,7 @@ class Interactor(InteractorABC):
         self._presenters.open_display_progress_dialogue(self.display_due_tasks_their_ball, **options)
 
     def open_display_list_of_actions(self):
-        e = self._entities
-        p = self._presenters
-        sort_cards = self.sort_cards
-
-        def callback(**state):
-            from_ = Utilities.str_to_date_time_no_time(state['from'])
-            to_ = Utilities.str_to_date_time_no_time(state['to'])
-            owner_name = state['owner']
-            display_list_of_actions.execute(e, p, owner_name, from_, to_, sort_cards)
-
-        default_from = '2023/01/01'
-        default_to = Utilities.datetime_to_str_no_time(datetime.datetime.today())
-        default_owner = e.user.name
-        default_values = {'from': default_from, 'to': default_to, 'owner': default_owner}
-        p.ask_user_from_to_owner(callback, **default_values)
+        open_display_list_of_actions.execute(self._entities, self._presenters, self.sort_cards)
 
     def display_progress(self, from_: str, to_: str):
         display_progress.execute(from_, to_, self.feed_back_user_by_popup, self._entities)

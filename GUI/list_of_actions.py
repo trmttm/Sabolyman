@@ -6,6 +6,7 @@ import os_identifier
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
+from GUI import ask_user_for_entries
 
 POPUP = 'popup_list_of_actions'
 CARD_NAME = 'card_name'
@@ -15,6 +16,7 @@ KEY_DUE_DATES = 'action_due_dates'
 KEY_DONE_OR_NOT = 'done_or_not'
 KEY_OWNERS = 'owners'
 BTN_ACTIONS_CANCEL = 'btn_actions_cancel'
+BTN_REPLACE = 'btn_replace'
 BTN_ACTIONS_REVERT_ALL = 'btn_actions_revert'
 BTN_ACTIONS_APPLY = 'btn_actions_apply'
 BTN_ACTIONS_OK = 'btn_actions_ok'
@@ -55,6 +57,7 @@ def create_stacker(parent, data: dict):
         stacker.hstack(
             w.Spacer(),
             w.Button(BTN_ACTIONS_CANCEL).text('Cancel').padding(5, 10),
+            w.Button(BTN_REPLACE).text('Replace').padding(5, 10),
             w.Button(BTN_ACTIONS_REVERT_ALL).text('Revert All').padding(5, 10),
             w.Button(BTN_ACTIONS_APPLY).text('Apply').padding(5, 10),
             w.Button(BTN_ACTIONS_OK).text('Done').padding(5, 10),
@@ -85,7 +88,7 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
             w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]).padding(ACTION_PADX, 1),
             w.Entry(f'{OWNER}{action_id}').default_value(f'{owner}'),
             w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2),
-            w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]).width(10),
+            w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]).width(20),
             w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
             w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]).padding(20, 0),
             w.Button(f'{BTN_REVERT}{action_id}').text('Revert').padding(ACTION_PADX, 1),
@@ -118,6 +121,7 @@ def date_changed(action_id_, v: ViewABC, data: dict) -> bool:
 def bind_commands(v: ViewABC, callback: Callable[[tuple], None], data: dict):
     bind_card_widgets(v, data)
     v.bind_command_to_widget(BTN_ACTIONS_CANCEL, lambda: upon_cancel(v))
+    v.bind_command_to_widget(BTN_REPLACE, lambda: ask_user_what_to_replace(v, data))
     v.bind_command_to_widget(BTN_ACTIONS_REVERT_ALL, lambda: revert_all(v, data))
     v.bind_command_to_widget(BTN_ACTIONS_APPLY, lambda: apply(v, callback, data))
     v.bind_command_to_widget(BTN_ACTIONS_OK, lambda: upon_ok(v, callback, data))
@@ -145,6 +149,41 @@ def close(v):
 
 def upon_cancel(v: ViewABC):
     close(v)
+
+
+def ask_user_what_to_replace(v: ViewABC, data: dict):
+    def callback(user_entries: tuple[str, ...]):
+        from_, to_, also_replace_earlier_dates = user_entries
+        datetime_from = Utilities.str_to_date_time_no_time(from_)
+        datetime_to = Utilities.str_to_date_time_no_time(to_)
+        counter = 0
+        for card_state in data[KEY_CARD_STATES]:
+            for action_id, action_name in zip(card_state[KEY_ACTION_IDS], card_state[KEY_NAMES]):
+                entry_id = f'{ENTRY_DD}{action_id}'
+                datetime_str_current = v.get_value(entry_id)
+                datetime_current = Utilities.str_to_date_time_no_time(datetime_str_current)
+                datetime_current_with_time = Utilities.str_to_date_time(datetime_str_current)
+
+                exact_match = datetime_current == datetime_from
+                replace_earlier_datetime_also = also_replace_earlier_dates and (datetime_current <= datetime_from)
+                if exact_match or replace_earlier_datetime_also:
+                    d = datetime_to
+                    dct = datetime_current_with_time
+                    date_time_to_with_time = datetime.datetime(d.year, d.month, d.day, dct.hour, dct.minute)
+                    to_with_time = Utilities.datetime_to_str(date_time_to_with_time)
+
+                    v.set_value(entry_id, Utilities.datetime_to_str(date_time_to_with_time))
+                    counter += 1
+                    print(f'{counter} [{action_name}] due_date replaced from {datetime_str_current} to {to_with_time}')
+
+    kwargs = {}
+    kwargs['title'] = 'Replace date at once'
+    kwargs['message'] = 'Specify what to replace with what'
+    today = Utilities.datetime_to_str_no_time(datetime.datetime.today())
+    kwargs['labels'] = ('Replace...', 'With...', 'Also replace earlier deadlines?')
+    kwargs['check_button_index'] = (2,)
+    kwargs['default_values'] = (today, today, False)
+    ask_user_for_entries.execute(v, callback, **kwargs)
 
 
 def upon_ok(v: ViewABC, callback: Callable[[tuple], None], data: dict):

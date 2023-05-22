@@ -13,11 +13,11 @@ def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, from_: datetime.d
         for each_action_state in state:
             action_id, due_date_str, is_done, owner = each_action_state
             action = e.get_action_by_id(action_id)
-            new_dead_line = Utilities.str_to_date_time_no_time(due_date_str)
+            new_dead_line = Utilities.str_to_date_time(due_date_str)
 
             initial_dead_line = action.get_dead_line()
             i, n = initial_dead_line, new_dead_line
-            if datetime.datetime(i.year, i.month, i.day) != datetime.datetime(n.year, n.month, n.day):
+            if datetime.datetime(i.year, i.month, i.day,i.hour,i.minute) != datetime.datetime(n.year, n.month, n.day, n.hour,n.minute):
                 action.set_dead_line(new_dead_line)
                 print(f'{number_of_changes} New deadline [{action.name}]. {initial_dead_line} -> {new_dead_line}')
                 number_of_changes += 1

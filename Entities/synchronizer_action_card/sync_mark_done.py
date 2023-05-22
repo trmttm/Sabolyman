@@ -24,7 +24,6 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
                     policy_action = s.get_policy_action(card.id)
                     if policy_action is not None:
                         policy_action.set_dead_line_programmatically(card.get_dead_line())
-                        # synch_with_higher_level_recursively(policy_action, set(), (), e, {})
 
             return wrapped
 
