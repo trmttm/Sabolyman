@@ -154,7 +154,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Display Action Properties': lambda: app.select_note_book_tab(wn.notebook_actions, 0),
         'Display Action Notes': lambda: app.select_note_book_tab(wn.notebook_actions, 1),
         'Display Action Resources': lambda: app.select_note_book_tab(wn.notebook_actions, 2),
-
+        'Open Keyboard Shortcut Setter': lambda: open_keyboard_shortcut_setting(app, i, e),
     }
 
 
