@@ -241,6 +241,11 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
     bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, DEFAULT_COLOR, data))
     bind_mouse_hover(action_id, v, data)
 
+    entry_id = f'{ACTION_NAME}{action_id}'
+    v.bind_left_click(lambda e: print(f'Left clicked {v.get_value(entry_id)}'), entry_id)
+    v.bind_right_click(lambda e: print(f'Right clicked {v.get_value(entry_id)}'), entry_id)
+    v.bind_middle_click(lambda e: print(f'Middle clicked {v.get_value(entry_id)}'), entry_id)
+
 
 def bind_mouse_hover(action_id, v: ViewABC, data: dict):
     aid = action_id
