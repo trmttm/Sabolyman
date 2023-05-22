@@ -1,3 +1,4 @@
+from .tree_resources import TREE_RESOURCES
 from stacker import Stacker
 from stacker import widgets as w
 
@@ -99,20 +100,7 @@ def get_actions_properties(stacker: Stacker):
                 w.Spacer(),
             ),
             w.TextBox(wn.text_box_action_description).padding(5, 5),
-            stacker.vstack(
-                w.TreeView(wn.tree_action_resources),
-                w.Label('spacer_to_prevent_scroll_bar_buttons_overlap').text(''),
-                stacker.hstack(
-                    w.Spacer(),
-                    w.Button(wn.button_delete_selected_resources).text('X').width(1),
-                    w.Button(wn.button_move_down_selected_resources).text('↓').width(1),
-                    w.Button(wn.button_move_up_selected_resources).text('↑').width(1),
-                    w.Button(wn.button_add_new_resources).text('+').width(1),
-                    w.Button(wn.button_open_resource_folders).text('Folder').width(6),
-                    w.Button(wn.button_open_resources).text('Open').width(4),
-                    w.Spacer(),
-                ),
-            ),
+            TREE_RESOURCES(stacker),
         ),
         w.Spacer().adjust(-1)
     )
