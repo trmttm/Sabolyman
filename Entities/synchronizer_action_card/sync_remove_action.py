@@ -15,13 +15,16 @@ def synchronize_remove_action(entities: EntitiesABC, synchronizer: SynchronizerA
 def wrapper(remove_action: Callable, synchronizer: SynchronizerABC, e: EntitiesABC):
     def wrapped(action: Action):
         remove_action(action)  # Wrapped / extended method
+        remove_implementation_card_too(action)
+        synch_mark_done_passively(e, synchronizer)
+        update_card_list()
+
+    def remove_implementation_card_too(action: Action):
         action_id = action.id
         if synchronizer.action_has_implementation_card(action_id):
             implementation_card = synchronizer.get_implementation_card(action_id)
             if synchronizer.number_of_immediate_parents(implementation_card) == 0:
                 remove_implementation_card(action.id)
-        synch_mark_done_passively(e, synchronizer)
-        update_card_list()
 
     def remove_implementation_card(action_id):
         if synchronizer.action_has_implementation_card(action_id):
