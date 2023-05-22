@@ -120,7 +120,7 @@ class Presenters(PresentersABC):
     def open_display_progress_dialogue(self, method_upon_ok=None, **kwargs):
         display_progress_dialogue.execute(self._view, method_upon_ok, **kwargs)
 
-    def open_display_list_of_actions(self, data: dict, callback: Callable[[tuple], None]):
+    def open_display_list_of_actions(self, data: dict, callback: Callable[[dict], None]):
         open_display_list_of_actions.execute(self._view, data, callback)
 
     def ask_user_to_select_from_a_list(self, display_to_data: dict, callback: Callable):

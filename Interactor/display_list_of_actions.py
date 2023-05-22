@@ -8,7 +8,9 @@ from Presenters import PresentersABC
 
 def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, from_: datetime.datetime,
             to_: datetime.datetime, sort_cards: Callable):
-    def callback(state: tuple):
+    def callback(**kwargs):
+        state = kwargs.get('state', ())
+
         number_of_changes = 1
         for each_action_state in state:
             action_id, due_date_str, is_done, owner = each_action_state

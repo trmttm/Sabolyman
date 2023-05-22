@@ -116,7 +116,7 @@ def date_changed(action_id_, v: ViewABC, data: dict) -> bool:
     return datetime_entry > datetime_today
 
 
-def bind_commands(v: ViewABC, callback: Callable[[tuple], None], data: dict):
+def bind_commands(v: ViewABC, callback: Callable[[dict], None], data: dict):
     bind_card_widgets(v, data)
     v.bind_command_to_widget(BTN_ACTIONS_CANCEL, lambda: upon_cancel(v))
     v.bind_command_to_widget(BTN_REPLACE, lambda: ask_user_what_to_replace(v, data))
@@ -127,7 +127,7 @@ def bind_commands(v: ViewABC, callback: Callable[[tuple], None], data: dict):
     set_initial_label_appearances(v, data)
 
 
-def apply(v: ViewABC, callback: Callable[[tuple], None], data: dict):
+def apply(v: ViewABC, callback: Callable[[dict], None], data: dict):
     state = []
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
@@ -138,7 +138,8 @@ def apply(v: ViewABC, callback: Callable[[tuple], None], data: dict):
                 v.get_value(f'{OWNER}{action_id}'),
             )
             state.append(action_state)
-    callback(tuple(state))
+    kwargs = {'state': tuple(state)}
+    callback(**kwargs)
 
 
 def close(v):
@@ -184,7 +185,7 @@ def ask_user_what_to_replace(v: ViewABC, data: dict):
     ask_user_for_entries.execute(v, callback, **kwargs)
 
 
-def upon_ok(v: ViewABC, callback: Callable[[tuple], None], data: dict):
+def upon_ok(v: ViewABC, callback: Callable[[dict], None], data: dict):
     apply(v, callback, data)
     close(v)
 
