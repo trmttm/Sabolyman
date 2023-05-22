@@ -4,7 +4,6 @@ from Entities.abc_entities import EntitiesABC
 from Entities.action import Action
 from Entities.card import Card
 from .abc import SynchronizerABC
-from .sync_dead_line import synch_with_higher_level_recursively
 
 
 def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callable[[str], Action]):
@@ -24,7 +23,7 @@ def sync_mark_done(e: EntitiesABC, active_card: Card, get_policy_action: Callabl
                 for card in e.get_cards_that_have_action(action_passed):
                     policy_action = s.get_policy_action(card.id)
                     if policy_action is not None:
-                        policy_action.set_dead_line_programmatically(card.dead_line)
+                        policy_action.set_dead_line_programmatically(card.get_dead_line())
                         # synch_with_higher_level_recursively(policy_action, set(), (), e, {})
 
             return wrapped
@@ -60,13 +59,18 @@ def select_first_visible_card(visible_cards: list, e: EntitiesABC):
 
 
 def synch_mark_done_passively(e: EntitiesABC, synchronizer: SynchronizerABC):
-    active_card = e.active_card
-    policy_action = synchronizer.get_policy_action(active_card.id)
+    sync_mark_done_recursively(e, e.active_card, synchronizer)
+
+
+def sync_mark_done_recursively(e: EntitiesABC, implementation_card: Card, synchronizer: SynchronizerABC):
+    policy_action = synchronizer.get_policy_action(implementation_card.id)
     if policy_action is not None:
-        if active_card.is_done:
+        if implementation_card.is_done:
             policy_action.mark_done_programmatically()
-            parent_cards = synchronizer.get_immediate_parents(active_card)
+            parent_cards = synchronizer.get_immediate_parents(implementation_card)
             if len(parent_cards) > 0:
                 e.set_active_card(parent_cards[0])
         else:
             policy_action.mark_not_done_programmatically()
+        for card in e.get_cards_that_have_action(policy_action):
+            sync_mark_done_recursively(e, card, synchronizer)
