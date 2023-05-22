@@ -28,7 +28,7 @@ class Sorter:
 
     def sorter_values(self, cards_: Tuple[Card, ...]) -> Tuple[str, ...]:
         if self._sort_by == DEAD_LINE:
-            return tuple(Utilities.datetime_to_str(c.dead_line) for c in cards_)
+            return tuple(Utilities.datetime_to_str(c.get_dead_line()) for c in cards_)
         elif self._sort_by in (NAME, COLOR):
             return tuple('' for _ in cards_)
         elif self._sort_by == CURRENT_OWNER:
@@ -38,13 +38,13 @@ class Sorter:
         elif self._sort_by == IMPORTANCE:
             return tuple(str(c.get_priority()) for c in cards_)
         else:
-            return tuple(Utilities.datetime_to_str(c.dead_line) for c in cards_)
+            return tuple(Utilities.datetime_to_str(c.get_dead_line()) for c in cards_)
 
     def sort_cards_by_manual(self):
         self.set_sort_by(MANUAL)
 
     def sort_cards_by_deadline(self):
-        list_sorter = [c.dead_line for c in self._cards.all_cards]
+        list_sorter = [c.get_dead_line() for c in self._cards.all_cards]
         self._sort(DEAD_LINE, list_sorter)
 
     def sort_cards_by_the_same_method(self):  # re-sort by current method (i.e. deadline, color, etc)

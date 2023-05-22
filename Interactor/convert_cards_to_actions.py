@@ -12,7 +12,7 @@ from . import present_card_list
 def wrapped_execute(e: EntitiesABC, p: PresentersABC, all_cards: Tuple[Card, ...], indexes: Tuple[int, ...]):
     cards_selected = tuple(card for (n, card) in enumerate(all_cards) if n in indexes)
     card_names = tuple(c.name for c in cards_selected)
-    card_deadlines = tuple(c.dead_line for c in cards_selected)
+    card_deadlines = tuple(c.get_dead_line() for c in cards_selected)
 
     if cards_selected:
         add_new_card.execute(e, p)

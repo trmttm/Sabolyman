@@ -29,8 +29,8 @@ def filter_by_parent_card(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tu
 def filter_by_due_date(e: EntitiesABC, visible_cards: Tuple[Card, ...]) -> Tuple[Card, ...]:
     if e.filter.filter_due_date is not None:
         filter_due_date = e.filter.filter_due_date
-        due_today = tuple(c for c in visible_cards if c.dead_line.date() == filter_due_date)
-        undone = tuple(c for c in visible_cards if (c.dead_line.date() < filter_due_date and not c.is_done))
+        due_today = tuple(c for c in visible_cards if c.get_dead_line().date() == filter_due_date)
+        undone = tuple(c for c in visible_cards if (c.get_dead_line().date() < filter_due_date and not c.is_done))
         visible_cards = due_today + undone
     return visible_cards
 

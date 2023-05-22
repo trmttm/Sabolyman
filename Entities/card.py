@@ -82,8 +82,7 @@ class Card(EntityABC):
             for new_deadline, action in zip(new_dead_lines, self.all_actions):
                 action.set_dead_line(new_deadline)
 
-    @property
-    def dead_line(self) -> datetime.datetime:
+    def get_dead_line(self) -> datetime.datetime:
         return self.dead_line_min()
 
     def dead_line_min(self):

@@ -116,6 +116,7 @@ def register_keyboard_shortcuts(command_name_to_command: dict, i: InteractorABC,
 
 def get_method_name_to_key_combo(v: ViewABC, i: InteractorABC, e: EntitiesABC):
     command_names = get_command_name_to_command(v, i, e).keys()
+
     method_to_key_combo = dict(zip(command_names, ('' for _ in command_names)))
     try:
         method_to_key_combo_from_json = shortcut_setter.load_shortcut_configuration_file(get_file_path(i))
