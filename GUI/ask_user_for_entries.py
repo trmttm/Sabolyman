@@ -16,14 +16,20 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
     title = kwargs.get('title', 'User entry')
     message = kwargs.get('message', 'Enter value')
     default_values = kwargs.get('default_values', ('',))
+    labels = kwargs.get('labels', tuple(n + 1 for n in range(len(default_values))))
+    check_button_index = kwargs.get('check_button_index', ())
     width = 300
     height = 300
 
     stacker = Stacker(specified_parent)
     stacker.vstack_scrollable(
         w.Label('user_entry_body').text(message),
-        *tuple(w.Entry(f'{entry_by_user}{n}').default_value(default_value.split(os_identifier.DIRECTORY_SEPARATOR)[-1])
-               for (n, default_value) in enumerate(default_values)),
+        *tuple(
+            stacker.hstack(
+                w.Label(f'label_{entry_by_user}{n}').text(label),
+                ENTRY_OR_CHECKBUTTON(n, default_value, check_button_index),
+            ) for (n, (label, default_value)) in enumerate(zip(labels, default_values))
+        ),
         w.Button(button_ok).text('OK'),
         w.Spacer(),
     )
@@ -36,6 +42,18 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
     v.bind_command_to_widget(specified_parent, lambda: v.close(specified_parent))
 
     v.focus(f'{entry_by_user}{0}')
+
+
+def ENTRY_OR_CHECKBUTTON(n, value, check_button_index: tuple):
+    return ENTRY(n, value) if n not in check_button_index else CHECKBUTTON(n, value)
+
+
+def ENTRY(n, value):
+    return w.Entry(f'{entry_by_user}{n}').default_value(value.split(os_identifier.DIRECTORY_SEPARATOR)[-1])
+
+
+def CHECKBUTTON(n, value):
+    return w.CheckButton(f'{entry_by_user}{n}').value(value)
 
 
 def upon_ok(v: ViewABC, number_of_entries: int, callback: Callable):

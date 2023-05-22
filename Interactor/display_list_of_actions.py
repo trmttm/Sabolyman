@@ -17,7 +17,9 @@ def execute(e: EntitiesABC, p: PresentersABC, owner_name: str, from_: datetime.d
 
             initial_dead_line = action.get_dead_line()
             i, n = initial_dead_line, new_dead_line
-            if datetime.datetime(i.year, i.month, i.day,i.hour,i.minute) != datetime.datetime(n.year, n.month, n.day, n.hour,n.minute):
+            initial_date_time = datetime.datetime(i.year, i.month, i.day, i.hour, i.minute)
+            new_date_time = datetime.datetime(n.year, n.month, n.day, n.hour, n.minute)
+            if initial_date_time != new_date_time:
                 action.set_dead_line(new_dead_line)
                 print(f'{number_of_changes} New deadline [{action.name}]. {initial_dead_line} -> {new_dead_line}')
                 number_of_changes += 1
