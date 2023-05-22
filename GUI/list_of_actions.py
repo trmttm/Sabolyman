@@ -229,11 +229,11 @@ def bind_card_widgets(v: ViewABC, data: dict):
 
 def bind_each_card_widget(card_state: dict, v: ViewABC, data: dict):
     cs = card_state
-    for id_, name, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_NAMES], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
-        bind_action(id_, name, date, done_or_not, v, data)
+    for id_, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
+        bind_action(id_, date, done_or_not, v, data)
 
 
-def bind_action(action_id, action_name, date, done_or_not: bool, v: ViewABC, data: dict):
+def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
     bind = v.bind_command_to_widget
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
