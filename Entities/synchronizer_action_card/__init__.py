@@ -126,7 +126,7 @@ class SynchronizerActionCard(EntityABC, SynchronizerABC):
 
 def synchronize(e: EntitiesABC, implementation_card: Card, policy_action: Action, synchronizer: SynchronizerABC):
     sync_mutually(policy_action, implementation_card, synchronizer)
-    sync_dead_line(policy_action, synchronizer.get_implementation_card)
+    sync_dead_line(policy_action, e)
     sync_start_from(policy_action, synchronizer.get_implementation_card)
     sync_mark_done(e, implementation_card, synchronizer.get_policy_action)
     prevent_mark_done_policy_action(policy_action, synchronizer)
