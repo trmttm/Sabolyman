@@ -1,6 +1,7 @@
 from Entities import Card
 from Entities import EntitiesABC
 from Entities.synchronizer_action_card.abc import SynchronizerABC
+
 from .abc import UseCase
 
 

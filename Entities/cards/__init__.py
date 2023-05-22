@@ -2,6 +2,7 @@ from typing import List
 from typing import Tuple
 
 from Entities.card import Card
+
 from . import state_io
 from .abc import CardsABC
 

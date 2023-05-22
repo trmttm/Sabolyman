@@ -4,6 +4,7 @@ from typing import Callable
 from Entities import Action
 from Entities import EntitiesABC
 from Entities.synchronizer_action_card import SynchronizerABC
+
 from . import display_filtered_actions
 
 text_color = 'red'

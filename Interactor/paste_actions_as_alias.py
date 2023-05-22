@@ -5,6 +5,7 @@ from Entities.action import Action
 from Entities.card import Card
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 from Presenters import PresentersABC
+
 from . import present_action_list
 
 

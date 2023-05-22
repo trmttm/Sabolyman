@@ -1,8 +1,8 @@
 from typing import Tuple
 
+import WidgetNames
 from interface_view import ViewABC
 
-import WidgetNames
 from .update_cards_list import update_cards_list
 
 

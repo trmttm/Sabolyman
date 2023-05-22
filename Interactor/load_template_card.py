@@ -3,6 +3,7 @@ from Entities import EntitiesABC
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 from Gateway import GatewayABC
 from Presenters import PresentersABC
+
 from . import present_card_list
 
 

@@ -3,6 +3,7 @@ from typing import Callable
 from Entities.abc_entities import EntitiesABC
 from Entities.action import Action
 from Entities.card import Card
+
 from .abc import SynchronizerABC
 
 

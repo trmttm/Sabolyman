@@ -1,10 +1,9 @@
 from typing import Callable
 
+import GUI
 from interface_tk import top_level_options
 from interface_tk import widget_model as wm
 from interface_view import ViewABC
-
-import GUI
 
 
 def execute(v: ViewABC, data: dict, callback: Callable[[tuple], None]):

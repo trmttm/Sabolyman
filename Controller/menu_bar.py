@@ -1,11 +1,11 @@
 import datetime
 
 import Utilities
-from interface_view import ViewABC
-
 import WidgetNames as wn
 from Entities import EntitiesABC
 from Interactor import InteractorABC
+from interface_view import ViewABC
+
 from . import shared_commands
 from . import state
 from . import utilities

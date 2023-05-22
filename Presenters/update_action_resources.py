@@ -1,8 +1,7 @@
+import WidgetNames
 from Utilities import create_tree_data
 from Utilities import create_view_model_tree
 from interface_view import ViewABC
-
-import WidgetNames
 
 
 def execute(v: ViewABC, names: tuple, **kwargs):

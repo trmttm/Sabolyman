@@ -3,8 +3,9 @@ from typing import Callable
 
 import Utilities
 from Entities.abc_entities import EntitiesABC
-from . import display_list_of_actions
 from Presenters.abc import PresentersABC
+
+from . import display_list_of_actions
 
 
 def execute(e: EntitiesABC, p: PresentersABC, sort_cards: Callable):

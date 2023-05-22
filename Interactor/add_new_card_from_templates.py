@@ -3,6 +3,7 @@ import os
 from Entities.abc_entities import EntitiesABC
 from Gateway.abc import GatewayABC
 from Presenters.abc import PresentersABC
+
 from . import add_new_card
 from . import load_template_card
 

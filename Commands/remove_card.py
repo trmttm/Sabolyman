@@ -3,6 +3,7 @@ from typing import Tuple
 
 from Entities import Card
 from Entities import EntitiesABC
+
 from .abc import UseCase
 
 

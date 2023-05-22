@@ -1,11 +1,10 @@
 import os
 
-from Utilities import datetime_to_str
-
 from Entities import EntitiesABC
 from Entities.action import Action
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 from Gateway import GatewayABC
+from Utilities import datetime_to_str
 
 
 def execute(e: EntitiesABC, g: GatewayABC, max_level=None):

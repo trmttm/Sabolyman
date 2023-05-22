@@ -2,10 +2,10 @@ import datetime
 from typing import Callable
 
 import Utilities
+from GUI import ask_user_for_entries
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
-from GUI import ask_user_for_entries
 
 POPUP = 'popup_list_of_actions'
 CARD_NAME = 'card_name'
@@ -229,11 +229,11 @@ def bind_card_widgets(v: ViewABC, data: dict):
 
 def bind_each_card_widget(card_state: dict, v: ViewABC, data: dict):
     cs = card_state
-    for action_id, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
-        bind_action(action_id, date, done_or_not, v, data)
+    for id_, name, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_NAMES], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
+        bind_action(id_, name, date, done_or_not, v, data)
 
 
-def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
+def bind_action(action_id, action_name, date, done_or_not: bool, v: ViewABC, data: dict):
     bind = v.bind_command_to_widget
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
@@ -242,7 +242,7 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, data: dict):
     bind_mouse_hover(action_id, v, data)
 
     entry_id = f'{ACTION_NAME}{action_id}'
-    v.bind_left_click(lambda e: print(f'Left clicked {v.get_value(entry_id)}'), entry_id)
+    v.bind_left_click(lambda e: print(f'Right clicked {v.get_value(entry_id)}'), entry_id)
     v.bind_right_click(lambda e: print(f'Right clicked {v.get_value(entry_id)}'), entry_id)
     v.bind_middle_click(lambda e: print(f'Middle clicked {v.get_value(entry_id)}'), entry_id)
 

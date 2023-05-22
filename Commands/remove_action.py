@@ -1,6 +1,7 @@
 from typing import Iterable
 
 from Entities import EntitiesABC
+
 from .abc import UseCase
 
 

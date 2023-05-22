@@ -1,7 +1,6 @@
-from interface_view import ViewABC
-
 import WidgetNames as wn
 from Interactor import InteractorABC
+from interface_view import ViewABC
 
 
 def paste_resources_then_display_resources(i: InteractorABC, app: ViewABC):

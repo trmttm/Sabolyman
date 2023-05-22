@@ -2,6 +2,7 @@ from typing import Callable
 
 from Entities.abc_entities import EntitiesABC
 from Entities.action import Action
+
 from . import constants
 from .abc import SynchronizerABC
 from .sync_mark_done import synch_mark_done_passively

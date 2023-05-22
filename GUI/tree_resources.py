@@ -1,5 +1,6 @@
 import WidgetNames
-from stacker import Stacker, widgets as w
+from stacker import Stacker
+from stacker import widgets as w
 
 
 def TREE_RESOURCES(stacker: Stacker):

@@ -1,5 +1,3 @@
-from view_tkinter import View
-
 import Controller.controller
 import Controller.keyboard
 import Controller.keyboard_shortcut_menu
@@ -8,6 +6,7 @@ from Entities import Entities
 from Gateway import Gateway
 from Interactor import Interactor
 from Presenters import Presenters
+from view_tkinter import View
 
 
 def start_app(gui_selected='gui01.gui'):

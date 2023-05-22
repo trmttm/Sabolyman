@@ -5,16 +5,14 @@ from typing import Tuple
 
 import Utilities
 import os_identifier
-
-from . import display_list_of_actions
-from keyboard_shortcut import KeyMaps
-
 from Entities import EntitiesABC
 from Entities.priority import Priority
 from Gateway.abc import GatewayABC
 from Presenters import PresentersABC
+from keyboard_shortcut import KeyMaps
+
 from . import abstract_out
-from . import add_action_resources, open_display_list_of_actions
+from . import add_action_resources
 from . import add_new_action
 from . import add_new_card
 from . import add_new_card_from_templates
@@ -27,6 +25,7 @@ from . import delete_selected_their_cards
 from . import display_due_tasks
 from . import display_due_tasks_my_ball
 from . import display_due_tasks_their_ball
+from . import display_list_of_actions
 from . import display_new_tasks
 from . import display_progress
 from . import draw_graph_on_browser
@@ -53,6 +52,7 @@ from . import move_my_cards_down
 from . import move_my_cards_up
 from . import move_their_cards_down
 from . import move_their_cards_up
+from . import open_display_list_of_actions
 from . import paste_action_as_duplicate
 from . import paste_action_notes
 from . import paste_action_resources

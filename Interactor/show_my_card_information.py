@@ -2,6 +2,7 @@ from typing import Tuple
 
 from Entities import EntitiesABC
 from Presenters import PresentersABC
+
 from . import get_card_index
 from . import show_card_information_by_indexes
 

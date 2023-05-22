@@ -3,6 +3,7 @@ from typing import Callable
 from Entities.abc_entities import EntitiesABC
 from Entities.card import Card
 from Presenters import PresentersABC
+
 from . import jump_to_card
 
 

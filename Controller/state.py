@@ -1,8 +1,7 @@
 from typing import Tuple
 
-from interface_view import ViewABC
-
 import WidgetNames
+from interface_view import ViewABC
 
 
 def get_left_tree_selected_indexes(v: ViewABC) -> Tuple[int, ...]:

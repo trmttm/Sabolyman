@@ -4,6 +4,7 @@ from Entities.abc_entities import EntitiesABC
 from Entities.card import Card
 from Gateway.abc import GatewayABC
 from Presenters.abc import PresentersABC
+
 from . import abstract_out
 from . import add_new_card
 from . import load_template_card

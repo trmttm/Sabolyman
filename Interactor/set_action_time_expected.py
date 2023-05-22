@@ -1,9 +1,9 @@
 from typing import Tuple
 
 import Utilities
-
 from Entities import EntitiesABC
 from Presenters import PresentersABC
+
 from . import present_action_list
 
 

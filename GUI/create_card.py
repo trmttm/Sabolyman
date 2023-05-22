@@ -1,8 +1,8 @@
-from .tree_resources import TREE_RESOURCES
+import WidgetNames
 from stacker import Stacker
 from stacker import widgets as w
 
-import WidgetNames
+from .tree_resources import TREE_RESOURCES
 
 
 def get_view_model(parent: str = 'root', vertical: bool = False):

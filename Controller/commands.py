@@ -1,11 +1,11 @@
+import WidgetNames as wn
 import shortcut_setter as ss
+from Entities.abc_entities import EntitiesABC
+from Interactor.abc import InteractorABC
 from interface_tk import top_level_options
 from interface_tk import widget_model
 from interface_view import ViewABC
 
-import WidgetNames as wn
-from Entities.abc_entities import EntitiesABC
-from Interactor.abc import InteractorABC
 from . import keyboard
 from . import state
 from . import utilities

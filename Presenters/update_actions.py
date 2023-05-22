@@ -1,10 +1,9 @@
 from typing import Tuple
 
+import WidgetNames
 from Utilities import create_tree_data
 from Utilities import create_view_model_tree
 from interface_view import ViewABC
-
-import WidgetNames
 
 
 def execute(v: ViewABC, second_column_data: tuple, names: Tuple[str, ...], select_indexes: Tuple[int, ...], **kwargs):

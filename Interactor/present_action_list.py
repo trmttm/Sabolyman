@@ -1,7 +1,6 @@
 from typing import Tuple
 
 import Utilities
-
 from Entities import EntitiesABC
 from Entities.synchronizer_action_card.abc import SynchronizerABC
 from Presenters import PresentersABC

@@ -2,12 +2,13 @@ import os
 
 import os_identifier
 import shortcut_setter
+from Entities import EntitiesABC
+from Interactor import InteractorABC
 from interface_keymaps import KeyMapsABC
 from interface_view import ViewABC
 from keyboard_shortcut import KeyMap
 from view_tkinter.TkImplementations.keyboard_shortcut import tk_n_none  # this may be undesirable dependency to tkinter
-from Entities import EntitiesABC
-from Interactor import InteractorABC
+
 from .commands import get_command_name_to_command
 
 key_text_to_key_combo_element = {

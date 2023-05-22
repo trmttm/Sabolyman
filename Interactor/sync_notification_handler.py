@@ -1,9 +1,9 @@
 from Entities import EntitiesABC
 from Entities.synchronizer_action_card import constants
 from Presenters import PresentersABC
+
 from . import delete_selected_my_cards
 from . import delete_selected_their_cards
-
 from . import present_card_list
 
 

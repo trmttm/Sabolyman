@@ -1,7 +1,7 @@
-from interface_view import ViewABC
-
 from Entities.abc_entities import EntitiesABC
 from Interactor.abc import InteractorABC
+from interface_view import ViewABC
+
 from .commands import open_keyboard_shortcut_setting
 
 
