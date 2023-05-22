@@ -170,8 +170,8 @@ def open_keyboard_shortcut_setting(v: ViewABC, i: InteractorABC, e: EntitiesABC)
 
 def _get_view_model_shortcut_setting(v: ViewABC, i: InteractorABC, e: EntitiesABC, n_commands: int):
     title = 'Filter setting'
-    width = 1000
-    height = 500
+    width = 600
+    height = 800
     options = top_level_options(title, (width, height))
     view_model = [widget_model('root', specified_parent, 'toplevel', 0, 0, 0, 0, 'nswe', **options)]
     commands_to_short_cuts = keyboard.get_method_name_to_key_combo(v, i, e)
