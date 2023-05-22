@@ -10,7 +10,8 @@ from Presenters.abc import PresentersABC
 def execute(e: EntitiesABC, p: PresentersABC, sort_cards: Callable):
     def callback(**state):
         from_ = Utilities.str_to_date_time_no_time(state['from'])
-        to_ = Utilities.str_to_date_time_no_time(state['to'])
+        t = Utilities.str_to_date_time_no_time(state['to'])
+        to_ = datetime.datetime(t.year, t.month, t.day, 23, 59)
         owner_name = state['owner']
         display_list_of_actions.execute(e, p, owner_name, from_, to_, sort_cards)
 
