@@ -2,7 +2,6 @@ import datetime
 from typing import Callable
 
 import Utilities
-import os_identifier
 from interface_view import ViewABC
 from stacker import Stacker
 from stacker import widgets as w
@@ -30,8 +29,7 @@ OWNER = 'owner_'
 ACTION_NAME = 'action_name_'
 SELECTION_COLOR = 'red'
 DEFAULT_COLOR = 'blue'
-SELECTION_FONT_SIZE = 15
-ELIMINATED_FONT_SIZE = 13 if os_identifier.is_windows else None
+SELECTION_FONT_SIZE = 10
 
 CARD_PADX = 20
 ACTION_PADX = 40
@@ -85,13 +83,13 @@ def CARD_WIDGETS(stacker, n: int, data: dict):
 def ACTION_WITHIN_A_CARD(stacker, action_state):
     return tuple(
         stacker.hstack(
-            w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]).padding(ACTION_PADX, 1),
+            w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]).padding(ACTION_PADX, 0),
             w.Entry(f'{OWNER}{action_id}').default_value(f'{owner}'),
-            w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2),
+            w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2).padding(int(ACTION_PADX / 2), 0),
             w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]).width(20),
-            w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
+            w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2).padding(int(ACTION_PADX / 2), 0),
             w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]).padding(20, 0),
-            w.Button(f'{BTN_REVERT}{action_id}').text('Revert').padding(ACTION_PADX, 1),
+            w.Button(f'{BTN_REVERT}{action_id}').text('Revert').padding(ACTION_PADX, 0),
             w.Spacer().adjust(-7),
         ) for (n, (action_id, owner)) in
         enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
