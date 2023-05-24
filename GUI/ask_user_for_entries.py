@@ -30,7 +30,7 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
                 ENTRY_OR_CHECKBUTTON(n, default_value, check_button_index),
             ) for (n, (label, default_value)) in enumerate(zip(labels, default_values))
         ),
-        w.Button(button_ok).text('OK'),
+        w.Button(button_ok).text('OK').padding(10, 10),
         w.Spacer(),
     )
     options = top_level_options(title, (width, height))
@@ -49,7 +49,10 @@ def ENTRY_OR_CHECKBUTTON(n, value, check_button_index: tuple):
 
 
 def ENTRY(n, value):
-    return w.Entry(f'{entry_by_user}{n}').default_value(value.split(os_identifier.DIRECTORY_SEPARATOR)[-1])
+    v = value
+    if os_identifier.DIRECTORY_SEPARATOR in value and '.' in value:
+        v = value.split(os_identifier.DIRECTORY_SEPARATOR)[-1]
+    return w.Entry(f'{entry_by_user}{n}').default_value(v)
 
 
 def CHECKBUTTON(n, value):

@@ -403,7 +403,10 @@ class Interactor(InteractorABC):
     def open_folder_of_resources(self):
         folder_to_open = set()
         for uri in self._entities.get_selected_uris():
-            split_by_slash = uri.split(os_identifier.DIRECTORY_SEPARATOR)
+            if os_identifier.DIRECTORY_SEPARATOR in uri:
+                split_by_slash = uri.split(os_identifier.DIRECTORY_SEPARATOR)
+            else:
+                split_by_slash = uri.split('/')
             last_element = split_by_slash[-1]
             if '.' not in last_element:
                 folder_to_open.add(uri)

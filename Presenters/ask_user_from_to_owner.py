@@ -27,21 +27,21 @@ def execute(v: ViewABC, method_upon_ok: Callable = None, **kwargs):
     stacker.vstack(
         stacker.hstack(
             w.Label('lbl_from').text('From'),
-            w.Entry('entry_from').default_value(from_date_text)
+            w.Entry('entry_from').default_value(from_date_text).padding(10, 0)
         ),
         stacker.hstack(
             w.Label('lbl_to').text('To'),
-            w.Entry('entry_to').default_value(to_date_text)
+            w.Entry('entry_to').default_value(to_date_text).padding(10, 0)
         ),
         stacker.hstack(
             w.Label('lbl_owner').text('Owner'),
-            w.Entry('entry_owner').default_value(owner)
+            w.Entry('entry_owner').default_value(owner).padding(10, 0)
         ),
         w.Spacer(),
         stacker.hstack(
             w.Spacer(),
-            w.Button('btn_ask_from_to_owner_cancel').text("Cancel"),
-            w.Button(button_ok).text("OK"),
+            w.Button('btn_ask_from_to_owner_cancel').text("Cancel").padding(10, 10),
+            w.Button(button_ok).text("OK").padding(10, 10),
         ),
         w.Spacer(),
     )

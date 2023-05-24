@@ -22,6 +22,11 @@ def create_stacker(parent):
             w.Button('btn_15').text('15').width(2),
             w.Button('btn_30').text('30').width(2),
             w.Button('btn_60').text('60').width(2),
+            w.Spacer().adjust(-5),
+            w.Spacer().adjust(-5),
+            w.Spacer().adjust(-5),
+            w.Spacer().adjust(-5),
+            w.Spacer().adjust(-5),
         ),
         stacker.hstack(
             w.Button('btn_clear').text('Clear'),

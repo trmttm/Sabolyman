@@ -29,8 +29,8 @@ def execute(v: ViewABC, method_upon_ok: Callable = None, title: str = None):
         w.Spacer(),
         stacker.hstack(
             w.Spacer(),
-            w.Button('btn_ask_date_cancel').text("Cancel"),
-            w.Button(button_ok).text("OK"),
+            w.Button('btn_ask_date_cancel').text("Cancel").padding(10, 10),
+            w.Button(button_ok).text("OK").padding(10, 10),
         ),
         w.Spacer(),
     )

@@ -103,7 +103,9 @@ def upon_resources_tree_entrance(i: InteractorABC):
     key = "SBLM Resources"
     clipboard_text = clipboard.paste()
     if clipboard_text[:len(key)] == key:
-        clipboard_text = clipboard_text.replace(key + os_identifier.NEW_LINE_SYMBOL, '')
+        # clipboard_text = clipboard_text.replace(key + os_identifier.NEW_LINE_SYMBOL, '')
+        # clipboard_text = clipboard_text.replace(os_identifier.NEW_LINE_SYMBOL, ',')
+        clipboard_text = clipboard_text.replace(key, '')
         clipboard_text = clipboard_text.replace(os_identifier.NEW_LINE_SYMBOL, ',')
         paths = tuple(p for p in clipboard_text.split(',') if p.strip() != '')
         i.add_action_resources(paths)
