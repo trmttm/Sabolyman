@@ -275,6 +275,7 @@ def upon_right_click(v: ViewABC, callback, data: dict, action_id):
 
 def set_initial_label_appearances(v: ViewABC, data: dict):
     total_duration = datetime.timedelta(seconds=0)
+    total_scheduled_duration = datetime.timedelta(seconds=0)
     action_counter = 0
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
@@ -288,9 +289,12 @@ def set_initial_label_appearances(v: ViewABC, data: dict):
             except:
                 duration = datetime.timedelta(seconds=0)
                 v.set_value(f'{ENTRY_DURATION}{action_id}', duration)
+            if v.get_value(f'{CB_SCHEDULED}{action_id}'):
+                total_scheduled_duration += duration
             total_duration += duration
 
-    title_text = f'{action_counter} actions, with total duration of {total_duration}.'
+    tsd = total_scheduled_duration
+    title_text = f'{action_counter} actions, total duration {total_duration}, of which {tsd} scheduled.'
     update_title_label(v, title_text)
 
 
@@ -315,6 +319,7 @@ def bind_action(action_id, date, done_or_not: bool, scheduled: bool, v: ViewABC,
     bind(f'{BTN_SET_DURATION}{action_id}', lambda i=action_id: set_duration(i, v, data[KEY_CB_DURATION], data))
     bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, decide_text_color(action_id, v), data))
     bind(f'{ENTRY_DURATION}{action_id}', lambda *_: set_initial_label_appearances(v, data))
+    bind(f'{CB_SCHEDULED}{action_id}', lambda *_: set_initial_label_appearances(v, data))
     bind_mouse_hover(action_id, v, data)
 
     entry_id = f'{ACTION_NAME}{action_id}'
