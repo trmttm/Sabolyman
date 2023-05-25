@@ -37,7 +37,7 @@ def bind_command(view: ViewABC, callback: Callable = None):
         view.set_value('lbl_minutes', timedelta)
 
     def upon_ok(timedelta: datetime.timedelta):
-        view.close('minute_setter_parent')
+        view.close(specified_parent)
         callback(timedelta)
 
     view.bind_command_to_widget('btn_05', lambda: increment_minutes(5))

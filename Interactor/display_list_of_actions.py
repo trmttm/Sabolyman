@@ -81,10 +81,10 @@ def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC,
                                 from_: datetime.datetime, to_: datetime.datetime) -> dict:
     s: SynchronizerABC = e.synchronizer
     filter_by_owner = owner_name.strip() != ''
-    view_model = g.load_file_from_package('minutes_setter.gui', 'Resources')
     data = {
         c.KEY_DATE: to_,
-        c.KEY_CB_DURATION: lambda upon_ok: p.show_minutes_setter(view_model, upon_ok, **{'title': 'Set Duration'}),
+        c.KEY_CB_DURATION: lambda upon_ok: p.show_minutes_setter(
+            g.load_file_from_package('minutes_setter.gui', 'Resources'), upon_ok, **{'title': 'Set Duration'}),
     }
     card_states = []
     for card in e.all_cards:
