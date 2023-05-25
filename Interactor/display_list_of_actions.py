@@ -1,7 +1,7 @@
 import datetime
 from typing import Callable
 
-import GUI.list_of_actions as c
+import GUI.list_of_actions.constants as c
 import Utilities
 from Entities.abc_entities import EntitiesABC
 from Entities.synchronizer_action_card.abc import SynchronizerABC

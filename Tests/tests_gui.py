@@ -31,7 +31,7 @@ def load_gui_from_pickle(file_name, specified_parent, parent_widget='toplevel'):
 def create_data() -> dict:
     import datetime
     import Utilities
-    import GUI.list_of_actions as c
+    import GUI.list_of_actions.constants as c
     data = {
         c.KEY_DATE: datetime.datetime(2023, 5, 15),
         c.KEY_CARD_STATES: (
