@@ -22,6 +22,7 @@ BTN_REPLACE = 'btn_replace'
 BTN_ACTIONS_REVERT_ALL = 'btn_actions_revert'
 BTN_ACTIONS_APPLY = 'btn_actions_apply'
 BTN_ACTIONS_OK = 'btn_actions_ok'
+LABEL_TITLE = 'title_action_editor'
 
 BTN_DD_DOWN = 'button_due_date_down_'
 BTN_DD_UP = 'button_due_date_up_'
@@ -58,6 +59,11 @@ def get_view_model(parent: str = 'root', data: dict = None):
 def create_stacker(parent, data: dict):
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
+        stacker.hstack(
+            w.Spacer(),
+            w.Label(LABEL_TITLE).text('Title').padding(0, 20),
+            w.Spacer(),
+        ),
         stacker.vstack_scrollable(
             *ALL_CARDS_WIDGETS(stacker, data)
         ),
@@ -69,7 +75,8 @@ def create_stacker(parent, data: dict):
             w.Button(BTN_ACTIONS_APPLY).text('Apply').padding(5, 10),
             w.Button(BTN_ACTIONS_OK).text('Done').padding(5, 10),
             w.Spacer(),
-        )
+        ),
+        w.Spacer().adjust(-2),
     )
     return stacker
 
@@ -105,6 +112,10 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
         ) for (n, (action_id, owner)) in
         enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
     )
+
+
+def update_title_label(v: ViewABC, text: str):
+    v.set_value(LABEL_TITLE, text)
 
 
 def update_label(v: ViewABC, action_id_: str, color: str, data: dict):
@@ -216,9 +227,10 @@ def revert_all(v: ViewABC, data: dict):
     set_initial_label_appearances(v, data)
 
 
-def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable):
+def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable, data: dict):
     def callback(duration: datetime.timedelta):
         v.set_value(f'{ENTRY_DURATION}{action_id}', duration)
+        set_initial_label_appearances(v, data)
 
     ask_user_for_duration(callback)
 
@@ -253,9 +265,23 @@ def upon_right_click(v: ViewABC, callback, data: dict, action_id):
 
 
 def set_initial_label_appearances(v: ViewABC, data: dict):
+    total_duration = datetime.timedelta(seconds=0)
+    action_counter = 0
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
             update_label(v, action_id, DEFAULT_COLOR, data)
+
+            action_counter += 1
+            duration_str = v.get_value(f'{ENTRY_DURATION}{action_id}')
+            try:
+                duration = Utilities.time_delta_str_to_time_delta(duration_str)
+            except:
+                duration = datetime.timedelta(seconds=0)
+                v.set_value(f'{ENTRY_DURATION}{action_id}', duration)
+            total_duration += duration
+
+    title_text = f'{action_counter} actions, with total duration of {total_duration}.'
+    update_title_label(v, title_text)
 
 
 def bind_card_widgets(v: ViewABC, callback: Callable[[dict], None], data: dict):
@@ -274,8 +300,9 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, callback: Callab
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
     bind(f'{BTN_REVERT}{action_id}', lambda i=action_id: revert_action(i, date, done_or_not, v, data))
-    bind(f'{BTN_SET_DURATION}{action_id}', lambda i=action_id: set_duration(i, v, data[KEY_CB_DURATION]))
+    bind(f'{BTN_SET_DURATION}{action_id}', lambda i=action_id: set_duration(i, v, data[KEY_CB_DURATION], data))
     bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, DEFAULT_COLOR, data))
+    bind(f'{ENTRY_DURATION}{action_id}', lambda *_: set_initial_label_appearances(v, data))
     bind_mouse_hover(action_id, v, data)
 
     entry_id = f'{ACTION_NAME}{action_id}'
