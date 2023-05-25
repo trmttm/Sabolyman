@@ -35,9 +35,9 @@ OWNER = 'owner_'
 ACTION_NAME = 'action_name_'
 ENTRY_DURATION = 'entry_duration_'
 BTN_SET_DURATION = 'button_set_duration_'
-SELECTION_COLOR = 'red'
+SELECTION_COLOR = 'blue'
 DEFAULT_COLOR = 'black'
-SCHEDULED_COLOR = 'blue'
+SCHEDULED_COLOR = 'red'
 SELECTION_FONT_SIZE = 15
 
 CARD_PADX = 20
