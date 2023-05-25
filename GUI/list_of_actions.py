@@ -14,6 +14,8 @@ KEY_ACTION_IDS = 'action_ids'
 KEY_NAMES = 'action_names'
 KEY_DUE_DATES = 'action_due_dates'
 KEY_DONE_OR_NOT = 'done_or_not'
+KEY_DURATION = 'duration'
+KEY_CB_DURATION = 'ask_user_for_duration'
 KEY_OWNERS = 'owners'
 BTN_ACTIONS_CANCEL = 'btn_actions_cancel'
 BTN_REPLACE = 'btn_replace'
@@ -28,9 +30,11 @@ ENTRY_DD = 'entry_due_date'
 CB_DONE = 'done_or_not_'
 OWNER = 'owner_'
 ACTION_NAME = 'action_name_'
+ENTRY_DURATION = 'entry_duration_'
+BTN_SET_DURATION = 'button_set_duration_'
 SELECTION_COLOR = 'red'
 DEFAULT_COLOR = 'blue'
-SELECTION_FONT_SIZE = 10
+SELECTION_FONT_SIZE = 15
 
 CARD_PADX = 20
 ACTION_PADX = 40
@@ -79,10 +83,10 @@ def ALL_CARDS_WIDGETS(stacker, data: dict) -> tuple:
 
 def CARD_WIDGETS(stacker, n: int, data: dict):
     return (
-        w.Label('blank').text(''),
-        w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
+               w.Label('blank').text(''),
+               w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
 
-    ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
+           ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
 
 
 def ACTION_WITHIN_A_CARD(stacker, action_state):
@@ -90,12 +94,14 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
         stacker.hstack(
             w.Label(f'{ACTION_NAME}{action_id}').text(action_state.get(KEY_NAMES, ())[n]).padding(ACTION_PADX, 0),
             w.Entry(f'{OWNER}{action_id}').default_value(f'{owner}'),
-            w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2).padding(int(ACTION_PADX / 2), 0),
-            w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]).width(20),
-            w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2).padding(int(ACTION_PADX / 2), 0),
-            w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]).padding(20, 0),
-            w.Button(f'{BTN_REVERT}{action_id}').text('Revert').padding(ACTION_PADX, 0),
-            w.Spacer().adjust(-7),
+            w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2),
+            w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]),
+            w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
+            w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]),
+            w.Entry(f'{ENTRY_DURATION}{action_id}').default_value(action_state.get(KEY_DURATION, ())[n]).width(10),
+            w.Button(f'{BTN_SET_DURATION}{action_id}').text('+').width(2),
+            w.Button(f'{BTN_REVERT}{action_id}').text('↩︎').width(2),
+            w.Spacer().adjust(-9),
         ) for (n, (action_id, owner)) in
         enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
     )
@@ -146,6 +152,7 @@ def create_kwargs_state(data: dict, v: ViewABC) -> dict:
                 v.get_value(f'{ENTRY_DD}{action_id}'),
                 v.get_value(f'{CB_DONE}{action_id}'),
                 v.get_value(f'{OWNER}{action_id}'),
+                Utilities.time_delta_str_to_time_delta(v.get_value(f'{ENTRY_DURATION}{action_id}')),
             )
             state.append(action_state)
     kwargs = {KEY_KW_STATES: tuple(state)}
@@ -209,6 +216,13 @@ def revert_all(v: ViewABC, data: dict):
     set_initial_label_appearances(v, data)
 
 
+def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable):
+    def callback(duration: datetime.timedelta):
+        v.set_value(f'{ENTRY_DURATION}{action_id}', duration)
+
+    ask_user_for_duration(callback)
+
+
 def revert_action(action_id, date: str, done_or_not: bool, v: ViewABC, data: dict):
     v.set_value(f'{CB_DONE}{action_id}', done_or_not)
     v.set_value(f'{ENTRY_DD}{action_id}', date)
@@ -260,6 +274,7 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, callback: Callab
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
     bind(f'{BTN_REVERT}{action_id}', lambda i=action_id: revert_action(i, date, done_or_not, v, data))
+    bind(f'{BTN_SET_DURATION}{action_id}', lambda i=action_id: set_duration(i, v, data[KEY_CB_DURATION]))
     bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, DEFAULT_COLOR, data))
     bind_mouse_hover(action_id, v, data)
 
