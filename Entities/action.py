@@ -32,6 +32,7 @@ class Action(EntityABC):
         tm = datetime.datetime.today() + datetime.timedelta(1)
         self._name = 'unspecified'
         self._is_done = False
+        self._scheduled = False
         self._owner = Person('unspecified')
         self._time_expected = datetime.timedelta(1)
         self._date_created = datetime.datetime.now()
@@ -96,6 +97,15 @@ class Action(EntityABC):
         # Not subject to synchronizer wrapper
         self._is_done = False
         self._time_completed = None
+
+    def mark_scheduled(self):
+        self._scheduled = True
+
+    def mark_not_scheduled(self):
+        self._scheduled = False
+
+    def is_scheduled(self):
+        return self._scheduled
 
     @property
     def time_expected(self) -> datetime.timedelta:
@@ -273,6 +283,7 @@ class Action(EntityABC):
         state = {
             'name': self._name,
             'is_done': self._is_done,
+            'scheduled': self._scheduled,
             'owner': self._owner.state,
             'time_expected': self._time_expected,
             'date_created': self._date_created,
@@ -292,6 +303,7 @@ class Action(EntityABC):
         tm = datetime.datetime.today() + datetime.timedelta(1)
         self._name = state.get('name', '')
         self._is_done = state.get('is_done', False)
+        self._scheduled = state.get('scheduled', False)
         self._owner = factory1.factory_person(state, 'owner')
         self._time_expected = state.get('time_expected', datetime.timedelta(1))
         self._date_created = state.get('date_created', datetime.datetime.today())

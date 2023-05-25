@@ -46,6 +46,7 @@ from . import load_gui
 from . import load_state_from_file
 from . import load_template_card
 from . import mark_action_completed
+from . import mark_action_scheduled
 from . import move_actions_down
 from . import move_actions_up
 from . import move_my_cards_down
@@ -303,6 +304,9 @@ class Interactor(InteractorABC):
 
     def mark_action_completed(self, done_or_not: bool, actions_indexes: Tuple[int, ...] = None):
         mark_action_completed.execute(self._entities, self._presenters, done_or_not, actions_indexes)
+
+    def mark_action_scheduled(self, scheduled_or_not: bool, actions_indexes: Tuple[int, ...]):
+        mark_action_scheduled.execute(self._entities, self._presenters, scheduled_or_not, actions_indexes)
 
     def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
         set_action_description.execute(self._entities, self._presenters, description[:-1], actions_indexes)

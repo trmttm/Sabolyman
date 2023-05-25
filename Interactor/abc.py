@@ -106,6 +106,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def mark_action_scheduled(self, scheduled_or_not: bool, actions_indexes: Tuple[int, ...]):
+        pass
+
+    @abc.abstractmethod
     def set_action_description(self, description: str, actions_indexes: Tuple[int, ...]):
         pass
 
