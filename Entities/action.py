@@ -104,6 +104,7 @@ class Action(EntityABC):
     def mark_not_scheduled(self):
         self._scheduled = False
 
+    @property
     def is_scheduled(self):
         return self._scheduled
 

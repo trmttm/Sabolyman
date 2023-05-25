@@ -14,4 +14,4 @@ def execute(e: EntitiesABC, p: PresentersABC, scheduled_or_not: bool, actions_in
             else:
                 action.mark_not_scheduled()
 
-            p.update_action_is_done(action.is_done)
+            p.update_action_is_scheduled(action.is_scheduled)

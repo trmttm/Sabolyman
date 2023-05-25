@@ -79,6 +79,10 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def update_action_is_scheduled(self, is_scheduled: bool):
+        pass
+
+    @abc.abstractmethod
     def update_action_is_done(self, is_done: bool):
         pass
 

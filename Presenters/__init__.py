@@ -92,6 +92,9 @@ class Presenters(PresentersABC):
     def update_action_owner(self, owner_name: str):
         self._view.set_value(WidgetNames.entry_action_owner, owner_name)
 
+    def update_action_is_scheduled(self, is_scheduled: bool):
+        self._view.set_value(WidgetNames.check_button_action_scheduled, is_scheduled)
+
     def update_action_is_done(self, is_done: bool):
         self._view.set_value(WidgetNames.check_button_action_done, is_done)
 
