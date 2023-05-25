@@ -107,12 +107,14 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
             w.Button(f'{BTN_DD_DOWN}{action_id}').text('↓').width(2),
             w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]),
             w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
+            w.Label(f'label_done{action_id}').text('D').width(2),
             w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]),
+            w.Label(f'label_scheduled{action_id}').text('S').width(2),
             w.CheckButton(f'{CB_SCHEDULED}{action_id}').value(action_state.get(KEY_SCHEDULED, ())[n]),
             w.Entry(f'{ENTRY_DURATION}{action_id}').default_value(action_state.get(KEY_DURATION, ())[n]).width(10),
             w.Button(f'{BTN_SET_DURATION}{action_id}').text('+').width(2),
             w.Button(f'{BTN_REVERT}{action_id}').text('↩︎').width(2),
-            w.Spacer().adjust(-10),
+            w.Spacer().adjust(-12),
         ) for (n, (action_id, owner)) in
         enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
     )
