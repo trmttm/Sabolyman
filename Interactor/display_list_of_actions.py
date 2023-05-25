@@ -22,7 +22,7 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, owner_name: str, fr
 
         number_of_changes = 1
         for each_action_state in state:
-            action_id, due_date_str, is_done, owner, duration = each_action_state
+            action_id, due_date_str, is_done, owner, duration, scheduled = each_action_state
             action = e.get_action_by_id(action_id)
             new_dead_line = Utilities.str_to_date_time(due_date_str)
 
@@ -49,6 +49,14 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, owner_name: str, fr
             if action.time_expected != duration:
                 action.set_time_expected(duration)
                 print(f'{number_of_changes} Time expected to complete [{action.name}] was updated to {duration}.')
+                number_of_changes += 1
+            if action.is_scheduled != scheduled:
+                if scheduled:
+                    action.mark_scheduled()
+                    print(f'{number_of_changes} [{action.name}] is scheduled.')
+                else:
+                    action.mark_not_scheduled()
+                    print(f'{number_of_changes} [{action.name}] is NOT scheduled.')
                 number_of_changes += 1
 
         if number_of_changes > 1:
@@ -86,6 +94,7 @@ def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC,
                 c.KEY_ACTION_IDS: [],
                 c.KEY_NAMES: [],
                 c.KEY_DONE_OR_NOT: [],
+                c.KEY_SCHEDULED: [],
                 c.KEY_DUE_DATES: [],
                 c.KEY_OWNERS: [],
                 c.KEY_DURATION: [],
@@ -99,6 +108,7 @@ def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC,
                     card_state[c.KEY_ACTION_IDS].append(action.id)
                     card_state[c.KEY_NAMES].append(action.name)
                     card_state[c.KEY_DONE_OR_NOT].append(action.is_done)
+                    card_state[c.KEY_SCHEDULED].append(action.is_scheduled)
                     card_state[c.KEY_DUE_DATES].append(action.get_dead_line())
                     card_state[c.KEY_OWNERS].append(action.get_owner())
                     card_state[c.KEY_DURATION].append(action.time_expected)
@@ -106,6 +116,7 @@ def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC,
                 card_state[c.KEY_ACTION_IDS] = tuple(card_state[c.KEY_ACTION_IDS])
                 card_state[c.KEY_NAMES] = tuple(card_state[c.KEY_NAMES])
                 card_state[c.KEY_DONE_OR_NOT] = tuple(card_state[c.KEY_DONE_OR_NOT])
+                card_state[c.KEY_SCHEDULED] = tuple(card_state[c.KEY_SCHEDULED])
                 card_state[c.KEY_DUE_DATES] = tuple(card_state[c.KEY_DUE_DATES])
                 card_state[c.KEY_OWNERS] = tuple(card_state[c.KEY_OWNERS])
                 card_state[c.KEY_DURATION] = tuple(card_state[c.KEY_DURATION])

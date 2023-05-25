@@ -36,7 +36,8 @@ ACTION_NAME = 'action_name_'
 ENTRY_DURATION = 'entry_duration_'
 BTN_SET_DURATION = 'button_set_duration_'
 SELECTION_COLOR = 'red'
-DEFAULT_COLOR = 'blue'
+DEFAULT_COLOR = 'black'
+SCHEDULED_COLOR = 'blue'
 SELECTION_FONT_SIZE = 15
 
 CARD_PADX = 20
@@ -92,10 +93,10 @@ def ALL_CARDS_WIDGETS(stacker, data: dict) -> tuple:
 
 def CARD_WIDGETS(stacker, n: int, data: dict):
     return (
-               w.Label('blank').text(''),
-               w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
+        w.Label('blank').text(''),
+        w.Label(f'card_name_{n}').text(data[KEY_CARD_STATES][n][CARD_NAME]).padding(CARD_PADX, 0),
 
-           ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
+    ) + ACTION_WITHIN_A_CARD(stacker, data[KEY_CARD_STATES][n])
 
 
 def ACTION_WITHIN_A_CARD(stacker, action_state):
@@ -111,7 +112,7 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
             w.Entry(f'{ENTRY_DURATION}{action_id}').default_value(action_state.get(KEY_DURATION, ())[n]).width(10),
             w.Button(f'{BTN_SET_DURATION}{action_id}').text('+').width(2),
             w.Button(f'{BTN_REVERT}{action_id}').text('↩︎').width(2),
-            w.Spacer().adjust(-9),
+            w.Spacer().adjust(-10),
         ) for (n, (action_id, owner)) in
         enumerate(zip(action_state.get(KEY_ACTION_IDS, ()), action_state.get(KEY_OWNERS, ()), ))
     )
@@ -167,6 +168,7 @@ def create_kwargs_state(data: dict, v: ViewABC) -> dict:
                 v.get_value(f'{CB_DONE}{action_id}'),
                 v.get_value(f'{OWNER}{action_id}'),
                 Utilities.time_delta_str_to_time_delta(v.get_value(f'{ENTRY_DURATION}{action_id}')),
+                v.get_value(f'{CB_SCHEDULED}{action_id}')
             )
             state.append(action_state)
     kwargs = {KEY_KW_STATES: tuple(state)}
@@ -243,7 +245,7 @@ def revert_action(action_id, date: str, done_or_not: bool, scheduled: bool, v: V
     v.set_value(f'{CB_DONE}{action_id}', done_or_not)
     v.set_value(f'{CB_SCHEDULED}{action_id}', scheduled)
     v.set_value(f'{ENTRY_DD}{action_id}', date)
-    update_label(v, action_id, DEFAULT_COLOR, data)
+    update_label(v, action_id, decide_text_color(action_id, v), data)
 
 
 def upon_increment_button(v: ViewABC, shift: int, action_id, data: dict):
@@ -274,7 +276,8 @@ def set_initial_label_appearances(v: ViewABC, data: dict):
     action_counter = 0
     for card_state in data[KEY_CARD_STATES]:
         for action_id in card_state[KEY_ACTION_IDS]:
-            update_label(v, action_id, DEFAULT_COLOR, data)
+            color = decide_text_color(action_id, v)
+            update_label(v, action_id, color, data)
 
             action_counter += 1
             duration_str = v.get_value(f'{ENTRY_DURATION}{action_id}')
@@ -296,17 +299,19 @@ def bind_card_widgets(v: ViewABC, callback: Callable[[dict], None], data: dict):
 
 def bind_each_card_widget(card_state: dict, v: ViewABC, callback: Callable[[dict], None], data: dict):
     cs = card_state
-    for id_, date, done_or_not in zip(cs[KEY_ACTION_IDS], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT]):
-        bind_action(id_, date, done_or_not, v, callback, data)
+    for id_, date, done_or_not, scheduled in zip(cs[KEY_ACTION_IDS], cs[KEY_DUE_DATES], cs[KEY_DONE_OR_NOT],
+                                                 cs[KEY_SCHEDULED]):
+        bind_action(id_, date, done_or_not, scheduled, v, callback, data)
 
 
-def bind_action(action_id, date, done_or_not: bool, v: ViewABC, callback: Callable[[dict], None], data: dict):
+def bind_action(action_id, date, done_or_not: bool, scheduled: bool, v: ViewABC, callback: Callable[[dict], None],
+                data: dict):
     bind = v.bind_command_to_widget
     bind(f'{BTN_DD_DOWN}{action_id}', lambda i=action_id: upon_increment_button(v, -1, i, data))
     bind(f'{BTN_DD_UP}{action_id}', lambda i=action_id: upon_increment_button(v, 1, i, data))
-    bind(f'{BTN_REVERT}{action_id}', lambda i=action_id: revert_action(i, date, done_or_not, v, data))
+    bind(f'{BTN_REVERT}{action_id}', lambda i=action_id: revert_action(i, date, done_or_not, scheduled, v, data))
     bind(f'{BTN_SET_DURATION}{action_id}', lambda i=action_id: set_duration(i, v, data[KEY_CB_DURATION], data))
-    bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, DEFAULT_COLOR, data))
+    bind(f'{CB_DONE}{action_id}', lambda i=action_id: update_label(v, i, decide_text_color(action_id, v), data))
     bind(f'{ENTRY_DURATION}{action_id}', lambda *_: set_initial_label_appearances(v, data))
     bind_mouse_hover(action_id, v, data)
 
@@ -319,6 +324,14 @@ def bind_action(action_id, date, done_or_not: bool, v: ViewABC, callback: Callab
 def bind_mouse_hover(action_id, v: ViewABC, data: dict):
     aid = action_id
 
-    for key in (BTN_DD_UP, BTN_DD_DOWN, ENTRY_DD, CB_DONE, ACTION_NAME, OWNER, BTN_REVERT):
+    for key in (BTN_DD_UP, BTN_DD_DOWN, ENTRY_DD, CB_DONE, ACTION_NAME, OWNER, BTN_REVERT, CB_SCHEDULED):
         v.bind_mouse_enter(lambda i=aid: update_label(v, i, SELECTION_COLOR, data), f'{key}{aid}')
-        v.bind_mouse_leave(lambda i=aid: update_label(v, i, DEFAULT_COLOR, data), f'{key}{aid}')
+        v.bind_mouse_leave(lambda i=aid: update_label(v, i, decide_text_color(action_id, v), data), f'{key}{aid}')
+
+
+def decide_text_color(action_id, v: ViewABC):
+    if v.get_value(f'{CB_SCHEDULED}{action_id}'):
+        color = SCHEDULED_COLOR
+    else:
+        color = DEFAULT_COLOR
+    return color
