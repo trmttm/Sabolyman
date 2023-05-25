@@ -14,6 +14,7 @@ KEY_ACTION_IDS = 'action_ids'
 KEY_NAMES = 'action_names'
 KEY_DUE_DATES = 'action_due_dates'
 KEY_DONE_OR_NOT = 'done_or_not'
+KEY_SCHEDULED = 'scheduled_or_not_'
 KEY_DURATION = 'duration'
 KEY_CB_DURATION = 'ask_user_for_duration'
 KEY_OWNERS = 'owners'
@@ -29,6 +30,7 @@ BTN_DD_UP = 'button_due_date_up_'
 BTN_REVERT = 'button_revert_'
 ENTRY_DD = 'entry_due_date'
 CB_DONE = 'done_or_not_'
+CB_SCHEDULED = 'scheduled_or_not_'
 OWNER = 'owner_'
 ACTION_NAME = 'action_name_'
 ENTRY_DURATION = 'entry_duration_'
@@ -105,6 +107,7 @@ def ACTION_WITHIN_A_CARD(stacker, action_state):
             w.Entry(f'{ENTRY_DD}{action_id}').default_value(action_state.get(KEY_DUE_DATES, ())[n]),
             w.Button(f'{BTN_DD_UP}{action_id}').text('↑').width(2),
             w.CheckButton(f'{CB_DONE}{action_id}').value(action_state.get(KEY_DONE_OR_NOT, ())[n]),
+            w.CheckButton(f'{CB_SCHEDULED}{action_id}').value(action_state.get(KEY_SCHEDULED, ())[n]),
             w.Entry(f'{ENTRY_DURATION}{action_id}').default_value(action_state.get(KEY_DURATION, ())[n]).width(10),
             w.Button(f'{BTN_SET_DURATION}{action_id}').text('+').width(2),
             w.Button(f'{BTN_REVERT}{action_id}').text('↩︎').width(2),
@@ -221,8 +224,9 @@ def upon_ok(v: ViewABC, callback: Callable[[dict], None], data: dict):
 def revert_all(v: ViewABC, data: dict):
     for card_state in data[KEY_CARD_STATES]:
         cs = card_state
-        for action_id, done_or_not, date in zip(cs[KEY_ACTION_IDS], cs[KEY_DONE_OR_NOT], cs[KEY_DUE_DATES]):
-            revert_action(action_id, date, done_or_not, v, data)
+        for action_id, done_or_not, scheduled, date in zip(
+                cs[KEY_ACTION_IDS], cs[KEY_DONE_OR_NOT], cs[KEY_SCHEDULED], cs[KEY_DUE_DATES]):
+            revert_action(action_id, date, done_or_not, scheduled, v, data)
 
     set_initial_label_appearances(v, data)
 
@@ -235,8 +239,9 @@ def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable, data: d
     ask_user_for_duration(callback)
 
 
-def revert_action(action_id, date: str, done_or_not: bool, v: ViewABC, data: dict):
+def revert_action(action_id, date: str, done_or_not: bool, scheduled: bool, v: ViewABC, data: dict):
     v.set_value(f'{CB_DONE}{action_id}', done_or_not)
+    v.set_value(f'{CB_SCHEDULED}{action_id}', scheduled)
     v.set_value(f'{ENTRY_DD}{action_id}', date)
     update_label(v, action_id, DEFAULT_COLOR, data)
 
