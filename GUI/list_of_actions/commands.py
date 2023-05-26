@@ -32,9 +32,10 @@ def upon_ok(v: ViewABC, callback: Callable[[dict], None], data: dict):
 def revert_all(v: ViewABC, data: dict):
     for card_state in data[c.KEY_CARD_STATES]:
         cs = card_state
-        for action_id, done_or_not, scheduled, date in zip(
-                cs[c.KEY_ACTION_IDS], cs[c.KEY_DONE_OR_NOT], cs[c.KEY_SCHEDULED], cs[c.KEY_DUE_DATES]):
-            revert_action(action_id, date, done_or_not, scheduled, v, data)
+        for action_id, done_or_not, scheduled, date, duration in zip(
+                cs[c.KEY_ACTION_IDS], cs[c.KEY_DONE_OR_NOT], cs[c.KEY_SCHEDULED], cs[c.KEY_DUE_DATES],
+                cs[c.KEY_DURATION]):
+            revert_action(action_id, date, done_or_not, scheduled, duration, v, data)
 
     update_widgets_appearances(v, data)
 
@@ -47,10 +48,11 @@ def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable, data: d
     ask_user_for_duration(callback)
 
 
-def revert_action(action_id, date: str, done_or_not: bool, scheduled: bool, v: ViewABC, data: dict):
+def revert_action(action_id, date: str, done_or_not: bool, scheduled: bool, duration, v: ViewABC, data: dict):
     v.set_value(f'{c.CB_DONE}{action_id}', done_or_not)
     v.set_value(f'{c.CB_SCHEDULED}{action_id}', scheduled)
     v.set_value(f'{c.ENTRY_DD}{action_id}', date)
+    v.set_value(f'{c.ENTRY_DURATION}{action_id}', duration)
     update_label(v, action_id, decide_text_color(action_id, v), data)
 
 
