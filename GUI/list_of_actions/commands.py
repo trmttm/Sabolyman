@@ -108,7 +108,9 @@ def set_initial_label_appearances(v: ViewABC, data: dict):
                 v.set_value(f'{c.ENTRY_DURATION}{action_id}', duration)
             if v.get_value(f'{c.CB_SCHEDULED}{action_id}'):
                 total_scheduled_duration += duration
-            total_duration += duration
+
+            if Utilities.str_to_date_time(v.get_value(f'{c.ENTRY_DD}{action_id}')) <= data[c.KEY_DATE]:
+                total_duration += duration
 
     tsd = total_scheduled_duration
     title_text = f'{action_counter} actions, total duration {total_duration}, of which {tsd} scheduled.'
@@ -128,6 +130,7 @@ def date_changed(action_id_, v: ViewABC, data: dict) -> bool:
 def upon_increment_button(v: ViewABC, shift: int, action_id, data: dict):
     increment_date(v, shift, action_id)
     update_label(v, action_id, c.SELECTION_COLOR, data)
+    set_initial_label_appearances(v, data)
 
 
 def increment_date(v: ViewABC, shift: int, action_id):
