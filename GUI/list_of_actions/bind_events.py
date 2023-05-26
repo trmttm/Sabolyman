@@ -42,7 +42,8 @@ def bind_mouse_hover(action_id, v: ViewABC, data: dict):
     aid = action_id
 
     for key in (
-            c.BTN_DD_UP, c.BTN_DD_DOWN, c.ENTRY_DD, c.CB_DONE, c.ACTION_NAME, c.OWNER, c.BTN_REVERT, c.CB_SCHEDULED):
+            c.BTN_DD_UP, c.BTN_DD_DOWN, c.ENTRY_DD, c.CB_DONE, c.ACTION_NAME, c.OWNER, c.BTN_REVERT, c.CB_SCHEDULED,
+            c.ENTRY_DURATION):
         v.bind_mouse_enter(lambda i=aid: cmd.update_label(v, i, c.SELECTION_COLOR, data), f'{key}{aid}')
         v.bind_mouse_leave(lambda i=aid: cmd.update_label(v, i, cmd.decide_text_color(action_id, v), data),
                            f'{key}{aid}')
