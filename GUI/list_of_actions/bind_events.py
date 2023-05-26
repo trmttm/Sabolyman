@@ -1,8 +1,7 @@
 from typing import Callable
 
-from GUI.list_of_actions import constants as c
 import GUI.list_of_actions.commands as cmd
-
+from GUI.list_of_actions import constants as c
 from interface_view import ViewABC
 
 
@@ -25,9 +24,10 @@ def bind_action(action_id, date, done_or_not: bool, scheduled: bool, v: ViewABC,
     bind(f'{c.BTN_DD_UP}{action_id}', lambda i=action_id: cmd.upon_increment_button(v, 1, i, data))
     bind(f'{c.BTN_REVERT}{action_id}', lambda i=action_id: cmd.revert_action(i, date, done_or_not, scheduled, v, data))
     bind(f'{c.BTN_SET_DURATION}{action_id}', lambda i=action_id: cmd.set_duration(i, v, data[c.KEY_CB_DURATION], data))
-    bind(f'{c.CB_DONE}{action_id}', lambda i=action_id: cmd.update_label(v, i, cmd.decide_text_color(action_id, v), data))
-    bind(f'{c.ENTRY_DURATION}{action_id}', lambda *_: cmd.set_initial_label_appearances(v, data))
-    bind(f'{c.CB_SCHEDULED}{action_id}', lambda *_: cmd.set_initial_label_appearances(v, data))
+    bind(f'{c.CB_DONE}{action_id}',
+         lambda i=action_id: cmd.update_label(v, i, cmd.decide_text_color(action_id, v), data))
+    bind(f'{c.ENTRY_DURATION}{action_id}', lambda *_: cmd.update_widgets_appearances(v, data))
+    bind(f'{c.CB_SCHEDULED}{action_id}', lambda *_: cmd.update_widgets_appearances(v, data))
     bind_mouse_hover(action_id, v, data)
 
     entry_id = f'{c.ACTION_NAME}{action_id}'

@@ -37,4 +37,4 @@ def bind_commands(v: ViewABC, callback: Callable[[dict], None], data: dict):
     v.bind_command_to_widget(c.BTN_ACTIONS_APPLY, lambda: cmd.apply(v, callback, data))
     v.bind_command_to_widget(c.BTN_ACTIONS_OK, lambda: cmd.upon_ok(v, callback, data))
 
-    cmd.set_initial_label_appearances(v, data)
+    cmd.update_widgets_appearances(v, data)

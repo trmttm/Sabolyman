@@ -36,13 +36,13 @@ def revert_all(v: ViewABC, data: dict):
                 cs[c.KEY_ACTION_IDS], cs[c.KEY_DONE_OR_NOT], cs[c.KEY_SCHEDULED], cs[c.KEY_DUE_DATES]):
             revert_action(action_id, date, done_or_not, scheduled, v, data)
 
-    set_initial_label_appearances(v, data)
+    update_widgets_appearances(v, data)
 
 
 def set_duration(action_id, v: ViewABC, ask_user_for_duration: Callable, data: dict):
     def callback(duration: datetime.timedelta):
         v.set_value(f'{c.ENTRY_DURATION}{action_id}', duration)
-        set_initial_label_appearances(v, data)
+        update_widgets_appearances(v, data)
 
     ask_user_for_duration(callback)
 
@@ -90,7 +90,7 @@ def update_label(v: ViewABC, action_id_: str, color: str, data: dict):
     v.change_label_font_size(f'{c.ACTION_NAME}{action_id_}', **kw)
 
 
-def set_initial_label_appearances(v: ViewABC, data: dict):
+def update_widgets_appearances(v: ViewABC, data: dict):
     total_duration = datetime.timedelta(seconds=0)
     total_scheduled_duration = datetime.timedelta(seconds=0)
     action_counter = 0
@@ -108,7 +108,10 @@ def set_initial_label_appearances(v: ViewABC, data: dict):
                 v.set_value(f'{c.ENTRY_DURATION}{action_id}', duration)
             if v.get_value(f'{c.CB_SCHEDULED}{action_id}'):
                 total_scheduled_duration += duration
-
+            if duration == datetime.timedelta(seconds=0):
+                v.highlight_entry(f'{c.ENTRY_DURATION}{action_id}')
+            else:
+                v.remove_highlight_entry(f'{c.ENTRY_DURATION}{action_id}')
             if Utilities.str_to_date_time(v.get_value(f'{c.ENTRY_DD}{action_id}')) <= data[c.KEY_DATE]:
                 total_duration += duration
 
@@ -130,7 +133,7 @@ def date_changed(action_id_, v: ViewABC, data: dict) -> bool:
 def upon_increment_button(v: ViewABC, shift: int, action_id, data: dict):
     increment_date(v, shift, action_id)
     update_label(v, action_id, c.SELECTION_COLOR, data)
-    set_initial_label_appearances(v, data)
+    update_widgets_appearances(v, data)
 
 
 def increment_date(v: ViewABC, shift: int, action_id):
