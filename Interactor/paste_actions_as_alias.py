@@ -7,15 +7,18 @@ from Entities.synchronizer_action_card.abc import SynchronizerABC
 from Presenters import PresentersABC
 
 from . import present_action_list
+from . import present_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable = None):
+    card_was_initially_done = e.active_card.is_done
     feedback, n_new_actions = create_alias_of_action_if_not_duplicate_or_incursion(e)
-    handle_done_not_done_status_and_select_the_right_card(e)
+    handle_done_not_done_status_and_select_the_right_card(e, card_was_initially_done)
     remove_actions_if_cut_mode(e)
     present_actions(e, p, n_new_actions)
     if feedback_method is not None:
         feedback_user_if_duplicate_or_incursion(feedback, feedback_method)
+    present_card_list.execute(e, p)
 
 
 def create_alias_of_action_if_not_duplicate_or_incursion(e: EntitiesABC):
@@ -53,20 +56,23 @@ def remove_actions_if_cut_mode(e: EntitiesABC):
         e.turn_off_cut_mode()
 
 
-def handle_done_not_done_status_and_select_the_right_card(e: EntitiesABC):
-    if card_was_initially_empty(e) and e.active_card.is_done:
-        s: SynchronizerABC = e.synchronizer
-        if s.card_has_policy_action(e.active_card.id):
-            policy_action = s.get_policy_action(e.active_card.id)
-            policy_action.mark_done_programmatically()
-            policy_action.set_completed_time(max(a.time_completed for a in e.active_card.all_actions))
-        e.set_active_card(e.card_to_cut_action_from)
-        e.set_show_this_card(e.active_card)
+def handle_done_not_done_status_and_select_the_right_card(e: EntitiesABC, card_was_initially_done: bool):
+    s: SynchronizerABC = e.synchronizer
+    card = e.active_card
+    actions_contain_not_done = False in tuple(a.is_done for a in e.copied_actions)
 
-
-def card_was_initially_empty(e):
-    return len(e.active_card.all_actions) == len(e.copied_actions)
-
+    # Add Cards
+    '''
+                            Adding to Done Card         Adding to Not Done Card
+    Add Done Action         -                           -
+    Add Not Done Action     -                           Toggle
+    '''
+    if card_was_initially_done and actions_contain_not_done:
+        policy_action = s.get_policy_action(card.id)
+        if policy_action is not None:
+            policy_action.mark_not_done_programmatically()
+            policy_action.set_incomplete()
+        
 
 def get_all_visible_cards_that_have_the_policy_action(e: EntitiesABC, policy_action: Action) -> tuple[Card, ...]:
     return tuple(c for c in e.all_cards if c.has_action(policy_action) and e.card_is_visible(c))
