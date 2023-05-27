@@ -65,14 +65,14 @@ def handle_done_not_done_status_and_select_the_right_card(e: EntitiesABC, card_w
     '''
                             Adding to Done Card         Adding to Not Done Card
     Add Done Action         -                           -
-    Add Not Done Action     -                           Toggle
+    Add Not Done Action     -                           Toggle (only take care of this)
     '''
     if card_was_initially_done and actions_contain_not_done:
         policy_action = s.get_policy_action(card.id)
         if policy_action is not None:
             policy_action.mark_not_done_programmatically()
             policy_action.set_incomplete()
-        
+
 
 def get_all_visible_cards_that_have_the_policy_action(e: EntitiesABC, policy_action: Action) -> tuple[Card, ...]:
     return tuple(c for c in e.all_cards if c.has_action(policy_action) and e.card_is_visible(c))
