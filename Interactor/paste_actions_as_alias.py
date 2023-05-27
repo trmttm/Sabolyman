@@ -11,10 +11,11 @@ from . import present_card_list
 
 
 def execute(e: EntitiesABC, p: PresentersABC, feedback_method: Callable = None):
+    initial_active_card = e.active_card
     card_was_initially_done = e.active_card.is_done
     feedback, n_new_actions = create_alias_of_action_if_not_duplicate_or_incursion(e)
     handle_done_not_done_status_and_select_the_right_card(e, card_was_initially_done)
-    remove_actions_if_cut_mode(e)
+    remove_actions_if_cut_mode(e, initial_active_card)
     present_actions(e, p, n_new_actions)
     if feedback_method is not None:
         feedback_user_if_duplicate_or_incursion(feedback, feedback_method)
@@ -47,13 +48,16 @@ def check_if_pasting_to_itself(action: Action, e: EntitiesABC) -> bool:
         return False
 
 
-def remove_actions_if_cut_mode(e: EntitiesABC):
+def remove_actions_if_cut_mode(e: EntitiesABC, initial_active_card: Card):
     if e.is_cut_mode:
         card_to_cut_action_from = e.card_to_cut_action_from
+        e.set_active_card(card_to_cut_action_from)
         for action in tuple(card_to_cut_action_from.all_actions):
             if action in e.copied_actions:
-                card_to_cut_action_from.actions.remove_action(action)
+                e.remove_action(action)
+                # card_to_cut_action_from.actions.remove_action(action)
         e.turn_off_cut_mode()
+        e.set_active_card(initial_active_card)
 
 
 def handle_done_not_done_status_and_select_the_right_card(e: EntitiesABC, card_was_initially_done: bool):
