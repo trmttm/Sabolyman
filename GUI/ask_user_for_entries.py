@@ -28,6 +28,7 @@ def execute(v: ViewABC, callback: Callable, **kwargs):
             stacker.hstack(
                 w.Label(f'label_{entry_by_user}{n}').text(label),
                 ENTRY_OR_CHECKBUTTON(n, default_value, check_button_index),
+                w.Spacer().adjust(-1),
             ) for (n, (label, default_value)) in enumerate(zip(labels, default_values))
         ),
         w.Button(button_ok).text('OK').padding(10, 10),
