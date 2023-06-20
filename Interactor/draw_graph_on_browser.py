@@ -5,13 +5,37 @@ import sys
 
 from Entities import EntitiesABC
 from Gateway import GatewayABC
+from sabolyman_parser import SabolymanVisualizer
 
 
 def execute(e: EntitiesABC, g: GatewayABC, save, feedback, **kwargs):
     save()
     path = g.script_json_path
+    color_options = g.load_json(g.color_options_json_path)
+
+    pickle_path = g.auto_save_path
+    target_card_id = e.active_card.id
+    folder_path = g.graph_folder_path
+    parser = SabolymanVisualizer(pickle_path, target_card_id, )
+    kwargs = {
+        'folder_path': folder_path,
+        'configure_dynamically': kwargs.get('configure_dynamically', False),
+    }
+    kwargs.update(color_options)
+    parser.save_as_html(**kwargs)
+    parser.open_html_in_browser()
+
+    data = g.load_json(path)
+    python_path, script_path = read_python_path_and_script_path(data, path, feedback)
+    feedback_graphing_error(feedback, path, python_path, script_path)
+
+
+def execute_by_script_file(e: EntitiesABC, g: GatewayABC, save, feedback, **kwargs):
+    save()
+    path = g.script_json_path
     data = g.load_json(path)
     color_options = g.load_json(g.color_options_json_path)
+
     if color_options is not None:
         kwargs.update({'color_options': color_options})
     python_path, script_path = read_python_path_and_script_path(data, path, feedback)
