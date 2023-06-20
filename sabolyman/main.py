@@ -9,13 +9,15 @@ from Presenters import Presenters
 from view_tkinter import View
 
 
-def start_app(gui_selected='gui01.gui'):
+def start_app(gui_selected='gui01.gui', root_path: str = None):
     # Instantiation
     app = View(width=900, height=960, fullscreen=True)
     entities = Entities()
     presenters = Presenters(app)
     gateway = Gateway(entities.user.name)
     interactor = Interactor(entities, presenters, gateway)
+    if root_path is not None:
+        interactor.set_root_path(root_path)
 
     # GUI Loading
     app.set_title('Sabolyman')

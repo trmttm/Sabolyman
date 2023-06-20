@@ -15,6 +15,10 @@ from .abc import GatewayABC
 class Gateway(GatewayABC):
     def __init__(self, user_name):
         self._user_name = user_name
+        self._root_path = Utilities.documents
+
+    def set_root_path(self, path: str):
+        self._root_path = path
 
     def save_file(self, file_name: str, data):
         with open(file_name, 'wb') as f:
@@ -53,27 +57,27 @@ class Gateway(GatewayABC):
 
     @property
     def home_folder(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman')
+        return os.path.join(self._root_path, f'Sabolyman')
 
     @property
     def state_folder(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman', self._user_name)
+        return os.path.join(self._root_path, f'Sabolyman', self._user_name)
 
     @property
     def color_options_json_path(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman', "color_options.json")
+        return os.path.join(self._root_path, f'Sabolyman', "color_options.json")
 
     @property
     def script_json_path(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman', "script_path.json")
+        return os.path.join(self._root_path, f'Sabolyman', "script_path.json")
 
     @property
     def graph_folder_path(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman', 'Graph')
+        return os.path.join(self._root_path, f'Sabolyman', 'Graph')
 
     @property
     def gantt_chart_folder_path(self) -> str:
-        return os.path.join(Utilities.documents, f'Sabolyman', 'Gantt Chart')
+        return os.path.join(self._root_path, f'Sabolyman', 'Gantt Chart')
 
     @property
     def mail_template_package(self) -> str:

@@ -100,6 +100,9 @@ class Interactor(InteractorABC):
 
         entities.attach_to_synchronizer(self.synchronizer_notification_handler)
 
+    def set_root_path(self, path: str):
+        self._gateway.set_root_path(path)
+
     # GUI
     def load_gui(self, gui_name: str):
         load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)
