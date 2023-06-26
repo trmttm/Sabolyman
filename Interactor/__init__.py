@@ -26,6 +26,7 @@ from . import display_due_tasks
 from . import display_due_tasks_my_ball
 from . import display_due_tasks_their_ball
 from . import display_list_of_actions
+from . import display_list_of_actions_with_default_date_range
 from . import display_new_tasks
 from . import display_progress
 from . import draw_graph_on_browser
@@ -87,9 +88,6 @@ from . import show_my_card_information
 from . import show_their_card_information
 from . import sync_notification_handler
 from .abc import InteractorABC
-
-
-
 
 
 class Interactor(InteractorABC):
@@ -596,6 +594,10 @@ class Interactor(InteractorABC):
     def open_display_due_tasks_dialogue_their_ball(self):
         options = {'title': 'Tasks due during...', 'from': '2022/1/1'}
         self._presenters.open_display_progress_dialogue(self.display_due_tasks_their_ball, **options)
+
+    def display_list_of_actions_with_default_daterange(self):
+        args = self._entities, self._gateway, self._presenters, self.sort_cards
+        display_list_of_actions_with_default_date_range.execute(*args)
 
     def open_display_list_of_actions(self):
         open_display_list_of_actions.execute(self._entities, self._gateway, self._presenters, self.sort_cards)

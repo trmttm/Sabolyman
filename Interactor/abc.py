@@ -380,6 +380,10 @@ class InteractorABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def display_list_of_actions_with_default_daterange(self):
+        pass
+
+    @abc.abstractmethod
     def open_display_due_tasks_dialogue_their_ball(self):
         pass
 

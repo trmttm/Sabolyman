@@ -85,6 +85,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'List of My Tasks due': lambda: i.open_display_due_tasks_dialogue_my_ball(),
         'List of Their Tasks due': lambda: i.open_display_due_tasks_dialogue_their_ball(),
         'Display list of Actions': lambda: i.open_display_list_of_actions(),
+        'Display list of Actions with default date range': lambda: i.display_list_of_actions_with_default_daterange(),
         'Change to GUI01': lambda: i.change_gui('gui01.gui'),
         'Change to GUI02': lambda: i.change_gui('gui02.gui'),
         'Change to GUI03': lambda: i.change_gui('gui03.gui'),
