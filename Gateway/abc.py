@@ -32,6 +32,11 @@ class GatewayABC(abc.ABC):
 
     @property
     @abc.abstractmethod
+    def root_path(self):
+        pass
+
+    @property
+    @abc.abstractmethod
     def home_folder(self) -> str:
         pass
 
@@ -91,4 +96,8 @@ class GatewayABC(abc.ABC):
 
     @abc.abstractmethod
     def export_data_as_csv(self, file_name: str, data: Iterable):
+        pass
+
+    @abc.abstractmethod
+    def adjust_uri_base(self, uri: str) -> str:
         pass

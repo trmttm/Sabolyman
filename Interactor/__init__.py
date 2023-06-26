@@ -89,6 +89,9 @@ from . import sync_notification_handler
 from .abc import InteractorABC
 
 
+
+
+
 class Interactor(InteractorABC):
 
     def __init__(self, entities: EntitiesABC, presenters: PresentersABC, gateway: GatewayABC):
@@ -405,11 +408,13 @@ class Interactor(InteractorABC):
 
     def open_resources(self):
         for uri in self._entities.get_selected_uris():
+            uri = self._gateway.adjust_uri_base(uri)
             Utilities.open_file(uri)
 
     def open_folder_of_resources(self):
         folder_to_open = set()
         for uri in self._entities.get_selected_uris():
+            uri = self._gateway.adjust_uri_base(uri)
             if os_identifier.DIRECTORY_SEPARATOR in uri:
                 split_by_slash = uri.split(os_identifier.DIRECTORY_SEPARATOR)
             else:

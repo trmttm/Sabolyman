@@ -13,6 +13,7 @@ from .abc import GatewayABC
 
 
 class Gateway(GatewayABC):
+
     def __init__(self, user_name):
         self._user_name = user_name
         self._root_path = Utilities.documents
@@ -54,6 +55,10 @@ class Gateway(GatewayABC):
         except Exception as e:
             print(f'Failed to load json file {path} {e}')
             return None
+
+    @property
+    def root_path(self):
+        return self._root_path
 
     @property
     def home_folder(self) -> str:
@@ -101,3 +106,8 @@ class Gateway(GatewayABC):
 
     def export_data_as_csv(self, file_name: str, data: Iterable):
         csv_exporter.execute(file_name, data)
+
+    def adjust_uri_base(self, uri: str) -> str:
+        if '/MEGA/' in uri:
+            uri = os.path.join(self.root_path, uri.split('/MEGA/')[1])
+        return uri
