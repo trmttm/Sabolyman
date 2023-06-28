@@ -12,7 +12,7 @@ def execute(v: ViewABC, data: dict, callback: Callable[[dict], None]):
 
 
 def pop_up_list_of_actions(data: dict, view: ViewABC, callback: Callable[[dict], None]):
-    options = top_level_options('List of Actions', (1000, 800))
+    options = top_level_options('List of Actions', (1500, 800))
     view_model = [wm('root', c.POPUP, 'toplevel', 0, 0, 0, 0, 'nswe', **options)]
     view_model += list_of_actions.get_view_model(c.POPUP, data)
     view.add_widgets(view_model)
