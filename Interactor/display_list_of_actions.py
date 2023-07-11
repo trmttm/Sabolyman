@@ -73,8 +73,61 @@ def execute(e: EntitiesABC, g: GatewayABC, p: PresentersABC, owner_name: str, fr
             show_action_information.show_action_information_by_action(e.active_action, e, p)
             open_resource_method()
 
-    data = create_data_for_action_list(e, g, p, owner_name, from_, to_)
+    actions_of_active_card_only = True
+    if actions_of_active_card_only:
+        data = create_data_for_action_list_of_active_card(e, g, p, owner_name, from_, to_)
+    else:
+        data = create_data_for_action_list(e, g, p, owner_name, from_, to_)
     p.open_display_list_of_actions(data, callback)
+
+
+def create_data_for_action_list_of_active_card(e: EntitiesABC, g: GatewayABC, p: PresentersABC, owner_name: str,
+                                               from_: datetime.datetime, to_: datetime.datetime) -> dict:
+    s: SynchronizerABC = e.synchronizer
+    filter_by_owner = owner_name.strip() != ''
+    data = {
+        c.KEY_DATE: to_,
+        c.KEY_CB_DURATION: lambda upon_ok: p.show_minutes_setter(
+            g.load_file_from_package('minutes_setter.gui', 'Resources'), upon_ok, **{'title': 'Set Duration'}),
+    }
+    card_states = []
+    for card in s.get_all_descendants(e.active_card):
+        if not card.is_done:
+            card_state = {
+                c.CARD_NAME: card.name,
+                c.KEY_ACTION_IDS: [],
+                c.KEY_NAMES: [],
+                c.KEY_DONE_OR_NOT: [],
+                c.KEY_SCHEDULED: [],
+                c.KEY_DUE_DATES: [],
+                c.KEY_OWNERS: [],
+                c.KEY_DURATION: [],
+            }
+            for action in card.all_actions:
+                has_no_implementation = (not s.action_has_implementation_card(action.id))
+                not_done = (not action.is_done)
+                due_date_within_specified_range = from_ <= action.get_dead_line() <= to_
+                owner_matches = (not filter_by_owner) or (action.get_owner().name == owner_name)
+                if has_no_implementation and not_done and due_date_within_specified_range and owner_matches:
+                    card_state[c.KEY_ACTION_IDS].append(action.id)
+                    card_state[c.KEY_NAMES].append(action.name)
+                    card_state[c.KEY_DONE_OR_NOT].append(action.is_done)
+                    card_state[c.KEY_SCHEDULED].append(action.is_scheduled)
+                    card_state[c.KEY_DUE_DATES].append(action.get_dead_line())
+                    card_state[c.KEY_OWNERS].append(action.get_owner())
+                    card_state[c.KEY_DURATION].append(action.time_expected)
+            if len(card_state[c.KEY_NAMES]) > 0:  # convert list to tuple
+                card_state[c.KEY_ACTION_IDS] = tuple(card_state[c.KEY_ACTION_IDS])
+                card_state[c.KEY_NAMES] = tuple(card_state[c.KEY_NAMES])
+                card_state[c.KEY_DONE_OR_NOT] = tuple(card_state[c.KEY_DONE_OR_NOT])
+                card_state[c.KEY_SCHEDULED] = tuple(card_state[c.KEY_SCHEDULED])
+                card_state[c.KEY_DUE_DATES] = tuple(card_state[c.KEY_DUE_DATES])
+                card_state[c.KEY_OWNERS] = tuple(card_state[c.KEY_OWNERS])
+                card_state[c.KEY_DURATION] = tuple(card_state[c.KEY_DURATION])
+                card_states.append(card_state)
+    card_states = tuple(card_states)
+    data.update({c.KEY_CARD_STATES: card_states})
+    return data
 
 
 def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC, owner_name: str,
