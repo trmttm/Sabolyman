@@ -388,6 +388,9 @@ class Interactor(InteractorABC):
     def jump_to_card_list(self, callback: Callable):
         callback(self._entities.active_card_is_in_my_cards, self._entities.active_card_index)
 
+    def import_actions_from_csv(self, file: str):
+        pass
+
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)
 

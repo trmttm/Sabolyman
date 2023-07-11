@@ -463,3 +463,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def remove_selected_action_resources(self, callback: Callable = None):
         pass
+
+    @abc.abstractmethod
+    def import_actions_from_csv(self, file: str):
+        pass

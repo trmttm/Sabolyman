@@ -141,6 +141,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 state.get_actions_selected_indexes(v),
                 v.ask_color()),
             'Implement lower level detail': lambda: i.implement_lower_level_detail(),
+            'Import Actions from csv': lambda: i.import_actions_from_csv(v.select_open_file())
         },
     }
     if menu_injected is not None:
