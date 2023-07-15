@@ -39,6 +39,7 @@ from . import filter_cards_by_parent
 from . import filter_cards_move_up_one_parent
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
+from . import import_actions_from_csv
 from . import increment_card_importance
 from . import insert_as_policy_action_new_card_from_templates
 from . import jump_to_implementation_card
@@ -389,35 +390,7 @@ class Interactor(InteractorABC):
         callback(self._entities.active_card_is_in_my_cards, self._entities.active_card_index)
 
     def import_actions_from_csv(self, file: str):
-        import csv
-        from Commands import AddAction
-        e = self._entities
-        with open(file, 'r') as file:
-            csvreader = csv.reader(file)
-            header = next(csvreader)
-            for row in csvreader:
-                print(row)
-                command = AddAction(e)
-                command.execute()
-                new_action = self._entities.active_action
-                new_action.set_name(row[0])
-                new_action.set_dead_line(Utilities.str_to_date_time_no_time(row[1]))
-                new_action.set_start_from(Utilities.str_to_date_time_no_time(row[2]))
-                new_action.set_owner(row[3])
-                new_action.set_client(row[4])
-                try:
-                    hours_str, minutes_str = row[5].split(':')
-                    hours = int(hours_str)
-                    minutes = int(minutes_str)
-                    seconds = (hours * 60 + minutes) * 60
-                    new_action.set_time_expected(datetime.timedelta(seconds=seconds))
-                except:
-                    pass
-                if row[6] == 'TRUE':
-                    new_action.mark_scheduled()
-                if row[7] == 'TRUE':
-                    new_action.mark_done()
-                new_action.add_description(row[8])
+        import_actions_from_csv.execute(self._entities, file)
 
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)

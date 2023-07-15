@@ -171,7 +171,7 @@ class EntitiesABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def create_new_person(self, name: str):
+    def create_new_person(self, name: str) -> Person:
         pass
 
     @abc.abstractmethod
