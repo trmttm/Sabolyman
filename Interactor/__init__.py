@@ -4,7 +4,6 @@ from typing import Callable
 from typing import Tuple
 
 import Utilities
-import os_identifier
 from Entities import EntitiesABC
 from Entities.priority import Priority
 from Gateway.abc import GatewayABC
@@ -18,6 +17,7 @@ from . import add_new_card
 from . import add_new_card_from_templates
 from . import clear_filter_by_priority
 from . import convert_cards_to_actions
+from . import convert_uri_to_folder_path
 from . import create_mail_menu
 from . import delete_selected_actions
 from . import delete_selected_my_cards
@@ -28,6 +28,7 @@ from . import display_due_tasks_their_ball
 from . import display_list_of_actions_with_default_date_range
 from . import display_new_tasks
 from . import display_progress
+from . import display_resources
 from . import draw_graph_on_browser
 from . import duplicate_selected_card
 from . import export_actions_list
@@ -395,6 +396,9 @@ class Interactor(InteractorABC):
         callback(self._entities.active_action_index)
 
     # Action Resources
+    def display_resources_of_selected_action(self):
+        display_resources.execute(self._entities, self._presenters, self._gateway)
+
     def select_action_resources(self, indexes: tuple):
         self._entities.select_action_resources(indexes)
 
@@ -415,16 +419,8 @@ class Interactor(InteractorABC):
     def open_folder_of_resources(self):
         folder_to_open = set()
         for uri in self._entities.get_selected_uris():
-            uri = self._gateway.adjust_uri_base(uri)
-            if os_identifier.DIRECTORY_SEPARATOR in uri:
-                split_by_slash = uri.split(os_identifier.DIRECTORY_SEPARATOR)
-            else:
-                split_by_slash = uri.split('/')
-            last_element = split_by_slash[-1]
-            if '.' not in last_element:
-                folder_to_open.add(uri)
-            else:
-                folder_to_open.add(uri.replace(last_element, ''))
+            folder_path = convert_uri_to_folder_path.execute(self._gateway, uri)
+            folder_to_open.add(folder_path)
 
         for folder in folder_to_open:
             Utilities.open_file(folder)
@@ -638,4 +634,3 @@ class Interactor(InteractorABC):
     @property
     def recursive_counter(self):
         return self._recursive_counter
-   

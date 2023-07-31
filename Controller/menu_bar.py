@@ -63,6 +63,7 @@ def configure_menu_bar(v: ViewABC, i: InteractorABC, e: EntitiesABC, menu_inject
                 'Apply': lambda: i.filter_cards_by_parent(),
                 'Clear': lambda: i.clear_filter_by_parent(),
             },
+            'Display Resources of selected action': lambda: i.display_resources_of_selected_action(),
         },
         'Cards': {
             'Jump ↑': lambda: i.jump_to_policy_action(focus_on_tree_actions),

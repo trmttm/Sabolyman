@@ -139,5 +139,9 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
+    def open_list_of_resources(self, data: dict, commands: dict):
+        pass
+
+    @abc.abstractmethod
     def update_action_resources(self, resources: tuple, **kwargs):
         pass

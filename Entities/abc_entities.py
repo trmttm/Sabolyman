@@ -162,7 +162,7 @@ class EntitiesABC(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def active_action(self) -> Action:
+    def active_action(self) -> Union[Action, None]:
         pass
 
     @property

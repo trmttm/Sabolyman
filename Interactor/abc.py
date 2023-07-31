@@ -467,3 +467,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def import_actions_from_csv(self, file: str):
         pass
+
+    @abc.abstractmethod
+    def display_resources_of_selected_action(self):
+        pass

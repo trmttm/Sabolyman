@@ -14,6 +14,7 @@ from . import display_progress_dialogue
 from . import message_box
 from . import open_display_list_of_actions
 from . import open_filter_setting
+from . import open_list_of_resources
 from . import show_datetime_setter
 from . import show_mail_creator
 from . import show_minute_setter
@@ -140,3 +141,6 @@ class Presenters(PresentersABC):
 
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)
+
+    def open_list_of_resources(self, data: dict, commands: dict):
+        open_list_of_resources.execute(self._view, data, commands)
