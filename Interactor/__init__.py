@@ -38,6 +38,7 @@ from . import filter_cards_by_parent
 from . import filter_cards_move_up_one_parent
 from . import get_selected_cards_and_their_indexes
 from . import implement_lower_level_detail
+from . import import_actions_from_csv
 from . import increment_card_importance
 from . import insert_as_policy_action_new_card_from_templates
 from . import jump_to_implementation_card
@@ -388,7 +389,7 @@ class Interactor(InteractorABC):
         callback(self._entities.active_card_is_in_my_cards, self._entities.active_card_index)
 
     def import_actions_from_csv(self, file: str):
-        pass
+        import_actions_from_csv.execute(self._entities, file)
 
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)
