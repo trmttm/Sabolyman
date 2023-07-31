@@ -39,11 +39,11 @@ def bind_commands(v: ViewABC, data: tuple, commands: dict):
 
 def update_tree(data, v: ViewABC):
     v.switch_tree(c.TREE)
-    cards, actions, resources, paths = data
-    headings = 'No', 'Card', 'Action', 'Resource', 'Path'
-    widths = 50, 150, 150, 250, 250
-    tree_datas = tuple(Utilities.create_tree_data('', n, '', (n, crd, a, r, p), (), False)
-                       for (n, (crd, a, r, p)) in enumerate(zip(cards, actions, resources, paths)))
+    cards, actions, resources, extensions, paths = data
+    headings = 'No', 'Card', 'Action', 'Resource', 'Extension', 'Path'
+    widths = 50, 150, 150, 250, 50, 250
+    tree_datas = tuple(Utilities.create_tree_data('', n, '', (n, crd, a, r, ex, p), (), False)
+                       for (n, (crd, a, r, ex, p)) in enumerate(zip(cards, actions, resources, extensions, paths)))
     stretches = False, False, False, False, True
     scroll_v = True
     scroll_h = True

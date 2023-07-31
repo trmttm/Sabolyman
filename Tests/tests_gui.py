@@ -288,8 +288,9 @@ class MyTestCase(unittest.TestCase):
         cards = ('Card01', 'Card02', 'Card03', 'Card04', 'Card05',)
         actions = ('Action01', 'Action02', 'Action03', 'Action04', 'Action05',)
         resources = ('File Name 01', 'File Name 02', 'File Name 03', 'File Name 04', 'File Name 05',)
+        extensions = ('Ext01', 'Ext02', 'Ext03', 'Ext04', 'Ext05',)
         paths = ('Path01', 'Path02', 'Path03', 'Path04', 'Path05',)
-        data = cards, actions, resources, paths
+        data = cards, actions, resources, extensions, paths
 
         from GUI.list_of_recources import constants as c
         commands = {

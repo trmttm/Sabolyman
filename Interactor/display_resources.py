@@ -43,12 +43,13 @@ def gather_resources_datas_recursively(card: Card, action: Action, s: Synchroniz
 
 
 def adapter_data_structure(resource_datas: dict) -> tuple:
-    cards, actions, names, paths = [], [], [], []
+    cards, actions, names, extensions, paths = [], [], [], [], []
     for (card, action), dict_name_path in resource_datas.items():
         for name, path in zip(dict_name_path['names'], dict_name_path['datas']):
             cards.append(card)
             actions.append(action)
             names.append(name)
+            extensions.append(path.split('.')[-1])
             paths.append(path)
-    data = cards, actions, names, paths
+    data = cards, actions, names, extensions, paths
     return data
