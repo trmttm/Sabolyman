@@ -67,6 +67,7 @@ entry_card_importance = 'entry_card_importance'
 
 # Action
 button_add_new_action = 'button_add_new_action'
+button_display_resources = 'button_display_resources'
 button_importance_up = 'button_importance_up'
 button_importance_down = 'button_importance_down'
 button_delete_selected_actions = 'button_delete_selected_actions'

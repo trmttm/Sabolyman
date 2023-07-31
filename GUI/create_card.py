@@ -51,6 +51,7 @@ def get_actions_tree(stacker: Stacker):
             w.Button(wn.button_move_down_selected_actions).text('↓').width(1),
             w.Button(wn.button_move_up_selected_actions).text('↑').width(1),
             w.Button(wn.button_add_new_action).text('+').width(1),
+            w.Button(wn.button_display_resources).text('Resources'),
             w.Spacer(),
         ),
         w.Spacer().adjust(-2),

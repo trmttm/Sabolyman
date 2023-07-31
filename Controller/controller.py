@@ -56,6 +56,7 @@ def configure_controller(v: ViewABC, i: InteractorABC):
     f(wn.entry_card_name, lambda *_: i.set_card_name(s.get_card_name(v)))
 
     # Action
+    f(wn.button_display_resources, lambda: i.display_resources_of_selected_action())
     f(wn.button_add_new_action, lambda: i.add_new_action())
     f(wn.button_delete_selected_actions, lambda: i.delete_selected_actions(ai(v)))
     f(wn.button_move_up_selected_actions, lambda: i.move_actions_up(ai(v)))
