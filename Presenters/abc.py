@@ -139,7 +139,7 @@ class PresentersABC(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def open_list_of_resources(self, data: dict, commands: dict):
+    def open_list_of_resources(self, data: tuple, commands: dict):
         pass
 
     @abc.abstractmethod

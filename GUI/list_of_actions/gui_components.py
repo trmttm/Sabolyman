@@ -38,10 +38,10 @@ def ALL_CARDS_WIDGETS(stacker, data: dict) -> tuple:
 
 def CARD_WIDGETS(stacker, n: int, data: dict):
     return (
-        w.Label('blank').text(''),
-        w.Label(f'card_name_{n}').text(data[c.KEY_CARD_STATES][n][c.CARD_NAME]).padding(c.CARD_PADX, 0),
+               w.Label('blank').text(''),
+               w.Label(f'card_name_{n}').text(data[c.KEY_CARD_STATES][n][c.CARD_NAME]).padding(c.CARD_PADX, 0),
 
-    ) + ACTION_WITHIN_A_CARD(stacker, data[c.KEY_CARD_STATES][n])
+           ) + ACTION_WITHIN_A_CARD(stacker, data[c.KEY_CARD_STATES][n])
 
 
 def ACTION_WITHIN_A_CARD(stacker, action_state):

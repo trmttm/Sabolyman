@@ -1,7 +1,5 @@
 import unittest
 
-from Presenters.open_display_list_of_actions import pop_up_list_of_actions
-
 
 def load_gui(module, parent: str = 'root', **kwargs):
     view = instantiate_view(module, parent, **kwargs)
@@ -267,9 +265,11 @@ class MyTestCase(unittest.TestCase):
         view.launch_app()
 
     def test_list_of_actions(self):
+
         from view_tkinter import View
         view = View()
 
+        from Presenters.open_display_list_of_actions import pop_up_list_of_actions
         data = create_data()
 
         def callback(state: tuple):
@@ -278,6 +278,25 @@ class MyTestCase(unittest.TestCase):
                 print(action_state)
 
         pop_up_list_of_actions(data, view, callback)
+        view.launch_app()
+
+    def test_list_of_resources(self):
+        from view_tkinter import View
+        view = View()
+
+        from Presenters import open_list_of_resources
+        cards = ('Card01', 'Card02', 'Card03', 'Card04', 'Card05',)
+        actions = ('Action01', 'Action02', 'Action03', 'Action04', 'Action05',)
+        resources = ('File Name 01', 'File Name 02', 'File Name 03', 'File Name 04', 'File Name 05',)
+        paths = ('Path01', 'Path02', 'Path03', 'Path04', 'Path05',)
+        data = cards, actions, resources, paths
+
+        from GUI.list_of_recources import constants as c
+        commands = {
+            c.CMD_OPEN_FILE: lambda *args: print('Open file', args),
+            c.CMD_OPEN_FOLDER: lambda *args: print('Open folder', args),
+        }
+        open_list_of_resources.execute(view, data, commands)
         view.launch_app()
 
 

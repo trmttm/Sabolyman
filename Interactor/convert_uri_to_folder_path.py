@@ -8,6 +8,11 @@ def open_folder(g: GatewayABC, uri: str):
     Utilities.open_file(path)
 
 
+def open_file(g: GatewayABC, uri: str):
+    path = g.adjust_uri_base(uri)
+    Utilities.open_file(path)
+
+
 def execute(g: GatewayABC, uri: str) -> str:
     uri = g.adjust_uri_base(uri)
     if os_identifier.DIRECTORY_SEPARATOR in uri:

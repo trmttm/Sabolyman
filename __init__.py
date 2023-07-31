@@ -1,5 +1,6 @@
-from sabolyman import main
 import sys
+
+from sabolyman import main
 
 root_path = None
 if len(sys.argv) > 1:

@@ -142,5 +142,5 @@ class Presenters(PresentersABC):
     def ask_user_date(self, upon_date_selected: Callable):
         ask_user_date.execute(self._view, upon_date_selected)
 
-    def open_list_of_resources(self, data: dict, commands: dict):
+    def open_list_of_resources(self, data: tuple, commands: dict):
         open_list_of_resources.execute(self._view, data, commands)

@@ -1,0 +1,8 @@
+POPUP = 'pop_up_list_of_resources'
+CMD_OPEN_FILE = 'open_file'
+CMD_OPEN_FOLDER = 'open_folder'
+TREE = 'tree_list_of_resources'
+BTN_CLOSE = 'btn_close_list_of_resources'
+BTN_FOLDER = 'btn_folder_list_of_resources'
+BTN_OPEN = 'btn_open_list_of_resources'
+BLANK_LABEL = 'BLANK_LABEL_list_of_resources'
