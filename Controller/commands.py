@@ -158,6 +158,7 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Open Keyboard Shortcut Setter': lambda: open_keyboard_shortcut_setting(app, i, e),
 
         'Import Actions from excel': lambda: i.import_actions_from_csv(app.select_open_file()),
+        'Display Resources of selected A tion': lambda: i.display_resources_of_selected_action(),
     }
 
 
