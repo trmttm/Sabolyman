@@ -7,38 +7,33 @@ from .components.action_properties import ACTION_PROPERTIES
 from .components.action_resources import ACTION_RESOURCES
 
 
-def get_view_model(parent: str = 'root', vertical: bool = False):
-    stacker = create_stacker(parent, vertical)
+def get_view_model(parent: str = 'root'):
+    stacker = create_stacker(parent)
     view_model = stacker.view_model
     return view_model
 
 
-def create_stacker(parent, vertical: bool = False):
+def create_stacker(parent):
+    wn = WidgetNames
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
-        get_card_property_entry(stacker),
-        get_actions_vertical(stacker) if vertical else get_actions_horizontal(stacker),
-        w.Spacer().adjust(-1),
+        w.PanedWindow('a', stacker).is_vertical().stackers(
+            w.PanedWindow('b', stacker).is_horizontal().stackers(
+                stacker.vstack(
+                    get_card_property_entry(stacker),
+                    get_actions_tree(stacker),
+                    w.Spacer().adjust(-1)
+                ),
+                stacker.vstack(
+                    ACTION_PROPERTIES(stacker, wn),
+                    ACTION_NOTES(wn),
+                    w.Spacer().adjust(-1)
+                ),
+            ),
+            ACTION_RESOURCES(stacker),
+        )
     )
     return stacker
-
-
-def get_actions_horizontal(stacker: Stacker):
-    return stacker.hstack(
-        w.PanedWindow('paned_window_entry', stacker).is_horizontal().weights((3, 1)).stackers(
-            get_actions_tree(stacker),
-            get_actions_properties(stacker),
-        ),
-    )
-
-
-def get_actions_vertical(stacker: Stacker):
-    return stacker.hstack(
-        w.PanedWindow('paned_window_entry', stacker).is_vertical().weights((3, 1)).stackers(
-            get_actions_tree(stacker),
-            get_actions_properties(stacker),
-        ),
-    )
 
 
 def get_actions_tree(stacker: Stacker):
@@ -57,18 +52,6 @@ def get_actions_tree(stacker: Stacker):
             w.Spacer(),
         ),
         w.Spacer().adjust(-2),
-    )
-
-
-def get_actions_properties(stacker: Stacker):
-    wn = WidgetNames
-    return stacker.vstack(
-        w.NoteBook(wn.notebook_actions, stacker).frame_names(('Properties', 'Notes', 'Resources')).stackers(
-            ACTION_PROPERTIES(stacker, wn),
-            ACTION_NOTES(wn),
-            ACTION_RESOURCES(stacker),
-        ),
-        w.Spacer().adjust(-1)
     )
 
 

@@ -3,7 +3,7 @@ from stacker import Stacker
 from stacker import widgets as w
 
 
-def TREE_RESOURCES(stacker: Stacker):
+def ACTION_RESOURCES(stacker: Stacker):
     wn = WidgetNames
     return stacker.vstack(
         w.TreeView(wn.tree_action_resources),
