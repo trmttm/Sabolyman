@@ -17,21 +17,31 @@ def create_stacker(parent):
     wn = WidgetNames
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
-        w.PanedWindow('a', stacker).is_vertical().stackers(
-            w.PanedWindow('b', stacker).is_horizontal().stackers(
-                stacker.vstack(
-                    get_card_property_entry(stacker),
-                    get_actions_tree(stacker),
-                    w.Spacer().adjust(-1)
-                ),
-                stacker.vstack(
-                    ACTION_PROPERTIES(stacker, wn),
-                    ACTION_NOTES(wn),
-                    w.Spacer().adjust(-1)
-                ),
+        w.PanedWindow('a', stacker).is_horizontal().stackers(
+            w.PanedWindow('b', stacker).is_vertical().stackers(
+                w.Label('test label').text('Test Label'),
+                w.Label('test label3').text('Test Label 3'),
+
             ),
-            ACTION_RESOURCES(stacker),
-        )
+            w.PanedWindow('c', stacker).is_vertical().stackers(
+                w.PanedWindow('d', stacker).is_horizontal().stackers(
+                    stacker.vstack(
+                        get_card_property_entry(stacker),
+                        get_actions_tree(stacker),
+                        w.Spacer().adjust(-1)
+                    ),
+                    stacker.vstack(
+                        ACTION_PROPERTIES(stacker, wn),
+                        w.PanedWindow('e', stacker).is_vertical().stackers(
+                            ACTION_NOTES(wn),
+                            ACTION_RESOURCES(stacker),
+                        ),
+                        w.Spacer().adjust(-1),
+                    )
+                ),
+                w.Label('test label2').text('Test Label 2')
+            ),
+        ),
     )
     return stacker
 
@@ -61,11 +71,7 @@ def get_card_property_entry(stacker: Stacker):
         stacker.hstack(
             w.Label('lbl_name').text('Card').width(10).padding(10, 0),
             w.Entry(wn.entry_card_name).default_value('New Card Name', ).padding(5, 0),
-            w.Label(wn.label_card_importance).text('Priority').width(12).padding(10, 0),
-            w.Button(wn.button_importance_down).text('-').width(1).padding(10, 0),
-            w.Entry(wn.entry_card_importance).default_value(5).width(3),
-            w.Button(wn.button_importance_up).text('+').width(1).padding(10, 0),
-            w.Spacer().adjust(-5),
+            w.Spacer().adjust(-1),
         ),
         stacker.hstack(
             w.Label('lbl_dead_line').text('Deadline').width(10).padding(10, 0),
@@ -73,6 +79,12 @@ def get_card_property_entry(stacker: Stacker):
             w.Label('lbl_date_created1').text('Created:').width(6).padding(0, 0),
             w.Label(WidgetNames.label_date_created).text('2022/5/30 15:00').padding(10, 0),
             w.Spacer(),
+        ),
+        stacker.hstack(
+            w.Label(wn.label_card_importance).text('Priority').width(12).padding(10, 0),
+            w.Button(wn.button_importance_down).text('-').width(1).padding(10, 0),
+            w.Entry(wn.entry_card_importance).default_value(5).width(3),
+            w.Button(wn.button_importance_up).text('+').width(1).padding(10, 0),
         ),
         stacker.hstack(
             w.Label('lbl_action_name').text('Action').width(10).padding(10, 0),
