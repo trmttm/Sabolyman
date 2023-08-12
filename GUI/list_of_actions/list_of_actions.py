@@ -20,13 +20,17 @@ def get_view_model(parent: str = 'root', data: dict = None):
 
 def create_stacker(parent, data: dict):
     stacker = Stacker(specified_parent=parent)
-    stacker.vstack(
+    LIST_OF_ACTIONS(data, stacker)
+    return stacker
+
+
+def LIST_OF_ACTIONS(data, stacker):
+    return stacker.vstack(
         components.TITLE_LABEL(stacker),
         components.SCROLLABLE(data, stacker),
         components.BUTTOM_BUTTONS(stacker),
         w.Spacer().adjust(-2),
     )
-    return stacker
 
 
 def bind_commands(v: ViewABC, callback: Callable[[dict], None], data: dict):
