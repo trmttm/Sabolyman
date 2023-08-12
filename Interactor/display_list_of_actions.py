@@ -163,7 +163,7 @@ def create_data_for_action_list(e: EntitiesABC, g: GatewayABC, p: PresentersABC,
                     card_state[c.KEY_DONE_OR_NOT].append(action.is_done)
                     card_state[c.KEY_SCHEDULED].append(action.is_scheduled)
                     card_state[c.KEY_DUE_DATES].append(action.get_dead_line())
-                    card_state[c.KEY_OWNERS].append(action.get_owner())
+                    card_state[c.KEY_OWNERS].append(action.get_owner().name)
                     card_state[c.KEY_DURATION].append(action.time_expected)
             if len(card_state[c.KEY_NAMES]) > 0:  # convert list to tuple
                 card_state[c.KEY_ACTION_IDS] = tuple(card_state[c.KEY_ACTION_IDS])
