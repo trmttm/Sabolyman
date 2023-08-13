@@ -105,6 +105,10 @@ class Interactor(InteractorABC):
     def set_root_path(self, path: str):
         self._gateway.set_root_path(path)
 
+    def upon_exception(self, *args, **kwargs):
+        exception = args[1]
+        print(f'Exception caught {exception}')
+
     # GUI
     def load_gui(self, gui_name: str):
         load_gui.execute(self._entities, self._presenters, self._gateway, gui_name)

@@ -39,6 +39,8 @@ def start_app(gui_selected='gui01.gui', root_path: str = None):
     # Teardown
     app.attach_to_event_upon_closing(lambda: interactor.close(lambda: app.close('root')))
 
+    app.set_exception_catcher(interactor.upon_exception)
+
     def change_gui(gui_name):
         interactor.close(lambda: app.close('root'))
         start_app(gui_name)
