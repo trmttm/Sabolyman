@@ -278,6 +278,19 @@ class MyTestCase(unittest.TestCase):
         from view_tkinter import View
         view = View(fullscreen=True)
         view.add_widgets(view_model)
+
+        # Bind command for List of Resources
+        from GUI.list_of_recources import bind_commands
+        data = (['ITOCHU Stock', 'ITOCHU Stock', 'Renesus process', 'ITOCHU Pension'],
+                ['Confirm 42.592 stock', 'Confirm 600 stock at Nomura', 'Get pension card',
+                 'Submit document to ITOCHU'], ['持株会退会.png', '持株会退会.png', '基礎年金番号.txt', 'Email to ITOCHU'],
+                ['png', 'png', 'txt', 'eml'], ['/Users/taro/MEGA/CV Taro Yamaka/2303 Renesas/退職手続き/持株会退会.png',
+                                               '/Users/taro/MEGA/CV Taro Yamaka/2303 Renesas/退職手続き/持株会退会.png',
+                                               '/Users/yamaka/MEGA/CV Taro Yamaka/2303 Renesas/入社案内_山家 太郎様/基礎年金番号.txt',
+                                               '/Users/yamaka/MEGA/作業フォルダ/20230626/Re_ #Sent from Free Mail# 退職手続き書類ご送付の件 [山家太郎_1011400].eml'])
+        commands = {'open_file':lambda *args:print(f'File opened {args}'), 'open_folder': lambda *args:print(f'Folder opened {args}')}
+        # bind_commands(view, data, commands)
+
         view.launch_app()
 
     def test_list_of_actions(self):

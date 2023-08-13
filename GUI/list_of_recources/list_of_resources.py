@@ -14,7 +14,12 @@ def get_view_model(parent: str = 'root'):
 
 def create_stacker(parent):
     stacker = Stacker(specified_parent=parent)
-    stacker.vstack(
+    LIST_OF_RESOURCES(stacker)
+    return stacker
+
+
+def LIST_OF_RESOURCES(stacker):
+    return stacker.vstack(
         w.TreeView(c.TREE),
         w.Label(c.BLANK_LABEL).text(''),
         stacker.hstack(
@@ -26,7 +31,6 @@ def create_stacker(parent):
             w.Spacer(),
         ),
     )
-    return stacker
 
 
 def bind_commands(v: ViewABC, data: tuple, commands: dict):
