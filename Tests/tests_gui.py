@@ -252,7 +252,7 @@ class MyTestCase(unittest.TestCase):
         )
         view_model = stacker.view_model
         view_model += GUI.list_of_balls.get_view_model('frame_1')
-        view_model += GUI.create_card.get_view_model('frame_2', vertical=True)
+        view_model += GUI.create_card.get_view_model('frame_2', vertical=True, action_properties_by_paned_window=True)
 
         if save_pickle:
             import pickle
@@ -280,7 +280,6 @@ class MyTestCase(unittest.TestCase):
         view.add_widgets(view_model)
 
         # Bind command for List of Resources
-        from GUI.list_of_recources import bind_commands
         data = (['ITOCHU Stock', 'ITOCHU Stock', 'Renesus process', 'ITOCHU Pension'],
                 ['Confirm 42.592 stock', 'Confirm 600 stock at Nomura', 'Get pension card',
                  'Submit document to ITOCHU'], ['持株会退会.png', '持株会退会.png', '基礎年金番号.txt', 'Email to ITOCHU'],
@@ -288,7 +287,8 @@ class MyTestCase(unittest.TestCase):
                                                '/Users/taro/MEGA/CV Taro Yamaka/2303 Renesas/退職手続き/持株会退会.png',
                                                '/Users/yamaka/MEGA/CV Taro Yamaka/2303 Renesas/入社案内_山家 太郎様/基礎年金番号.txt',
                                                '/Users/yamaka/MEGA/作業フォルダ/20230626/Re_ #Sent from Free Mail# 退職手続き書類ご送付の件 [山家太郎_1011400].eml'])
-        commands = {'open_file':lambda *args:print(f'File opened {args}'), 'open_folder': lambda *args:print(f'Folder opened {args}')}
+        commands = {'open_file': lambda *args: print(f'File opened {args}'),
+                    'open_folder': lambda *args: print(f'Folder opened {args}')}
         # bind_commands(view, data, commands)
 
         view.launch_app()

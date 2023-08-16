@@ -7,41 +7,41 @@ from .components.action_properties import ACTION_PROPERTIES
 from .components.action_resources import ACTION_RESOURCES
 
 
-def get_view_model(parent: str = 'root', vertical: bool = False):
-    stacker = create_stacker(parent, vertical)
+def get_view_model(parent: str = 'root', vertical: bool = False, **kwargs):
+    stacker = create_stacker(parent, vertical, **kwargs)
     view_model = stacker.view_model
     return view_model
 
 
-def create_stacker(parent, vertical: bool = False):
+def create_stacker(parent, vertical: bool = False, **kwargs):
     stacker = Stacker(specified_parent=parent)
     stacker.vstack(
         get_card_property_entry(stacker),
-        get_actions_vertical(stacker) if vertical else get_actions_horizontal(stacker),
+        get_actions_vertical(stacker, **kwargs) if vertical else get_actions_horizontal(stacker, **kwargs),
         w.Spacer().adjust(-1),
     )
     return stacker
 
 
-def get_actions_horizontal(stacker: Stacker):
+def get_actions_horizontal(stacker: Stacker, **kwargs):
     return stacker.hstack(
         w.PanedWindow('paned_window_entry', stacker).is_horizontal().weights((3, 1)).stackers(
             get_actions_tree(stacker),
-            get_actions_properties(stacker),
+            get_actions_properties(stacker, **kwargs),
         ),
     )
 
 
-def get_actions_vertical(stacker: Stacker):
+def get_actions_vertical(stacker: Stacker, **kwargs):
     return stacker.hstack(
         w.PanedWindow('paned_window_entry', stacker).is_vertical().weights((3, 1)).stackers(
             get_actions_tree(stacker),
-            get_actions_properties(stacker),
+            get_actions_properties(stacker, **kwargs),
         ),
     )
 
 
-def get_actions_tree(stacker: Stacker):
+def get_actions_tree(stacker: Stacker, **kwargs):
     wn = WidgetNames
     return stacker.vstack(
         stacker.hstack(
@@ -60,16 +60,23 @@ def get_actions_tree(stacker: Stacker):
     )
 
 
-def get_actions_properties(stacker: Stacker):
+def get_actions_properties(stacker: Stacker, **kwargs):
     wn = WidgetNames
-    return stacker.vstack(
-        w.NoteBook(wn.notebook_actions, stacker).frame_names(('Properties', 'Notes', 'Resources')).stackers(
+    if kwargs.get('action_properties_by_paned_window'):
+        return w.PanedWindow('pw_action_properties', stacker).is_horizontal().stackers(
             ACTION_PROPERTIES(stacker, wn),
             ACTION_NOTES(wn),
             ACTION_RESOURCES(stacker),
-        ),
-        w.Spacer().adjust(-1)
-    )
+        )
+    else:
+        return stacker.vstack(
+            w.NoteBook(wn.notebook_actions, stacker).frame_names(('Properties', 'Notes', 'Resources')).stackers(
+                ACTION_PROPERTIES(stacker, wn),
+                ACTION_NOTES(wn),
+                ACTION_RESOURCES(stacker),
+            ),
+            w.Spacer().adjust(-1)
+        )
 
 
 def get_card_property_entry(stacker: Stacker):
