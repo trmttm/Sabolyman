@@ -44,8 +44,9 @@ def get_actions_vertical(stacker: Stacker, **kwargs):
 def get_actions_tree(stacker: Stacker, **kwargs):
     wn = WidgetNames
     return stacker.vstack(
-        stacker.hstack(
+        w.PanedWindow('pw_action_list_and_note', stacker).is_horizontal().stackers(
             w.TreeView(wn.tree_card_actions).padding(10, 10),
+            ACTION_NOTES(wn),
         ),
         stacker.hstack(
             w.Spacer(),
@@ -65,7 +66,6 @@ def get_actions_properties(stacker: Stacker, **kwargs):
     if kwargs.get('action_properties_by_paned_window'):
         return w.PanedWindow('pw_action_properties', stacker).is_horizontal().stackers(
             ACTION_PROPERTIES(stacker, wn),
-            ACTION_NOTES(wn),
             ACTION_RESOURCES(stacker),
         )
     else:
