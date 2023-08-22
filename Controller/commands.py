@@ -160,6 +160,8 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Import Actions from excel': lambda: i.import_actions_from_csv(app.select_open_file()),
         'Display Resources of selected A tion': lambda: i.display_resources_of_selected_action(),
         'Focus on owner entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_action_owner)),
+        'Focus on action name entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_action_name)),
+        'Focus on card name entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_card_name)),
     }
 
 
