@@ -471,3 +471,7 @@ class InteractorABC(abc.ABC):
     @abc.abstractmethod
     def display_resources_of_selected_action(self):
         pass
+
+    @abc.abstractmethod
+    def focus_on_owner_entry(self, callback: Callable):
+        pass

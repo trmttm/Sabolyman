@@ -27,7 +27,6 @@ def start_app(gui_selected='gui01.gui', root_path: str = None):
     # Widget command mapping
     Controller.controller.configure_controller(app, interactor)
     # Menu bar
-
     decorate_setting_menu = Controller.keyboard_shortcut_menu.create_decorator_setting_menu(app, entities, interactor)
 
     def callback_configure_menu(menu_injected: dict):

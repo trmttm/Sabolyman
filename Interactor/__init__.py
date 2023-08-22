@@ -399,6 +399,9 @@ class Interactor(InteractorABC):
     def jump_to_action_list(self, callback: Callable):
         callback(self._entities.active_action_index)
 
+    def focus_on_owner_entry(self, callback: Callable):
+        callback()
+
     # Action Resources
     def display_resources_of_selected_action(self):
         display_resources.execute(self._entities, self._presenters, self._gateway)
