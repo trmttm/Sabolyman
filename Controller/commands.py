@@ -162,6 +162,8 @@ def get_command_name_to_command(app: ViewABC, i: InteractorABC, e: EntitiesABC) 
         'Focus on owner entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_action_owner)),
         'Focus on action name entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_action_name)),
         'Focus on card name entry': lambda: i.focus_on_owner_entry(lambda: app.focus(wn.entry_card_name)),
+
+        'Add New Action': lambda: i.add_new_action(),
     }
 
 
